@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/
+.env
+.env.local
+*.log
+.DS_Store
+data/cache/
+data/bench.sqlite
+data/bench.sqlite-journal
+.vite/
+coverage/
+.idea/
+.vscode/
+*.tsbuildinfo

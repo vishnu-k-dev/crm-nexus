@@ -1,0 +1,27 @@
+{
+  "name": "creda-graphrag",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TechProbe AI — TigerGraph GraphRAG vs baseline LLM head-to-head, for the TigerGraph GraphRAG Inference Hackathon 2026.",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm --workspace apps/api run dev",
+    "dev:web": "npm --workspace apps/web run dev",
+    "build": "npm --workspace apps/api run build && npm --workspace apps/web run build",
+    "seed": "tsx scripts/seed.ts",
+    "bench": "tsx scripts/run-bench.ts",
+    "typecheck": "npm --workspaces --if-present run typecheck"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.9.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

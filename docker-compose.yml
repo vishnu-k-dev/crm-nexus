@@ -1,0 +1,26 @@
+# Local dev stack. TigerGraph itself is hosted on TigerGraph Cloud (free tier);
+# this compose only runs the api + web. Set TG_HOST/TG_TOKEN in .env.
+services:
+  api:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm install --workspaces=false && npm install --workspace apps/api && npx tsx apps/api/src/server.ts"
+    environment:
+      - PORT=3001
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - TG_HOST=${TG_HOST}
+      - TG_TOKEN=${TG_TOKEN}
+      - TG_GRAPH=${TG_GRAPH:-TechProbe}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - BENCH_DB_PATH=/app/data/bench.sqlite
+      - EVAL_SET_PATH=/app/data/eval_set.json
+    ports: ['3001:3001']
+    volumes: ['./:/app']
+
+  web:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm install --workspaces=false && npm install --workspace apps/web && npx vite --host 0.0.0.0 --port 5173"
+    ports: ['5173:5173']
+    volumes: ['./:/app']
+    depends_on: [api]

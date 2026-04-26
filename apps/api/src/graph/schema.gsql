@@ -1,0 +1,60 @@
+// TechProbe — TigerGraph schema for GraphRAG hackathon
+// Run via: gsql -g TechProbe schema.gsql
+//
+// Creates one graph "TechProbe" with 7 vertex types and 6 edge types.
+
+DROP GRAPH TechProbe
+CREATE GRAPH TechProbe()
+
+USE GRAPH TechProbe
+
+// ---------- Vertices ----------
+CREATE VERTEX Repo (
+  PRIMARY_ID url STRING,
+  stars INT DEFAULT 0,
+  primary_language STRING DEFAULT "",
+  file_count INT DEFAULT 0,
+  fetched_at DATETIME
+) WITH primary_id_as_attribute="true"
+
+CREATE VERTEX Tech (
+  PRIMARY_ID name STRING,
+  category STRING DEFAULT ""    // frontend|backend|database|devops|ai|realtime|blockchain|mobile
+) WITH primary_id_as_attribute="true"
+
+CREATE VERTEX Domain (
+  PRIMARY_ID name STRING,
+  description STRING DEFAULT ""
+) WITH primary_id_as_attribute="true"
+
+CREATE VERTEX DepthMarker (
+  PRIMARY_ID id STRING,
+  text STRING,
+  signal_type STRING DEFAULT "real"   // real | faker
+) WITH primary_id_as_attribute="true"
+
+CREATE VERTEX FakerSignal (
+  PRIMARY_ID id STRING,
+  text STRING
+) WITH primary_id_as_attribute="true"
+
+CREATE VERTEX Question (
+  PRIMARY_ID id STRING,
+  text STRING,
+  difficulty INT DEFAULT 3,         // 1..5
+  archetype STRING DEFAULT ""
+) WITH primary_id_as_attribute="true"
+
+CREATE VERTEX Answer (
+  PRIMARY_ID id STRING,
+  text STRING,
+  authenticity DOUBLE DEFAULT 0.0   // 0..1, judge-assigned
+) WITH primary_id_as_attribute="true"
+
+// ---------- Edges ----------
+CREATE DIRECTED EDGE USES (FROM Repo, TO Tech, weight DOUBLE DEFAULT 1.0)        // weight = file/loc share
+CREATE DIRECTED EDGE IMPLIES (FROM Tech, TO Domain, confidence DOUBLE DEFAULT 1.0)
+CREATE DIRECTED EDGE PROBES (FROM Domain, TO DepthMarker)
+CREATE DIRECTED EDGE EXEMPLIFIES (FROM Question, TO DepthMarker)
+CREATE DIRECTED EDGE CONTRASTS (FROM DepthMarker, TO FakerSignal)
+CREATE DIRECTED EDGE ANSWERED_BY (FROM Question, TO Answer, score DOUBLE DEFAULT 0.0)
