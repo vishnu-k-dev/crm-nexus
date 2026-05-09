@@ -8,8 +8,27 @@ build/
 data/cache/
 data/bench.sqlite
 data/bench.sqlite-journal
+data/bench.sqlite-shm
+data/bench.sqlite-wal
 .vite/
 coverage/
 .idea/
 .vscode/
 *.tsbuildinfo
+
+# Large data files
+data/embed_cache.json
+data/crm/chunks.jsonl
+data/crm_ingest.jsonl
+data/wiki_ingest.jsonl
+data/wikipedia/
+data/load_crm.gsql
+apps/api/data/
+
+# Eval outputs (generated at runtime)
+crm_eval_partial.json
+crm_eval_results.json
+eval_output.txt
+eval_results.json
+eval_results_partial.json
+data/bench_results.json

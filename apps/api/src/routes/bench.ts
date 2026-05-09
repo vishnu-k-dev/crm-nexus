@@ -1,13 +1,14 @@
 import type { FastifyPluginAsync } from 'fastify';
 import { z } from 'zod';
 import { readFileSync } from 'node:fs';
-import { runBaseline } from '../pipelines/baseline.js';
-import { runGraphRag } from '../pipelines/graphrag.js';
-import { judgePair, meanScore } from '../eval/judge.js';
-import { aggregate, insertJudgement, insertRun, judgementSummary } from '../store/sqlite.js';
+import { runBaseline } from '../layers/orchestration/pipelines/baseline.js';
+import { runGraphRag } from '../layers/orchestration/pipelines/graphrag.js';
+import { judgePair, meanScore } from '../layers/evaluation/judge.js';
+import { aggregate, insertJudgement, insertRun, judgementSummary } from '../layers/evaluation/store/sqlite.js';
 
 const RunBody = z.object({
   evalSetPath: z.string().default(process.env.EVAL_SET_PATH ?? './data/eval_set.json'),
+  offset: z.number().int().min(0).default(0),
   limit: z.number().int().positive().optional(),
   judge: z.boolean().default(true),
 });
@@ -16,18 +17,19 @@ interface EvalEntry { repoUrl: string; archetype: string; resume?: string }
 
 export const benchRoute: FastifyPluginAsync = async (app) => {
   app.post('/run', async (req) => {
-    const { evalSetPath, limit, judge } = RunBody.parse(req.body);
+    const { evalSetPath, offset, limit, judge } = RunBody.parse(req.body);
     const set = JSON.parse(readFileSync(evalSetPath, 'utf8')) as EvalEntry[];
-    const subset = limit ? set.slice(0, limit) : set;
+    const subset = set.slice(offset, limit ? offset + limit : undefined);
     const runId = `run_${Date.now()}`;
     const events: unknown[] = [];
 
     for (const item of subset) {
       try {
-        const [b, g] = await Promise.all([
-          runBaseline(item.repoUrl, item.resume ?? ''),
-          runGraphRag(item.repoUrl, item.resume ?? ''),
-        ]);
+        // Small gap between repos to stay within Groq's RPM limit.
+        if (events.length > 0) await new Promise((r) => setTimeout(r, 2000));
+        // Run sequentially — avoids simultaneous large-context calls.
+        const b = await runBaseline(item.repoUrl, item.resume ?? '');
+        const g = await runGraphRag(item.repoUrl, item.resume ?? '');
         for (const r of [b, g] as const) {
           insertRun({
             run_id: runId,
@@ -51,8 +53,8 @@ export const benchRoute: FastifyPluginAsync = async (app) => {
           const winner = v.winner === 'tie' ? 'tie' : (v.winner === 'A' ? (swap === 0 ? 'baseline' : 'graphrag') : (swap === 0 ? 'graphrag' : 'baseline'));
           insertJudgement({
             run_id: runId, repo_url: item.repoUrl, swap,
-            a_spec: v.a.specificity, a_depth: v.a.depth, a_fair: v.a.fairness, a_faker: v.a.faker_resistance,
-            b_spec: v.b.specificity, b_depth: v.b.depth, b_fair: v.b.fairness, b_faker: v.b.faker_resistance,
+            a_spec: v.a.specificity, a_depth: v.a.depth, a_fair: v.a.fairness, a_faker: v.a.faker_resistance, a_cross_tech: v.a.cross_tech ?? 1,
+            b_spec: v.b.specificity, b_depth: v.b.depth, b_fair: v.b.fairness, b_faker: v.b.faker_resistance, b_cross_tech: v.b.cross_tech ?? 1,
             winner, reason: v.reason, judge_cost_usd: v.costUsd,
           });
           events.push({ kind: 'judge', repo: item.repoUrl, winner, a: meanScore(v.a), b: meanScore(v.b) });

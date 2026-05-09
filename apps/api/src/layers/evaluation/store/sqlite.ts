@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS bench_judgements (
   run_id TEXT NOT NULL,
   repo_url TEXT NOT NULL,
   swap INTEGER NOT NULL,                -- 0 = A=baseline, 1 = A=graphrag (used to de-bias)
-  a_specificity REAL, a_depth REAL, a_fairness REAL, a_faker REAL,
-  b_specificity REAL, b_depth REAL, b_fairness REAL, b_faker REAL,
+  a_specificity REAL, a_depth REAL, a_fairness REAL, a_faker REAL, a_cross_tech REAL,
+  b_specificity REAL, b_depth REAL, b_fairness REAL, b_faker REAL, b_cross_tech REAL,
   winner TEXT NOT NULL,                 -- 'baseline'|'graphrag'|'tie'
   reason TEXT,
   judge_cost_usd REAL,
@@ -50,20 +50,25 @@ VALUES (@run_id, @pipeline, @repo_url, @prompt_tokens, @completion_tokens, @late
 `);
 export const insertRun = (r: BenchRow): void => { insertRunStmt.run(r); };
 
+// Migrate existing DB to add cross_tech columns if they don't exist yet.
+for (const col of ['a_cross_tech', 'b_cross_tech']) {
+  try { db.exec(`ALTER TABLE bench_judgements ADD COLUMN ${col} REAL`); } catch { /* already exists */ }
+}
+
 const insertJudgeStmt = db.prepare(`
 INSERT INTO bench_judgements (run_id, repo_url, swap,
-  a_specificity, a_depth, a_fairness, a_faker,
-  b_specificity, b_depth, b_fairness, b_faker,
+  a_specificity, a_depth, a_fairness, a_faker, a_cross_tech,
+  b_specificity, b_depth, b_fairness, b_faker, b_cross_tech,
   winner, reason, judge_cost_usd)
 VALUES (@run_id, @repo_url, @swap,
-  @a_spec, @a_depth, @a_fair, @a_faker,
-  @b_spec, @b_depth, @b_fair, @b_faker,
+  @a_spec, @a_depth, @a_fair, @a_faker, @a_cross_tech,
+  @b_spec, @b_depth, @b_fair, @b_faker, @b_cross_tech,
   @winner, @reason, @judge_cost_usd)
 `);
 export interface JudgeRow {
   run_id: string; repo_url: string; swap: 0 | 1;
-  a_spec: number; a_depth: number; a_fair: number; a_faker: number;
-  b_spec: number; b_depth: number; b_fair: number; b_faker: number;
+  a_spec: number; a_depth: number; a_fair: number; a_faker: number; a_cross_tech: number;
+  b_spec: number; b_depth: number; b_fair: number; b_faker: number; b_cross_tech: number;
   winner: 'baseline'|'graphrag'|'tie'; reason: string; judge_cost_usd: number;
 }
 export const insertJudgement = (r: JudgeRow): void => { insertJudgeStmt.run(r); };

@@ -119,6 +119,17 @@ export const ARCHETYPES = [
 export type Archetype = typeof ARCHETYPES[number];
 
 const TECH_TO_DOMAIN: Record<string, Partial<Record<Archetype, number>>> = {
+  // Languages — weak signal, used when no framework deps were detected
+  JavaScript:   { backend_api_system: 0.4, frontend_system: 0.4 },
+  TypeScript:   { backend_api_system: 0.5, frontend_system: 0.4 },
+  Python:       { backend_api_system: 0.4, ml_system: 0.5, data_pipeline_system: 0.3 },
+  Go:           { backend_api_system: 0.6, distributed_system: 0.4 },
+  Rust:         { backend_api_system: 0.4, distributed_system: 0.3 },
+  Java:         { backend_api_system: 0.6, distributed_system: 0.3 },
+  Kotlin:       { backend_api_system: 0.5 },
+  Ruby:         { backend_api_system: 0.6 },
+  PHP:          { backend_api_system: 0.6 },
+  // Frameworks
   React:        { frontend_system: 1.0 },
   'Next.js':    { frontend_system: 0.9, backend_api_system: 0.3 },
   Vue:          { frontend_system: 1.0 },

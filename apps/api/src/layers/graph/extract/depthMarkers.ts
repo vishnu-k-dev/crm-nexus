@@ -3,6 +3,13 @@ import type { Archetype } from './domainClassifier.js';
 export interface DepthMarker { id: string; text: string; signal_type: 'real' | 'faker' }
 export interface SeedQuestion { id: string; text: string; difficulty: 1 | 2 | 3 | 4 | 5; archetype: Archetype; markers: string[] }
 
+// Interaction: a named cross-technology pattern that two or more techs participate in.
+// When a repo's USES edges land on ≥2 techs that share an Interaction vertex,
+// the interaction's markers are injected into the probe set. This enables questions that
+// *cannot* be answered by reading docs — only by someone who dealt with the actual
+// integration failure modes (e.g., Redis pub/sub split-brain with Socket.IO fanout).
+export interface Interaction { id: string; name: string; description: string; techs: string[]; markers: string[] }
+
 // DepthMarkers: phrases / topics that distinguish a real builder from a vibe-coder.
 // Question seeds: 5–8 per archetype, increasing difficulty. The graph maps each Q
 // to one or more DepthMarkers via EXEMPLIFIES; the GraphRAG retriever scores Qs
@@ -50,6 +57,89 @@ export const DEPTH_MARKERS: DepthMarker[] = [
   { id: 'dm-do-01', text: 'pod disruption budgets and rolling restarts', signal_type: 'real' },
   { id: 'dm-do-02', text: 'blue-green vs canary tradeoffs at this scale', signal_type: 'real' },
   { id: 'dm-do-03', text: 'secret rotation and sealed-secrets workflow', signal_type: 'real' },
+];
+
+// ─── Cross-Technology Interaction Layer ─────────────────────────────────────
+// Each entry names the two (or more) Tech vertex IDs that must both appear
+// in a repo's USES edges for this interaction to activate.
+// The `markers` field lists DepthMarker IDs that are REQUIRES'd by this interaction —
+// these bubble up in the HeapAccum alongside domain markers, boosting cross-tech questions.
+export const INTERACTIONS: Interaction[] = [
+  {
+    id: 'ix-react-redis', name: 'react_redis_cache',
+    description: 'Client state invalidation when Redis cache is updated server-side. Real builders hit the window where the React store is fresh but Redis is stale (or vice versa).',
+    techs: ['React', 'Redis'], markers: ['dm-fe-05', 'dm-rt-01'],
+  },
+  {
+    id: 'ix-next-redis', name: 'nextjs_redis_isr',
+    description: 'Next.js ISR/SSR page reads from Redis for cached data while a background job updates Postgres. Builders must manage the invalidation window.',
+    techs: ['Next.js', 'Redis'], markers: ['dm-fe-01', 'dm-rt-01'],
+  },
+  {
+    id: 'ix-socket-redis', name: 'socketio_redis_pubsub',
+    description: 'Socket.IO adapter publishing events via Redis pub/sub across multiple server pods. Real builders deal with sticky sessions vs stateless fanout.',
+    techs: ['Socket.IO', 'Redis'], markers: ['dm-rt-01', 'dm-rt-02'],
+  },
+  {
+    id: 'ix-bullmq-redis', name: 'bullmq_redis_backpressure',
+    description: 'BullMQ queue depth management and backpressure via Redis. Builders must set concurrency + rate limits to avoid starving the Redis connection pool.',
+    techs: ['BullMQ', 'Redis'], markers: ['dm-dist-03', 'dm-dist-01'],
+  },
+  {
+    id: 'ix-kafka-pg', name: 'kafka_postgres_outbox',
+    description: 'Transactional outbox: Kafka produce and Postgres write must be atomic. Real builders know exactly-once across the two systems is non-trivial.',
+    techs: ['Kafka', 'Postgres'], markers: ['dm-dist-01', 'dm-dist-04', 'dm-dp-03'],
+  },
+  {
+    id: 'ix-prisma-pg', name: 'prisma_postgres_pool',
+    description: 'Prisma connection pooler (PgBouncer or built-in) and N+1 query surface under burst. Builders must tune pool size to avoid exhaustion at cold start.',
+    techs: ['Prisma', 'Postgres'], markers: ['dm-be-01', 'dm-be-02'],
+  },
+  {
+    id: 'ix-express-pg', name: 'express_postgres_pool',
+    description: 'Express.js + pg/node-postgres connection pool exhaustion under traffic spike. Builders know idle timeout vs max-connections tuning from production pain.',
+    techs: ['Express', 'Postgres'], markers: ['dm-be-01', 'dm-be-02'],
+  },
+  {
+    id: 'ix-fastify-redis', name: 'fastify_redis_cache',
+    description: 'Fastify route-level response caching with Redis; cache invalidation strategy and race between in-flight request and cache eviction.',
+    techs: ['Fastify', 'Redis'], markers: ['dm-be-05', 'dm-rt-01'],
+  },
+  {
+    id: 'ix-fastapi-pg', name: 'fastapi_postgres_async',
+    description: 'FastAPI async context + asyncpg/SQLAlchemy async pool under concurrent requests. Builders hit "too many clients" or connection leak on exception paths.',
+    techs: ['FastAPI', 'Postgres'], markers: ['dm-be-01', 'dm-be-03'],
+  },
+  {
+    id: 'ix-langchain-openai', name: 'langchain_openai_budget',
+    description: 'LangChain chain token budgeting and OpenAI prompt cache utilization. Builders tune chain structure to maximise cache prefix hits and cut spend.',
+    techs: ['LangChain', 'OpenAI'], markers: ['dm-ml-03', 'dm-ml-05'],
+  },
+  {
+    id: 'ix-langchain-anthropic', name: 'langchain_anthropic_budget',
+    description: 'LangChain chain + Anthropic prompt caching (5-min TTL). Builders must structure system prompts to maximise cache hits across chain invocations.',
+    techs: ['LangChain', 'Anthropic'], markers: ['dm-ml-03', 'dm-ml-05'],
+  },
+  {
+    id: 'ix-docker-k8s', name: 'docker_k8s_secrets',
+    description: 'Secret injection and rotation from Kubernetes Secrets/sealed-secrets into Docker containers. Builders deal with stale mounts vs live-reload strategies.',
+    techs: ['Docker', 'Kubernetes'], markers: ['dm-do-03', 'dm-do-01'],
+  },
+  {
+    id: 'ix-react-supabase', name: 'react_supabase_realtime',
+    description: 'React state sync with Supabase Realtime subscriptions. Builders hit the window between an optimistic local update and the server broadcast arriving.',
+    techs: ['React', 'Supabase'], markers: ['dm-fe-05', 'dm-rt-02'],
+  },
+  {
+    id: 'ix-nestjs-redis', name: 'nestjs_redis_cache',
+    description: 'NestJS CacheModule / cache-manager with Redis. Builders must handle TTL mismatches between the NestJS cache and the underlying Redis eviction policy.',
+    techs: ['NestJS', 'Redis'], markers: ['dm-be-05', 'dm-rt-01'],
+  },
+  {
+    id: 'ix-kafka-redis', name: 'kafka_redis_dedup',
+    description: 'Kafka consumer dedup via Redis SET NX. Builders use Redis as a seen-set but must handle TTL expiry races when reprocessing old offsets.',
+    techs: ['Kafka', 'Redis'], markers: ['dm-dist-04', 'dm-dp-03'],
+  },
 ];
 
 export const FAKER_SIGNALS: Array<{ id: string; text: string; contrasts: string }> = [
@@ -101,6 +191,21 @@ export const SEED_QUESTIONS: SeedQuestion[] = [
   // infra_devops_system
   { id: 'q-do-01', text: 'A bad image rolls out at 3am. Describe exactly what happens between push and rollback in your pipeline.', difficulty: 4, archetype: 'infra_devops_system', markers: ['dm-do-02'] },
   { id: 'q-do-02', text: 'How does a leaked secret get rotated everywhere it is mounted?', difficulty: 4, archetype: 'infra_devops_system', markers: ['dm-do-03'] },
+
+  // ── Cross-technology interaction questions ──────────────────────────────────
+  // These are seeded by the Interaction layer. They only surface when the repo uses
+  // BOTH listed technologies. A candidate who did not personally wire the integration
+  // will fail these — they require hands-on knowledge of the failure modes at the boundary.
+  { id: 'q-ix-01', text: 'Both your API and your React frontend write to Redis. Walk through a scenario where these two writers produce a stale read for a user, and the exact line of code or config that prevents it in your repo.', difficulty: 4, archetype: 'real_time_system', markers: ['dm-fe-05', 'dm-rt-01'] },
+  { id: 'q-ix-02', text: 'Your Kafka consumer writes to Postgres. If the DB write succeeds but the Kafka offset commit fails, what exactly happens on the next consumer start? Walk through your deduplication guard with the specific table or key you use.', difficulty: 5, archetype: 'distributed_system', markers: ['dm-dist-01', 'dm-dist-04', 'dm-dp-03'] },
+  { id: 'q-ix-03', text: 'When your BullMQ job retries after a worker crash, what prevents the same side-effect from happening twice in your database? Name the specific Postgres column or Redis key involved.', difficulty: 4, archetype: 'distributed_system', markers: ['dm-dist-01', 'dm-dist-03'] },
+  { id: 'q-ix-04', text: 'You scale your Socket.IO server from 1 to 3 pods. A user connected to pod 1 sends a message; a user on pod 3 must receive it. Walk through exactly how that routing works in your repo, including the Redis adapter config and what breaks if the Redis connection drops.', difficulty: 4, archetype: 'real_time_system', markers: ['dm-rt-01', 'dm-rt-02'] },
+  { id: 'q-ix-05', text: 'Your LangChain chain calls the LLM twice per request. Show the smallest change you made that reduced per-request token spend, and what cache hit-rate you measured before and after.', difficulty: 3, archetype: 'ml_system', markers: ['dm-ml-03', 'dm-ml-05'] },
+  { id: 'q-ix-06', text: 'Prisma generated N+1 queries for a relation in your schema. How did you detect it in production, and which Prisma feature resolved it without rewriting the business logic?', difficulty: 3, archetype: 'backend_api_system', markers: ['dm-be-01', 'dm-be-02'] },
+  { id: 'q-ix-07', text: 'A Kubernetes pod restarts and the mounted secret is stale because it was rotated 10 minutes earlier. Walk through your exact mechanism for the pod to pick up the new secret without a full redeployment, and the window during which the old secret is still in use.', difficulty: 5, archetype: 'infra_devops_system', markers: ['dm-do-01', 'dm-do-03'] },
+  { id: 'q-ix-08', text: 'Your Next.js ISR page reads from Redis for the cached version, but a background worker just updated Postgres. How does Redis learn about the change, and what does a user see in the revalidation window? What is the worst-case stale duration?', difficulty: 4, archetype: 'frontend_system', markers: ['dm-fe-01', 'dm-rt-01'] },
+  { id: 'q-ix-09', text: 'When your Fastify server restarts, Redis still holds cached responses from the previous instance. Walk through the cache invalidation handshake — does the new instance respect stale entries, and how do you version or tag cache keys to prevent cross-deploy contamination?', difficulty: 4, archetype: 'backend_api_system', markers: ['dm-be-05', 'dm-rt-01'] },
+  { id: 'q-ix-10', text: 'You have Kafka and Redis in the same pipeline. A Kafka message is processed, the result written to Redis, but Redis rejects the write (OOM). How does your system detect the failure, and what happens to the Kafka offset — is it committed or not?', difficulty: 5, archetype: 'distributed_system', markers: ['dm-dist-04', 'dm-dp-03'] },
 ];
 
 // Map archetype -> markers (used by seed)

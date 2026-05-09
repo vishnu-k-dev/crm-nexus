@@ -1,45 +1,69 @@
-import type { PipelineRun } from '../lib/api';
+import type { PipelineResult } from '../lib/api';
 
-function pct(a: number, b: number): string {
-  if (b === 0) return '—';
-  const d = ((a - b) / b) * 100;
-  return `${d > 0 ? '+' : ''}${d.toFixed(0)}%`;
-}
-
-function Card({ label, baseline, graphrag, fmt, betterLow = true }: {
+interface CardProps {
   label: string;
-  baseline: number; graphrag: number;
+  values: { name: string; v: number; color: string }[];
   fmt: (n: number) => string;
   betterLow?: boolean;
-}) {
-  const winner = betterLow ? (graphrag < baseline ? 'graphrag' : 'baseline') : (graphrag > baseline ? 'graphrag' : 'baseline');
+}
+
+function MetricCard({ label, values, fmt, betterLow = true }: CardProps) {
+  const best = values.reduce((a, b) =>
+    betterLow ? (a.v <= b.v ? a : b) : (a.v >= b.v ? a : b),
+  );
+
   return (
     <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
-      <div className="text-xs uppercase tracking-wide text-slate-500 mb-2">{label}</div>
-      <div className="grid grid-cols-2 gap-3 text-sm">
-        <div className={`rounded-lg p-3 ${winner === 'baseline' ? 'bg-slate-800/60 ring-1 ring-slate-600' : 'bg-slate-800/30'}`}>
-          <div className="text-slate-400 text-xs mb-1">Baseline</div>
-          <div className="font-mono text-lg">{fmt(baseline)}</div>
-        </div>
-        <div className={`rounded-lg p-3 ${winner === 'graphrag' ? 'bg-emerald-500/10 ring-1 ring-emerald-500/40' : 'bg-slate-800/30'}`}>
-          <div className="text-emerald-400 text-xs mb-1">GraphRAG</div>
-          <div className="font-mono text-lg">{fmt(graphrag)}</div>
-        </div>
-      </div>
-      <div className="text-xs text-slate-500 mt-2">
-        delta: <span className={winner === 'graphrag' ? 'text-emerald-400' : 'text-slate-300'}>{pct(graphrag, baseline)}</span>
+      <div className="text-xs uppercase tracking-wide text-slate-500 mb-3">{label}</div>
+      <div className="space-y-2">
+        {values.map(({ name, v, color }) => (
+          <div key={name} className={`flex items-center justify-between rounded-lg px-3 py-2 ${
+            name === best.name ? 'bg-emerald-500/10 ring-1 ring-emerald-500/30' : 'bg-slate-800/30'
+          }`}>
+            <span className={`text-xs font-medium ${color}`}>{name}</span>
+            <span className="font-mono text-sm text-slate-200">{fmt(v)}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-export function MetricCards({ baseline, graphrag }: { baseline: PipelineRun; graphrag: PipelineRun }) {
+interface Props {
+  llmOnly?: PipelineResult;
+  basicRag?: PipelineResult;
+  graphrag?: PipelineResult;
+}
+
+export function MetricCards({ llmOnly, basicRag, graphrag }: Props) {
+  const pipelines = [
+    { name: 'LLM-Only',  r: llmOnly,  color: 'text-slate-400' },
+    { name: 'Basic RAG', r: basicRag, color: 'text-violet-400' },
+    { name: 'GraphRAG',  r: graphrag, color: 'text-emerald-400' },
+  ].filter(p => p.r != null) as { name: string; r: PipelineResult; color: string }[];
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <Card label="Prompt tokens"   baseline={baseline.promptTokens} graphrag={graphrag.promptTokens} fmt={(n) => n.toLocaleString()} />
-      <Card label="Latency (ms)"    baseline={baseline.latencyMs}    graphrag={graphrag.latencyMs}    fmt={(n) => n.toLocaleString()} />
-      <Card label="Cost (USD)"      baseline={baseline.costUsd}      graphrag={graphrag.costUsd}      fmt={(n) => `$${n.toFixed(5)}`} />
-      <Card label="Context (chars)" baseline={baseline.contextChars} graphrag={graphrag.contextChars} fmt={(n) => n.toLocaleString()} />
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+      <MetricCard
+        label="Prompt tokens"
+        values={pipelines.map(p => ({ name: p.name, v: p.r.promptTokens, color: p.color }))}
+        fmt={(n) => n.toLocaleString()}
+      />
+      <MetricCard
+        label="Latency (ms)"
+        values={pipelines.map(p => ({ name: p.name, v: p.r.latencyMs, color: p.color }))}
+        fmt={(n) => n.toLocaleString()}
+      />
+      <MetricCard
+        label="Cost (USD)"
+        values={pipelines.map(p => ({ name: p.name, v: p.r.costUsd, color: p.color }))}
+        fmt={(n) => `$${n.toFixed(5)}`}
+      />
+      <MetricCard
+        label="Context (chars)"
+        values={pipelines.map(p => ({ name: p.name, v: p.r.contextChars, color: p.color }))}
+        fmt={(n) => n.toLocaleString()}
+      />
     </div>
   );
 }

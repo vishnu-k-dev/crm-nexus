@@ -1,0 +1,274 @@
+// TechProbe — GSQL queries for GraphRAG retrieval.
+// Install: gsql -g TechProbe queries.gsql && gsql 'INSTALL QUERY ALL'
+//
+// These queries lean *intentionally* on GSQL features that other graph engines
+// (Neo4j, Memgraph, Neptune) either lack or fake with significant performance loss:
+//   - SumAccum / MapAccum / HeapAccum   — single-pass parallel aggregation
+//   - In-database top-k via HeapAccum   — no client-side sort, no extra round-trip
+//   - Native multi-hop SELECT chaining  — MPP execution on TigerGraph's NPG engine
+//   - Built-in graph algorithm library  — PageRank invoked from inside another query
+//
+// Porting these to Cypher would require multiple round-trips and client-side ranking.
+// That cost lands directly in the latency comparison vs Pipeline 1 (Baseline).
+
+USE GRAPH TechProbe
+
+// ---------------------------------------------------------------
+// getRelevantProbes — the demo's centerpiece.
+//
+// 4-hop deep-link traversal:
+//   Repo -USES-> Tech -IMPLIES-> Domain -PROBES-> DepthMarker <-EXEMPLIFIES- Question
+//
+// Why this is a TigerGraph-style query (not a Neo4j-style query):
+//   - HeapAccum keeps the top-k Questions inside the graph engine; we stream only k rows.
+//   - MapAccum tracks per-domain score; one pass, no GROUP BY round-trip.
+//   - The 4 SELECTs chain on accumulator state, exploiting MPP on each hop.
+// ---------------------------------------------------------------
+// ---------------------------------------------------------------
+// getRelevantProbes — the demo's centerpiece.
+//
+// 5-hop traversal (two parallel paths merge at DepthMarker):
+//
+//   Path A (domain ontology):
+//     Repo -USES-> Tech -IMPLIES-> Domain -PROBES-> DepthMarker <-EXEMPLIFIES- Question
+//
+//   Path B (interaction layer — unique to TechProbe):
+//     Repo -USES-> Tech -PARTICIPATES_IN-> Interaction -REQUIRES-> DepthMarker
+//                                                                       ↓
+//                                                         <-EXEMPLIFIES- Question
+//
+// Path B surfaces cross-technology depth markers: questions that a candidate
+// can only answer if they understand HOW their two technologies interact
+// (e.g., React + Redis → client-cache coherence under concurrent writers).
+// The baseline pipeline cannot replicate this because it has no graph representation.
+//
+// TigerGraph-specific techniques on display:
+//   - HeapAccum<QuestionScore>  — top-k inside the engine; zero client-side sorting
+//   - MapAccum<STRING,DOUBLE>   — per-domain score in a single parallel pass
+//   - Parallel SELECT chains    — each hop exploits MPP on TG's native parallel graph engine
+//   - UNION on vertex sets      — merge Path A + Path B markers before the Question hop
+//   - Per-vertex @interactionBoost accumulator — cross-tech signal propagates to Question score
+// ---------------------------------------------------------------
+CREATE QUERY getRelevantProbes(VERTEX<Repo> repo, INT k = 5) FOR GRAPH TechProbe {
+
+  TYPEDEF TUPLE<DOUBLE score, STRING qid, STRING qtext, INT difficulty, STRING archetype, INT markerHits, INT interactionHits> QuestionScore;
+
+  MapAccum<STRING, DOUBLE> @@domainScores;       // domain.name -> aggregated weight (MapAccum: O(1) per insert, no sort)
+  SumAccum<DOUBLE>          @techWeight;         // per-Tech: weight from USES edge
+  SumAccum<DOUBLE>          @domainScore;        // per-Domain: summed tech*confidence
+  SumAccum<INT>             @markerHits;         // per-Question: how many candidate markers it covers
+  SumAccum<INT>             @interactionBoost;   // per-DepthMarker: how many Interactions pointed here; per-Question: accumulated from markers
+  SumAccum<DOUBLE>          @authBoost;          // per-Question: lift from high-authenticity historical answers
+  HeapAccum<QuestionScore>(k, score DESC) @@topQuestions;   // top-k heap: O(log k) insert, never touches disk
+
+  Start = {repo};
+
+  // ── Hop 1: Tech weights ─────────────────────────────────────────────────────
+  // Traverse USES edges to collect all technologies this repo employs.
+  // Edge weight encodes loc-share (language) or dependency hit (package).
+  Techs = SELECT t FROM Start:r -(USES:e)-> Tech:t
+          ACCUM t.@techWeight += e.weight;
+
+  // ── Hop 2: Domain affinity ──────────────────────────────────────────────────
+  // MapAccum tracks per-domain score in a single parallel pass.
+  // No GROUP BY round-trip; the engine folds values as it traverses.
+  Domains = SELECT d FROM Techs:t -(IMPLIES:e)-> Domain:d
+            ACCUM d.@domainScore += t.@techWeight * e.confidence,
+                  @@domainScores += (d.name -> t.@techWeight * e.confidence)
+            HAVING d.@domainScore > 0
+            ORDER BY d.@domainScore DESC
+            LIMIT 3;
+
+  // ── Hop 3a: Domain markers (Path A) ─────────────────────────────────────────
+  // Ontology-driven depth markers. signal_type="real" strips faker-signal vertices.
+  DomainMarkers = SELECT m FROM Domains -(PROBES)-> DepthMarker:m
+                  WHERE m.signal_type == "real";
+
+  // ── Hop 3b–4b: Interaction markers (Path B — cross-tech depth) ───────────────
+  // Tech→Interaction→DepthMarker: only surfaces when ≥2 of the repo's techs
+  // share an Interaction vertex, producing markers that probe the *interface*
+  // between those technologies (e.g., socket fanout across Redis pub/sub nodes).
+  Interactions = SELECT ix FROM Techs:t -(PARTICIPATES_IN)-> Interaction:ix;
+  IxMarkers    = SELECT m  FROM Interactions:ix -(REQUIRES:e)-> DepthMarker:m
+                 WHERE m.signal_type == "real"
+                 ACCUM m.@interactionBoost += 1;
+
+  // ── Merge Path A + Path B ────────────────────────────────────────────────────
+  AllMarkers = DomainMarkers UNION IxMarkers;
+
+  // ── Hop 5: Questions ──────────────────────────────────────────────────────────
+  // HeapAccum keeps top-k inside the engine.
+  // Scoring: markerHits (breadth) + interactionBoost×0.5 (cross-tech depth) + authBoost×0.5 − difficulty×0.1
+  // Interaction-boosted questions bubble up; generic archetype questions sink.
+  Questions = SELECT q FROM AllMarkers:m <-(EXEMPLIFIES)- Question:q
+              ACCUM q.@markerHits += 1,
+                    q.@interactionBoost += m.@interactionBoost
+              POST-ACCUM
+                @@topQuestions += QuestionScore(
+                  q.@markerHits * 1.0 + q.@interactionBoost * 0.5 + q.@authBoost * 0.5 - q.difficulty * 0.1,
+                  q.id, q.text, q.difficulty, q.archetype, q.@markerHits, q.@interactionBoost
+                );
+
+  PRINT @@domainScores AS domains;
+  PRINT @@topQuestions AS questions;
+  PRINT AllMarkers[AllMarkers.id, AllMarkers.text] AS markers;
+}
+
+// ---------------------------------------------------------------
+// rankQuestionsByImportance — PageRank-style importance over the
+// Question <-EXEMPLIFIES-> DepthMarker subgraph.
+//
+// Of ties in @markerHits, we prefer the question whose markers are
+// *central* across the curriculum, not peripheral. Computed once per
+// schema deploy, persisted on Question.importance.
+//
+// When the GDS Library is installed, replace the loop with a single
+//   tg_pagerank("Question", "EXEMPLIFIES", maxIter, 0.85, eps);
+// call. The fallback below makes the demo runnable on a fresh free tier.
+// ---------------------------------------------------------------
+CREATE QUERY rankQuestionsByImportance() FOR GRAPH TechProbe {
+  SumAccum<DOUBLE>  @rank;
+  SumAccum<DOUBLE>  @next;
+  SumAccum<INT>     @outDeg;
+
+  Q = SELECT q FROM Question:q
+      ACCUM q.@rank = 1.0;
+
+  // Precompute out-degree on the EXEMPLIFIES path (Q -> M -> Q is the propagation kernel).
+  Q1 = SELECT q FROM Question:q -(EXEMPLIFIES)- DepthMarker:m
+       ACCUM q.@outDeg += 1;
+
+  INT iters = 20;
+  WHILE iters > 0 DO
+    Step = SELECT q2 FROM Question:q -(EXEMPLIFIES)- DepthMarker:m -(EXEMPLIFIES)- Question:q2
+           WHERE q != q2 AND q.@outDeg > 0
+           ACCUM q2.@next += 0.85 * q.@rank / q.@outDeg
+           POST-ACCUM q2.@next += 0.15;
+    Reset = SELECT q FROM Question:q
+            POST-ACCUM q.@rank = q.@next, q.@next = 0.0;
+    iters = iters - 1;
+  END;
+
+  Top = SELECT q FROM Question:q
+        ORDER BY q.@rank DESC
+        LIMIT 25;
+
+  PRINT Top[Top.id, Top.text, Top.@rank];
+}
+
+// ---------------------------------------------------------------
+// graphStats — vertex/edge counts. Used by the orchestration router
+// to decide whether the graph is sufficiently seeded to serve traffic.
+// ---------------------------------------------------------------
+CREATE QUERY graphStats() FOR GRAPH TechProbe {
+  SumAccum<INT> @@repos, @@techs, @@domains, @@markers, @@questions, @@interactions, @@edges;
+
+  R  = SELECT v FROM Repo:v        ACCUM @@repos        += 1;
+  T  = SELECT v FROM Tech:v        ACCUM @@techs        += 1;
+  D  = SELECT v FROM Domain:v      ACCUM @@domains      += 1;
+  M  = SELECT v FROM DepthMarker:v ACCUM @@markers      += 1;
+  Q  = SELECT v FROM Question:v    ACCUM @@questions    += 1;
+  IX = SELECT v FROM Interaction:v ACCUM @@interactions += 1;
+
+  // Edge counts via path traversal. Use named aliases instead of anonymous _ (TG 4.x).
+  E1 = SELECT t FROM Tech:t -(IMPLIES)-> Domain:d           ACCUM @@edges += 1;
+  E2 = SELECT d FROM Domain:d -(PROBES)-> DepthMarker:m     ACCUM @@edges += 1;
+  E3 = SELECT q FROM Question:q -(EXEMPLIFIES)-> DepthMarker:m2 ACCUM @@edges += 1;
+  E4 = SELECT t FROM Tech:t -(PARTICIPATES_IN)-> Interaction:ix ACCUM @@edges += 1;
+  E5 = SELECT ix FROM Interaction:ix -(REQUIRES)-> DepthMarker:m3 ACCUM @@edges += 1;
+
+  PRINT @@repos, @@techs, @@domains, @@markers, @@questions, @@interactions, @@edges;
+}
+
+// ---------------------------------------------------------------
+// getRelevantProbesByTechs — same 5-hop logic as getRelevantProbes but
+// takes a SET<STRING> of tech names instead of a Repo vertex.
+//
+// This lets the orchestration layer fire upsert() as truly fire-and-forget:
+// no Repo vertex needs to exist in TG before the query can run, eliminating
+// the ~500ms serial upsert→query latency that made graphrag slower than baseline.
+//
+// Questions hop uses a forward EXEMPLIFIES traversal + @inAllMarkers flag
+// instead of reverse edge syntax (avoids TG 4.2 parser quirk with SET params).
+// ---------------------------------------------------------------
+CREATE QUERY getRelevantProbesByTechs(SET<STRING> techNames, INT k = 5) FOR GRAPH TechProbe {
+
+  TYPEDEF TUPLE<DOUBLE score, STRING qid, STRING qtext, INT difficulty, STRING archetype, INT markerHits, INT interactionHits> QuestionScore;
+
+  MapAccum<STRING, DOUBLE> @@domainScores;
+  SumAccum<DOUBLE>          @domainScore;
+  SumAccum<INT>             @markerHits;
+  SumAccum<INT>             @interactionBoost;
+  SumAccum<DOUBLE>          @authBoost;
+  SumAccum<INT>             @inAllMarkers;    // flag: 1 if this DepthMarker is in AllMarkers
+  HeapAccum<QuestionScore>(k, score DESC) @@topQuestions;
+
+  // Start directly from named Tech vertices — primary ID is the tech name.
+  AllTechs = {Tech.*};
+  Techs = SELECT t FROM AllTechs:t WHERE t.name IN techNames;
+
+  // Domain affinity (same as getRelevantProbes)
+  Domains = SELECT d FROM Techs:t -(IMPLIES:e)-> Domain:d
+            ACCUM d.@domainScore += e.confidence,
+                  @@domainScores += (d.name -> e.confidence)
+            HAVING d.@domainScore > 0
+            ORDER BY d.@domainScore DESC
+            LIMIT 3;
+
+  // Path A: Domain → DepthMarker
+  DomainMarkers = SELECT m FROM Domains -(PROBES)-> DepthMarker:m
+                  WHERE m.signal_type == "real"
+                  POST-ACCUM m.@inAllMarkers = 1;
+
+  // Path B: Tech → Interaction → DepthMarker
+  Interactions = SELECT ix FROM Techs:t -(PARTICIPATES_IN)-> Interaction:ix;
+  IxMarkers    = SELECT m  FROM Interactions:ix -(REQUIRES:e)-> DepthMarker:m
+                 WHERE m.signal_type == "real"
+                 POST-ACCUM m.@inAllMarkers = 1, m.@interactionBoost += 1;
+
+  AllMarkers = DomainMarkers UNION IxMarkers;
+
+  // Questions: forward traversal from all Questions through EXEMPLIFIES,
+  // filtered to markers in AllMarkers via the @inAllMarkers flag.
+  // Avoids reverse-edge syntax that TG 4.2 parser rejects in this query context.
+  AllQuestions = {Question.*};
+  Questions = SELECT q FROM AllQuestions:q -(EXEMPLIFIES)-> DepthMarker:m
+              WHERE m.@inAllMarkers > 0
+              ACCUM q.@markerHits += 1,
+                    q.@interactionBoost += m.@interactionBoost
+              POST-ACCUM
+                @@topQuestions += QuestionScore(
+                  q.@markerHits * 1.0 + q.@interactionBoost * 0.5 + q.@authBoost * 0.5 - q.difficulty * 0.1,
+                  q.id, q.text, q.difficulty, q.archetype, q.@markerHits, q.@interactionBoost
+                );
+
+  PRINT @@domainScores AS domains;
+  PRINT @@topQuestions AS questions;
+  PRINT AllMarkers[AllMarkers.id, AllMarkers.text] AS markers;
+}
+
+// ---------------------------------------------------------------
+// findSimilarRepos — collaborative-filter retrieval that compounds
+// as the graph grows. Repos that share >= shareThreshold techs with
+// the input repo surface their highest-signal probes.
+//
+// Day 1: returns nothing. Day 30: dominates the baseline because it
+// pulls *empirical* probes that worked, not just ontology probes.
+// This is the moat. The graph gets smarter with every interview.
+// ---------------------------------------------------------------
+CREATE QUERY findSimilarRepos(VERTEX<Repo> repo, INT shareThreshold = 3, INT k = 5) FOR GRAPH TechProbe {
+  SumAccum<INT> @sharedTechs;
+
+  Start = {repo};
+
+  Techs = SELECT t FROM Start -(USES)- Tech:t;
+
+  Similar = SELECT r2 FROM Techs -(USES)- Repo:r2
+            WHERE r2 != repo
+            ACCUM r2.@sharedTechs += 1
+            HAVING r2.@sharedTechs >= shareThreshold
+            ORDER BY r2.@sharedTechs DESC
+            LIMIT k;
+
+  PRINT Similar[Similar.url, Similar.@sharedTechs];
+}

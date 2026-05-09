@@ -1,9 +1,8 @@
-import { request } from 'undici';
-
 const GH = 'https://api.github.com';
 const HEADERS = (): Record<string, string> => ({
   Accept: 'application/vnd.github+json',
   'X-GitHub-Api-Version': '2022-11-28',
+  'User-Agent': 'TechProbe-AI/0.1',
   ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
 });
 
@@ -22,18 +21,39 @@ export interface RepoSnapshot {
 }
 
 function parseUrl(url: string): { owner: string; name: string } {
-  const m = url.match(/github\.com[:/]+([^/]+)\/([^/.]+)/i);
+  const m = url.match(/github\.com[:/]+([^/]+)\/([^/?#]+)/i);
   if (!m) throw new Error(`Not a github URL: ${url}`);
   return { owner: m[1]!, name: m[2]! };
 }
 
 async function gh<T>(path: string): Promise<T> {
-  const res = await request(`${GH}${path}`, { headers: HEADERS() });
-  if (res.statusCode >= 400) throw new Error(`GH ${path} ${res.statusCode}`);
-  return (await res.body.json()) as T;
+  // Use native fetch (Node 18+) — more forgiving than undici raw request on Windows (IPv6 fallback issues).
+  try {
+    const res = await fetch(`${GH}${path}`, { headers: HEADERS() });
+    if (!res.ok) throw new Error(`GH ${path} ${res.status}`);
+    return await res.json() as T;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('[gh] FETCH ERROR', path, (err as Error).message, (err as Error).cause ?? '');
+    throw err;
+  }
 }
 
+// Cache repo snapshots for 5 minutes — both pipelines call fetchRepo, and the bench
+// hammers the same repos. Cuts GitHub API load by ~50% and avoids secondary rate limit.
+const cache = new Map<string, { ts: number; v: Promise<RepoSnapshot> }>();
+const TTL_MS = 5 * 60 * 1000;
+
 export async function fetchRepo(url: string): Promise<RepoSnapshot> {
+  const hit = cache.get(url);
+  if (hit && Date.now() - hit.ts < TTL_MS) return hit.v;
+  const v = fetchRepoUncached(url);
+  cache.set(url, { ts: Date.now(), v });
+  v.catch(() => cache.delete(url)); // don't cache failures
+  return v;
+}
+
+async function fetchRepoUncached(url: string): Promise<RepoSnapshot> {
   const { owner, name } = parseUrl(url);
   const [meta, langs] = await Promise.all([
     gh<{ stargazers_count: number; language: string; default_branch: string }>(`/repos/${owner}/${name}`),

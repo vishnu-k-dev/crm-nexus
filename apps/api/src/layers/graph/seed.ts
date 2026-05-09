@@ -1,6 +1,6 @@
 import { upsert } from './client.js';
-import { knownTechs, techToDomainEdges, ARCHETYPES } from '../extract/domainClassifier.js';
-import { DEPTH_MARKERS, FAKER_SIGNALS, SEED_QUESTIONS, markersByArchetype } from '../extract/depthMarkers.js';
+import { knownTechs, techToDomainEdges, ARCHETYPES } from './extract/domainClassifier.js';
+import { DEPTH_MARKERS, FAKER_SIGNALS, SEED_QUESTIONS, INTERACTIONS, markersByArchetype } from './extract/depthMarkers.js';
 
 // Seed the ontology (Tech, Domain, DepthMarker, FakerSignal, Question + edges).
 // Idempotent — re-runnable.
@@ -23,6 +23,10 @@ export async function seedOntology(): Promise<{ vertices: number; edges: number 
   for (const q of SEED_QUESTIONS) {
     vertices.push({ type: 'Question', id: q.id, attributes: { text: q.text, difficulty: q.difficulty, archetype: q.archetype } });
   }
+  // Interaction vertices — the cross-tech layer
+  for (const ix of INTERACTIONS) {
+    vertices.push({ type: 'Interaction', id: ix.id, attributes: { name: ix.name, description: ix.description } });
+  }
 
   for (const e of techToDomainEdges()) {
     edges.push({ fromType: 'Tech', fromId: e.tech, edgeType: 'IMPLIES', toType: 'Domain', toId: e.domain, attributes: { confidence: e.confidence } });
@@ -40,6 +44,15 @@ export async function seedOntology(): Promise<{ vertices: number; edges: number 
   }
   for (const f of FAKER_SIGNALS) {
     edges.push({ fromType: 'DepthMarker', fromId: f.contrasts, edgeType: 'CONTRASTS', toType: 'FakerSignal', toId: f.id });
+  }
+  // Interaction edges: Tech -PARTICIPATES_IN-> Interaction -REQUIRES-> DepthMarker
+  for (const ix of INTERACTIONS) {
+    for (const tech of ix.techs) {
+      edges.push({ fromType: 'Tech', fromId: tech, edgeType: 'PARTICIPATES_IN', toType: 'Interaction', toId: ix.id });
+    }
+    for (const mid of ix.markers) {
+      edges.push({ fromType: 'Interaction', fromId: ix.id, edgeType: 'REQUIRES', toType: 'DepthMarker', toId: mid, attributes: { strength: 1.0 } });
+    }
   }
 
   // batch in chunks to stay under TG payload limits

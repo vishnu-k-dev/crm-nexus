@@ -40,6 +40,26 @@ npm run dev           # api on :3001, web on :5173
 npm run bench         # runs both pipelines on the 50-repo eval set
 ```
 
+## Why **TigerGraph** specifically (not just any graph DB)
+
+Our retrieval kernel is a single 4-hop GSQL query:
+
+```
+Repo → Tech → Domain → DepthMarker → Question
+```
+
+…that uses TigerGraph features no other graph engine matches without round-trips:
+
+| GSQL feature                     | What it buys us                                                         |
+|----------------------------------|-------------------------------------------------------------------------|
+| `HeapAccum<Tuple>(k, score DESC)` | Top-k Questions inside the engine — no client-side sort, no overfetch.  |
+| `MapAccum<STRING, DOUBLE>`        | Per-domain affinity vector built in the same pass as the top-3 ranking. |
+| Native parallel multi-hop SELECT  | 4-hop deep-link traversal stays one round-trip even at 50× scale.       |
+| Built-in GDS Library (PageRank)   | Question-importance ranking via `tg_pagerank` — no plugin install.      |
+| `FOREACH ... IN outEdges(...)`    | Authenticity boost from historical answers, traversed inline.           |
+
+A Cypher port would need 3–4 round-trips and a client-side sort. That overhead lands directly in our latency comparison vs Pipeline 1. See [TIGERGRAPH.md](TIGERGRAPH.md) for the design walkthrough.
+
 ## Why GraphRAG wins here
 
 A GitHub repo is *already* a graph: files reference techs, techs imply domains, domains have depth markers, depth markers have proven-good probe questions. Stuffing the repo into a prompt asks the LLM to re-derive that graph every time. Pre-computing it once and traversing on demand is straight-up cheaper and produces sharper questions because we filter to the *exact* probes that match the candidate's stack.

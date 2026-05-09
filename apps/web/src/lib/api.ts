@@ -1,41 +1,131 @@
-export interface PipelineRun {
-  pipeline: 'baseline' | 'graphrag';
+// ── Types returned by POST /api/compare ─────────────────────────────────────
+
+export interface PipelineResult {
+  pipeline: string;
+  answer: string;
   promptTokens: number;
   completionTokens: number;
   latencyMs: number;
   costUsd: number;
   contextChars: number;
-  questions: { text: string; difficulty: number }[];
-  graphTrace?: {
-    domains: { v_id: string }[];
-    techs: { name: string }[];
-    markers: { v_id: string; attributes: { text: string } }[];
-    questions: { v_id: string; attributes: { text: string } }[];
-  };
+  retrievedChunks: string[];
+  error?: string;
+  // GraphRAG-only
+  numHops?: number;
+  complexity?: string;
+  complexityReason?: string;
+  tgLatencyMs?: number;
+  groqLatencyMs?: number;
 }
 
-export async function ask(repoUrl: string, resume = ''): Promise<{ baseline: PipelineRun; graphrag: PipelineRun }> {
-  const res = await fetch('/api/ask', {
+export interface JudgeResult {
+  verdict: 'PASS' | 'FAIL';
+  reason: string;
+  costUsd: number;
+}
+
+export interface BertScoreResult {
+  precision: number;
+  recall: number;
+  f1: number;
+  f1Rescaled: number;
+}
+
+export interface PipelineAccuracy {
+  llmJudge: JudgeResult | null;
+  bertScore: BertScoreResult | null;
+  efficiencyScore: number;
+}
+
+export interface QueryMeta {
+  complexity: 'simple' | 'multi-hop';
+  numHops: number;
+  reason: string;
+}
+
+export interface TokenReduction {
+  basicRagTotal: number;
+  graphragTotal: number;
+  reductionPct: string;
+}
+
+export interface CompareResult {
+  question: string;
+  llmOnly: PipelineResult;
+  basicRag: PipelineResult;
+  graphrag: PipelineResult;
+  queryMeta: QueryMeta;
+  tokenReduction?: TokenReduction;
+  accuracy?: {
+    basicRag: PipelineAccuracy;
+    graphrag: PipelineAccuracy;
+  } | null;
+}
+
+// ── Types returned by GET /api/compare/eval ──────────────────────────────────
+
+export interface EvalRow {
+  question: string;
+  basicRag?: PipelineResult & { judge?: JudgeResult | null };
+  graphrag?: PipelineResult & { judge?: JudgeResult | null };
+  error?: string;
+}
+
+export interface EvalResult {
+  n: number;
+  aggregate: {
+    llmJudgePassRate:        { llmOnly: string; basicRag: string; graphrag: string };
+    avgBertScoreF1Rescaled:  { llmOnly: string; basicRag: string; graphrag: string; target: string };
+    firstPlaceWins:          { llm: number; basicRag: number; graphrag: number };
+    avgPromptTokens:         { llmOnly: number; basicRag: number; graphrag: number };
+    avgLatencyMs:            { llmOnly: number; basicRag: number; graphrag: number };
+    tokenReductionVsBasic:   string;
+    latencyReductionVsBasic: string;
+  };
+  results: EvalRow[];
+}
+
+// ── Status ───────────────────────────────────────────────────────────────────
+
+export interface StatusResult {
+  vectorIndexReady: boolean;
+  chunkCount: number;
+  graphragUrl: string;
+}
+
+// ── API calls ────────────────────────────────────────────────────────────────
+
+// In dev, Vite proxy forwards /api → localhost:3001. Override with VITE_API_URL for production.
+const BASE = import.meta.env.VITE_API_URL ?? '';
+
+export async function compareQuestion(
+  question: string,
+  referenceAnswer?: string,
+  runBertScore = false,
+): Promise<CompareResult> {
+  const res = await fetch(`${BASE}/api/compare`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ repoUrl, resume, mode: 'both' }),
+    body: JSON.stringify({ question, referenceAnswer, runBertScore }),
   });
-  if (!res.ok) throw new Error(`ask failed: ${res.status}`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({})) as { error?: string };
+    throw new Error(err.error ?? `compare failed: ${res.status}`);
+  }
   return res.json();
 }
 
-export interface BenchAggregate {
-  pipeline: 'baseline' | 'graphrag';
-  n: number;
-  avg_prompt_tokens: number;
-  avg_completion_tokens: number;
-  avg_latency_ms: number;
-  avg_cost_usd: number;
+export async function getStatus(): Promise<StatusResult> {
+  const res = await fetch(`${BASE}/api/compare/status`);
+  if (!res.ok) throw new Error(`status failed: ${res.status}`);
+  return res.json();
 }
 
-export async function benchResults(runId?: string): Promise<{ aggregate: BenchAggregate[]; judgements: { winner: string; n: number }[] }> {
-  const url = runId ? `/api/bench/results?runId=${encodeURIComponent(runId)}` : '/api/bench/results';
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`bench failed: ${res.status}`);
+export async function runFullEval(): Promise<EvalResult> {
+  const res = await fetch(`${BASE}/api/compare/eval`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({})) as { error?: string };
+    throw new Error(err.error ?? `eval failed: ${res.status}`);
+  }
   return res.json();
 }

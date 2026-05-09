@@ -1,0 +1,39 @@
+// TechProbe — TigerGraph schema for the GraphRAG hackathon.
+// Run inside GSQL Shell (or `gsql schema.gsql`).
+//
+// TigerGraph 4.x requires vertex/edge types in GLOBAL scope, then bound to a graph.
+
+USE GLOBAL
+
+DROP GRAPH TechProbe
+
+// ---------- Vertices ----------
+CREATE VERTEX Repo        (PRIMARY_ID url STRING,  stars INT DEFAULT 0, primary_language STRING DEFAULT "", file_count INT DEFAULT 0, fetched_at DATETIME) WITH primary_id_as_attribute="true"
+CREATE VERTEX Tech        (PRIMARY_ID name STRING, category STRING DEFAULT "") WITH primary_id_as_attribute="true"
+CREATE VERTEX Domain      (PRIMARY_ID name STRING, description STRING DEFAULT "") WITH primary_id_as_attribute="true"
+CREATE VERTEX DepthMarker (PRIMARY_ID id STRING,   text STRING, signal_type STRING DEFAULT "real") WITH primary_id_as_attribute="true"
+CREATE VERTEX FakerSignal (PRIMARY_ID id STRING,   text STRING) WITH primary_id_as_attribute="true"
+CREATE VERTEX Question    (PRIMARY_ID id STRING,   text STRING, difficulty INT DEFAULT 3, archetype STRING DEFAULT "") WITH primary_id_as_attribute="true"
+CREATE VERTEX Answer      (PRIMARY_ID id STRING,   text STRING, authenticity DOUBLE DEFAULT 0.0) WITH primary_id_as_attribute="true"
+// Interaction: a named cross-technology dependency pattern (e.g. React+Redis → cache coherence).
+// Enables 5-hop traversal: Repo→Tech→Interaction→DepthMarker→Question, surfacing questions
+// that require understanding *how two technologies interact*, not just each in isolation.
+// This is impossible in the baseline pipeline which has no graph representation.
+CREATE VERTEX Interaction (PRIMARY_ID id STRING, name STRING DEFAULT "", description STRING DEFAULT "") WITH primary_id_as_attribute="true"
+
+// ---------- Edges ----------
+CREATE DIRECTED EDGE USES           (FROM Repo,        TO Tech,        weight DOUBLE DEFAULT 1.0)
+CREATE DIRECTED EDGE IMPLIES        (FROM Tech,        TO Domain,      confidence DOUBLE DEFAULT 1.0)
+CREATE DIRECTED EDGE PROBES         (FROM Domain,      TO DepthMarker)
+CREATE DIRECTED EDGE EXEMPLIFIES    (FROM Question,    TO DepthMarker)
+CREATE DIRECTED EDGE CONTRASTS      (FROM DepthMarker, TO FakerSignal)
+CREATE DIRECTED EDGE ANSWERED_BY    (FROM Question,    TO Answer,      score DOUBLE DEFAULT 0.0)
+// PARTICIPATES_IN: a Technology is involved in an Interaction pattern.
+// When the candidate's repo USES multiple techs that share an Interaction vertex,
+// that Interaction's DepthMarkers are pulled into the probe set — cross-tech questions only.
+CREATE DIRECTED EDGE PARTICIPATES_IN (FROM Tech,        TO Interaction)
+CREATE DIRECTED EDGE REQUIRES        (FROM Interaction, TO DepthMarker, strength DOUBLE DEFAULT 1.0)
+
+// ---------- Graph ----------
+CREATE GRAPH TechProbe (Repo, Tech, Domain, DepthMarker, FakerSignal, Question, Answer, Interaction,
+                        USES, IMPLIES, PROBES, EXEMPLIFIES, CONTRASTS, ANSWERED_BY, PARTICIPATES_IN, REQUIRES)

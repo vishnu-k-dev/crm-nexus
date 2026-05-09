@@ -1,5 +1,5 @@
-import { fetchRepo } from '../extract/repoParser.js';
-import { generate, costUsd, type LLMResult } from '../llm/claude.js';
+import { fetchRepo } from '../../graph/extract/repoParser.js';
+import { generate, costUsd, type LLMResult } from '../../llm/claude.js';
 
 const SYSTEM = `You are an expert technical interviewer.
 Given a candidate's GitHub repo and resume, output exactly 5 interview questions of increasing difficulty (1..5).
@@ -28,7 +28,7 @@ export async function runBaseline(repoUrl: string, resume: string): Promise<Pipe
   ].join('\n\n');
 
   const user = `Generate 5 interview questions for this candidate.\n\n${ctx}`;
-  const r = await generate({ system: SYSTEM, user, maxTokens: 600 });
+  const r = await generate({ system: SYSTEM, user, maxTokens: 450 });
 
   let questions: { text: string; difficulty: number }[] = [];
   try {
