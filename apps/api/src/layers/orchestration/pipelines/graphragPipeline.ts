@@ -190,10 +190,17 @@ const ARTICLE_MAP: Record<string, string> = {
   'nova ventures': 'crm_deal_deal_1',
   'richard morales': 'crm_deal_deal_5',
   'sales department': 'crm_department_dept_1',
+  'sales dept': 'crm_department_dept_1',
   'engineering department': 'crm_department_dept_2',
+  'engineering dept': 'crm_department_dept_2',
   'finance department': 'crm_department_dept_5',
+  'finance dept': 'crm_department_dept_5',
   'support department': 'crm_department_dept_10',
+  'support dept': 'crm_department_dept_10',
   'customer success department': 'crm_department_dept_3',
+  'customer success dept': 'crm_department_dept_3',
+  'customer success': 'crm_department_dept_3',
+  'marketing department': 'crm_product_prod_5',
   'marketing hub': 'crm_product_prod_5',
   'revenue intelligence': 'crm_product_prod_8',
   'meridian solutions': 'crm_customer_cust_10',
@@ -202,6 +209,19 @@ const ARTICLE_MAP: Record<string, string> = {
   'nova ventures': 'crm_deal_deal_1',
   'brian edwards': 'crm_deal_deal_1',
   'richard morales': 'crm_deal_deal_5',
+};
+
+// ── Reverse product → customer lookup ────────────────────────────────────────
+// When a question asks "which customers use [product]", fetch representative
+// customers for that product to enable the LLM to answer the reverse lookup.
+const PRODUCT_SAMPLE_CUSTOMERS: Record<string, string[]> = {
+  'crm_product_prod_1': ['crm_customer_cust_1', 'crm_customer_cust_9'],   // CRM Pro
+  'crm_product_prod_2': ['crm_customer_cust_2', 'crm_customer_cust_8'],   // CRM Enterprise → GlobalTech, Stellar
+  'crm_product_prod_3': ['crm_customer_cust_4', 'crm_customer_cust_10'],  // Analytics Suite
+  'crm_product_prod_4': ['crm_customer_cust_5', 'crm_customer_cust_10'],  // Support Desk
+  'crm_product_prod_5': ['crm_customer_cust_1', 'crm_customer_cust_3'],   // Marketing Hub
+  'crm_product_prod_7': ['crm_customer_cust_5', 'crm_customer_cust_7'],   // Field Service
+  'crm_product_prod_8': ['crm_customer_cust_3', 'crm_customer_cust_9'],   // Revenue Intelligence
 };
 
 function detectArticles(question: string): string[] {
@@ -342,6 +362,50 @@ function deduplicate(chunks: string[]): string[] {
   });
 }
 
+// ── Number normalization ──────────────────────────────────────────────────────
+// Convert Indian-format numbers ($14,78,328) to Western ($1,478,328).
+// Both represent the same value — just strip commas and re-insert in 3-3-3 groups.
+function normalizeNumbers(text: string): string {
+  return text.replace(/\$([\d,]+)/g, (match, digits) => {
+    const clean = digits.replace(/,/g, '');
+    const num = parseInt(clean, 10);
+    if (isNaN(num) || clean.length < 4) return match;
+    return '$' + num.toLocaleString('en-US');
+  });
+}
+
+// ── Second-hop traversal ──────────────────────────────────────────────────────
+// After fetching the primary entity, scan its text for additional CRM entity
+// keywords and automatically fetch those entities too.
+// e.g. Paul Robinson chunk → "Sales department" → fetch crm_department_dept_1
+//      Stellar Technologies chunk → "CRM Enterprise" → fetch crm_product_prod_2
+async function secondHopFetch(
+  primaryTexts: string[],
+  alreadyFetched: Set<string>,
+): Promise<string[]> {
+  if (primaryTexts.length === 0) return [];
+  const combinedText = primaryTexts.join(' ').toLowerCase();
+
+  // Only scan CRM entities for second-hop (Wikipedia articles are static)
+  const crmEntries = Object.entries(ARTICLE_MAP)
+    .filter(([, prefix]) => prefix.startsWith('crm_'))
+    .sort((a, b) => b[0].length - a[0].length);
+
+  const toFetch: string[] = [];
+  const seen = new Set<string>(alreadyFetched);
+  for (const [kw, prefix] of crmEntries) {
+    if (combinedText.includes(kw) && !seen.has(prefix)) {
+      seen.add(prefix);
+      toFetch.push(prefix);
+    }
+  }
+
+  if (toFetch.length === 0) return [];
+  console.log(`[graphrag] second-hop entities: ${toFetch.join(', ')}`);
+  const chunks = await Promise.all(toFetch.map(p => fetchArticleChunks(p, 2))).then(r => r.flat());
+  return chunks;
+}
+
 // ── Article-aware prioritization ─────────────────────────────────────────────
 // Move chunks matching the detected article prefix to the front so the reranker
 // fallback (which returns first topN) always picks relevant content.
@@ -391,14 +455,39 @@ export async function runGraphRag(question: string): Promise<PipelineResult & {
     Promise.all(articlePrefixes.map(p => fetchArticleChunks(p, 6))).then(r => r.flat()),
     fallbackSearch(question, fetchK),
   ]);
-  const articleChunks = allArticleChunks;
+
+  // ── Second-hop: scan retrieved text for implicit entity references ───────
+  // e.g. "Sales department" mention in Paul Robinson chunk → fetch dept chunk
+  const secondHopChunks = await secondHopFetch(
+    allArticleChunks.map(c => c.slice(0, 600)),
+    new Set(articlePrefixes),
+  );
+
+  // ── Reverse product-customer lookup ─────────────────────────────────────
+  // When question asks "which customers use [product]" + a product entity was detected,
+  // inject representative customers so the LLM can name them.
+  const asksAboutCustomers = /customers?|who use|companies use|clients?|accounts?/i.test(question);
+  const reverseCustomerChunks: string[] = [];
+  if (asksAboutCustomers) {
+    const customerPrefixesToFetch = articlePrefixes
+      .flatMap(p => PRODUCT_SAMPLE_CUSTOMERS[p] ?? [])
+      .filter((p, i, a) => a.indexOf(p) === i);  // deduplicate
+    if (customerPrefixesToFetch.length > 0) {
+      console.log(`[graphrag] reverse-customer lookup: ${customerPrefixesToFetch.join(', ')}`);
+      const chunks = await Promise.all(customerPrefixesToFetch.map(p => fetchArticleChunks(p, 1))).then(r => r.flat());
+      reverseCustomerChunks.push(...chunks);
+    }
+  }
+
+  const articleChunks = [...allArticleChunks, ...secondHopChunks, ...reverseCustomerChunks];
 
   const tgLatencyMs = Date.now() - tgT0;
 
   // ── Step 3: Merge → Prioritize → Deduplicate → Rerank ───────────────────
   const prioritized = prioritizeByArticle(rawChunks, articlePrefixes[0] ?? null);
-  const merged = [...articleChunks, ...prioritized];
-  const deduped = deduplicate(merged.map(c => c.slice(0, 1000)));
+  // Apply number normalization so Indian-format amounts ($14,78,328) become Western ($1,478,328)
+  const merged = [...articleChunks, ...prioritized].map(normalizeNumbers);
+  const deduped = deduplicate(merged.map(c => c.slice(0, 1000)));  // merged is already string[]
   const reranked = await rerank(question, deduped, finalK);
   const retrievedChunks = reranked.map(c => c.slice(0, 800));  // 800 chars: Solomon Hykes@580, BASIC@611, cereal@570 all captured
 

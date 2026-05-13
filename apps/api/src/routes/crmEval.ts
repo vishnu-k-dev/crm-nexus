@@ -26,6 +26,54 @@ interface CrmQuestion { question: string; answer: string; type: string; hops: nu
 
 export const crmEvalRoute: FastifyPluginAsync = async (app) => {
 
+  // ── GET /api/crm-eval/results — instant, reads pre-computed file from disk ──
+  app.get('/results', async (_req, reply) => {
+    const paths = [
+      join(process.cwd(), '..', '..', 'crm_eval_results.json'),
+      join(process.cwd(), '..', '..', 'crm_eval_partial.json'),
+    ];
+    for (const p of paths) {
+      if (existsSync(p)) {
+        try {
+          const raw = readFileSync(p, 'utf8');
+          return reply.type('application/json').send(raw);
+        } catch { /* try next */ }
+      }
+    }
+    return reply.status(404).send({ error: 'No results yet. Run the eval first.' });
+  });
+
+  // ── GET /api/crm-eval/question — run a single question through all 3 pipelines ──
+  app.post('/question', async (req, reply) => {
+    const { question, referenceAnswer } = req.body as { question?: string; referenceAnswer?: string };
+    if (!question?.trim()) return reply.status(400).send({ error: 'question required' });
+
+    const [llmRes, basicRes, graphRes] = await Promise.all([
+      runLlmOnly(question).catch((e: Error) => ({ error: e.message })),
+      isReady() ? runBasicRag(question).catch((e: Error) => ({ error: e.message })) : Promise.resolve({ error: 'Vector index not ready' }),
+      runGraphRag(question).catch((e: Error) => ({ error: e.message })),
+    ]);
+
+    const llmAnswer   = 'answer' in llmRes   ? llmRes.answer   : '';
+    const basicAnswer = 'answer' in basicRes  ? basicRes.answer : '';
+    const graphAnswer = 'answer' in graphRes  ? graphRes.answer : '';
+
+    const judges = referenceAnswer ? await Promise.all([
+      llmAnswer   ? llmJudge(question, referenceAnswer, llmAnswer).catch(() => null)   : Promise.resolve(null),
+      basicAnswer ? llmJudge(question, referenceAnswer, basicAnswer).catch(() => null) : Promise.resolve(null),
+      graphAnswer ? llmJudge(question, referenceAnswer, graphAnswer).catch(() => null) : Promise.resolve(null),
+    ]) : [null, null, null];
+
+    return {
+      question,
+      referenceAnswer: referenceAnswer ?? null,
+      llmOnly:  { ...llmRes,   judge: judges[0] },
+      basicRag: { ...basicRes, judge: judges[1] },
+      graphrag: { ...graphRes, judge: judges[2] },
+    };
+  });
+
+  // ── GET /api/crm-eval — runs full 35-question benchmark (long-running) ──
   app.get('/', async (req, reply) => {
     // Find eval questions
     const evalPath = existsSync(join(process.cwd(), 'data', 'crm', 'eval_questions.json'))

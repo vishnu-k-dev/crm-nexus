@@ -130,6 +130,36 @@ export async function runCrmEval(): Promise<CrmEvalResult> {
   return res.json();
 }
 
+/** Loads pre-computed results from disk — instant, no computation. */
+export async function getCrmResults(): Promise<CrmEvalResult | null> {
+  const res = await fetch(`${BASE}/api/crm-eval/results`);
+  if (res.status === 404) return null;
+  if (!res.ok) return null;
+  return res.json();
+}
+
+export interface SingleQuestionResult {
+  question: string;
+  referenceAnswer: string | null;
+  llmOnly:  PipelineResult & { judge?: JudgeResult | null };
+  basicRag: PipelineResult & { judge?: JudgeResult | null };
+  graphrag: PipelineResult & { judge?: JudgeResult | null };
+}
+
+/** Run a single question through all 3 pipelines — fast (3 parallel calls). */
+export async function askQuestion(question: string, referenceAnswer?: string): Promise<SingleQuestionResult> {
+  const res = await fetch(`${BASE}/api/crm-eval/question`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ question, referenceAnswer }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({})) as { error?: string };
+    throw new Error(err.error ?? `question failed: ${res.status}`);
+  }
+  return res.json();
+}
+
 // ── Status ───────────────────────────────────────────────────────────────────
 
 export interface StatusResult {
