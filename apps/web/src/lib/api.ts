@@ -85,6 +85,51 @@ export interface EvalResult {
   results: EvalRow[];
 }
 
+// ── Types returned by GET /api/crm-eval ──────────────────────────────────────
+
+export interface CrmEvalRow {
+  question: string;
+  referenceAnswer?: string;
+  type?: string;
+  hops?: number;
+  entities?: string[];
+  llmOnly?: PipelineResult & { judge?: JudgeResult | null };
+  basicRag?: PipelineResult & { judge?: JudgeResult | null };
+  graphrag?: PipelineResult & { judge?: JudgeResult | null; bertScore?: BertScoreResult | null };
+  error?: string;
+}
+
+export interface CrmEvalResult {
+  dataset: string;
+  datasetStats: {
+    totalTokens: number;
+    totalEntities: number;
+    graphVertices: number;
+    graphEdges: number;
+    evalQuestions: number;
+    note: string;
+  };
+  n: number;
+  aggregate: {
+    llmJudgePassRate: { llmOnly: string; basicRag: string; graphrag: string; note?: string };
+    bertScoreGraphRAG: { avgF1Rescaled: number | null; n: number; target: number; note?: string };
+    avgPromptTokens: { llmOnly: number; basicRag: number; graphrag: number };
+    tokenReductionVsBasicRag: string;
+    avgLatencyMs: { llmOnly: number; basicRag: number; graphrag: number };
+    latencyReductionVsBasicRag: string;
+  };
+  results: CrmEvalRow[];
+}
+
+export async function runCrmEval(): Promise<CrmEvalResult> {
+  const res = await fetch(`${BASE}/api/crm-eval`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({})) as { error?: string };
+    throw new Error(err.error ?? `crm-eval failed: ${res.status}`);
+  }
+  return res.json();
+}
+
 // ── Status ───────────────────────────────────────────────────────────────────
 
 export interface StatusResult {

@@ -236,9 +236,10 @@ export function Dashboard() {
                 </thead>
                 <tbody>
                   {rows.map((row, i) => {
-                    const lJudge = (row.llmOnly  as { judge?: { verdict: string } } | undefined)?.judge;
-                    const bJudge = (row.basicRag as { judge?: { verdict: string } } | undefined)?.judge;
-                    const gJudge = (row.graphrag as { judge?: { verdict: string } } | undefined)?.judge;
+                    type RowWithJudge = { judge?: { verdict: string } | null; promptTokens?: number };
+                    const lJudge = (row as unknown as { llmOnly?: RowWithJudge }).llmOnly?.judge;
+                    const bJudge = (row.basicRag as RowWithJudge | undefined)?.judge;
+                    const gJudge = (row.graphrag as RowWithJudge | undefined)?.judge;
                     const verdictBadge = (v?: string) => v ? (
                       <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${
                         v === 'PASS' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'

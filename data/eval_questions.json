@@ -1,0 +1,308 @@
+[
+  {
+    "question": "When was Airbnb founded?",
+    "answer": "Airbnb was founded in 2008.",
+    "article": "Airbnb",
+    "type": "simple"
+  },
+  {
+    "question": "Who are the founders of Airbnb?",
+    "answer": "The founders of Airbnb are Brian Chesky, Nathan Blecharczyk, and Joe Gebbia.",
+    "article": "Airbnb",
+    "type": "simple"
+  },
+  {
+    "question": "What was the original name of Airbnb?",
+    "answer": "The original name of Airbnb was 'Airbed and Breakfast'.",
+    "article": "Airbnb",
+    "type": "simple"
+  },
+  {
+    "question": "How did Airbnb raise $30,000 to fund the company in its early days?",
+    "answer": "Airbnb raised $30,000 by selling cereal named after the two candidates of the 2008 U.S. presidential election, Barack Obama and John McCain, mostly at the 2008 Democratic National Convention.",
+    "article": "Airbnb",
+    "type": "simple"
+  },
+  {
+    "question": "What role did Y Combinator play in Airbnb's development?",
+    "answer": "Y Combinator provided Airbnb's founders with training and $20,000 in funding in exchange for a 6% interest in the company.",
+    "article": "Airbnb",
+    "type": "multi-hop"
+  },
+  {
+    "question": "What led to Airbnb's development of an anti-discrimination policy?",
+    "answer": "Reports of hosts refusing lodging requests from guests whose names suggested they were black prompted Airbnb to develop an anti-discrimination policy, hiring former Attorney General Eric Holder to help craft it.",
+    "article": "Airbnb",
+    "type": "multi-hop"
+  },
+  {
+    "question": "What company provides Amazon DynamoDB as a managed NoSQL database service?",
+    "answer": "Amazon DynamoDB is provided as a managed NoSQL database service by Amazon Web Services (AWS).",
+    "article": "Amazon DynamoDB",
+    "type": "simple"
+  },
+  {
+    "question": "What is the name of the highly available key-value store built by Amazon for internal use?",
+    "answer": "The highly available key-value store built by Amazon for internal use is called Dynamo.",
+    "article": "Amazon DynamoDB",
+    "type": "simple"
+  },
+  {
+    "question": "Who provided the motivation for the Amazon DynamoDB project in 2012?",
+    "answer": "Werner Vogels, CTO at Amazon.com, provided the motivation for the DynamoDB project in 2012.",
+    "article": "Amazon DynamoDB",
+    "type": "simple"
+  },
+  {
+    "question": "How did Amazon's adoption of NoSQL technology lead to the development of DynamoDB?",
+    "answer": "Amazon's adoption of NoSQL technology, starting with Dynamo, led to the development of DynamoDB, which automated database management operations and provided a more scalable and performant database service.",
+    "article": "Amazon DynamoDB",
+    "type": "multi-hop"
+  },
+  {
+    "question": "Who co-founded Microsoft?",
+    "answer": "Microsoft was co-founded by Bill Gates and Paul Allen.",
+    "article": "Microsoft",
+    "type": "simple"
+  },
+  {
+    "question": "When was Microsoft founded?",
+    "answer": "Microsoft was founded on April 4, 1975.",
+    "article": "Microsoft",
+    "type": "simple"
+  },
+  {
+    "question": "What was Microsoft's first product?",
+    "answer": "Microsoft's first product was a BASIC interpreter for the MITS Altair 8800 microcomputer.",
+    "article": "Microsoft",
+    "type": "simple"
+  },
+  {
+    "question": "What is Microsoft's flagship cloud computing platform?",
+    "answer": "Microsoft's flagship cloud computing platform is Azure.",
+    "article": "Microsoft",
+    "type": "simple"
+  },
+  {
+    "question": "How did Microsoft's development of Windows influence the personal computing industry?",
+    "answer": "Microsoft's Windows became the dominant operating system for personal computers, establishing Microsoft as the world's largest software company and shaping how billions of people interact with computers.",
+    "article": "Microsoft",
+    "type": "multi-hop"
+  },
+  {
+    "question": "Who started the Docker project in France as an internal project within dotCloud?",
+    "answer": "Solomon Hykes started the Docker project in France as an internal project within dotCloud.",
+    "article": "Docker (software)",
+    "type": "simple"
+  },
+  {
+    "question": "When was Docker released as open-source?",
+    "answer": "Docker was released as open-source in March 2013.",
+    "article": "Docker (software)",
+    "type": "simple"
+  },
+  {
+    "question": "What execution environment did Docker originally use before replacing it with libcontainer?",
+    "answer": "Docker originally used LXC as its default execution environment before replacing it with libcontainer.",
+    "article": "Docker (software)",
+    "type": "simple"
+  },
+  {
+    "question": "What programming language is Docker's libcontainer written in?",
+    "answer": "Docker's libcontainer is written in the Go programming language.",
+    "article": "Docker (software)",
+    "type": "simple"
+  },
+  {
+    "question": "What company acquired Docker's competitor StackEngine and added Docker container support to Oracle Cloud?",
+    "answer": "Oracle acquired Docker's competitor StackEngine and added Docker container support to Oracle Cloud.",
+    "article": "Docker (software)",
+    "type": "simple"
+  },
+  {
+    "question": "How did Docker's containerization technology influence cloud computing?",
+    "answer": "Docker's containerization technology enabled lightweight, portable application deployment, becoming a foundational tool for cloud-native development and accelerating the adoption of microservices architectures.",
+    "article": "Docker (software)",
+    "type": "multi-hop"
+  },
+  {
+    "question": "Who founded SpaceX?",
+    "answer": "SpaceX was founded by Elon Musk.",
+    "article": "SpaceX",
+    "type": "simple"
+  },
+  {
+    "question": "When did Dragon become the first commercial spacecraft to deliver cargo to the International Space Station?",
+    "answer": "Dragon became the first commercial spacecraft to deliver cargo to the International Space Station in May 2012.",
+    "article": "SpaceX",
+    "type": "simple"
+  },
+  {
+    "question": "What was SpaceX's private equity valuation after the Dragon C2+ launch?",
+    "answer": "SpaceX's private equity valuation nearly doubled to $2.4 billion after the Dragon C2+ launch.",
+    "article": "SpaceX",
+    "type": "simple"
+  },
+  {
+    "question": "How did SpaceX's reusable rocket technology change the economics of space launches?",
+    "answer": "SpaceX's reusable rocket technology dramatically reduced launch costs by allowing rockets to land and be reflown, disrupting the traditional expendable launch vehicle market.",
+    "article": "SpaceX",
+    "type": "multi-hop"
+  },
+  {
+    "question": "When did Shopify go public via IPO?",
+    "answer": "Shopify went public via an initial public offering on May 21, 2015, raising more than $131 million.",
+    "article": "Shopify",
+    "type": "simple"
+  },
+  {
+    "question": "When did Shopify launch Shopify Payments?",
+    "answer": "Shopify launched Shopify Payments in August 2013 in partnership with Stripe.",
+    "article": "Shopify",
+    "type": "simple"
+  },
+  {
+    "question": "What service did Amazon.com select Shopify as the preferred migration provider for in 2015?",
+    "answer": "Amazon.com selected Shopify as the preferred migration provider for its Amazon Webstore service in September 2015.",
+    "article": "Shopify",
+    "type": "simple"
+  },
+  {
+    "question": "How did Shopify Capital influence merchants on the platform?",
+    "answer": "Shopify Capital provided merchants with cash advances on future earnings, allowing them to grow their businesses without traditional bank loans, and has provided more than $5.1 billion in funding since its 2016 launch.",
+    "article": "Shopify",
+    "type": "multi-hop"
+  },
+  {
+    "question": "What type of database is Redis?",
+    "answer": "Redis is an in-memory data structure store used as a database, cache, and message broker.",
+    "article": "Redis",
+    "type": "simple"
+  },
+  {
+    "question": "When did Redis introduce clustering?",
+    "answer": "Redis introduced clustering in April 2015 with the release of version 3.0.",
+    "article": "Redis",
+    "type": "simple"
+  },
+  {
+    "question": "What companies use Redis?",
+    "answer": "Companies such as Adobe, Airbnb, Amazon, Hulu, OpenAI, Salesforce, and Shopify use Redis.",
+    "article": "Redis",
+    "type": "simple"
+  },
+  {
+    "question": "How does Redis's in-memory nature affect its performance compared to disk-based databases?",
+    "answer": "Redis's in-memory nature allows it to perform significantly better than database systems that write every change to disk before considering a transaction committed, making it ideal for use cases where durability of data is not the primary concern.",
+    "article": "Redis",
+    "type": "multi-hop"
+  },
+  {
+    "question": "What is MariaDB a fork of?",
+    "answer": "MariaDB is a fork of MySQL.",
+    "article": "MariaDB",
+    "type": "simple"
+  },
+  {
+    "question": "When was the MariaDB Foundation announced?",
+    "answer": "The MariaDB Foundation was announced in December 2012 by Michael Widenius, David Axmark, and Allan Larsson.",
+    "article": "MariaDB",
+    "type": "simple"
+  },
+  {
+    "question": "Who are the notable sponsors of the MariaDB Foundation?",
+    "answer": "Notable sponsors of the MariaDB Foundation include Amazon, Acronis, Alibaba Cloud, Constructor, Intel, MariaDB Corporation AB, ServiceNow, WebPros, and DBS.",
+    "article": "MariaDB",
+    "type": "simple"
+  },
+  {
+    "question": "What AI feature did Amazon contribute to MariaDB?",
+    "answer": "Amazon contributed to MariaDB Vector, a major AI feature.",
+    "article": "MariaDB",
+    "type": "simple"
+  },
+  {
+    "question": "How was Steve Jobs's management style described at Apple?",
+    "answer": "Steve Jobs's management style was described as demanding and sometimes brutal, with summary executions being rare but enough to terrorize a whole company, according to colleagues.",
+    "article": "Steve Jobs",
+    "type": "simple"
+  },
+  {
+    "question": "What title did Steve Jobs use at the 2000 Macworld Expo?",
+    "answer": "At the 2000 Macworld Expo, Steve Jobs dropped the 'interim' modifier from his title and became permanent CEO, quipping that he would use the title 'iCEO'.",
+    "article": "Steve Jobs",
+    "type": "simple"
+  },
+  {
+    "question": "What technology from NeXT was incorporated into Apple products after Apple's acquisition?",
+    "answer": "NeXTSTEP technology from NeXT was incorporated into Apple products after the acquisition, evolving into Mac OS X.",
+    "article": "Steve Jobs",
+    "type": "simple"
+  },
+  {
+    "question": "How did Steve Jobs's return to Apple in 1997 transform the company's product strategy?",
+    "answer": "Steve Jobs's return to Apple led to the introduction of the iMac and other new products with appealing designs and powerful branding, significantly increasing sales and repositioning Apple as a consumer electronics leader.",
+    "article": "Steve Jobs",
+    "type": "multi-hop"
+  },
+  {
+    "question": "What was the World Wide Web originally designed for at CERN?",
+    "answer": "The World Wide Web was originally designed to allow physicists at CERN to share information across multiple databases on independent computers.",
+    "article": "World Wide Web",
+    "type": "simple"
+  },
+  {
+    "question": "Who invented the World Wide Web?",
+    "answer": "The World Wide Web was invented by Tim Berners-Lee.",
+    "article": "World Wide Web",
+    "type": "simple"
+  },
+  {
+    "question": "What hypertext model influenced Tim Berners-Lee's development of the Web?",
+    "answer": "Ted Nelson's hypertext model from 1965 influenced Tim Berners-Lee's development of the World Wide Web.",
+    "article": "World Wide Web",
+    "type": "simple"
+  },
+  {
+    "question": "How did Apple's HyperCard system relate to the development of the World Wide Web?",
+    "answer": "Apple's HyperCard system popularized a similar hypertext model to what Berners-Lee was developing, but unlike HyperCard, Berners-Lee's system was designed from the outset to support links between multiple databases on independent computers across the Internet.",
+    "article": "World Wide Web",
+    "type": "multi-hop"
+  },
+  {
+    "question": "What is Apache CouchDB primarily designed for?",
+    "answer": "Apache CouchDB is a document-oriented NoSQL database designed for ease of use with a web-friendly HTTP API.",
+    "article": "Apache CouchDB",
+    "type": "simple"
+  },
+  {
+    "question": "What programming language is Apache CouchDB written in?",
+    "answer": "Apache CouchDB is written in Erlang.",
+    "article": "Apache CouchDB",
+    "type": "simple"
+  },
+  {
+    "question": "What was Damien Katz's presentation about CouchDB at RubyFringe about?",
+    "answer": "Damien Katz presented 'CouchDB and Me' at RubyFringe in January 2009, discussing his experience building CouchDB.",
+    "article": "Apache CouchDB",
+    "type": "simple"
+  },
+  {
+    "question": "What is the cloud computing delivery model where users gain access to application software and databases managed by cloud providers?",
+    "answer": "Software as a Service (SaaS) is the cloud computing delivery model where users gain access to application software and databases managed by cloud providers.",
+    "article": "Cloud computing",
+    "type": "simple"
+  },
+  {
+    "question": "What does PaaS stand for in cloud computing?",
+    "answer": "PaaS stands for Platform as a Service in cloud computing.",
+    "article": "Cloud computing",
+    "type": "simple"
+  },
+  {
+    "question": "How does the SaaS model differ from traditional software licensing in terms of pricing?",
+    "answer": "SaaS is usually priced on a pay-per-use basis or using a subscription fee, whereas traditional software licensing typically involves a one-time purchase or perpetual license fee.",
+    "article": "Cloud computing",
+    "type": "multi-hop"
+  }
+]

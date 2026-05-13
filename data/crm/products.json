@@ -1,0 +1,206 @@
+[
+  {
+    "id": "prod_1",
+    "name": "CRM Pro",
+    "category": "Software",
+    "basePrice": 299,
+    "description": "Full-featured CRM platform for mid-market teams. Includes pipeline management, contact tracking, email automation, and 50+ integrations. Supports up to 100 users per workspace.",
+    "features": [
+      "Pipeline management",
+      "Email automation",
+      "Contact scoring",
+      "Workflow builder",
+      "API access",
+      "Custom dashboards",
+      "Mobile app",
+      "Salesforce sync"
+    ],
+    "pricing_model": "Per Seat/Month",
+    "annual_revenue_usd": 4357770,
+    "active_customers": 704,
+    "nps": 58,
+    "competitors": [
+      "Notion",
+      "Pipedrive",
+      "Salesforce"
+    ],
+    "roadmap_q4": "Release native notification system."
+  },
+  {
+    "id": "prod_2",
+    "name": "CRM Enterprise",
+    "category": "Software",
+    "basePrice": 899,
+    "description": "Enterprise-grade CRM with advanced analytics, AI-powered lead scoring, unlimited users, dedicated support, SSO, and custom SLA agreements. Includes quarterly business reviews.",
+    "features": [
+      "Unlimited users",
+      "AI lead scoring",
+      "Custom SLA",
+      "SSO/SAML",
+      "Dedicated CSM",
+      "Advanced analytics",
+      "Custom integrations",
+      "On-premise option"
+    ],
+    "pricing_model": "Per Seat/Month",
+    "annual_revenue_usd": 2722813,
+    "active_customers": 1389,
+    "nps": 34,
+    "competitors": [
+      "Notion",
+      "HubSpot",
+      "Monday.com"
+    ],
+    "roadmap_q4": "Launch AI-powered mobile app."
+  },
+  {
+    "id": "prod_3",
+    "name": "Analytics Suite",
+    "category": "Analytics",
+    "basePrice": 499,
+    "description": "Real-time business intelligence platform with drag-and-drop dashboards, predictive analytics, and automated reporting. Connects to 100+ data sources.",
+    "features": [
+      "Real-time dashboards",
+      "Predictive models",
+      "Automated reports",
+      "100+ connectors",
+      "Data warehouse sync",
+      "Collaboration tools"
+    ],
+    "pricing_model": "Flat Rate/Month",
+    "annual_revenue_usd": 3189818,
+    "active_customers": 316,
+    "nps": 54,
+    "competitors": [
+      "Monday.com",
+      "Notion",
+      "Airtable"
+    ],
+    "roadmap_q4": "Launch native analytics dashboard."
+  },
+  {
+    "id": "prod_4",
+    "name": "Support Desk",
+    "category": "Support",
+    "basePrice": 149,
+    "description": "Omnichannel customer support platform with ticketing, live chat, knowledge base, and SLA management. AI-assisted response suggestions reduce handle time by 40%.",
+    "features": [
+      "Omnichannel inbox",
+      "AI suggestions",
+      "SLA management",
+      "Knowledge base",
+      "CSAT surveys",
+      "Ticket automation"
+    ],
+    "pricing_model": "Usage Based",
+    "annual_revenue_usd": 11505520,
+    "active_customers": 589,
+    "nps": 36,
+    "competitors": [
+      "Salesforce",
+      "Pipedrive",
+      "Monday.com"
+    ],
+    "roadmap_q4": "Launch redesigned mobile app."
+  },
+  {
+    "id": "prod_5",
+    "name": "Marketing Hub",
+    "category": "Marketing",
+    "basePrice": 349,
+    "description": "All-in-one marketing automation platform with email campaigns, landing pages, A/B testing, lead nurturing workflows, and attribution reporting.",
+    "features": [
+      "Email campaigns",
+      "Landing pages",
+      "A/B testing",
+      "Lead nurturing",
+      "Attribution reporting",
+      "Social scheduling"
+    ],
+    "pricing_model": "Annual Contract",
+    "annual_revenue_usd": 15863918,
+    "active_customers": 1180,
+    "nps": 32,
+    "competitors": [
+      "Marketo",
+      "Airtable",
+      "Pipedrive"
+    ],
+    "roadmap_q4": "Ship native API v2."
+  },
+  {
+    "id": "prod_6",
+    "name": "Sales Intelligence",
+    "category": "Data",
+    "basePrice": 199,
+    "description": "B2B data enrichment and intent data platform. Auto-enrich leads with company firmographics, technographics, and buying intent signals. Updated daily.",
+    "features": [
+      "Auto-enrichment",
+      "Intent signals",
+      "Firmographics",
+      "Technographics",
+      "CSV import",
+      "CRM sync"
+    ],
+    "pricing_model": "Per Seat/Month",
+    "annual_revenue_usd": 3531278,
+    "active_customers": 495,
+    "nps": 31,
+    "competitors": [
+      "Pipedrive",
+      "Freshdesk",
+      "Notion"
+    ],
+    "roadmap_q4": "Release enhanced API v2."
+  },
+  {
+    "id": "prod_7",
+    "name": "Field Service",
+    "category": "Operations",
+    "basePrice": 249,
+    "description": "Mobile-first field service management software for scheduling, dispatching, and tracking field technicians. GPS tracking, digital work orders, and inventory management.",
+    "features": [
+      "Mobile app",
+      "GPS tracking",
+      "Digital work orders",
+      "Scheduling",
+      "Inventory",
+      "Customer portal"
+    ],
+    "pricing_model": "Flat Rate/Month",
+    "annual_revenue_usd": 15471133,
+    "active_customers": 323,
+    "nps": 37,
+    "competitors": [
+      "Intercom",
+      "Airtable",
+      "Salesforce"
+    ],
+    "roadmap_q4": "Launch redesigned integrations."
+  },
+  {
+    "id": "prod_8",
+    "name": "Revenue Intelligence",
+    "category": "Analytics",
+    "basePrice": 599,
+    "description": "AI-powered revenue forecasting and deal intelligence platform. Analyzes call recordings, emails, and CRM data to identify at-risk deals and coaching opportunities.",
+    "features": [
+      "AI forecasting",
+      "Deal health scores",
+      "Call analysis",
+      "Email tracking",
+      "Coaching insights",
+      "Pipeline alerts"
+    ],
+    "pricing_model": "Annual Contract",
+    "annual_revenue_usd": 10969277,
+    "active_customers": 527,
+    "nps": 65,
+    "competitors": [
+      "Marketo",
+      "Zendesk",
+      "HubSpot"
+    ],
+    "roadmap_q4": "Launch native integrations."
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "dept_1",
+    "name": "Sales",
+    "description": "The Sales department is responsible for driving revenue growth through new customer acquisition, upselling existing accounts, and managing the full sales cycle from prospecting to close.",
+    "head": "emp_1",
+    "budget_usd": 2771107,
+    "headcount_target": 22,
+    "q4_goal": "$22M ARR"
+  },
+  {
+    "id": "dept_2",
+    "name": "Engineering",
+    "description": "The Engineering department is responsible for designing, building, and maintaining product infrastructure, features, and integrations across web, mobile, and API surfaces.",
+    "head": "emp_2",
+    "budget_usd": 2502988,
+    "headcount_target": 63,
+    "q4_goal": "Ship 3 major features"
+  },
+  {
+    "id": "dept_3",
+    "name": "Customer Success",
+    "description": "The Customer Success department is responsible for ensuring customer retention, adoption, and satisfaction through proactive outreach, health monitoring, and strategic account management.",
+    "head": "emp_59",
+    "budget_usd": 4525532,
+    "headcount_target": 26,
+    "q4_goal": "88% target achievement"
+  },
+  {
+    "id": "dept_4",
+    "name": "Marketing",
+    "description": "The Marketing department is responsible for generating demand, building brand awareness, and nurturing leads through campaigns, content, events, and digital channels.",
+    "head": "emp_54",
+    "budget_usd": 548291,
+    "headcount_target": 30,
+    "q4_goal": "98% target achievement"
+  },
+  {
+    "id": "dept_5",
+    "name": "Finance",
+    "description": "The Finance department is responsible for managing company financials including budgeting, forecasting, reporting, accounts receivable, and investor relations.",
+    "head": "emp_6",
+    "budget_usd": 3721992,
+    "headcount_target": 29,
+    "q4_goal": "96% target achievement"
+  },
+  {
+    "id": "dept_6",
+    "name": "Human Resources",
+    "description": "The Human Resources department is responsible for recruiting top talent, managing employee lifecycle, benefits administration, culture initiatives, and compliance.",
+    "head": "emp_18",
+    "budget_usd": 1316751,
+    "headcount_target": 29,
+    "q4_goal": "86% target achievement"
+  },
+  {
+    "id": "dept_7",
+    "name": "Operations",
+    "description": "The Operations department is responsible for optimizing business processes, managing vendor relationships, facilities, and ensuring operational efficiency across the company.",
+    "head": "emp_159",
+    "budget_usd": 1179001,
+    "headcount_target": 25,
+    "q4_goal": "97% target achievement"
+  },
+  {
+    "id": "dept_8",
+    "name": "Product",
+    "description": "The Product department is responsible for defining product strategy, prioritizing roadmap, working with engineering and customers to ship features that drive value.",
+    "head": "emp_40",
+    "budget_usd": 2124649,
+    "headcount_target": 73,
+    "q4_goal": "92% target achievement"
+  },
+  {
+    "id": "dept_9",
+    "name": "Legal",
+    "description": "The Legal department is responsible for managing contracts, compliance, intellectual property, employment law, and corporate governance matters.",
+    "head": "emp_19",
+    "budget_usd": 1011905,
+    "headcount_target": 35,
+    "q4_goal": "89% target achievement"
+  },
+  {
+    "id": "dept_10",
+    "name": "Support",
+    "description": "The Support department is responsible for providing technical and product support to customers through multiple channels including email, phone, and live chat.",
+    "head": "emp_11",
+    "budget_usd": 2035447,
+    "headcount_target": 76,
+    "q4_goal": "86% target achievement"
+  }
+]

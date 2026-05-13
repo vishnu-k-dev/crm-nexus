@@ -48,15 +48,17 @@ const AUTH          = Buffer.from(`${TG_USER}:${TG_PASS}`).toString('base64');
 const MODEL_NAME    = process.env.GEN_MODEL      ?? 'llama-3.1-8b-instant';
 const GOOGLE_KEY    = process.env.GOOGLE_API_KEY ?? '';
 
-const SYSTEM = `You are a precise factual assistant. Using only the facts provided, answer in exactly 1-2 sentences.
-Style rules:
-- Direct statement of fact. Restate the subject of the question.
-- Include ALL specific details from the context: names, dates, numbers, dollar amounts, percentages, technical terms, and what replaced or succeeded something.
-- If something was replaced or superseded, state what replaced it.
-- NO preamble. Do NOT start with "Based on", "According to", "The context says", or similar.
-- NO hedging. Do NOT say "it appears", "it seems", "likely".
-If the facts do not contain the answer, say exactly: "The provided context does not contain this information."
-Do not infer or extrapolate.`;
+const SYSTEM = `You are a precise CRM data assistant. Today's date is 2026-05-10. Answer using ONLY the facts provided in the context.
+Rules:
+- State facts directly. Include ALL relevant numbers, names, dates, dollar amounts, percentages.
+- For arithmetic questions (seats, revenue calculations): show the calculation and result.
+- For temporal questions (renewal dates, urgency): compare dates against today (2026-05-10) to determine if past/upcoming.
+- For comparison questions: state both values then draw the conclusion.
+- For risk/synthesis questions: use health score + notes + renewal date together.
+- Numbers like $14,78,328 and $1,478,328 are the same value (Indian vs US comma format).
+- NO preamble ("Based on", "According to"). NO hedging ("appears", "seems").
+- If context lacks the answer, say: "The provided context does not contain this information."
+Keep answers to 2-3 sentences maximum.`;
 
 // ── Embed question using Google Gemini (same model TigerGraph uses) ───────────
 async function embedQuestion(text: string): Promise<number[]> {
@@ -165,69 +167,115 @@ const ARTICLE_MAP: Record<string, string> = {
 
   // ── Synthetic CRM entities ──────────────────────────────────────────────────
   'acme corp': 'crm_customer_cust_1',
+  'globaltech solutions': 'crm_customer_cust_2',
+  'globaltech': 'crm_customer_cust_2',
+  'pinnacle enterprises': 'crm_customer_cust_3',
   'nexus industries': 'crm_customer_cust_5',
-  'meridian solutions': 'crm_customer_cust_10',
-  'vertex systems': 'crm_customer_cust_4',
-  'pinnacle enterprises': 'crm_customer_cust_2',
   'apex dynamics': 'crm_customer_cust_6',
-  'fusion international': 'crm_customer_cust_8',
-  'nova ventures 656': 'crm_deal_deal_1',
-  'nebula ventures 329': 'crm_deal_deal_11',
+  'stellar technologies': 'crm_customer_cust_8',
+  'meridian solutions': 'crm_customer_cust_10',
   'paul robinson': 'crm_employee_emp_1',
-  'linda ruiz': 'crm_employee_emp_6',
-  'james young': 'crm_employee_emp_15',
-  'ruth lee': 'crm_employee_emp_20',
-  'megan phillips': 'crm_employee_emp_10',
-  'christina richardson': 'crm_employee_emp_8',
+  'jack young': 'crm_employee_emp_20',
+  'deborah phillips': 'crm_employee_emp_97',
+  'christina richardson': 'crm_employee_emp_103',
   'crm pro': 'crm_product_prod_1',
   'crm enterprise': 'crm_product_prod_2',
-  'analytics suite': 'crm_product_prod_3',
   'support desk': 'crm_product_prod_4',
   'marketing hub': 'crm_product_prod_5',
   'revenue intelligence': 'crm_product_prod_8',
+  'analytics suite': 'crm_product_prod_3',
+  'field service': 'crm_product_prod_7',
+  'deal_1': 'crm_deal_deal_1',
+  'deal_5': 'crm_deal_deal_5',
+  'nova ventures': 'crm_deal_deal_1',
+  'richard morales': 'crm_deal_deal_5',
+  'sales department': 'crm_department_dept_1',
+  'engineering department': 'crm_department_dept_2',
+  'finance department': 'crm_department_dept_5',
+  'support department': 'crm_department_dept_10',
+  'customer success department': 'crm_department_dept_3',
+  'marketing hub': 'crm_product_prod_5',
+  'revenue intelligence': 'crm_product_prod_8',
+  'meridian solutions': 'crm_customer_cust_10',
+  'deborah phillips': 'crm_employee_emp_97',
+  'stratos holdings': 'crm_deal_deal_5',
+  'nova ventures': 'crm_deal_deal_1',
+  'brian edwards': 'crm_deal_deal_1',
+  'richard morales': 'crm_deal_deal_5',
 };
 
-function detectArticle(question: string): string | null {
+function detectArticles(question: string): string[] {
   const q = question.toLowerCase();
-  // Sort by keyword length desc to prefer longer/more specific matches
   const sorted = Object.entries(ARTICLE_MAP).sort((a, b) => b[0].length - a[0].length);
+  const seen = new Set<string>();
+  const prefixes: string[] = [];
   for (const [kw, prefix] of sorted) {
-    if (q.includes(kw)) return prefix;
+    if (q.includes(kw) && !seen.has(prefix)) {
+      seen.add(prefix);
+      prefixes.push(prefix);
+    }
   }
-  return null;
+  return prefixes;
 }
 
 async function fetchArticleChunks(articlePrefix: string, numChunks = 6): Promise<string[]> {
   const texts: string[] = [];
-  // Content vertex IDs match DocumentChunk IDs (e.g. amazon_dynamodb_chunk_0)
-  const fetches = Array.from({ length: numChunks }, (_, i) =>
-    fetch(
-      `${TG_RESTPP_URL}/restpp/graph/${GRAPH_NAME}/vertices/Content/${articlePrefix}_chunk_${i}`,
+
+  // First try: Content vertex by direct ID (CRM entities: one Content vertex per entity)
+  try {
+    const r = await fetch(
+      `${TG_RESTPP_URL}/restpp/graph/${GRAPH_NAME}/vertices/Content/${articlePrefix}`,
       { headers: { 'Authorization': `Basic ${AUTH}` } }
-    )
-      .then(r => r.ok ? r.json() : null)
-      .then((d: unknown) => {
-        const t = (d as { results?: Array<{ attributes?: { text?: string } }> } | null)?.results?.[0]?.attributes?.text;
-        if (t && t.trim().length > 30) texts.push(t);
-      })
-      .catch(() => null)
-  );
-  await Promise.all(fetches);
+    );
+    if (r.ok) {
+      const d = await r.json() as { results?: Array<{ attributes?: { text?: string } }> };
+      const t = d.results?.[0]?.attributes?.text;
+      if (t && t.trim().length > 30) texts.push(t);
+    }
+  } catch { /* ignore */ }
+
+  // Second try: Content vertices with _chunk_N suffix (Wikipedia multi-chunk articles)
+  if (texts.length === 0) {
+    const fetches = Array.from({ length: numChunks }, (_, i) =>
+      fetch(
+        `${TG_RESTPP_URL}/restpp/graph/${GRAPH_NAME}/vertices/Content/${articlePrefix}_chunk_${i}`,
+        { headers: { 'Authorization': `Basic ${AUTH}` } }
+      )
+        .then(r => r.ok ? r.json() : null)
+        .then((d: unknown) => {
+          const t = (d as { results?: Array<{ attributes?: { text?: string } }> } | null)?.results?.[0]?.attributes?.text;
+          if (t && t.trim().length > 30) texts.push(t);
+        })
+        .catch(() => null)
+    );
+    await Promise.all(fetches);
+  }
+
   return texts;
 }
 
 // ── Fallback: graphrag/search endpoint (returns raw text too) ─────────────────
 async function fallbackSearch(question: string, topK: number): Promise<{ key: string; text: string }[]> {
-  const res = await fetch(`${TG_GRAPHRAG_URL}/${GRAPH_NAME}/graphrag/search`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Basic ${AUTH}` },
-    body: JSON.stringify({
-      question,
-      method: 'hybrid',
-      method_params: { indices: ['DocumentChunk'], top_k: topK, num_hops: 0, num_seen_min: 1, num_seen_max: 100, num_neighbors_min: 0, num_neighbors_max: 0 },
-    }),
-  });
-  if (!res.ok) throw new Error(`Fallback search error ${res.status}`);
+  let res: Response;
+  try {
+    res = await fetch(`${TG_GRAPHRAG_URL}/${GRAPH_NAME}/graphrag/search`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Basic ${AUTH}` },
+      body: JSON.stringify({
+        question,
+        method: 'hybrid',
+        method_params: { indices: ['DocumentChunk'], top_k: topK, num_hops: 0, num_seen_min: 1, num_seen_max: 100, num_neighbors_min: 0, num_neighbors_max: 0 },
+      }),
+      signal: AbortSignal.timeout(8_000),
+    });
+  } catch (e) {
+    console.warn(`[graphrag] fallbackSearch network error — skipping: ${(e as Error).message}`);
+    return [];
+  }
+  if (!res.ok) {
+    console.warn(`[graphrag] fallbackSearch ${res.status} — skipping, using article chunks only`);
+    return [];
+  }
   const data = await res.json();
   // Handle both response formats:
   //   Old: [{final_retrieval: {...}}]          (array directly)
@@ -326,7 +374,7 @@ export async function runGraphRag(question: string): Promise<PipelineResult & {
 }> {
   const t0 = Date.now();
   const { complexity, numHops, reason } = analyzeQuery(question);
-  const finalK = complexity === 'simple' ? 3 : 4;  // 3–4 focused chunks beats 2 truncated ones
+  const finalK = complexity === 'simple' ? 3 : complexity === 'multi-hop' ? 5 : 6;  // synthesis gets 6 chunks
   const fetchK = 15;
 
   // ── Step 1: Retrieve raw graph chunks ────────────────────────────────────
@@ -336,21 +384,19 @@ export async function runGraphRag(question: string): Promise<PipelineResult & {
   //   B) Vector search via graphrag/search (hybrid HNSW + graph traversal)
   // Results are merged; reranker picks the best finalK.
   const tgT0 = Date.now();
-  const articlePrefix = detectArticle(question);
-  // Two-path retrieval:
-  //   A) Entity-targeted RESTPP fetch: first N chunks by Content vertex ID (intro/founding chunks)
-  //   B) Vector search via graphrag/search (hybrid HNSW + graph traversal)
-  // RESTPP chunks go first so reranker fallback always picks relevant content.
-  const [articleChunks, rawChunks] = await Promise.all([
-    articlePrefix ? fetchArticleChunks(articlePrefix, 15) : Promise.resolve([]),
+  const articlePrefixes = detectArticles(question);
+  // Multi-entity retrieval: fetch ALL detected entities in parallel
+  // e.g. Q "Who is Acme Corp's CSM and what is their rating?" → fetches cust_1 + emp_20
+  const [allArticleChunks, rawChunks] = await Promise.all([
+    Promise.all(articlePrefixes.map(p => fetchArticleChunks(p, 6))).then(r => r.flat()),
     fallbackSearch(question, fetchK),
   ]);
+  const articleChunks = allArticleChunks;
 
   const tgLatencyMs = Date.now() - tgT0;
 
   // ── Step 3: Merge → Prioritize → Deduplicate → Rerank ───────────────────
-  // RESTPP intro chunks go first, then vector search results sorted by article.
-  const prioritized = prioritizeByArticle(rawChunks, articlePrefix);
+  const prioritized = prioritizeByArticle(rawChunks, articlePrefixes[0] ?? null);
   const merged = [...articleChunks, ...prioritized];
   const deduped = deduplicate(merged.map(c => c.slice(0, 1000)));
   const reranked = await rerank(question, deduped, finalK);

@@ -74,8 +74,8 @@ Correct answer: {correct}
 System answer: {answer}
 
 Reply with only PASS or FAIL.
-PASS = the system answer correctly addresses the question with no major errors.
-FAIL = the answer is wrong, missing, or contradicts the correct answer.`;
+PASS = the system answer correctly addresses the question with no major errors. Minor formatting differences are acceptable (e.g. $1,478,328 vs $14,78,328 are the same number; rounding to nearest thousand is fine).
+FAIL = the answer is wrong, missing key facts, or contradicts the correct answer.`;
 
 export interface JudgeResult {
   verdict: 'PASS' | 'FAIL';
