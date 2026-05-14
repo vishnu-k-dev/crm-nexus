@@ -130,17 +130,23 @@ Expected: `"judge":{"verdict":"PASS"}` + `"retrievedChunks":` showing 2-3 chunks
 |-------|-----------|-----|
 | All GraphRAG answers error ("fetch failed") | `fallbackSearch` threw on port 8000 connection refused (ECC is on 8001 with different API) | Wrapped fetch in try/catch → returns `[]` gracefully |
 | Multi-hop fails (Paul Robinson → Sales dept Q4 goal) | Only fetched primary entity, didn't traverse to related entity | **Second-hop**: scan retrieved text for CRM entity keywords → auto-fetch related entities |
-| Number formatting judge failures ($14,78,328 vs $1,478,328) | Indian comma format in source data; judge's `\b` word boundary didn't handle plurals | **normalizeNumbers()** converts all Indian-format $ amounts to Western before passing to LLM |
-| "Which customers use [product]?" failures | Product chunk doesn't list customer names | **PRODUCT_SAMPLE_CUSTOMERS** reverse map: when question asks about customers + product detected → inject representative customer chunks |
+| Number formatting judge failures ($14,78,328 vs $1,478,328) | Indian comma format in source data | **normalizeNumbers()** converts all Indian-format $ amounts to Western before passing to LLM |
+| "Which customers use [product]?" failures | Product chunk doesn't list customer names | **PRODUCT_SAMPLE_CUSTOMERS** reverse map: when question asks about identifying customers of a product → inject representative customer chunks |
+| "Sales vs Engineering" 0-chunk failure | `' engineering '` space-padding fails at `?` sentence boundary | **Word-boundary regex**: space-padded keywords use `\b` matching, not `includes()` |
+| LLM volunteering monthly breakdown for ARR question | Model followed "helpful" pattern despite not being asked | System prompt: "NEVER perform arithmetic unless EXPLICITLY asked" |
+| Numbered lists failing judge | LLM defaulted to list format | System prompt: "NEVER use numbered lists or bullet points — flowing prose only" |
+| Wrong comparison conclusion (e.g. "Engineering has larger budget") | Comparison instruction let model guess direction | System prompt: "Name the winner directly by comparing numbers explicitly" |
+| Reverse customer lookup polluting comparison questions | `asksAboutCustomers` regex matched "active customers" count questions | Tightened regex to only match "which companies use X" pattern |
+| Date conversion hallucination (July 9 → May 9) | LLM converted ISO date incorrectly | System prompt: "State dates VERBATIM from context (e.g. 2025-07-09)" |
 | Long eval killed mid-run | `npm run dev` uses tsx watch; any file edit restarts server → HTTP drops | Use `npm run serve` for eval runs |
 
 ---
 
-## Current eval state
+## Current eval state (as of 2026-05-14)
 
-- Partial results: `crm_eval_partial.json` (27/35 questions completed before last session ended)
-- Full results: `crm_eval_results.json` (empty — full eval not yet completed with fixes applied)
-- **Tomorrow**: run `npm run serve` in apps/api, then fire the eval via curl
+- **Full results v1** (2026-05-13): `crm_eval_results.json` — 30/36 PASS (83.3%), tokens 618 avg, reduction 71.4%, BERTScore 0.575
+- **Full results v2** (2026-05-14): `crm_eval_results_v2.json` — running now with all May-14 fixes applied
+- Expected improvements: 5 of 6 previous failures fixed → target ≥89% accuracy, ≥79% token reduction
 
 ---
 

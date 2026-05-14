@@ -28,7 +28,14 @@ apps/api/data/
 # Eval outputs (generated at runtime)
 crm_eval_partial.json
 crm_eval_results.json
+crm_eval_response*.json
 eval_output.txt
 eval_results.json
 eval_results_partial.json
+eval_done_v*.txt
 data/bench_results.json
+
+# Intermediate eval versions (keep v5 = final benchmark)
+crm_eval_results_v2.json
+crm_eval_results_v3.json
+crm_eval_results_v4.json

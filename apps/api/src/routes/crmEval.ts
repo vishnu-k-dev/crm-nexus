@@ -145,6 +145,9 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
     const tokenSums = { llm: 0, basicRag: 0, graphrag: 0 };
     const latSums   = { llm: 0, basicRag: 0, graphrag: 0 };
     let tokenN = 0;
+    // Matched-pair token sums: only questions where BOTH BasicRAG and GraphRAG succeeded
+    // (BasicRAG fails on CRM-specific questions since its vector store is Wikipedia — fair comparison requires both pipelines to have answered)
+    let matchedGrTokens = 0; let matchedBrTokens = 0; let matchedLatGr = 0; let matchedLatBr = 0; let matchedN = 0;
     let bertF1Sum = 0; let bertN = 0;
 
     type BertResult = { f1Rescaled: number } | null;
@@ -163,10 +166,19 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
       if (r.basicRag?.latencyMs) latSums.basicRag += r.basicRag.latencyMs;
       if (r.graphrag?.latencyMs) latSums.graphrag += r.graphrag.latencyMs;
       if (r.graphrag?.promptTokens) tokenN++;
+      // Matched pairs (fair apples-to-apples token comparison)
+      if (r.graphrag?.promptTokens && r.basicRag?.promptTokens) {
+        matchedGrTokens += r.graphrag.promptTokens;
+        matchedBrTokens += r.basicRag.promptTokens;
+        if (r.graphrag.latencyMs) matchedLatGr += r.graphrag.latencyMs;
+        if (r.basicRag.latencyMs) matchedLatBr += r.basicRag.latencyMs;
+        matchedN++;
+      }
       if (r.graphrag?.bertScore?.f1Rescaled != null) { bertF1Sum += r.graphrag.bertScore.f1Rescaled; bertN++; }
     }
 
     const n = tokenN || 1;
+    const mn = matchedN || 1;
     const pct = (num: number, den: number) => den > 0 ? (num / den * 100).toFixed(1) + '%' : 'N/A';
 
     const payload = {
@@ -195,19 +207,20 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
         },
         avgPromptTokens: {
           llmOnly:  Math.round(tokenSums.llm / n),
-          basicRag: Math.round(tokenSums.basicRag / n),
-          graphrag: Math.round(tokenSums.graphrag / n),
+          basicRag: Math.round(matchedBrTokens / mn),
+          graphrag: Math.round(matchedGrTokens / mn),
+          note: `Averages on ${matchedN} matched-pair questions (both pipelines answered). BasicRAG failed on ${tokenN - matchedN} CRM-specific questions (entities not in Wikipedia vector store).`,
         },
-        tokenReductionVsBasicRag: tokenSums.basicRag > 0
-          ? (((tokenSums.basicRag - tokenSums.graphrag) / tokenSums.basicRag) * 100).toFixed(1) + '%'
+        tokenReductionVsBasicRag: matchedBrTokens > 0
+          ? (((matchedBrTokens - matchedGrTokens) / matchedBrTokens) * 100).toFixed(1) + '%'
           : 'N/A',
         avgLatencyMs: {
           llmOnly:  Math.round(latSums.llm / n),
-          basicRag: Math.round(latSums.basicRag / n),
-          graphrag: Math.round(latSums.graphrag / n),
+          basicRag: Math.round(matchedLatBr / mn),
+          graphrag: Math.round(matchedLatGr / mn),
         },
-        latencyReductionVsBasicRag: latSums.basicRag > 0
-          ? (((latSums.basicRag - latSums.graphrag) / latSums.basicRag) * 100).toFixed(1) + '%'
+        latencyReductionVsBasicRag: matchedLatBr > 0
+          ? (((matchedLatBr - matchedLatGr) / matchedLatBr) * 100).toFixed(1) + '%'
           : 'N/A',
       },
       results,

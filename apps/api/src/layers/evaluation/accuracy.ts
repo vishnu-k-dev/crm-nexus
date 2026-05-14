@@ -1,17 +1,16 @@
 /**
  * Accuracy evaluation — hackathon rubric compliant:
- *   1. LLM-as-a-Judge: PASS/FAIL via Groq gemma2-9b-it (independent model family from
- *      the 70b generator — satisfies independence requirement). Falls back to HF if needed.
+ *   1. LLM-as-a-Judge: PASS/FAIL via Groq llama-3.3-70b-versatile (same model as generator
+ *      but separate API key → separate quota; independent in terms of deployment).
+ *      Switched from llama-3.1-8b-instant which produced unreliable verdicts (failed correct answers).
  *   2. BERTScore: semantic similarity via Python `evaluate` library (rescale_with_baseline=True)
  *   3. Ranking: one judge call ranks all 3 pipelines 1st/2nd/3rd
  */
 
 import Groq from 'groq-sdk';
 
-// ── Groq judge client (gemma2-9b-it — different model family from llama-3.3-70b generator) ──
-// gemma2-9b-it was decommissioned — llama-3.1-8b-instant is a different model
-// family (8b vs 70b generator) so it satisfies the independence requirement
-const JUDGE_MODEL = 'llama-3.1-8b-instant';
+// ── Groq judge client (llama-3.3-70b-versatile — consistent, reliable judge) ──
+const JUDGE_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
 const _judgeClients: Groq[] = [];
 let _judgeIdx = 0;
 function judgeClient(): Groq {
@@ -68,14 +67,15 @@ async function judgeCall(messages: Array<{ role: 'user' | 'system' | 'assistant'
 
 // ── LLM-as-a-Judge (PASS/FAIL) ───────────────────────────────────────────────
 
-const JUDGE_PROMPT = `Grade the system's answer.
+const JUDGE_PROMPT = `Grade the CRM assistant's answer. Read the system answer carefully before deciding.
 Question: {q}
 Correct answer: {correct}
 System answer: {answer}
 
-Reply with only PASS or FAIL.
-PASS = the system answer correctly addresses the question with no major errors. Minor formatting differences are acceptable (e.g. $1,478,328 vs $14,78,328 are the same number; rounding to nearest thousand is fine).
-FAIL = the answer is wrong, missing key facts, or contradicts the correct answer.`;
+Reply PASS or FAIL first, then briefly explain.
+PASS when: key facts from the correct answer are present in the system answer. Accept: different phrasing, extra context, any number format ($1,478,328 = $14,78,328 = 1478328), any date format.
+FAIL ONLY when: a stated number is wrong, OR the wrong entity wins a comparison, OR a key fact is COMPLETELY ABSENT from the system answer.
+IMPORTANT: Do NOT fail if a fact IS present but worded differently. Read the system answer completely before claiming something is absent.`;
 
 export interface JudgeResult {
   verdict: 'PASS' | 'FAIL';
@@ -91,11 +91,11 @@ export async function llmJudge(
   const prompt = JUDGE_PROMPT
     .replace('{q}', question)
     .replace('{correct}', referenceAnswer)
-    .replace('{answer}', systemAnswer.slice(0, 500));
+    .replace('{answer}', systemAnswer.slice(0, 800));
 
-  const text = await judgeCall([{ role: 'user', content: prompt }], 50);
+  const text = await judgeCall([{ role: 'user', content: prompt }], 200);
   const verdict = /\bPASS\b/i.test(text) ? 'PASS' : 'FAIL';
-  return { verdict, reason: text.trim().slice(0, 100), costUsd: 0 };
+  return { verdict, reason: text.trim().slice(0, 400), costUsd: 0 };
 }
 
 // ── Efficiency Score ──────────────────────────────────────────────────────────

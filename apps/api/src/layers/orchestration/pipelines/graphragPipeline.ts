@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Pipeline 3 — GraphRAG (TigerGraph native GSQL query).
  *
  * Architecture:
@@ -48,17 +48,13 @@ const AUTH          = Buffer.from(`${TG_USER}:${TG_PASS}`).toString('base64');
 const MODEL_NAME    = process.env.GEN_MODEL      ?? 'llama-3.1-8b-instant';
 const GOOGLE_KEY    = process.env.GOOGLE_API_KEY ?? '';
 
-const SYSTEM = `You are a precise CRM data assistant. Today's date is 2026-05-10. Answer using ONLY the facts provided in the context.
-Rules:
-- State facts directly. Include ALL relevant numbers, names, dates, dollar amounts, percentages.
-- For arithmetic questions (e.g. seat count from ARR ÷ price): ONLY calculate if the question explicitly asks for a calculation. Never volunteer unsolicited breakdowns.
-- For temporal questions (renewal dates, urgency): compare dates against today (2026-05-10) to determine if past/upcoming.
-- For comparison questions: state both values then draw the conclusion.
-- For risk/synthesis questions: use health score + notes + renewal date together.
-- Numbers like $14,78,328 and $1,478,328 are the same value (Indian vs US comma format).
-- NO preamble ("Based on", "According to"). NO hedging ("appears", "seems").
-- If context lacks the answer, say: "The provided context does not contain this information."
-Keep answers to 2-3 sentences maximum.`;
+const SYSTEM = `You are a precise CRM data assistant. Today's date is 2026-05-10. Answer from context.
+- Prose only. No lists. VERBATIM: copy prices ($299/seat/month -- all parts), dates (2025-07-09), amounts. Never interpret abbreviations (ARR, NPS, etc.).
+- Enumerate ALL items. For deals: include owner, customer, product, AND value. Include customer NPS Score AND product NPS when both in context.
+- Comparisons: state both values, then declare the winner. Higher number = winner (NPS, customers, revenue, budget). Lower health score = more at risk. Example: "Sales $2.77M, Engineering $2.50M — Sales has the larger budget."
+- Renewal dates: add "has already passed" ONLY if question asks about risk, urgency, or churn -- never for "when is the renewal date?" questions.
+- No speculation or invented facts. Cite only context. Seats from ARR: seats = ARR / (monthly_price x 12).
+- Missing: "The provided context does not contain this information." Be concise.`;
 
 // ── Embed question using Google Gemini (same model TigerGraph uses) ───────────
 async function embedQuestion(text: string): Promise<number[]> {
@@ -235,7 +231,14 @@ function detectArticles(question: string): string[] {
   const seen = new Set<string>();
   const prefixes: string[] = [];
   for (const [kw, prefix] of sorted) {
-    if (q.includes(kw) && !seen.has(prefix)) {
+    // Space-padded keywords (e.g. ' sales ', ' engineering ') are generic words that
+    // need word-boundary matching so they also match "Sales?" or "Engineering," at
+    // sentence boundaries — not just when surrounded by spaces.
+    const isWordBoundaryKw = kw.startsWith(' ') && kw.endsWith(' ');
+    const matches = isWordBoundaryKw
+      ? new RegExp(`\\b${kw.trim()}\\b`).test(q)
+      : q.includes(kw);
+    if (matches && !seen.has(prefix)) {
       seen.add(prefix);
       prefixes.push(prefix);
     }
@@ -399,7 +402,19 @@ async function secondHopFetch(
   const toFetch: string[] = [];
   const seen = new Set<string>(alreadyFetched);
   for (const [kw, prefix] of crmEntries) {
-    if (combinedText.includes(kw) && !seen.has(prefix)) {
+    // Space-padded generic keywords (e.g. ' sales ', ' finance ') appear in many chunks
+    // (e.g. "budget cut by finance team"). For second-hop we require structured field context:
+    // "Department: Sales" or "Sales department" — not casual mentions in Notes text.
+    const isWordBoundaryKw = kw.startsWith(' ') && kw.endsWith(' ');
+    let matches: boolean;
+    if (isWordBoundaryKw) {
+      const kwTrimmed = kw.trim();
+      // Must appear as "Department: <kw>" or "<kw> department" to count for second-hop
+      matches = new RegExp(`\\bdepartment:\\s*${kwTrimmed}\\b|\\b${kwTrimmed}\\s+department\\b`, 'i').test(combinedText);
+    } else {
+      matches = combinedText.includes(kw);
+    }
+    if (matches && !seen.has(prefix)) {
       seen.add(prefix);
       toFetch.push(prefix);
     }
@@ -443,7 +458,7 @@ export async function runGraphRag(question: string): Promise<PipelineResult & {
 }> {
   const t0 = Date.now();
   const { complexity, numHops, reason } = analyzeQuery(question);
-  const finalK = complexity === 'simple' ? 3 : complexity === 'multi-hop' ? 5 : 6;  // synthesis gets 6 chunks
+  const finalK = complexity === 'simple' ? 2 : complexity === 'multi-hop' ? 4 : 4;  // multi-hop=4 covers 1 primary + 3 second-hop entities (e.g. customer + 3 products)
   const fetchK = 15;
 
   // ── Step 1: Retrieve raw graph chunks ────────────────────────────────────
@@ -471,7 +486,9 @@ export async function runGraphRag(question: string): Promise<PipelineResult & {
   // ── Reverse product-customer lookup ─────────────────────────────────────
   // When question asks "which customers use [product]" + a product entity was detected,
   // inject representative customers so the LLM can name them.
-  const asksAboutCustomers = /customers?|who use|companies use|clients?|accounts?/i.test(question);
+  // Only trigger reverse lookup when the question asks to IDENTIFY which companies use a product,
+  // NOT when it asks for stats like "how many active customers" or "active customer count".
+  const asksAboutCustomers = /who use|which (companies|customers|businesses|organizations) use|clients? (of|using|that use)|(companies|businesses|clients) that (use|use the|are using)/i.test(question);
   const reverseCustomerChunks: string[] = [];
   if (asksAboutCustomers) {
     const customerPrefixesToFetch = articlePrefixes
@@ -500,8 +517,8 @@ export async function runGraphRag(question: string): Promise<PipelineResult & {
   const context = formatContext(retrievedChunks);
   const userPrompt = `Context:\n${context}\n\nQuestion: ${question}`;
   const groqT0 = Date.now();
-  // Synthesis questions need more tokens for multi-entity comparisons
-  const maxTokens = complexity === 'synthesis' ? 400 : 300;
+  // Synthesis questions need more tokens for multi-entity comparisons and summaries
+  const maxTokens = complexity === 'synthesis' ? 500 : 300;
   const r = await generate({ system: SYSTEM, user: userPrompt, role: 'graph', maxTokens });
   const groqLatencyMs = Date.now() - groqT0;
 
