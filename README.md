@@ -21,8 +21,8 @@ Three pipelines, identical LLM, identical data — only the retrieval method cha
 | Token reduction vs BasicRAG | — | baseline | **72.5%** |
 | Avg latency | ~1s | ~78.5s | **~9.9s** |
 | Latency reduction vs BasicRAG | — | baseline | **87.4%** |
-| BERTScore F1 (rescaled) | — | — | **0.59** (target ≥ 0.55 ✓) |
-| Questions answered / 36 | 36/36 | 14/36 | **36/36** |
+| BERTScore F1 | — | — | **0.94** |
+| Questions answered / 36 | 36/36 | 14/36 | **35/36** |
 
 > Dataset: **2.69M tokens** — 2.7× the 1M-token minimum required by judges.  
 > 21,318 vertices · 48,201 edges · 7,500 deals · 6,000 customers · 4,318 employees · 5 products.

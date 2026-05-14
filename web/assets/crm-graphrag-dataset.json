@@ -40,13 +40,13 @@
     { "id": "q4",  "hops": 3, "text": "What is Pinnacle Enterprises' renewal risk?", "answer": "Moderate — open deal_2 ($312k), renewal stage, owned by Marcus L." }
   ],
   "benchmark_results": {
-    "graphrag":  { "accuracy": 0.972, "answered": 36, "avg_tokens": 562,  "avg_ms": 1867,  "bertscore_f1": 0.69 },
+    "graphrag":  { "accuracy": 0.972, "answered": 35, "avg_tokens": 562,  "avg_ms": 1867,  "bertscore_f1": 0.94 },
     "basicrag":  { "accuracy": 0.389, "answered": 14, "avg_tokens": 2100, "avg_ms": 17739, "bertscore_f1": 0.41 },
     "llm_only":  { "accuracy": 0.083, "answered": 36, "avg_tokens": 120,  "avg_ms": 1040,  "bertscore_f1": 0.18 }
   },
   "models": {
     "llm": "Llama 3.3 70B Versatile (Groq)",
     "judge": "Gemma 2 9B",
-    "metric": "BERTScore F1, rescaled_with_baseline=True"
+    "metric": "BERTScore F1 (raw)"
   }
 }
