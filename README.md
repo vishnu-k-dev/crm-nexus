@@ -5,7 +5,7 @@ Three pipelines, identical LLM, identical data — only the retrieval method cha
 
 **Team BroCode** · Vishnu K & Revanth M
 
-[![Live Dashboard](https://img.shields.io/badge/Dashboard-Live-orange)](https://crm-nexus.vercel.app)
+[![Live Dashboard](https://img.shields.io/badge/Dashboard-Live-orange)](https://crm-nexus-team-brocode.vercel.app)
 [![TigerGraph](https://img.shields.io/badge/TigerGraph-Community%20Edition-orange)](https://tigergraph.com)
 [![Dataset](https://img.shields.io/badge/Dataset-2.69M%20tokens-blue)](./data/crm/)
 [![Eval](https://img.shields.io/badge/Eval-36%20questions-purple)](./crm_eval_results_v6.json)
