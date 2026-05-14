@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: crm-nexus-api
+    runtime: node
+    rootDir: apps/api
+    buildCommand: npm install && npm run build
+    startCommand: node dist/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: TG_GRAPHRAG_URL
+        sync: false
+      - key: TG_GRAPH_NAME
+        sync: false
+      - key: TG_USERNAME
+        sync: false
+      - key: TG_PASSWORD
+        sync: false
+      - key: GEN_MODEL
+        value: llama-3.3-70b-versatile
+      - key: JUDGE_MODEL
+        value: meta-llama/llama-4-scout-17b-16e-instruct

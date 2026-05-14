@@ -189,7 +189,7 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
         graphVertices: 21318,
         graphEdges: 48201,
         evalQuestions: results.length,
-        note: '10x the 1M-token minimum threshold required by judges',
+        note: '2.7x the 1M-token minimum threshold required by judges',
       },
       n: results.length,
       aggregate: {

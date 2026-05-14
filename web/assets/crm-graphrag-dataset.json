@@ -1,0 +1,52 @@
+{
+  "name": "crm-graphrag-benchmark",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Synthetic CRM dataset for the TigerGraph GraphRAG Inference Hackathon 2026. 21,318 entities, 48,201 edges, 36 evaluation questions across 1–3 hops.",
+  "stats": {
+    "tokens": 2690000,
+    "vertices": 21318,
+    "edges": 48201,
+    "entities": {
+      "customers": 6000,
+      "products": 5,
+      "deals": 7500,
+      "employees": 4318,
+      "departments": 5
+    },
+    "questions": {
+      "simple_1_hop": 14,
+      "multi_hop": 14,
+      "synthesis": 8,
+      "total": 36
+    }
+  },
+  "schema": {
+    "vertices": ["Customer", "Product", "Deal", "Employee", "Department", "Competitor"],
+    "edges": [
+      "Customer-[USES]->Product",
+      "Customer-[HAS_DEAL]->Deal",
+      "Deal-[OWNED_BY]->Employee",
+      "Employee-[BELONGS_TO]->Department",
+      "Product-[COMPETES_WITH]->Competitor",
+      "Customer-[ASSIGNED_TO]->Employee",
+      "Department-[HAS_BUDGET]->budget"
+    ]
+  },
+  "sample_questions": [
+    { "id": "q1",  "hops": 1, "text": "Who owns deal_1?", "answer": "Sara K. (Sales)" },
+    { "id": "q2",  "hops": 1, "text": "What competitors does CRM Enterprise face?", "answer": "HubSpot, Salesforce, Zoho" },
+    { "id": "q3",  "hops": 2, "text": "Which product has the highest NPS?", "answer": "Analytics Pro (NPS 62)" },
+    { "id": "q4",  "hops": 3, "text": "What is Pinnacle Enterprises' renewal risk?", "answer": "Moderate — open deal_2 ($312k), renewal stage, owned by Marcus L." }
+  ],
+  "benchmark_results": {
+    "graphrag":  { "accuracy": 0.972, "answered": 36, "avg_tokens": 562,  "avg_ms": 1867,  "bertscore_f1": 0.69 },
+    "basicrag":  { "accuracy": 0.389, "answered": 14, "avg_tokens": 2100, "avg_ms": 17739, "bertscore_f1": 0.41 },
+    "llm_only":  { "accuracy": 0.083, "answered": 36, "avg_tokens": 120,  "avg_ms": 1040,  "bertscore_f1": 0.18 }
+  },
+  "models": {
+    "llm": "Llama 3.3 70B Versatile (Groq)",
+    "judge": "Gemma 2 9B",
+    "metric": "BERTScore F1, rescaled_with_baseline=True"
+  }
+}

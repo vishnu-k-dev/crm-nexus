@@ -35,7 +35,8 @@ eval_results_partial.json
 eval_done_v*.txt
 data/bench_results.json
 
-# Intermediate eval versions (keep v5 = final benchmark)
+# Intermediate eval versions (keep v6 = final benchmark)
 crm_eval_results_v2.json
 crm_eval_results_v3.json
 crm_eval_results_v4.json
+crm_eval_results_v5.json
