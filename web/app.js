@@ -1,3 +1,16 @@
+/* ============ Section sidebar scroll-spy ============ */
+(function () {
+  const items = document.querySelectorAll('.sec-nav-item');
+  const sections = [...items].map(a => document.getElementById(a.dataset.sec)).filter(Boolean);
+  function activate() {
+    let current = sections[0];
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 160) current = s; });
+    items.forEach(a => a.classList.toggle('active', a.dataset.sec === current?.id));
+  }
+  window.addEventListener('scroll', activate, { passive: true });
+  activate();
+})();
+
 /* ============ Reveal on scroll ============ */
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -279,13 +292,30 @@ document.querySelectorAll('.quick-pick').forEach(btn => {
 document.getElementById('queryForm').addEventListener('submit', (ev) => {
   ev.preventDefault();
   const v = document.getElementById('queryInput').value.trim().toLowerCase();
-  // match to closest pre-baked question or default to q2
-  let match = 'q2';
-  if (v.includes('deal') || v.includes('own')) match = 'q1';
+  let match = null;
+  if (v.includes('deal_1') || (v.includes('deal') && v.includes('own'))) match = 'q1';
   else if (v.includes('competitor') || v.includes('compete')) match = 'q2';
   else if (v.includes('nps') || v.includes('highest')) match = 'q3';
-  else if (v.includes('pinnacle') || v.includes('renewal') || v.includes('risk')) match = 'q4';
-  else if (v.includes('budget') || v.includes('department') || v.includes('sales') || v.includes('engineering')) match = 'qBudget';
+  else if (v.includes('pinnacle') || (v.includes('renewal') && v.includes('risk'))) match = 'q4';
+  else if (v.includes('acme') || v.includes('total deal')) match = 'q5';
+  else if (v.includes('top performer') || (v.includes('sales') && v.includes('perform'))) match = 'q6';
+  else if (v.includes('both') || (v.includes('crm enterprise') && v.includes('analytics'))) match = 'q7';
+  else if (v.includes('lonestar') || v.includes('lone star')) match = 'q8';
+  else if (v.includes('budget') || v.includes('department') || v.includes('engineering')) match = 'qBudget';
+
+  if (!match) {
+    // Unknown question — show graceful error
+    PIPES.forEach(p => {
+      document.getElementById(`${p}-body`).innerHTML =
+        `<span style="color:var(--text-2);font-style:italic;">⏳ The live server is on free-tier and may be sleeping — custom questions aren't supported in this demo. Please pick one of the preset questions above.</span>`;
+      document.getElementById(`${p}-time`).textContent = '— ms';
+      document.getElementById(`${p}-tokens`).textContent = '— tokens';
+      const v = document.getElementById(`${p}-verdict`);
+      v.className = 'chip'; v.textContent = '—';
+    });
+    return;
+  }
+
   if (match === 'qBudget' && !QUESTIONS.qBudget) {
     QUESTIONS.qBudget = {
       text: 'Which department has the larger budget — Sales or Engineering?',
@@ -298,7 +328,7 @@ document.getElementById('queryForm').addEventListener('submit', (ev) => {
       grPass: true, brPass: false, llPass: false,
     };
   }
-  runQuery(match);
+  runQuery(match || 'q2');
 });
 
 function resetGraphState() {

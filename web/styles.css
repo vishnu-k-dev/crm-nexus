@@ -812,6 +812,32 @@ body[data-theme="dark"] .bar-annotate .label { background: var(--bg); }
 /* Bigger hero strip stats */
 .hero-strip .hs-num { font-size: 46px; }
 
+/* ── Section sidebar ── */
+.sec-nav {
+  position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 6px; z-index: 90;
+}
+.sec-nav-item {
+  display: flex; align-items: center; gap: 8px; text-decoration: none;
+  font-size: 11px; font-weight: 500; color: var(--text-2);
+  transition: color .2s;
+  white-space: nowrap;
+}
+.sec-nav-item::before {
+  content: ''; display: block; flex: none;
+  width: 16px; height: 2px; border-radius: 2px;
+  background: var(--border); transition: width .2s, background .2s;
+}
+.sec-nav-item:hover { color: var(--text); }
+.sec-nav-item:hover::before { width: 22px; background: var(--text-2); }
+.sec-nav-item.active { color: var(--orange); font-weight: 700; }
+.sec-nav-item.active::before { width: 28px; background: var(--orange); }
+/* Hide text by default, show only on hover or active */
+.sec-nav-item span { opacity: 0; transition: opacity .2s; pointer-events: none; }
+.sec-nav:hover .sec-nav-item span,
+.sec-nav-item.active span { opacity: 1; }
+@media (max-width: 1100px) { .sec-nav { display: none; } }
+
 /* Nav team info */
 .nav-team { font-family: var(--mono); font-size: 10px; color: var(--text-2); letter-spacing: 0.06em; white-space: nowrap; }
 
