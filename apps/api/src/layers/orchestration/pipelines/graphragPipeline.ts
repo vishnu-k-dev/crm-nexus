@@ -51,7 +51,7 @@ const GOOGLE_KEY    = process.env.GOOGLE_API_KEY ?? '';
 const SYSTEM = `You are a precise CRM data assistant. Today's date is 2026-05-10. Answer using ONLY the facts provided in the context.
 Rules:
 - State facts directly. Include ALL relevant numbers, names, dates, dollar amounts, percentages.
-- For arithmetic questions (seats, revenue calculations): show the calculation and result.
+- For arithmetic questions (e.g. seat count from ARR ÷ price): ONLY calculate if the question explicitly asks for a calculation. Never volunteer unsolicited breakdowns.
 - For temporal questions (renewal dates, urgency): compare dates against today (2026-05-10) to determine if past/upcoming.
 - For comparison questions: state both values then draw the conclusion.
 - For risk/synthesis questions: use health score + notes + renewal date together.
@@ -200,6 +200,11 @@ const ARTICLE_MAP: Record<string, string> = {
   'customer success department': 'crm_department_dept_3',
   'customer success dept': 'crm_department_dept_3',
   'customer success': 'crm_department_dept_3',
+  // Short department names — for synthesis questions like "Sales vs Engineering budget"
+  // Space-padded to avoid matching "salesforce", "engineering manager", etc.
+  ' sales ': 'crm_department_dept_1',
+  ' engineering ': 'crm_department_dept_2',
+  ' finance ': 'crm_department_dept_5',
   'marketing department': 'crm_product_prod_5',
   'marketing hub': 'crm_product_prod_5',
   'revenue intelligence': 'crm_product_prod_8',
@@ -495,7 +500,9 @@ export async function runGraphRag(question: string): Promise<PipelineResult & {
   const context = formatContext(retrievedChunks);
   const userPrompt = `Context:\n${context}\n\nQuestion: ${question}`;
   const groqT0 = Date.now();
-  const r = await generate({ system: SYSTEM, user: userPrompt, role: 'graph', maxTokens: 300 });
+  // Synthesis questions need more tokens for multi-entity comparisons
+  const maxTokens = complexity === 'synthesis' ? 400 : 300;
+  const r = await generate({ system: SYSTEM, user: userPrompt, role: 'graph', maxTokens });
   const groqLatencyMs = Date.now() - groqT0;
 
   return {

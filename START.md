@@ -6,9 +6,12 @@
 
 ## 1. Docker containers (TigerGraph)
 
+> ⚠️ The TigerGraph containers are NOT in the project's docker-compose.yml.
+> They exist as named containers — start them by name directly.
+
 ```powershell
-# From project root — creda-graphrag/
-docker compose up -d
+# Start TigerGraph containers by name (they persist between sessions)
+docker start tg-graphrag-db graphrag-ecc
 
 # Wait ~60s then verify BOTH containers are healthy/running:
 docker ps
@@ -27,8 +30,9 @@ curl http://127.0.0.1:14240/restpp/graph/MyGraph/vertices/Content/crm_employee_e
 # Should return Paul Robinson's JSON, not a connection error
 ```
 
-> If `tg-graphrag-db` is not healthy after 90s: `docker compose restart tg-graphrag-db`
-> If RESTPP returns 401: password may differ — check .env for TG_PASSWORD
+> If `tg-graphrag-db` is not healthy after 90s: `docker restart tg-graphrag-db`
+> If containers are gone (rare): check CONTEXT.md for re-ingestion steps
+> Do NOT run `docker compose up -d` from project root — that starts the Node.js app containers, not TigerGraph
 
 ---
 
