@@ -1,5 +1,13 @@
 {
-  "buildCommand": null,
-  "installCommand": null,
-  "outputDirectory": "web"
+  "version": 2,
+  "builds": [
+    { "src": "web/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/assets/(.*)", "dest": "/web/assets/$1" },
+    { "src": "/app.js",      "dest": "/web/app.js" },
+    { "src": "/styles.css",  "dest": "/web/styles.css" },
+    { "src": "/tweaks.js",   "dest": "/web/tweaks.js" },
+    { "src": "/(.*)",        "dest": "/web/index.html" }
+  ]
 }
