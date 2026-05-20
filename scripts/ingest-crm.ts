@@ -100,10 +100,13 @@ function buildJsonl(): string[] {
   const jsonlLines: string[] = [];
   for (const [docId, texts] of docMap.entries()) {
     const content = texts.join('\n\n---\n\n');
-    // Truncate to 50k chars per document (TG GSQL string limit)
+    // Truncate to 50k chars per document (TG GSQL string limit).
+    // doc_type MUST be 'character' (singular) — TigerGraph's ECC chunker
+    // registry uses the singular form; 'characters' raises
+    // ValueError: Invalid chunker type at chunk_doc time.
     jsonlLines.push(JSON.stringify({
       doc_id: docId,
-      doc_type: 'characters',
+      doc_type: 'character',
       content: content.slice(0, 50_000),
     }));
   }

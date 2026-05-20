@@ -182,14 +182,14 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
     const pct = (num: number, den: number) => den > 0 ? (num / den * 100).toFixed(1) + '%' : 'N/A';
 
     const payload = {
-      dataset: 'Synthetic CRM (2.69M tokens / 21,318 entities)',
+      dataset: 'Synthetic CRM (19.02M tokens / 159,338 entities)',
       datasetStats: {
-        totalTokens: 2_690_000,
-        totalEntities: 21_318,
-        graphVertices: 21318,
-        graphEdges: 48201,
+        totalTokens: 19_020_000,
+        totalEntities: 159_338,
+        graphVertices: 159338,
+        graphEdges: 478014,
         evalQuestions: results.length,
-        note: '2.7x the 1M-token minimum threshold required by judges',
+        note: '19x the 1M-token minimum threshold required by judges',
       },
       n: results.length,
       aggregate: {
@@ -209,7 +209,7 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
           llmOnly:  Math.round(tokenSums.llm / n),
           basicRag: Math.round(matchedBrTokens / mn),
           graphrag: Math.round(matchedGrTokens / mn),
-          note: `Averages on ${matchedN} matched-pair questions (both pipelines answered). BasicRAG failed on ${tokenN - matchedN} CRM-specific questions (entities not in Wikipedia vector store).`,
+          note: `Averages on ${matchedN} matched-pair questions (both pipelines answered). BasicRAG failed on ${tokenN - matchedN} CRM-specific questions where its flat cosine retrieval drowned in the 19M-token corpus.`,
         },
         tokenReductionVsBasicRag: matchedBrTokens > 0
           ? (((matchedBrTokens - matchedGrTokens) / matchedBrTokens) * 100).toFixed(1) + '%'
