@@ -48,6 +48,16 @@ async function tgPost(path: string, body: Record<string, unknown>): Promise<Reco
   try { return JSON.parse(text) as Record<string, unknown>; } catch { return { raw: text }; }
 }
 
+async function tgGet(path: string): Promise<Record<string, unknown>> {
+  const res = await fetch(`${TG_URL}/${path}`, {
+    method: 'GET',
+    headers: { 'Authorization': `Basic ${AUTH}` },
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`GET ${path} → ${res.status}: ${text.slice(0, 400)}`);
+  try { return JSON.parse(text) as Record<string, unknown>; } catch { return { raw: text }; }
+}
+
 function run(cmd: string, input?: string): string {
   try {
     return execSync(cmd, {
@@ -136,24 +146,18 @@ function runLoadingJob(): void {
 
 async function forceUpdate(docIds: string[]): Promise<void> {
   console.log(`\n[4/4] Triggering TigerGraph ECC to chunk + embed ${docIds.length} documents…`);
-  console.log('      (This runs async inside TigerGraph — takes 5-30 min for full dataset)');
+  console.log('      (This runs async inside TigerGraph — takes 30-90 min for the 19M-token corpus)');
 
-  // Send in batches to avoid request size limits
-  let done = 0;
-  for (let i = 0; i < docIds.length; i += BATCH_SIZE) {
-    const batch = docIds.slice(i, i + BATCH_SIZE);
-    try {
-      await tgPost(`${GRAPH_NAME}/graphrag/forceupdate`, { doc_ids: batch });
-      done += batch.length;
-      process.stdout.write(`\r      ✓ Submitted ${done}/${docIds.length} documents…`);
-    } catch (err) {
-      console.warn(`\n      ⚠ Batch ${i}-${i + BATCH_SIZE} failed: ${(err as Error).message.slice(0, 100)}`);
-    }
-    if (i + BATCH_SIZE < docIds.length) {
-      await new Promise(r => setTimeout(r, 500));
-    }
+  // TigerGraph 4.2 GraphRAG starter kit: forceupdate is a GET endpoint that
+  // scans for any Document with epoch_processed=0 and submits them all.
+  // No body required, no batching — one call kicks off processing for every
+  // un-processed doc currently in the graph.
+  try {
+    const result = await tgGet(`${GRAPH_NAME}/graphrag/forceupdate`);
+    console.log(`      ✓ Submitted: ${JSON.stringify(result)}`);
+  } catch (err) {
+    console.warn(`      ⚠ forceupdate failed: ${(err as Error).message.slice(0, 200)}`);
   }
-  console.log(`\n      ✓ All ${done} documents submitted for embedding.`);
   console.log('      TigerGraph is now chunking + embedding in the background.');
   console.log('      Check status: GET /MyGraph/graphrag/status');
 }

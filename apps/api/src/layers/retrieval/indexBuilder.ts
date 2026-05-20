@@ -15,7 +15,11 @@ import { join } from 'node:path';
 import { loadChunks, embedText, setReady, type Chunk } from './vectorStore.js';
 
 const EMBED_BATCH  = 8;
-const TARGET_TOTAL = 1000;
+// v7 (19M-token corpus): bumped from 1k → 5k so BasicRAG actually has to scan
+// a meaningful slice of the new entities. With 159K chunks total, a 5k random
+// sample at TARGET_TOTAL=5000 still leaves BasicRAG drowning while keeping
+// initial embed time under 1 hr on the Jina free tier (5s sleep per batch of 8).
+const TARGET_TOTAL = 5000;
 
 const DATA_DIR   = existsSync(join(process.cwd(), 'data'))
   ? join(process.cwd(), 'data')
@@ -23,13 +27,28 @@ const DATA_DIR   = existsSync(join(process.cwd(), 'data'))
 const CACHE_PATH  = join(DATA_DIR, 'embed_cache.json');
 const CRM_CHUNKS  = join(DATA_DIR, 'crm', 'chunks.jsonl');
 
-// Every entity referenced in eval_questions.json — always included
+// Every entity referenced in eval_questions.json — always included.
+// v6 ids: original 36 hand-crafted questions.
+// v7 ids: 20 new graph-friendly questions targeting activity / QBR / amendment entities.
 const EVAL_ENTITIES = new Set([
+  // v6
   'cust_1', 'cust_2', 'cust_3', 'cust_5', 'cust_6', 'cust_8', 'cust_10',
   'emp_1', 'emp_20', 'emp_97', 'emp_103',
   'prod_1', 'prod_2', 'prod_4', 'prod_5', 'prod_8',
   'dept_1', 'dept_2', 'dept_5',
   'deal_1', 'deal_5',
+  // v7 — activities
+  'activity_1', 'activity_42', 'activity_1000',
+  // v7 — deals referenced by new questions
+  'deal_100', 'deal_500', 'deal_45', 'deal_287', 'deal_2375',
+  // v7 — QBRs
+  'qbr_cust_1_Q3_2025', 'qbr_cust_5_Q1_2025', 'qbr_cust_10_Q4_2024', 'qbr_cust_50_Q2_2025',
+  // v7 — customers referenced by new questions
+  'cust_100', 'cust_200', 'cust_904',
+  // v7 — amendments
+  'amendment_1', 'amendment_591', 'amendment_5',
+  // v7 — employees
+  'emp_12',
 ]);
 
 interface CrmChunk { id: string; source_type: string; source_id: string; text: string }
