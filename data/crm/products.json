@@ -16,15 +16,15 @@
       "Salesforce sync"
     ],
     "pricing_model": "Per Seat/Month",
-    "annual_revenue_usd": 4357770,
-    "active_customers": 704,
-    "nps": 58,
+    "annual_revenue_usd": 2244870,
+    "active_customers": 1389,
+    "nps": 32,
     "competitors": [
-      "Notion",
+      "Airtable",
       "Pipedrive",
-      "Salesforce"
+      "Freshdesk"
     ],
-    "roadmap_q4": "Release native notification system."
+    "roadmap_q4": "Deliver redesigned reporting."
   },
   {
     "id": "prod_2",
@@ -42,16 +42,16 @@
       "Custom integrations",
       "On-premise option"
     ],
-    "pricing_model": "Per Seat/Month",
-    "annual_revenue_usd": 2722813,
-    "active_customers": 1389,
-    "nps": 34,
+    "pricing_model": "Annual Contract",
+    "annual_revenue_usd": 17867413,
+    "active_customers": 1627,
+    "nps": 45,
     "competitors": [
-      "Notion",
-      "HubSpot",
-      "Monday.com"
+      "Pipedrive",
+      "Airtable",
+      "Zendesk"
     ],
-    "roadmap_q4": "Launch AI-powered mobile app."
+    "roadmap_q4": "Launch AI-powered notification system."
   },
   {
     "id": "prod_3",
@@ -67,16 +67,16 @@
       "Data warehouse sync",
       "Collaboration tools"
     ],
-    "pricing_model": "Flat Rate/Month",
-    "annual_revenue_usd": 3189818,
-    "active_customers": 316,
-    "nps": 54,
+    "pricing_model": "Per Seat/Month",
+    "annual_revenue_usd": 7873188,
+    "active_customers": 1951,
+    "nps": 63,
     "competitors": [
-      "Monday.com",
-      "Notion",
-      "Airtable"
+      "Intercom",
+      "Marketo",
+      "Monday.com"
     ],
-    "roadmap_q4": "Launch native analytics dashboard."
+    "roadmap_q4": "Ship native API v2."
   },
   {
     "id": "prod_4",
@@ -93,15 +93,15 @@
       "Ticket automation"
     ],
     "pricing_model": "Usage Based",
-    "annual_revenue_usd": 11505520,
-    "active_customers": 589,
-    "nps": 36,
+    "annual_revenue_usd": 3907796,
+    "active_customers": 1242,
+    "nps": 57,
     "competitors": [
-      "Salesforce",
-      "Pipedrive",
-      "Monday.com"
+      "Airtable",
+      "Marketo",
+      "HubSpot"
     ],
-    "roadmap_q4": "Launch redesigned mobile app."
+    "roadmap_q4": "Launch AI-powered notification system."
   },
   {
     "id": "prod_5",
@@ -117,16 +117,16 @@
       "Attribution reporting",
       "Social scheduling"
     ],
-    "pricing_model": "Annual Contract",
-    "annual_revenue_usd": 15863918,
-    "active_customers": 1180,
-    "nps": 32,
+    "pricing_model": "Per Seat/Month",
+    "annual_revenue_usd": 2028946,
+    "active_customers": 1931,
+    "nps": 39,
     "competitors": [
       "Marketo",
       "Airtable",
-      "Pipedrive"
+      "Salesforce"
     ],
-    "roadmap_q4": "Ship native API v2."
+    "roadmap_q4": "Release redesigned bulk operations."
   },
   {
     "id": "prod_6",
@@ -142,16 +142,16 @@
       "CSV import",
       "CRM sync"
     ],
-    "pricing_model": "Per Seat/Month",
-    "annual_revenue_usd": 3531278,
-    "active_customers": 495,
-    "nps": 31,
+    "pricing_model": "Flat Rate/Month",
+    "annual_revenue_usd": 3081456,
+    "active_customers": 659,
+    "nps": 54,
     "competitors": [
-      "Pipedrive",
-      "Freshdesk",
-      "Notion"
+      "Notion",
+      "Airtable",
+      "HubSpot"
     ],
-    "roadmap_q4": "Release enhanced API v2."
+    "roadmap_q4": "Deliver AI-powered API v2."
   },
   {
     "id": "prod_7",
@@ -167,16 +167,16 @@
       "Inventory",
       "Customer portal"
     ],
-    "pricing_model": "Flat Rate/Month",
-    "annual_revenue_usd": 15471133,
-    "active_customers": 323,
-    "nps": 37,
+    "pricing_model": "Usage Based",
+    "annual_revenue_usd": 15072254,
+    "active_customers": 1019,
+    "nps": 66,
     "competitors": [
-      "Intercom",
-      "Airtable",
-      "Salesforce"
+      "Salesforce",
+      "Pipedrive",
+      "Freshdesk"
     ],
-    "roadmap_q4": "Launch redesigned integrations."
+    "roadmap_q4": "Deliver redesigned notification system."
   },
   {
     "id": "prod_8",
@@ -192,15 +192,15 @@
       "Coaching insights",
       "Pipeline alerts"
     ],
-    "pricing_model": "Annual Contract",
-    "annual_revenue_usd": 10969277,
-    "active_customers": 527,
-    "nps": 65,
+    "pricing_model": "Flat Rate/Month",
+    "annual_revenue_usd": 17545375,
+    "active_customers": 454,
+    "nps": 44,
     "competitors": [
-      "Marketo",
+      "Salesforce",
       "Zendesk",
-      "HubSpot"
+      "Freshdesk"
     ],
-    "roadmap_q4": "Launch native integrations."
+    "roadmap_q4": "Launch AI-powered API v2."
   }
 ]

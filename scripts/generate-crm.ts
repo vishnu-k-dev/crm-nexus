@@ -277,6 +277,117 @@ for (let i = 1; i <= 15000; i++) {
   tickets.push(ticket);
 }
 
+// ── 5b. Activities (sales calls / emails / meetings logged on deals) ─────────
+//        These bloat the BasicRAG corpus (each is ~150 tokens of unstructured
+//        text) while remaining cheap for GraphRAG: each Activity is a leaf
+//        vertex reachable in one hop from Customer / Employee / Deal.
+console.log('Generating activities...');
+const activities: Record<string, unknown>[] = [];
+const ACTIVITY_TYPES = ['call', 'email', 'meeting', 'demo', 'follow_up'];
+const CALL_OUTCOMES = ['Connected — strong interest', 'Connected — needs more info', 'Voicemail left', 'No answer', 'Connected — pricing objection', 'Connected — champion identified', 'Connected — moving to next stage', 'Connected — competitor mentioned', 'Connected — budget confirmed', 'Connected — decision delayed'];
+const MEETING_TOPICS = ['discovery', 'product demo', 'pricing review', 'technical deep-dive', 'security review', 'executive alignment', 'POC kickoff', 'contract negotiation', 'renewal planning', 'expansion discussion', 'QBR prep', 'onboarding handoff'];
+const NEXT_STEPS = ['Send pricing proposal by EOW', 'Schedule technical deep-dive with engineering', 'Loop in legal for MSA review', 'Run ROI analysis and share', 'Schedule exec sponsor meeting', 'Follow up with champion next week', 'Send case study from similar industry', 'Coordinate POC with IT', 'Confirm budget owner', 'Push to procurement stage'];
+const dealsArr = deals as Array<Record<string, unknown>>;
+for (let i = 1; i <= 120000; i++) {
+  const deal = pick(dealsArr);
+  const type = pick(ACTIVITY_TYPES);
+  const owner = employees.find(e => e.id === deal.owner_id) as Record<string, unknown>;
+  const topic = pick(MEETING_TOPICS);
+  const outcome = pick(CALL_OUTCOMES);
+  const nextStep = pick(NEXT_STEPS);
+  const date = randDate(2024, 2025);
+  const duration = type === 'email' ? 0 : type === 'call' ? randInt(5, 45) : randInt(30, 90);
+  const subject = type === 'email'
+    ? `[Email] ${pick(['Re:', 'Follow-up:', 'Quick question on', 'Update on', 'Next steps —'])} ${topic} — ${deal.customer_name}`
+    : type === 'meeting' || type === 'demo'
+    ? `[${type === 'demo' ? 'Demo' : 'Meeting'}] ${topic} with ${deal.customer_name}`
+    : `[Call] ${topic} — ${deal.customer_name}`;
+  const summary = type === 'email'
+    ? `Sent email regarding ${topic}. ${pick(['Attached the ROI deck.', 'Included pricing breakdown.', 'Shared customer reference from similar account.', 'Linked technical documentation.', 'Asked for budget timeline.'])} Awaiting response from ${pick(['champion', 'economic buyer', 'technical evaluator', 'procurement'])}.`
+    : `${duration}-minute ${type} with ${deal.customer_name}. Covered ${topic}. ${pick(['Walked through the platform end-to-end.', 'Reviewed integration requirements.', 'Discussed deployment timeline.', 'Aligned on success criteria.', 'Identified key stakeholders.', 'Surfaced budget constraints.', 'Confirmed technical fit.'])} Outcome: ${outcome}.`;
+  const activity = {
+    id: `activity_${i}`,
+    type,
+    date,
+    duration_min: duration,
+    deal_id: deal.id,
+    deal_title: deal.title,
+    customer_id: deal.customer_id,
+    customer_name: deal.customer_name,
+    employee_id: owner?.id ?? deal.owner_id,
+    employee_name: owner?.name ?? deal.owner_name,
+    subject,
+    summary,
+    outcome: type === 'call' || type === 'meeting' || type === 'demo' ? outcome : null,
+    next_step: nextStep,
+  };
+  activities.push(activity);
+}
+
+// ── 5c. QBRs (Quarterly Business Reviews) ────────────────────────────────────
+//        One QBR per customer per quarter across 2024 Q1 → 2025 Q4 (8 quarters).
+//        Rich text (~500 tokens each) so BasicRAG's embedding space gets noisy.
+console.log('Generating QBRs...');
+const qbrs: Record<string, unknown>[] = [];
+const QBR_QUARTERS = ['Q1 2024','Q2 2024','Q3 2024','Q4 2024','Q1 2025','Q2 2025','Q3 2025','Q4 2025'];
+const QBR_RATINGS = ['Green','Yellow','Red'];
+const QBR_THEMES = ['Adoption is accelerating across the org', 'Champion turnover creates risk', 'Expansion conversation moving forward', 'Integration gaps blocking power users', 'NPS trending up after recent release', 'Support ticket volume elevated', 'Executive sponsor reaffirmed commitment', 'Budget pressure mentioned for next FY', 'New use case identified in finance team', 'Competitive evaluation underway', 'Implementation team is finally fully ramped', 'Renewal conversations starting early'];
+const QBR_ACTIONS = ['Schedule executive sponsor sync', 'Add dedicated TAM for next quarter', 'Run targeted enablement workshop', 'Build custom dashboard for VP', 'Accelerate integration with internal data warehouse', 'Coordinate joint marketing case study', 'Loop product team on feature gap', 'Set up monthly steering committee', 'Run technical health check', 'Co-author ROI report for board'];
+const customersArr = customers as Array<Record<string, unknown>>;
+for (const cust of customersArr) {
+  const csm = employees.find(e => e.id === cust.csm_id) as Record<string, unknown> | undefined;
+  for (const q of QBR_QUARTERS) {
+    const id = `qbr_${cust.id}_${q.replace(' ', '_')}`;
+    const health = cust.health_label as string;
+    const rating = health === 'Healthy' ? pick(['Green','Green','Green','Yellow']) : health === 'At Risk' ? pick(['Yellow','Yellow','Red','Green']) : pick(['Red','Red','Yellow']);
+    const nps = randInt(1, 10);
+    const themes = shuffle(QBR_THEMES).slice(0, 3);
+    const actions = shuffle(QBR_ACTIONS).slice(0, 2);
+    qbrs.push({
+      id,
+      customer_id: cust.id,
+      customer_name: cust.company_name,
+      employee_id: csm?.id ?? cust.csm_id,
+      employee_name: csm?.name ?? '',
+      quarter: q,
+      rating,
+      nps_score: nps,
+      attendees: [(cust.primary_contact as string), (csm?.name as string) ?? 'CSM', pick(employees).name].filter(Boolean).join(', '),
+      themes,
+      action_items: actions,
+      summary: `Quarterly Business Review with ${cust.company_name} for ${q}. Overall health rating: ${rating} (NPS ${nps}/10). Key themes raised by the customer: ${themes.join('; ')}. Products in scope: ${(cust.products_subscribed as string[]).join(', ')}. ARR currently $${(cust.arr_usd as number).toLocaleString()}. The CSM team committed to the following action items: ${actions.join('; ')}. Next QBR scheduled for the following quarter.`,
+    });
+  }
+}
+
+// ── 5d. Contract Amendments (renewals, expansions, downsells per deal) ──────
+console.log('Generating contract amendments...');
+const amendments: Record<string, unknown>[] = [];
+const AMENDMENT_TYPES = ['Renewal', 'Expansion', 'Downsell', 'Pricing Change', 'Term Extension'];
+let amendId = 1;
+for (const deal of dealsArr) {
+  const count = randInt(0, 4);  // up to 4 amendments per deal, avg ~2
+  for (let k = 0; k < count; k++) {
+    const type = pick(AMENDMENT_TYPES);
+    const oldValue = deal.value_usd as number;
+    const delta = type === 'Expansion' ? randInt(10000, 200000) : type === 'Downsell' ? -randInt(5000, 50000) : type === 'Renewal' ? randInt(-20000, 50000) : type === 'Pricing Change' ? randInt(-10000, 30000) : 0;
+    const newValue = Math.max(0, oldValue + delta);
+    amendments.push({
+      id: `amendment_${amendId++}`,
+      deal_id: deal.id,
+      deal_title: deal.title,
+      customer_id: deal.customer_id,
+      customer_name: deal.customer_name,
+      type,
+      effective_date: randDate(2024, 2025),
+      previous_value_usd: oldValue,
+      new_value_usd: newValue,
+      delta_usd: delta,
+      reason: `${type} for ${deal.customer_name}. ${type === 'Expansion' ? `Customer added ${randInt(10, 100)} seats and a new module (${pick(PRODUCTS).name}). Driven by ${pick(['headcount growth', 'new department adoption', 'cross-sell to operations team', 'M&A activity'])}.` : type === 'Downsell' ? `Customer reduced seats by ${randInt(5, 50)}. Reason: ${pick(['layoffs and budget cuts', 'consolidation onto a single platform', 'pilot didn\'t expand as planned', 'budget freeze for FY'])}.` : type === 'Renewal' ? `Annual renewal completed. ${pick(['Minor uplift on price per seat', 'Flat renewal — no changes', 'Locked in 3-year term for discount', 'Renewed with annual auto-renew clause'])}.` : type === 'Pricing Change' ? `Negotiated pricing adjustment. ${pick(['Volume discount applied', 'Multi-year commitment in exchange for lower rate', 'Promotional pricing for new product bundle'])}.` : `Term extended by ${pick(['6 months', '12 months', '24 months'])} at customer request to align renewal cycles.`}`,
+    });
+  }
+}
+
 // ── 6. Products ───────────────────────────────────────────────────────────────
 console.log('Generating products...');
 const products = PRODUCTS.map((p, i) => ({
@@ -297,6 +408,9 @@ writeFileSync(join(OUT_DIR, 'employees.json'),   JSON.stringify(employees,   nul
 writeFileSync(join(OUT_DIR, 'customers.json'),   JSON.stringify(customers,   null, 2));
 writeFileSync(join(OUT_DIR, 'deals.json'),       JSON.stringify(deals,       null, 2));
 writeFileSync(join(OUT_DIR, 'tickets.json'),     JSON.stringify(tickets,     null, 2));
+writeFileSync(join(OUT_DIR, 'activities.json'),  JSON.stringify(activities,  null, 2));
+writeFileSync(join(OUT_DIR, 'qbrs.json'),        JSON.stringify(qbrs,        null, 2));
+writeFileSync(join(OUT_DIR, 'amendments.json'),  JSON.stringify(amendments,  null, 2));
 writeFileSync(join(OUT_DIR, 'products.json'),    JSON.stringify(products,    null, 2));
 
 // ── Convert to chunked documents for TigerGraph ingest ────────────────────────
@@ -337,6 +451,21 @@ for (const product of products) {
     { category: product.category });
 }
 
+for (const a of activities as Array<Record<string,unknown>>) {
+  addChunk('activity', a.id as string, `Activity: ${a.subject}\nType: ${a.type}\nDate: ${a.date}\nDuration: ${a.duration_min} minutes\nDeal: ${a.deal_title} (${a.deal_id})\nCustomer: ${a.customer_name} (${a.customer_id})\nOwner: ${a.employee_name} (${a.employee_id})\n${a.outcome ? `Outcome: ${a.outcome}\n` : ''}Summary: ${a.summary}\nNext Step: ${a.next_step}`,
+    { type: a.type, deal_id: a.deal_id, customer_id: a.customer_id, employee_id: a.employee_id, date: a.date });
+}
+
+for (const q of qbrs as Array<Record<string,unknown>>) {
+  addChunk('qbr', q.id as string, `Quarterly Business Review: ${q.customer_name} — ${q.quarter}\nCustomer: ${q.customer_name} (${q.customer_id})\nCSM: ${q.employee_name} (${q.employee_id})\nQuarter: ${q.quarter}\nRating: ${q.rating}\nNPS Score: ${q.nps_score}/10\nAttendees: ${q.attendees}\nKey Themes: ${(q.themes as string[]).join('; ')}\nAction Items: ${(q.action_items as string[]).join('; ')}\nSummary: ${q.summary}`,
+    { quarter: q.quarter, rating: q.rating, customer_id: q.customer_id, employee_id: q.employee_id });
+}
+
+for (const am of amendments as Array<Record<string,unknown>>) {
+  addChunk('amendment', am.id as string, `Contract Amendment: ${am.type} on ${am.deal_title}\nAmendment Type: ${am.type}\nDeal: ${am.deal_title} (${am.deal_id})\nCustomer: ${am.customer_name} (${am.customer_id})\nEffective Date: ${am.effective_date}\nPrevious Value: $${(am.previous_value_usd as number).toLocaleString()}\nNew Value: $${(am.new_value_usd as number).toLocaleString()}\nDelta: ${(am.delta_usd as number) >= 0 ? '+' : ''}$${(am.delta_usd as number).toLocaleString()}\nReason: ${am.reason}`,
+    { type: am.type, deal_id: am.deal_id, customer_id: am.customer_id, effective_date: am.effective_date });
+}
+
 writeFileSync(join(OUT_DIR, 'chunks.jsonl'), chunks.map(c => JSON.stringify(c)).join('\n'));
 
 // ── Token estimate ─────────────────────────────────────────────────────────────
@@ -348,6 +477,9 @@ console.log(`   Employees   : ${employees.length}`);
 console.log(`   Customers   : ${customers.length}`);
 console.log(`   Deals       : ${deals.length}`);
 console.log(`   Tickets     : ${tickets.length}`);
+console.log(`   Activities  : ${activities.length}`);
+console.log(`   QBRs        : ${qbrs.length}`);
+console.log(`   Amendments  : ${amendments.length}`);
 console.log(`   Products    : ${products.length}`);
 console.log(`\nOutput: ${OUT_DIR}/`);
 
@@ -637,7 +769,9 @@ const evalQuestions = [
   },
 ];
 
-writeFileSync(join(OUT_DIR, 'eval_questions.json'), JSON.stringify(evalQuestions, null, 2));
+// Note: do NOT overwrite the curated eval_questions.json (36 v6 questions + 20 v7 additions).
+// The auto-generated set lands in eval_questions_auto.json for inspection only.
+writeFileSync(join(OUT_DIR, 'eval_questions_auto.json'), JSON.stringify(evalQuestions, null, 2));
 console.log(`✅ Generated ${evalQuestions.length} eval questions`);
 console.log('\n🎉 CRM dataset generation complete!');
 console.log('Next: npx tsx scripts/ingest-crm.ts  — to load into TigerGraph');

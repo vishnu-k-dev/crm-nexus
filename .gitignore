@@ -16,9 +16,13 @@ coverage/
 .vscode/
 *.tsbuildinfo
 
-# Large data files
+# Large data files (regeneratable from generate-crm.ts)
 data/embed_cache.json
 data/crm/chunks.jsonl
+data/crm/activities.json
+data/crm/qbrs.json
+data/crm/amendments.json
+data/crm/eval_questions_auto.json
 data/crm_ingest.jsonl
 data/wiki_ingest.jsonl
 data/wikipedia/

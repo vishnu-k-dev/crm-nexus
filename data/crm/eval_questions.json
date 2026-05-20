@@ -250,5 +250,145 @@
     "type": "multi_hop",
     "hops": 2,
     "entities": ["cust_10"]
+  },
+  {
+    "question": "What was the outcome of activity_1?",
+    "answer": "The outcome of activity_1 was: Connected — competitor mentioned.",
+    "type": "simple",
+    "hops": 1,
+    "entities": ["activity_1"]
+  },
+  {
+    "question": "Who is the owner of activity_42 and what deal is it logged on?",
+    "answer": "Activity_42 is owned by Megan Phillips and is logged on the Helix Technologies 485 — Sales Intelligence Opportunity deal.",
+    "type": "simple",
+    "hops": 1,
+    "entities": ["activity_42"]
+  },
+  {
+    "question": "What is the next step recorded on activity_1000?",
+    "answer": "The next step recorded on activity_1000 is: Confirm budget owner.",
+    "type": "simple",
+    "hops": 1,
+    "entities": ["activity_1000"]
+  },
+  {
+    "question": "How many activities are logged on deal_100?",
+    "answer": "There are 28 activities logged on deal_100.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": ["deal_100"]
+  },
+  {
+    "question": "What is the most recent activity logged on deal_1, and on what date?",
+    "answer": "The most recent activity on deal_1 is an Email titled 'Update on onboarding handoff — Nova Ventures 656', dated 2025-12-19.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": ["deal_1"]
+  },
+  {
+    "question": "How many calls were logged on deal_500?",
+    "answer": "There were 4 calls logged on deal_500.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": ["deal_500"]
+  },
+  {
+    "question": "What was the rating and NPS score in cust_1's Q3 2025 QBR?",
+    "answer": "Cust_1's Q3 2025 QBR was rated Yellow with an NPS score of 6/10.",
+    "type": "simple",
+    "hops": 1,
+    "entities": ["qbr_cust_1_Q3_2025"]
+  },
+  {
+    "question": "Who conducted cust_5's Q1 2025 QBR?",
+    "answer": "Cust_5's Q1 2025 QBR was conducted by Christina Richardson.",
+    "type": "simple",
+    "hops": 1,
+    "entities": ["qbr_cust_5_Q1_2025"]
+  },
+  {
+    "question": "What action items were committed in cust_10's Q4 2024 QBR?",
+    "answer": "The action items committed in cust_10's Q4 2024 QBR were: Set up monthly steering committee; Build custom dashboard for VP.",
+    "type": "simple",
+    "hops": 1,
+    "entities": ["qbr_cust_10_Q4_2024"]
+  },
+  {
+    "question": "What key themes were raised in cust_50's Q2 2025 QBR?",
+    "answer": "The key themes raised in cust_50's Q2 2025 QBR were: Champion turnover creates risk; Implementation team is finally fully ramped; New use case identified in finance team.",
+    "type": "simple",
+    "hops": 1,
+    "entities": ["qbr_cust_50_Q2_2025"]
+  },
+  {
+    "question": "What was the rating in cust_100's most recent QBR?",
+    "answer": "Cust_100's most recent QBR (Q4 2025) received a Red rating.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": ["cust_100"]
+  },
+  {
+    "question": "How many QBRs has cust_200 had on record?",
+    "answer": "Cust_200 has 8 QBRs on record (one per quarter from Q1 2024 to Q4 2025).",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": ["cust_200"]
+  },
+  {
+    "question": "What type of amendment is amendment_1 and what was the value change?",
+    "answer": "Amendment_1 is a Renewal with a value change of +$39,337, moving the deal from $60,400 to $99,737.",
+    "type": "simple",
+    "hops": 1,
+    "entities": ["amendment_1"]
+  },
+  {
+    "question": "How many amendments has deal_45 had, and what is the cumulative value change?",
+    "answer": "Deal_45 has had 3 amendments with a cumulative value change of -$4,442.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": ["deal_45"]
+  },
+  {
+    "question": "Was there an expansion amendment on deal_287? If so, what was the value increase?",
+    "answer": "Yes, amendment_591 is an Expansion on deal_287 with a value increase of +$108,772.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": ["deal_287", "amendment_591"]
+  },
+  {
+    "question": "What was the reason cited on amendment_5 (a Downsell)?",
+    "answer": "Amendment_5 was a Downsell for Helix Partners 737. The customer reduced seats by 26 due to layoffs and budget cuts.",
+    "type": "simple",
+    "hops": 1,
+    "entities": ["amendment_5"]
+  },
+  {
+    "question": "Which customer has the most logged activities, and how many?",
+    "answer": "Keystone Group 904 (cust_904) has the most logged activities with 380 entries.",
+    "type": "synthesis",
+    "hops": 3,
+    "entities": ["cust_904"]
+  },
+  {
+    "question": "Which employee has logged the most calls, and how many?",
+    "answer": "Nicholas King (emp_12) has logged the most calls with 892 entries.",
+    "type": "synthesis",
+    "hops": 3,
+    "entities": ["emp_12"]
+  },
+  {
+    "question": "Which deal had the largest cumulative expansion amendment value, and what amount?",
+    "answer": "Deal_2375 had the largest cumulative expansion amendments at +$504,929.",
+    "type": "synthesis",
+    "hops": 3,
+    "entities": ["deal_2375"]
+  },
+  {
+    "question": "How many QBRs in total received a Red rating?",
+    "answer": "A total of 2,674 QBRs received a Red rating across all customers.",
+    "type": "synthesis",
+    "hops": 2,
+    "entities": ["QBR"]
   }
 ]
