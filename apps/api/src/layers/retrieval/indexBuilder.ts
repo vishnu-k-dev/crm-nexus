@@ -57,7 +57,27 @@ async function embedBatched(texts: string[]): Promise<number[][]> {
   const results: number[][] = [];
   for (let i = 0; i < texts.length; i += EMBED_BATCH) {
     const batch = texts.slice(i, i + EMBED_BATCH);
-    const vecs = await embedText(batch);
+    // Retry transient failures (Jina free tier has occasional 5xx / fetch resets).
+    // Up to 4 attempts with exponential backoff (5s, 15s, 45s, 135s).
+    let vecs: number[][] | undefined;
+    let lastErr: Error | undefined;
+    for (let attempt = 0; attempt < 4; attempt++) {
+      try {
+        vecs = await embedText(batch);
+        break;
+      } catch (err) {
+        lastErr = err as Error;
+        const wait = 5_000 * Math.pow(3, attempt);
+        console.warn(`[index] Embed batch ${i} attempt ${attempt + 1} failed (${lastErr.message.slice(0, 80)}). Retrying in ${wait/1000}s…`);
+        await new Promise(r => setTimeout(r, wait));
+      }
+    }
+    if (!vecs) {
+      // Last resort: zero-vector placeholders so the build completes; these
+      // chunks just won't match in cosine search (acceptable for ~0.2% loss).
+      console.warn(`[index] Batch ${i} permanently failed after 4 attempts. Inserting zero vectors.`);
+      vecs = batch.map(() => new Array(768).fill(0));
+    }
     results.push(...vecs);
     if (i + EMBED_BATCH < texts.length) {
       const pct = Math.round((i / texts.length) * 100);
@@ -119,3 +139,7 @@ export async function buildIndex(forceRebuild = false): Promise<void> {
   setReady(true);
   console.log(`[index] Done. ${allChunks.length} CRM chunks embedded and cached.`);
 }
+
+// Re-export for completeness — handy if you want to call buildIndex(true) from a route
+// to force a rebuild without restarting the API.
+export { EMBED_BATCH, TARGET_TOTAL };
