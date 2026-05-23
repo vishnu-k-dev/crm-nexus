@@ -20,14 +20,14 @@ const TOKEN_C = ['#64748b', '#8b5cf6', '#10b981'];
 
 // ── sample questions that showcase GraphRAG's strengths ───────────────────────
 const SAMPLES = [
-  { q: 'What is the health score and ARR of Acme Corp?',             ref: 'Acme Corp has a health score of 94/100 (Healthy) and an ARR of approximately $1,478,328.',    type: 'simple'    },
-  { q: 'What products does Nexus Industries use?',                   ref: 'Nexus Industries uses Support Desk, Analytics Suite, and Field Service.',                       type: 'simple'    },
-  { q: "What department does Paul Robinson work in and what is that department's Q4 goal?", ref: "Paul Robinson is in the Sales department which has a Q4 goal of $22M ARR.", type: 'multi_hop' },
-  { q: 'What is the Q4 roadmap for the product used by Stellar Technologies?', ref: 'Stellar Technologies uses CRM Enterprise. Its Q4 roadmap is to launch an AI-powered mobile app.', type: 'multi_hop' },
-  { q: 'Compare the health scores of Acme Corp and Nexus Industries. Which one is at greater risk?', ref: 'Acme Corp is 94/100 (Healthy). Nexus Industries is 38/100 (Critical). Nexus is at far greater risk.', type: 'synthesis' },
-  { q: 'Which product has higher annual revenue — CRM Pro or CRM Enterprise?', ref: 'CRM Pro ($4,357,770) vs CRM Enterprise ($2,722,813). CRM Pro generates more revenue.', type: 'synthesis' },
-  { q: 'What is the base price per seat of CRM Pro?',                ref: 'CRM Pro is priced at $299 per seat per month.',                                                  type: 'simple'    },
-  { q: 'What is the Q4 goal for the Sales department?',              ref: 'The Sales department Q4 goal is $22M ARR.',                                                      type: 'simple'    },
+  { q: 'What is the severity level of outage OUTAGE-001?',           ref: 'Outage OUTAGE-001 has severity P3.',                                                             type: 'simple'    },
+  { q: 'Which vendor caused outage OUTAGE-001?',                     ref: 'Outage OUTAGE-001 was caused by vendor VEND-01 (MedSync).',                                      type: 'simple'    },
+  { q: 'What is the severity and duration of outage OUTAGE-010?',    ref: 'Outage OUTAGE-010 has severity P2 and lasted 17 hours in region REGION-TORONTO.',               type: 'simple'    },
+  { q: 'What industry and market segment does customer CUST-0100 belong to?', ref: 'Customer CUST-0100 belongs to the Pharma industry and is in the Mid-Market segment.',  type: 'simple'    },
+  { q: 'How many outages has VEND-01 experienced?',                  ref: 'VEND-01 (MedSync) has experienced 2 outages: OUTAGE-001 and OUTAGE-051.',                        type: 'multi_hop' },
+  { q: 'How many customers are hosted in REGION-TORONTO?',           ref: '250 customers are hosted in REGION-TORONTO.',                                                    type: 'multi_hop' },
+  { q: 'Which outages occurred in REGION-FRANKFURT?',                ref: 'REGION-FRANKFURT has experienced 5 outages: OUTAGE-001, OUTAGE-021, OUTAGE-041, OUTAGE-061, OUTAGE-081.', type: 'multi_hop' },
+  { q: 'How many compliance cases are linked to VEND-05?',           ref: 'Vendor VEND-05 (NetForge) is linked to 250 compliance cases.',                                   type: 'synthesis' },
 ];
 
 export function CrmDashboard() {
@@ -138,13 +138,13 @@ export function CrmDashboard() {
               <h1 className="text-4xl font-extrabold tracking-tight leading-tight mb-3">
                 <span className="text-white">CRM knowledge graph — </span>
                 <span className="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
-                  2.69M tokens
+                  123M tokens
                 </span>
               </h1>
               <p className="text-slate-400 text-sm leading-relaxed">
-                500 customers · 200 employees · 200 products · 2,000+ deals ingested into{' '}
+                5,000 customers · 100 outages · 50 vendors · 20 regions · 100K+ docs ingested into{' '}
                 <span className="text-emerald-400 font-medium">TigerGraph</span> with HNSW vector index
-                and IS_AFTER graph traversal. Identical <span className="font-mono text-slate-300">llama-3.1-8b-instant</span>{' '}
+                and multi-hop graph traversal. Identical <span className="font-mono text-slate-300">llama-3.1-8b-instant</span>{' '}
                 model across all 3 pipelines — only retrieval differs.
               </p>
             </div>
@@ -152,9 +152,9 @@ export function CrmDashboard() {
             {/* dataset stat pills */}
             <div className="flex flex-col gap-3">
               {[
-                { val: '2.69M', label: 'tokens in graph', accent: 'emerald', note: '10× judge minimum' },
-                { val: '21,318', label: 'graph vertices', accent: 'sky',     note: 'CRM entities' },
-                { val: '48,201', label: 'graph edges',    accent: 'violet',  note: 'relationships' },
+                { val: '123M',    label: 'tokens in graph',  accent: 'emerald', note: '100K+ documents' },
+                { val: '100,820', label: 'graph chunks',     accent: 'sky',     note: 'CRM entities' },
+                { val: '3-hop',   label: 'graph traversal',  accent: 'violet',  note: 'multi-hop retrieval' },
               ].map(({ val, label, accent, note }) => (
                 <div key={label} className={`flex items-center gap-3 px-4 py-2.5 rounded-xl border ${
                   accent === 'emerald' ? 'border-emerald-700/50 bg-emerald-950/40' :
@@ -197,9 +197,9 @@ export function CrmDashboard() {
             icon="✓" label="Accuracy (pass rate)"
             value={grPass?.replace('%','') ?? (loadingResults ? '…' : '—')}
             unit="%"
-            color={hasData && parseFloat(grPass ?? '0') >= 70 ? 'emerald' : hasData ? 'amber' : 'muted'}
+            color={hasData && parseFloat(grPass ?? '0') >= 90 ? 'emerald' : hasData ? 'amber' : 'muted'}
             sub={agg ? `Basic RAG: ${agg.llmJudgePassRate.basicRag} · LLM: ${agg.llmJudgePassRate.llmOnly}` : 'Independent LLM-as-a-Judge'}
-            target="Target ≥ 70%"
+            target="Target ≥ 90%"
           />
           <BigCard
             icon="🎯" label="BERTScore F1"
@@ -502,7 +502,7 @@ export function CrmDashboard() {
         <div className="rounded-2xl border border-dashed border-slate-700 py-14 text-center space-y-2">
           <div className="text-3xl">📊</div>
           <p className="text-slate-500 text-sm">No benchmark results yet.</p>
-          <p className="text-slate-600 text-xs">Try a sample question above, or run the full 35-question eval below.</p>
+          <p className="text-slate-600 text-xs">Try a sample question above, or run the full 80-question eval below.</p>
         </div>
       )}
 
@@ -512,8 +512,8 @@ export function CrmDashboard() {
       <section className={`rounded-2xl border p-6 transition ${fullRunning ? 'border-emerald-700/40 bg-emerald-950/10' : 'border-slate-800/60 bg-slate-900/30'}`}>
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="font-medium text-slate-300 text-sm">Re-run full 35-question benchmark</p>
-            <p className="text-slate-500 text-xs mt-0.5">Runs all questions × 3 pipelines + judge + BERTScore. Takes ~20 min. Results auto-saved for instant reload.</p>
+            <p className="font-medium text-slate-300 text-sm">Re-run full 80-question benchmark</p>
+            <p className="text-slate-500 text-xs mt-0.5">Runs all questions × 3 pipelines + judge + BERTScore. Takes ~45 min. Results auto-saved for instant reload.</p>
           </div>
           <button
             onClick={runFull}
@@ -523,7 +523,7 @@ export function CrmDashboard() {
             {fullRunning ? (
               <span className="flex items-center gap-2">
                 <span className="w-3.5 h-3.5 border-2 border-slate-500 border-t-transparent rounded-full animate-spin" />
-                Running (~20 min)…
+                Running (~45 min)…
               </span>
             ) : 'Run full eval →'}
           </button>
