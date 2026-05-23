@@ -68,16 +68,16 @@ document.querySelectorAll('.bar-fill[data-fill]').forEach(el => barObs.observe(e
   const svg = document.getElementById('lineChart');
   if (!svg) return;
   const W = 400, H = 220, padL = 40, padR = 16, padT = 16, padB = 32;
-  const N = 36;
+  const N = 80;
   // synthetic but realistic data
   const seed = (i) => {
     const r = Math.sin(i * 12.9898) * 43758.5453;
     return r - Math.floor(r);
   };
-  const br = Array.from({ length: N }, (_, i) => 2100 + (seed(i) - 0.5) * 480);
-  const gr = Array.from({ length: N }, (_, i) => 560 + (seed(i + 99) - 0.5) * 80);
+  const br = Array.from({ length: N }, (_, i) => 5100 + (seed(i) - 0.5) * 480);
+  const gr = Array.from({ length: N }, (_, i) => 970 + (seed(i + 99) - 0.5) * 160);
   const all = [...br, ...gr];
-  const yMax = 2700, yMin = 0;
+  const yMax = 6000, yMin = 0;
   const x = i => padL + (W - padL - padR) * (i / (N - 1));
   const y = v => padT + (H - padT - padB) * (1 - (v - yMin) / (yMax - yMin));
 
@@ -89,7 +89,7 @@ document.querySelectorAll('.bar-fill[data-fill]').forEach(el => barObs.observe(e
     html += `<text x="${padL - 8}" y="${y(yv) + 3}" fill="#8a8780" font-size="9" text-anchor="end" font-family="JetBrains Mono">${yv === 0 ? 0 : (yv/1000).toFixed(1)+'k'}</text>`;
   }
   // x labels
-  [1, 12, 24, 36].forEach(i => {
+  [1, 20, 40, 60, 80].forEach(i => {
     const xi = x(i - 1);
     html += `<text x="${xi}" y="${H - padB + 16}" fill="#8a8780" font-size="9" text-anchor="middle" font-family="JetBrains Mono">${i}</text>`;
   });
@@ -116,59 +116,56 @@ document.querySelectorAll('.bar-fill[data-fill]').forEach(el => barObs.observe(e
 /* ============ Graph traversal (right side of demo) ============ */
 const NODES = [
   // [id, x, y, type, label]
-  ['acme',     200, 200, 'customer', 'Acme Corp'],
-  ['pinn',     120, 110, 'customer', 'Pinnacle'],
-  ['glob',     290, 130, 'customer', 'GlobalTech'],
-  ['merid',    310, 250, 'customer', 'Meridian'],
-  ['lone',      80, 280, 'customer', 'LoneStar'],
+  ['v01',   100, 140, 'vendor',   'VEND-01'],
+  ['v05',    70, 240, 'vendor',   'VEND-05'],
+  ['v10',   105, 340, 'vendor',   'VEND-10'],
+  ['v15',   195, 215, 'vendor',   'VEND-15'],
 
-  ['crmE',     200, 90,  'product',  'CRM Enterprise'],
-  ['anaP',     130, 270, 'product',  'Analytics Pro'],
-  ['supSt',    320, 190, 'product',  'Support Suite'],
+  ['c001',  300,  80, 'customer', 'CUST-0001'],
+  ['c021',  355, 200, 'customer', 'CUST-0021'],
+  ['c100',  290, 335, 'customer', 'CUST-0100'],
 
-  ['sara',      60, 200, 'employee', 'Sara K.'],
-  ['marc',     270,  70, 'employee', 'Marcus L.'],
-  ['priy',     360, 320, 'employee', 'Priya R.'],
-  ['jord',     220, 340, 'employee', 'Jordan T.'],
-  ['amit',      90, 350, 'employee', 'Amit P.'],
+  ['out1',  205, 145, 'outage',   'OUTAGE-001'],
+  ['out2',  215, 305, 'outage',   'OUTAGE-002'],
 
-  ['sales',     30, 100, 'dept',     'Sales'],
-  ['eng',      370,  50, 'dept',     'Eng'],
-  ['cs',       370, 380, 'dept',     'CS'],
+  ['rFra',   50, 395, 'region',   'FRANKFURT'],
+  ['rTor',  205, 415, 'region',   'TORONTO'],
+  ['rChi',  355, 395, 'region',   'CHICAGO'],
 
-  ['d1',       150, 360, 'deal',     'deal_1'],
-  ['d2',       340, 130, 'deal',     'deal_2'],
-  ['d3',        60, 330, 'deal',     'deal_8'],
-
-  ['hub',       40,  40, 'comp',     'HubSpot'],
-  ['sf',       370, 130, 'comp',     'Salesforce'],
-  ['zoho',     360, 270, 'comp',     'Zoho'],
+  ['emp1',  365,  60, 'employee', 'EMP-001'],
+  ['prj1',  375, 315, 'project',  'NORDIC-001'],
 ];
 
 const EDGES = [
-  ['acme', 'crmE'], ['acme', 'anaP'], ['acme', 'd1'], ['acme', 'sara'],
-  ['pinn', 'crmE'], ['pinn', 'anaP'], ['pinn', 'd2'],
-  ['glob', 'crmE'], ['glob', 'supSt'], ['glob', 'marc'],
-  ['merid', 'crmE'], ['merid', 'supSt'], ['merid', 'priy'],
-  ['lone', 'anaP'], ['lone', 'd3'], ['lone', 'amit'],
-  ['crmE', 'hub'], ['crmE', 'sf'], ['crmE', 'zoho'],
-  ['anaP', 'sf'], ['supSt', 'zoho'],
-  ['sara', 'sales'], ['marc', 'sales'], ['amit', 'sales'],
-  ['priy', 'cs'], ['jord', 'cs'],
-  ['jord', 'eng'], ['marc', 'eng'],
-  ['d1', 'sara'], ['d2', 'marc'], ['d3', 'amit'],
+  // Customer → Vendor
+  ['c001', 'v01'], ['c001', 'v05'],
+  ['c021', 'v01'], ['c021', 'v10'],
+  ['c100', 'v05'], ['c100', 'v15'],
+  // Vendor → Outage
+  ['v01', 'out1'], ['v05', 'out2'],
+  // Outage → Region
+  ['out1', 'rFra'], ['out1', 'rTor'],
+  ['out2', 'rChi'], ['out2', 'rFra'],
+  // Vendor → Region
+  ['v01', 'rTor'], ['v05', 'rFra'], ['v10', 'rChi'], ['v15', 'rTor'],
+  // Vendor → Vendor
+  ['v10', 'v15'],
+  // Employee manages
+  ['emp1', 'v01'], ['emp1', 'v10'],
+  // Project → Customer
+  ['prj1', 'c100'], ['prj1', 'c021'],
 ];
 
 const COLORS = {
-  customer: '#FF6B00',
-  product:  '#ffa050',
+  vendor:   '#FF6B00',
+  customer: '#ffa050',
+  outage:   '#ef4444',
+  region:   '#10b981',
   employee: '#1F2937',
-  dept:     '#6B7280',
-  deal:     '#9CA3AF',
-  comp:     '#aa4400',
+  project:  '#6B7280',
 };
 const RADIUS = {
-  customer: 9, product: 8, employee: 6, dept: 7, deal: 5, comp: 6,
+  vendor: 9, customer: 8, outage: 7, region: 8, employee: 6, project: 5,
 };
 
 function renderGraph() {
@@ -198,84 +195,84 @@ renderGraph();
 /* ============ Live demo logic ============ */
 const QUESTIONS = {
   q1: {
-    text: 'Who owns deal_1?',
-    seed: 'd1',
-    hops: [['d1', 'sara'], ['sara', 'sales']],
-    chunks: 4, hopsN: 2, tokensGR: 412, tokensBR: 2080, tokensLL: 120, msGR: 1620, msBR: 16200, msLL: 980,
-    grAns: 'deal_1 is owned by Sara K. (Sales). Stage: Negotiation. Value: $148,300. Close date: 2026-06-12.',
-    brAns: 'No record of "deal_1" found. Flat vector search returned generic chunks about sales pipelines — no entity match.',
-    llAns: 'I don\'t have access to specific CRM records. "deal_1" is not a recognized public entity.',
+    text: 'What outages has VEND-01 caused?',
+    seed: 'v01',
+    hops: [['v01', 'out1'], ['out1', 'rFra'], ['out1', 'rTor']],
+    chunks: 4, hopsN: 2, tokensGR: 1024, tokensBR: 5180, tokensLL: 120, msGR: 2840, msBR: 42600, msLL: 980,
+    grAns: 'VEND-01 (MedSync) caused OUTAGE-001 — a 4h 12m disruption impacting REGION-FRANKFURT and REGION-TORONTO on 2026-03-14. 8 downstream customers affected; SLA breach ticket filed.',
+    brAns: 'Vector search returned broad content about vendor SLA management and outage frameworks — specific outage records for VEND-01 could not be matched to this entity.',
+    llAns: 'I don\'t have access to your internal vendor outage records.',
     grPass: true, brPass: false, llPass: false,
   },
   q2: {
-    text: 'What competitors does CRM Enterprise face?',
-    seed: 'crmE',
-    hops: [['crmE', 'hub'], ['crmE', 'sf'], ['crmE', 'zoho']],
-    chunks: 3, hopsN: 1, tokensGR: 480, tokensBR: 2140, tokensLL: 140, msGR: 1740, msBR: 17850, msLL: 1100,
-    grAns: 'CRM Enterprise competes with HubSpot, Salesforce, and Zoho across the SMB and mid-market segments.',
-    brAns: 'Vector search returned generic chunks about the CRM software market — Salesforce, Microsoft Dynamics. No match for "CRM Enterprise" as a specific entity.',
-    llAns: '"CRM Enterprise" is not a product I have specific knowledge of. Major CRM vendors include Salesforce and HubSpot.',
-    grPass: true, brPass: false, llPass: false,
+    text: 'What is the SLA tier of VEND-01?',
+    seed: 'v01',
+    hops: [['v01', 'c001'], ['v01', 'c021']],
+    chunks: 3, hopsN: 1, tokensGR: 912, tokensBR: 5040, tokensLL: 110, msGR: 2140, msBR: 38200, msLL: 890,
+    grAns: 'VEND-01 (MedSync) — Tier-1 SLA: 99.9% uptime guarantee, 4-hour incident response. Managed by EMP-001 (Alex M.). Contract renewal: 2026-12-31.',
+    brAns: 'VEND-01 (MedSync) holds a Tier-1 SLA with 99.9% uptime and 4-hour response time. (Retrieved via vector similarity — full contract context unavailable.)',
+    llAns: 'I don\'t have access to vendor SLA agreements in your CRM.',
+    grPass: true, brPass: true, llPass: false,
   },
   q3: {
-    text: 'Which product has the highest NPS?',
-    seed: 'crmE',
-    hops: [['crmE', 'acme'], ['crmE', 'pinn'], ['crmE', 'glob'], ['anaP', 'lone'], ['anaP', 'acme']],
-    chunks: 5, hopsN: 2, tokensGR: 612, tokensBR: 2200, tokensLL: 130, msGR: 2010, msBR: 18420, msLL: 1080,
-    grAns: 'Analytics Pro has the highest NPS at 62, followed by Support Suite (54) and CRM Enterprise (47).',
-    brAns: 'No NPS data found for these products. Flat vector search returned generic articles about NPS methodology — no product-specific scores retrieved.',
-    llAns: 'I do not have product-specific NPS scores for CRM Enterprise, Analytics Pro, or Support Suite.',
+    text: 'Which regions were affected by OUTAGE-001?',
+    seed: 'out1',
+    hops: [['out1', 'rFra'], ['out1', 'rTor'], ['out1', 'v01']],
+    chunks: 4, hopsN: 2, tokensGR: 1180, tokensBR: 5240, tokensLL: 130, msGR: 3120, msBR: 44100, msLL: 1040,
+    grAns: 'OUTAGE-001 hit REGION-FRANKFURT and REGION-TORONTO. Root cause: VEND-01 (MedSync) API failure. Duration: 4h 12m. CUST-0001 and CUST-0021 both filed SLA breach tickets.',
+    brAns: 'Vector search returned general content about regional incident management — no direct entity match for OUTAGE-001 or its specific impacted regions.',
+    llAns: 'I don\'t have data about OUTAGE-001 or its regional impact.',
     grPass: true, brPass: false, llPass: false,
   },
   q4: {
-    text: "What is Pinnacle Enterprises' renewal risk?",
-    seed: 'pinn',
-    hops: [['pinn', 'crmE'], ['pinn', 'anaP'], ['pinn', 'd2'], ['d2', 'marc']],
-    chunks: 4, hopsN: 3, tokensGR: 562, tokensBR: 2090, tokensLL: 110, msGR: 1860, msBR: 17320, msLL: 1010,
-    grAns: 'Pinnacle uses CRM Enterprise (NPS 47) and Analytics Pro (NPS 62). Open deal_2 at $312k is in renewal stage, owned by Marcus L. — moderate risk.',
-    brAns: 'No match for "Pinnacle Enterprises". Flat vector search cannot resolve customer-specific renewal context — returned unrelated chunks.',
-    llAns: 'I don\'t have customer renewal data for "Pinnacle Enterprises".',
-    grPass: true, brPass: false, llPass: false,
+    text: 'What category does VEND-10 belong to?',
+    seed: 'v10',
+    hops: [['v10', 'rChi'], ['v10', 'v15']],
+    chunks: 2, hopsN: 1, tokensGR: 896, tokensBR: 4980, tokensLL: 105, msGR: 1980, msBR: 36800, msLL: 860,
+    grAns: 'VEND-10 (CoreShift) — Infrastructure / Cloud Services, Tier-2. Primary region: REGION-CHICAGO. Storage dependency: VEND-15 (DataBridge).',
+    brAns: 'VEND-10 (CoreShift) is categorised under Infrastructure and Cloud Services — Tier-2 vendor. (Partial match via vector search; graph-layer context not fully retrieved.)',
+    llAns: 'I don\'t have your vendor catalogue entries for VEND-10.',
+    grPass: true, brPass: true, llPass: false,
   },
   q5: {
-    text: "What is Acme Corp's total deal value?",
-    seed: 'acme',
-    hops: [['acme', 'd1'], ['d1', 'sara'], ['acme', 'anaP'], ['acme', 'crmE']],
-    chunks: 4, hopsN: 2, tokensGR: 498, tokensBR: 2060, tokensLL: 105, msGR: 1720, msBR: 16840, msLL: 960,
-    grAns: 'Acme Corp has 3 open deals totalling $487,200. Largest: deal_1 at $148,300 (Negotiation, owned by Sara K.). Products: CRM Enterprise + Analytics Pro.',
-    brAns: 'No entity match for "Acme Corp". Flat vector search returned generic chunks about enterprise sales — no deal or account data found.',
-    llAns: 'I don\'t have access to specific CRM deal records for Acme Corp.',
+    text: "What is CUST-0001's total vendor risk exposure?",
+    seed: 'c001',
+    hops: [['c001', 'v01'], ['v01', 'out1'], ['c001', 'v05'], ['v05', 'out2']],
+    chunks: 6, hopsN: 3, tokensGR: 1380, tokensBR: 5260, tokensLL: 145, msGR: 3580, msBR: 46200, msLL: 1120,
+    grAns: 'CUST-0001 (FinServ Global) depends on VEND-01 + VEND-05. VEND-01 triggered OUTAGE-001 (Frankfurt, Toronto); VEND-05 triggered OUTAGE-002 (Chicago). Combined: 2 active outages · 3 regions · risk score: HIGH.',
+    brAns: 'No coherent vendor risk profile found for CUST-0001. Vector search returned fragmented risk-framework chunks — multi-hop entity relationships cannot be resolved through flat similarity.',
+    llAns: 'I don\'t have customer-specific vendor risk data in my knowledge base.',
     grPass: true, brPass: false, llPass: false,
   },
   q6: {
-    text: 'Who are the top performers in Sales?',
-    seed: 'sales',
-    hops: [['sales', 'sara'], ['sales', 'marc'], ['sales', 'amit'], ['sara', 'd1'], ['marc', 'd2']],
-    chunks: 5, hopsN: 2, tokensGR: 541, tokensBR: 2130, tokensLL: 115, msGR: 1950, msBR: 17600, msLL: 1020,
-    grAns: 'Top Sales performers: Sara K. (deal_1 — $148,300, Negotiation), Marcus L. (deal_2 — $312,000, Renewal), Amit P. (deal_8 — $89,500, Prospecting).',
-    brAns: 'No employee or performance records found. Vector search returned unrelated chunks — CRM employee hierarchies are not indexed in the flat store.',
-    llAns: 'I don\'t have internal Sales department or employee deal data.',
-    grPass: true, brPass: false, llPass: false,
+    text: 'What region does VEND-05 primarily serve?',
+    seed: 'v05',
+    hops: [['v05', 'rFra'], ['v05', 'out2']],
+    chunks: 3, hopsN: 1, tokensGR: 940, tokensBR: 5010, tokensLL: 108, msGR: 2080, msBR: 37500, msLL: 920,
+    grAns: 'VEND-05 (NetForge) primarily serves REGION-FRANKFURT (78% traffic load). Secondary affiliation: REGION-CHICAGO via OUTAGE-002 impact path. SLA: Tier-2, 99.5% uptime.',
+    brAns: 'VEND-05 (NetForge) is primarily associated with the Frankfurt region. (Vector similarity match — traffic percentage and secondary affiliations not retrieved.)',
+    llAns: 'I don\'t have regional affinity data for VEND-05.',
+    grPass: true, brPass: true, llPass: false,
   },
   q7: {
-    text: 'Which customers use both CRM Enterprise and Analytics Pro?',
-    seed: 'crmE',
-    hops: [['crmE', 'acme'], ['crmE', 'pinn'], ['anaP', 'acme'], ['anaP', 'pinn'], ['anaP', 'lone']],
-    chunks: 5, hopsN: 2, tokensGR: 578, tokensBR: 2180, tokensLL: 120, msGR: 2080, msBR: 18100, msLL: 1040,
-    grAns: 'Acme Corp and Pinnacle Enterprises both subscribe to CRM Enterprise and Analytics Pro. LoneStar uses Analytics Pro only — not CRM Enterprise.',
-    brAns: 'No product-to-customer subscription data found. Flat vector search cannot resolve multi-entity relationships — returned unrelated chunks.',
-    llAns: 'I don\'t have product subscription data for these CRM accounts.',
+    text: 'Which vendors are linked to the Frankfurt outage?',
+    seed: 'out1',
+    hops: [['out1', 'rFra'], ['out1', 'v01'], ['v01', 'c001']],
+    chunks: 5, hopsN: 2, tokensGR: 1120, tokensBR: 5190, tokensLL: 125, msGR: 3040, msBR: 43800, msLL: 1060,
+    grAns: 'OUTAGE-001 (Frankfurt) root cause: VEND-01 (MedSync). Downstream: CUST-0001 (FinServ Global) and CUST-0021 (AeroTech) filed impact reports. Assigned manager: EMP-001 (Alex M.).',
+    brAns: 'Vector search returned general content about Frankfurt infrastructure reliability — no entity-level mapping of OUTAGE-001 to specific vendor identifiers found.',
+    llAns: 'I don\'t have outage-to-vendor mapping records for your CRM.',
     grPass: true, brPass: false, llPass: false,
   },
   q8: {
-    text: "What is LoneStar's renewal risk?",
-    seed: 'lone',
-    hops: [['lone', 'anaP'], ['lone', 'd3'], ['d3', 'amit'], ['lone', 'amit']],
-    chunks: 4, hopsN: 3, tokensGR: 534, tokensBR: 2070, tokensLL: 108, msGR: 1880, msBR: 17050, msLL: 985,
-    grAns: 'LoneStar (Health Score: 61, NPS: 38) has deal_8 at $89,500 in Prospecting stage, owned by Amit P. Low NPS + stalled deal = moderate-to-high renewal risk.',
-    brAns: 'No entity match for "LoneStar". Vector search returned unrelated chunks — customer health and deal data not retrievable via flat similarity search.',
-    llAns: 'I don\'t have renewal or health score data for LoneStar.',
-    grPass: true, brPass: false, llPass: false,
+    text: 'How many active customers depend on VEND-15?',
+    seed: 'v15',
+    hops: [['v15', 'c100'], ['v15', 'rTor']],
+    chunks: 3, hopsN: 2, tokensGR: 1060, tokensBR: 5150, tokensLL: 115, msGR: 2720, msBR: 40100, msLL: 990,
+    grAns: 'VEND-15 (DataBridge) has 1 direct customer: CUST-0100 (NordHealth). Also serves REGION-TORONTO. VEND-10 (CoreShift) holds a storage-layer dependency on VEND-15.',
+    brAns: 'VEND-15 (DataBridge) appears in 1 active customer dependency record. (Partial vector match — full dependency chain may be incomplete.)',
+    llAns: 'I don\'t have vendor dependency counts for VEND-15.',
+    grPass: true, brPass: true, llPass: false,
   },
 };
 
@@ -293,15 +290,15 @@ document.getElementById('queryForm').addEventListener('submit', (ev) => {
   ev.preventDefault();
   const v = document.getElementById('queryInput').value.trim().toLowerCase();
   let match = null;
-  if (v.includes('deal_1') || (v.includes('deal') && v.includes('own'))) match = 'q1';
-  else if (v.includes('competitor') || v.includes('compete')) match = 'q2';
-  else if (v.includes('nps') || v.includes('highest')) match = 'q3';
-  else if (v.includes('pinnacle') || (v.includes('renewal') && v.includes('risk'))) match = 'q4';
-  else if (v.includes('acme') || v.includes('total deal')) match = 'q5';
-  else if (v.includes('top performer') || (v.includes('sales') && v.includes('perform'))) match = 'q6';
-  else if (v.includes('both') || (v.includes('crm enterprise') && v.includes('analytics'))) match = 'q7';
-  else if (v.includes('lonestar') || v.includes('lone star')) match = 'q8';
-  else if (v.includes('budget') || v.includes('department') || v.includes('engineering')) match = 'qBudget';
+  if (v.includes('vend-01') || v.includes('medsync') || (v.includes('outage') && v.includes('caused'))) match = 'q1';
+  else if (v.includes('sla') || (v.includes('vend-01') && v.includes('tier'))) match = 'q2';
+  else if (v.includes('outage-001') || (v.includes('region') && v.includes('affected'))) match = 'q3';
+  else if (v.includes('vend-10') || v.includes('coreshift') || v.includes('category')) match = 'q4';
+  else if (v.includes('cust-0001') || v.includes('finserv') || (v.includes('risk') && v.includes('exposure'))) match = 'q5';
+  else if (v.includes('vend-05') || v.includes('netforge') || (v.includes('region') && v.includes('serve'))) match = 'q6';
+  else if (v.includes('frankfurt') || (v.includes('vendor') && v.includes('linked'))) match = 'q7';
+  else if (v.includes('vend-15') || v.includes('databridge') || (v.includes('customer') && v.includes('depend'))) match = 'q8';
+  else if (v.includes('compliance') || v.includes('spend') || v.includes('budget')) match = 'qVendor';
 
   if (!match) {
     // Unknown question — show graceful error
@@ -316,19 +313,19 @@ document.getElementById('queryForm').addEventListener('submit', (ev) => {
     return;
   }
 
-  if (match === 'qBudget' && !QUESTIONS.qBudget) {
-    QUESTIONS.qBudget = {
-      text: 'Which department has the larger budget — Sales or Engineering?',
-      seed: 'sales',
-      hops: [['sales', 'sara'], ['sales', 'marc'], ['eng', 'jord'], ['eng', 'marc']],
-      chunks: 4, hopsN: 1, tokensGR: 498, tokensBR: 2110, tokensLL: 120, msGR: 1780, msBR: 17120, msLL: 990,
-      grAns: 'Sales has a budget of $2,771,107 vs Engineering\'s $2,502,988 — Sales has the larger budget by ~$268k.',
-      brAns: 'No department budget data found. Flat vector search returned unrelated chunks — internal CRM financials are not indexable via cosine similarity alone.',
-      llAns: 'I don\'t have access to internal department budgets.',
+  if (match === 'qVendor' && !QUESTIONS.qVendor) {
+    QUESTIONS.qVendor = {
+      text: "What is VEND-01's compliance score?",
+      seed: 'v01',
+      hops: [['v01', 'c001'], ['v01', 'out1']],
+      chunks: 3, hopsN: 2, tokensGR: 1050, tokensBR: 5160, tokensLL: 118, msGR: 2600, msBR: 41200, msLL: 950,
+      grAns: 'VEND-01 (MedSync) compliance score: 72/100. Flags: 1 active outage, 2 SLA breach tickets (CUST-0001, CUST-0021). Review scheduled: 2026-Q3.',
+      brAns: 'No compliance score entity found for VEND-01. Vector search returned generic compliance framework content — specific score not retrieved.',
+      llAns: 'I don\'t have compliance scoring data for your vendors.',
       grPass: true, brPass: false, llPass: false,
     };
   }
-  runQuery(match || 'q2');
+  runQuery(match || 'q1');
 });
 
 function resetGraphState() {
