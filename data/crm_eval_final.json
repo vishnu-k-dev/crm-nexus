@@ -1,0 +1,3505 @@
+{
+  "meta": {
+    "date": "2026-05-23",
+    "total_questions": 80,
+    "completed": 80
+  },
+  "aggregate": {
+    "graphrag_accuracy_pct": "100.0",
+    "graphrag_pass": 80,
+    "graphrag_total": 80,
+    "basicrag_accuracy_pct": "47.7",
+    "basicrag_pass": 21,
+    "basicrag_total": 44,
+    "llmonly_accuracy_pct": "2.5",
+    "llmonly_pass": 2,
+    "avg_gr_prompt_tokens": 966,
+    "avg_rag_prompt_tokens": 5152,
+    "token_reduction_pct": "81.3",
+    "latency_reduction_pct": "92.9",
+    "bert_graphrag_f1": "0.8461",
+    "bert_basicrag_f1": "0.5473",
+    "bert_llmonly_f1": "0.5343",
+    "matched_for_token_reduction": 44
+  },
+  "results": [
+    {
+      "question": "What is the severity level of outage OUTAGE-001?",
+      "referenceAnswer": "Outage OUTAGE-001 has severity P3.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "Outage OUTAGE-001 (P3, 2025-05-17, 32 hours, REGION-FRANKFURT, VEND-01).",
+        "verdict": "PASS",
+        "promptTokens": 928,
+        "completionTokens": 35,
+        "latencyMs": 3282,
+        "bertScore": {
+          "precision": 0.8578874609480803,
+          "recall": 0.8578874609480803,
+          "f1": 0.8578874609480803,
+          "f1Rescaled": 0.6447186523702009
+        }
+      },
+      "basicRag": {
+        "answer": "OUTAGE-001 does not exist in the list provided.",
+        "verdict": "FAIL",
+        "promptTokens": 5240,
+        "completionTokens": 13,
+        "latencyMs": 10072,
+        "bertScore": {
+          "precision": 0.8486756291899333,
+          "recall": 0.8486756291899333,
+          "f1": 0.8486756291899333,
+          "f1Rescaled": 0.6216890729748333
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm unable to locate any information about Outage-001 as no context is given. Outage levels can vary depending on the institution or industry that implemented them. For example, in ITIL, outage levels are typically categorized as follows:\n\n- Critical: 5 minutes or more\n- Major: 1- 4 minutes\n- Minor: 30 seconds to 1 minute\n\nHowever, the exact severity levels may vary depending on the specific organization or industry using those levels. Without more context or information, I can only provide a generic description of outage levels.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8315394872890386,
+          "recall": 0.8315394872890386,
+          "f1": 0.8315394872890386,
+          "f1Rescaled": 0.5788487182225965
+        }
+      }
+    },
+    {
+      "question": "How long did outage OUTAGE-001 last, and what was its root cause?",
+      "referenceAnswer": "OUTAGE-001 lasted 32 hours. Root cause: DNS propagation failure after zone migration.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "Outage OUTAGE-001 (P3, 32 hours, REGION-FRANKFURT, VEND-01) was caused by a DNS propagation failure after zone migration.",
+        "verdict": "PASS",
+        "promptTokens": 933,
+        "completionTokens": 38,
+        "latencyMs": 3294,
+        "bertScore": {
+          "precision": 0.9277538747881439,
+          "recall": 0.9277538747881439,
+          "f1": 0.9277538747881439,
+          "f1Rescaled": 0.8193846869703597
+        }
+      },
+      "basicRag": {
+        "answer": "There is no Incident Report: OUTAGE-001 in the provided data. The incidents with the highest IDs provided in the given data range from OUTAGE-004 to OUTAGE-084. I do not know how long OUTAGE-001 lasted, as it was not mentioned in the given data.",
+        "verdict": "FAIL",
+        "promptTokens": 5254,
+        "completionTokens": 61,
+        "latencyMs": 45872,
+        "bertScore": {
+          "precision": 0.7794278038486279,
+          "recall": 0.7794278038486279,
+          "f1": 0.7794278038486279,
+          "f1Rescaled": 0.4485695096215697
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm not aware of any outage information regarding 'OUTAGE-001'. Without more context or information, I cannot determine the length of the outage or the root cause. If you could provide more details or context, I will do my best to help.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8225342988224489,
+          "recall": 0.8225342988224489,
+          "f1": 0.8225342988224489,
+          "f1Rescaled": 0.5563357470561222
+        }
+      }
+    },
+    {
+      "question": "Which vendor caused outage OUTAGE-001?",
+      "referenceAnswer": "Outage OUTAGE-001 was caused by vendor VEND-01 (MedSync).",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "OUTAGE",
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-01 (MedSync) caused outage OUTAGE-001.",
+        "verdict": "PASS",
+        "promptTokens": 925,
+        "completionTokens": 17,
+        "latencyMs": 3187,
+        "bertScore": {
+          "precision": 0.9866302820530493,
+          "recall": 0.9866302820530493,
+          "f1": 0.9866302820530493,
+          "f1Rescaled": 0.9665757051326231
+        }
+      },
+      "basicRag": {
+        "answer": "There is no Incident Report: OUTAGE-001 provided in the given text. The incidents starting from OUTAGE-005 are described, but there is no mention of OUTAGE-001. Therefore, it is impossible to determine which vendor caused OUTAGE-001 based on the given information.",
+        "verdict": "FAIL",
+        "promptTokens": 5236,
+        "completionTokens": 59,
+        "latencyMs": 52025,
+        "bertScore": {
+          "precision": 0.8128182704754426,
+          "recall": 0.8128182704754426,
+          "f1": 0.8128182704754426,
+          "f1Rescaled": 0.5320456761886067
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have information on a specific outage named \"OUTAGE-001\" or its cause. It would be helpful if you could provide more context or details about OUTAGE-001 so I can better assist you.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7979840916433835,
+          "recall": 0.7979840916433835,
+          "f1": 0.7979840916433835,
+          "f1Rescaled": 0.4949602291084587
+        }
+      }
+    },
+    {
+      "question": "Which region did outage OUTAGE-001 occur in?",
+      "referenceAnswer": "Outage OUTAGE-001 occurred in REGION-FRANKFURT.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "OUTAGE",
+        "REGION"
+      ],
+      "graphrag": {
+        "answer": "Outage OUTAGE-001 (P3, 32 hours, REGION-FRANKFURT, VEND-01)…",
+        "verdict": "PASS",
+        "promptTokens": 927,
+        "completionTokens": 28,
+        "latencyMs": 3294,
+        "bertScore": {
+          "precision": 0.8848693718826793,
+          "recall": 0.8848693718826793,
+          "f1": 0.8848693718826793,
+          "f1Rescaled": 0.7121734297066984
+        }
+      },
+      "basicRag": {
+        "answer": "The outage report for OUTAGE-001 could not be found among the available reports for the different OUTAGE instances given in the prompt. Therefore, the region where the outage OUTAGE-001 occurred is unknown.",
+        "verdict": "FAIL",
+        "promptTokens": 5198,
+        "completionTokens": 43,
+        "latencyMs": 49302,
+        "bertScore": {
+          "precision": 0.8498895089031577,
+          "recall": 0.8498895089031577,
+          "f1": 0.8498895089031577,
+          "f1Rescaled": 0.6247237722578943
+        }
+      },
+      "llmOnly": {
+        "answer": "I am unable to provide you information about OUTAGE-001.  I do not have specific information about events of this type.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7953368901247206,
+          "recall": 0.7953368901247206,
+          "f1": 0.7953368901247206,
+          "f1Rescaled": 0.48834222531180166
+        }
+      }
+    },
+    {
+      "question": "What systems were affected by outage OUTAGE-002?",
+      "referenceAnswer": "Outage OUTAGE-002 affected systems: API gateway, email relay, data sync, load balancer, database cluster.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "Outage OUTAGE-002 (P0, 63 hours, REGION-LONDON, VEND-02)…\n\nThe affected systems were: API gateway, email relay, data sync, load balancer, and database cluster.",
+        "verdict": "PASS",
+        "promptTokens": 894,
+        "completionTokens": 47,
+        "latencyMs": 3293,
+        "bertScore": {
+          "precision": 0.9414544177940637,
+          "recall": 0.9414544177940637,
+          "f1": 0.9414544177940637,
+          "f1Rescaled": 0.8536360444851593
+        }
+      },
+      "basicRag": {
+        "answer": "The systems affected by OUTAGE-002 were:\n\n1. API gateway\n2. Email relay\n3. Data sync\n4. Load balancer\n5. Database cluster\n\nThis outage lasted for 63 hours and occurred on 2023-05-13.",
+        "verdict": "PASS",
+        "promptTokens": 5203,
+        "completionTokens": 55,
+        "latencyMs": 49790,
+        "bertScore": {
+          "precision": 0.9503757724314204,
+          "recall": 0.9503757724314204,
+          "f1": 0.9503757724314204,
+          "f1Rescaled": 0.8759394310785509
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm not aware of any information on OUTAGE-002. I would need more context or information to answer this question. If you could provide more details or clarify what OUTAGE-002 refers to, I will do my best to help.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8089650893986395,
+          "recall": 0.8089650893986395,
+          "f1": 0.8089650893986395,
+          "f1Rescaled": 0.5224127234965988
+        }
+      }
+    },
+    {
+      "question": "What is the severity and duration of outage OUTAGE-010?",
+      "referenceAnswer": "Outage OUTAGE-010 has severity P2 and lasted 17 hours in region REGION-TORONTO.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "Outage OUTAGE-010 (P2, 17 hours, REGION-TORONTO, VEND-10)",
+        "verdict": "PASS",
+        "promptTokens": 918,
+        "completionTokens": 26,
+        "latencyMs": 3220,
+        "bertScore": {
+          "precision": 0.9480470903373142,
+          "recall": 0.9480470903373142,
+          "f1": 0.9480470903373142,
+          "f1Rescaled": 0.8701177258432854
+        }
+      },
+      "basicRag": {
+        "answer": "The severity of outage OUTAGE-010 is P2, and the duration is 17 hours.",
+        "verdict": "PASS",
+        "promptTokens": 5241,
+        "completionTokens": 21,
+        "latencyMs": 50791,
+        "bertScore": {
+          "precision": 0.9406444104075965,
+          "recall": 0.9406444104075965,
+          "f1": 0.9406444104075965,
+          "f1Rescaled": 0.8516110260189913
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm not aware of any outage information regarding 'OUTAGE-010'.  This could be due to:\n\n1. Outage designation: It is possible that OUTAGE-010 is an informal or private outage designation, or it might be a part of a database or network system to which I don't have access.\n\n2. Lack of information: Since I don't have a context about where I should be looking for this outage, more information might be needed to help you find your answer.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8152506756980347,
+          "recall": 0.8152506756980347,
+          "f1": 0.8152506756980347,
+          "f1Rescaled": 0.5381266892450867
+        }
+      }
+    },
+    {
+      "question": "Which vendor caused outage OUTAGE-020, and in which region?",
+      "referenceAnswer": "OUTAGE-020 was caused by vendor VEND-20 in region REGION-DALLAS.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "OUTAGE",
+        "VENDOR",
+        "REGION"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-20 (ServiceMesh Pro) caused outage OUTAGE-020, and in region REGION-DALLAS (Dallas, US).",
+        "verdict": "PASS",
+        "promptTokens": 913,
+        "completionTokens": 30,
+        "latencyMs": 3301,
+        "bertScore": {
+          "precision": 0.9521141164206085,
+          "recall": 0.9521141164206085,
+          "f1": 0.9521141164206085,
+          "f1Rescaled": 0.8802852910515213
+        }
+      },
+      "basicRag": {
+        "answer": "The vendor that caused OUTAGE-020 is VEND-20 (ServiceMesh Pro), and the region affected is REGION-DALLAS (Dallas, US).",
+        "verdict": "PASS",
+        "promptTokens": 5182,
+        "completionTokens": 33,
+        "latencyMs": 44725,
+        "bertScore": {
+          "precision": 0.9644353124174075,
+          "recall": 0.9644353124174075,
+          "f1": 0.9644353124174075,
+          "f1Rescaled": 0.9110882810435189
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have enough information about the specific outage you're referring to. Could you provide more context or clarify which vendor or outage you're asking about? This would help me give you a more accurate and helpful response.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8013862298381906,
+          "recall": 0.8013862298381906,
+          "f1": 0.8013862298381906,
+          "f1Rescaled": 0.5034655745954766
+        }
+      }
+    },
+    {
+      "question": "What is the root cause of outage OUTAGE-050?",
+      "referenceAnswer": "The root cause of OUTAGE-050 is: misconfigured firewall rule after maintenance. Vendor: VEND-50, Region: REGION-TORONTO.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "Outage OUTAGE-050... \n\nThe root cause of outage OUTAGE-050 is a misconfigured firewall rule after maintenance.",
+        "verdict": "PASS",
+        "promptTokens": 898,
+        "completionTokens": 27,
+        "latencyMs": 3379,
+        "bertScore": {
+          "precision": 0.9640473568924617,
+          "recall": 0.9640473568924617,
+          "f1": 0.9640473568924617,
+          "f1Rescaled": 0.9101183922311542
+        }
+      },
+      "basicRag": {
+        "answer": "There is no information about OUTAGE-050 in the provided text. It seems that the incidents are described with OUTAGE codes from 002 to 100.",
+        "verdict": "FAIL",
+        "promptTokens": 5206,
+        "completionTokens": 33,
+        "latencyMs": 48954,
+        "bertScore": {
+          "precision": 0.8137183017525421,
+          "recall": 0.8137183017525421,
+          "f1": 0.8137183017525421,
+          "f1Rescaled": 0.5342957543813553
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm a large language model, I don't have real-time access to specific outage information or data. However, I can walk you through some general steps to identify the root cause of an outage.\n\n1. **Gather information**: Collect all relevant data, logs, and reports related to the outage (OUTAGE-050). This could include incident reports, maintenance records, network diagrams, system configurations, and error logs.\n2. **Analyze the symptoms**: Identify the specific issues that occurred during the outage, such as system crashes, connectivity problems, or performance degradation.\n3. **Look for patterns**: Examine the timing, frequency, and duration of the outage to identify potential patterns or causes.\n4. **Review system logs**: Check system logs to see if any errors or warnings occurred before or during the outage.\n5. **Consult with stakeholders**: Speak with team members, operators, or vendors involved in the affected systems or services to gather their insights and perspectives.\n6. **Root cause analysis (RCA) techniques**: Use RCA techniques, such as the Five Whys or Fishbone diagrams, to drill down to the core cause of the outage.\n\nSome possible root causes of an outage could include:\n\n- **Hardware failure**: A critical hardware component failed, such as a server, router, or disk.\n- **Software bug**: A software bug or issue caused the outage, such as a poorly coded script or library.\n- **Configuration error**: A misconfigured system, network, or application caused the outage.\n- **Network connectivity issue**: A network connectivity problem, such as a downed link or misconfigured router, caused the outage.\n- **Power issue**: A power outage, brownout, or electrical surge caused the outage.\n\nTo provide a more accurate answer, I would need more information about OUTAGE-050, including the system, network, or application affected.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8568881803827314,
+          "recall": 0.8568881803827314,
+          "f1": 0.8568881803827314,
+          "f1Rescaled": 0.6422204509568286
+        }
+      }
+    },
+    {
+      "question": "How long did outage OUTAGE-075 last?",
+      "referenceAnswer": "Outage OUTAGE-075 lasted 61 hours with severity P1.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "Outage OUTAGE-075 (P1, 61 hours, REGION-SEOUL, VEND-25).",
+        "verdict": "PASS",
+        "promptTokens": 892,
+        "completionTokens": 25,
+        "latencyMs": 3197,
+        "bertScore": {
+          "precision": 0.9165287025923394,
+          "recall": 0.9165287025923394,
+          "f1": 0.9165287025923394,
+          "f1Rescaled": 0.7913217564808486
+        }
+      },
+      "basicRag": {
+        "answer": "OUTAGE-075 lasted 61 hours.",
+        "verdict": "PASS",
+        "promptTokens": 5156,
+        "completionTokens": 10,
+        "latencyMs": 48883,
+        "bertScore": {
+          "precision": 0.9478662737973782,
+          "recall": 0.9478662737973782,
+          "f1": 0.9478662737973782,
+          "f1Rescaled": 0.8696656844934455
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm unable to confirm the exact details of the OUTAGE-075 you are talking about.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8432873736757268,
+          "recall": 0.8432873736757268,
+          "f1": 0.8432873736757268,
+          "f1Rescaled": 0.6082184341893171
+        }
+      }
+    },
+    {
+      "question": "Which systems did outage OUTAGE-100 affect?",
+      "referenceAnswer": "Outage OUTAGE-100 affected: provisioning, DNS, webhook delivery, load balancer in region REGION-DALLAS.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "Outage OUTAGE-100 (P3, 45 hours, REGION-DALLAS, VEND-50)… \nAffected Systems: provisioning, DNS, webhook delivery, load balancer.",
+        "verdict": "PASS",
+        "promptTokens": 896,
+        "completionTokens": 41,
+        "latencyMs": 3909,
+        "bertScore": {
+          "precision": 0.9461850680021794,
+          "recall": 0.9461850680021794,
+          "f1": 0.9461850680021794,
+          "f1Rescaled": 0.8654626700054485
+        }
+      },
+      "basicRag": {
+        "answer": "OUTAGE-100 affected the following systems:\n\n1. provisioning\n2. DNS\n3. webhook delivery\n4. load balancer",
+        "verdict": "PASS",
+        "promptTokens": 5223,
+        "completionTokens": 28,
+        "latencyMs": 48810,
+        "bertScore": {
+          "precision": 0.9308982288360241,
+          "recall": 0.9308982288360241,
+          "f1": 0.9308982288360241,
+          "f1Rescaled": 0.8272455720900603
+        }
+      },
+      "llmOnly": {
+        "answer": "I am unable to verify which systems were affected by the outage OUTAGE-100.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8213792627435585,
+          "recall": 0.8213792627435585,
+          "f1": 0.8213792627435585,
+          "f1Rescaled": 0.5534481568588964
+        }
+      }
+    },
+    {
+      "question": "What is the health status and ARR of customer CUST-0001?",
+      "referenceAnswer": "Customer CUST-0001 has health status Critical with a score of 39/100.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-0001 (Kenneth Lopez Inc) is in a Critical health status (39/100). The Annual Recurring Revenue (ARR) for customer CUST-0001 is $1,378,805.",
+        "verdict": "PASS",
+        "promptTokens": 930,
+        "completionTokens": 47,
+        "latencyMs": 3380,
+        "bertScore": {
+          "precision": 0.8529289940195193,
+          "recall": 0.8529289940195193,
+          "f1": 0.8529289940195193,
+          "f1Rescaled": 0.6323224850487982
+        }
+      },
+      "basicRag": {
+        "answer": "There is no record for customer CUST-0001 in the provided data.",
+        "verdict": "FAIL",
+        "promptTokens": 5718,
+        "completionTokens": 17,
+        "latencyMs": 42030,
+        "bertScore": {
+          "precision": 0.7899339478505696,
+          "recall": 0.7899339478505696,
+          "f1": 0.7899339478505696,
+          "f1Rescaled": 0.474834869626424
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have information about your database, but I can guide you on how to retrieve that information if you're using a database. \n\nAssuming you have a table `customers` with columns `id`, `name`, and other related columns, and a table `health_status` with columns `id`, `customer_id`, `status`, and `arr`, and you have a column `customer_name` in the `customers` table with value 'CUST-0001':\n\nHere is how you might retrieve the information in SQL:\n\n```sql\nSELECT \n    hc.status, \n    hs.arr\nFROM \n    customers c\nJOIN \n    health_status hc ON c.id = hc.customer_id \nJOIN \n    health_status hs ON c.id = hs.customer_id\nWHERE \n    c.customer_name = 'CUST-0001';\n```\n\nHowever, if there is just one row per customer in both tables, it should be enough to get the information from one of the `health_status` table. The above SQL is to cover multiple rows per customer, or if you have another condition to satisfy.\n\nAlternatively, you can do it in Python with the help of a database library like `sqlite3`, `pandas`, and `sqlalchemy`. Here is an example with `sqlite3`:\n\n```python\nimport sqlite3\n\ndef get_customer_health(db_path):\n    with sqlite3.connect(db_path) as conn:\n        cursor = conn.cursor()\n        cursor.execute(\"SELECT hc.status, hs.arr FROM customers c INNER JOIN health_status hc ON c.id = hc.customer_id WHERE c.customer_name = 'CUST-0001'\")\n        result = cursor.fetchone()\n        return result\n\ndb_path = 'your_database.db'  # Replace 'your_database.db' with your actual database path.\nresult = get_customer_health(db_path)\nif result:\n    print(f\"The health status of customer CUST-0001 is {result[0]} and ARR is {result[1]}\")\nelse:\n    print(\"Customer not found.\")\n```\n\nRemember to replace `'your_database.db'` with the path to your actual database.\n\nAlso, remember that `get_customer_health` function will return the first row that it finds.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7719405885574305,
+          "recall": 0.7719405885574305,
+          "f1": 0.7719405885574305,
+          "f1Rescaled": 0.4298514713935764
+        }
+      }
+    },
+    {
+      "question": "Which vendor is customer CUST-0001 primarily dependent on?",
+      "referenceAnswer": "Customer CUST-0001 (Kenneth Lopez Inc) is primarily dependent on vendor VEND-01.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "CUSTOMER",
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-01 (MedSync) is customer CUST-0001's primary vendor dependency.",
+        "verdict": "PASS",
+        "promptTokens": 928,
+        "completionTokens": 22,
+        "latencyMs": 3576,
+        "bertScore": {
+          "precision": 0.8784178901140866,
+          "recall": 0.8784178901140866,
+          "f1": 0.8784178901140866,
+          "f1Rescaled": 0.6960447252852164
+        }
+      },
+      "basicRag": {
+        "answer": "There is no customer record with the ID CUST-0001 in the provided data. Customer records in the data range from CUST-1000 to CUST-3962 and the majority of their IDs (except for CUST-0100 and CUST-2000 and others) do not start with the number 1.",
+        "verdict": "FAIL",
+        "promptTokens": 5514,
+        "completionTokens": 69,
+        "latencyMs": 50984,
+        "bertScore": {
+          "precision": 0.7862559164484152,
+          "recall": 0.7862559164484152,
+          "f1": 0.7862559164484152,
+          "f1Rescaled": 0.46563979112103804
+        }
+      },
+      "llmOnly": {
+        "answer": "You haven't provided any information about customer CUST-0001 or the context of the dependency. I'm a large language model, I don't have any information about your business or vendors. If you could provide more context or information about the situation, I'll do my best to help answer your question.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7995469589095572,
+          "recall": 0.7995469589095572,
+          "f1": 0.7995469589095572,
+          "f1Rescaled": 0.498867397273893
+        }
+      }
+    },
+    {
+      "question": "Which region is customer CUST-0050 hosted in?",
+      "referenceAnswer": "Customer CUST-0050 (Thomas Williams Global) is hosted in REGION-TORONTO.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "CUSTOMER",
+        "REGION"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-0050 (Thomas Williams Global) is hosted in the REGION-TORONTO.",
+        "verdict": "PASS",
+        "promptTokens": 936,
+        "completionTokens": 22,
+        "latencyMs": 3338,
+        "bertScore": {
+          "precision": 0.9983344532511748,
+          "recall": 0.9983344532511748,
+          "f1": 0.9983344532511748,
+          "f1Rescaled": 0.995836133127937
+        }
+      },
+      "basicRag": {
+        "answer": "Unfortunately, customer CUST-0050 does not appear in the provided customer account records. Could you please be more specific and provide the complete set of customer records? This will enable a more accurate assessment of your question regarding the region for customer CUST-0050.",
+        "verdict": "FAIL",
+        "promptTokens": 5297,
+        "completionTokens": 55,
+        "latencyMs": 49432,
+        "bertScore": {
+          "precision": 0.8156580896797098,
+          "recall": 0.8156580896797098,
+          "f1": 0.8156580896797098,
+          "f1Rescaled": 0.5391452241992745
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have enough information to determine which region customer CUST-0050 is hosted in. Could you provide more context or information regarding the customer's account?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8410228378747588,
+          "recall": 0.8410228378747588,
+          "f1": 0.8410228378747588,
+          "f1Rescaled": 0.6025570946868971
+        }
+      }
+    },
+    {
+      "question": "What industry and market segment does customer CUST-0100 belong to?",
+      "referenceAnswer": "Customer CUST-0100 (Jessica Davis Systems) belongs to the Pharma industry and is in the Mid-Market segment.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-0100 belongs to the industry: Pharma and market segment: Mid-Market.",
+        "verdict": "PASS",
+        "promptTokens": 927,
+        "completionTokens": 21,
+        "latencyMs": 3227,
+        "bertScore": {
+          "precision": 0.9358391395982263,
+          "recall": 0.9358391395982263,
+          "f1": 0.9358391395982263,
+          "f1Rescaled": 0.8395978489955658
+        }
+      },
+      "basicRag": {
+        "answer": "Customer CUST-0100 (Jessica Davis Systems) belongs to the industry of \"Pharma\" and the market segment of \"Mid-Market\".",
+        "verdict": "PASS",
+        "promptTokens": 5722,
+        "completionTokens": 31,
+        "latencyMs": 53909,
+        "bertScore": {
+          "precision": 0.9957450463790914,
+          "recall": 0.9957450463790914,
+          "f1": 0.9957450463790914,
+          "f1Rescaled": 0.9893626159477287
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have any information about the customer CUST-0100 or their industry/market segment. Could you provide more context or details?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8279654525112105,
+          "recall": 0.8279654525112105,
+          "f1": 0.8279654525112105,
+          "f1Rescaled": 0.5699136312780262
+        }
+      }
+    },
+    {
+      "question": "What is the renewal date of customer CUST-0200?",
+      "referenceAnswer": "Customer CUST-0200 (Amy Taylor Global) has a renewal date of 2025-12-02.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-0200 (Amy Taylor Global)... \nRenewal date is 2025-12-02.",
+        "verdict": "PASS",
+        "promptTokens": 931,
+        "completionTokens": 26,
+        "latencyMs": 4216,
+        "bertScore": {
+          "precision": 0.9944787067650848,
+          "recall": 0.9944787067650848,
+          "f1": 0.9944787067650848,
+          "f1Rescaled": 0.986196766912712
+        }
+      },
+      "basicRag": {
+        "answer": "The renewal date of customer CUST-0200 (Amy Taylor Global) is 2025-12-02.",
+        "verdict": "PASS",
+        "promptTokens": 5693,
+        "completionTokens": 25,
+        "latencyMs": 55792,
+        "bertScore": {
+          "precision": 0.993163265020126,
+          "recall": 0.993163265020126,
+          "f1": 0.993163265020126,
+          "f1Rescaled": 0.982908162550315
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have any information available about a customer named CUST-0200. You haven't provided any context about this customer such as their membership type, or which service they are associated with. If you could provide additional information, I would be happy to try and help.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7968627367822809,
+          "recall": 0.7968627367822809,
+          "f1": 0.7968627367822809,
+          "f1Rescaled": 0.49215684195570236
+        }
+      }
+    },
+    {
+      "question": "What is the health label of customer CUST-0500?",
+      "referenceAnswer": "Customer CUST-0500 (Matthew Robinson Digital) has health label Critical with score 30/100.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-0500 (Matthew Robinson Digital) has a health label of Critical (30/100).",
+        "verdict": "PASS",
+        "promptTokens": 926,
+        "completionTokens": 23,
+        "latencyMs": 3304,
+        "bertScore": {
+          "precision": 0.979414140222932,
+          "recall": 0.979414140222932,
+          "f1": 0.979414140222932,
+          "f1Rescaled": 0.9485353505573302
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7828433997071896,
+          "recall": 0.7828433997071896,
+          "f1": 0.7828433997071896,
+          "f1Rescaled": 0.45710849926797414
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm a large language model, I don't have have access to real-time or proprietary information, including customer health labels from a specific company's database. However, I can provide you with general information about health labels or offer hypothetical scenarios if that's what you're looking for.\n\nIf you are interested in a specific health label, I would need more information from you such as the company name (e.g., insurance, health management, or wellness programs), the system name, and possibly the location or region.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7596832423156136,
+          "recall": 0.7596832423156136,
+          "f1": 0.7596832423156136,
+          "f1Rescaled": 0.399208105789034
+        }
+      }
+    },
+    {
+      "question": "What is the primary vendor of customer CUST-2000?",
+      "referenceAnswer": "Customer CUST-2000's primary vendor is VEND-20 (ServiceMesh Pro).",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "CUSTOMER",
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-2000 (Nicole White Holdings)… \n\nPrimary vendor: VEND-20 (ServiceMesh Pro).",
+        "verdict": "PASS",
+        "promptTokens": 931,
+        "completionTokens": 27,
+        "latencyMs": 3304,
+        "bertScore": {
+          "precision": 0.9447050462012715,
+          "recall": 0.9447050462012715,
+          "f1": 0.9447050462012715,
+          "f1Rescaled": 0.8617626155031788
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7604870122034164,
+          "recall": 0.7604870122034164,
+          "f1": 0.7604870122034164,
+          "f1Rescaled": 0.4012175305085411
+        }
+      },
+      "llmOnly": {
+        "answer": "Unfortunately I don't have any information on a customer named CUST-2000. Could you provide more context or information about CUST-2000.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7867099750416175,
+          "recall": 0.7867099750416175,
+          "f1": 0.7867099750416175,
+          "f1Rescaled": 0.4667749376040439
+        }
+      }
+    },
+    {
+      "question": "What is the health status of customer CUST-3000?",
+      "referenceAnswer": "Customer CUST-3000 has health status Critical with a score of 32/100.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-3000 (Megan Johnson International)… \n\nThe health status of CUST-3000 (Megan Johnson International) is Critical, with a health score of 32/100.",
+        "verdict": "PASS",
+        "promptTokens": 931,
+        "completionTokens": 43,
+        "latencyMs": 3290,
+        "bertScore": {
+          "precision": 0.9155665937162333,
+          "recall": 0.9155665937162333,
+          "f1": 0.9155665937162333,
+          "f1Rescaled": 0.7889164842905833
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7724941267067763,
+          "recall": 0.7724941267067763,
+          "f1": 0.7724941267067763,
+          "f1Rescaled": 0.4312353167669408
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm not aware of any specific database or system that I can access to retrieve the health status of a customer named \"CUST-3000\". This information seems to be specific to a particular application or system that you are interacting with.\n\nIf you're trying to retrieve information about a customer's health status through a specific system or application, I'll need more context or information to assist you.\n\nHowever, in general, here are some steps you might follow to retrieve customer health status information:\n\n1. **Check the system's documentation**: If you're using a specific system or application to manage customer data, check the system's documentation or user manual to understand how to access customer health status information.\n2. **Verify authentication**: Ensure that you have the necessary authentication and authorization to access customer health status information.\n3. **Query the system**: Once authenticated, you can try querying the system to retrieve the customer's health status information. This might involve a specific API call, SQL query, or UI action.\n4. **Contact system administrator**: If you're unable to retrieve the information using the above steps, you may need to contact the system administrator or support team for assistance.\n\nPlease provide more context or information if you need specific help with a particular system or application.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8385940730951246,
+          "recall": 0.8385940730951246,
+          "f1": 0.8385940730951246,
+          "f1Rescaled": 0.5964851827378115
+        }
+      }
+    },
+    {
+      "question": "Which vendor does customer CUST-1000 depend on, and what is their segment?",
+      "referenceAnswer": "Customer CUST-1000 (Steven Martin Enterprises) depends on vendor VEND-20 and is in the Mid-Market segment.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "CUSTOMER",
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-1000 (Steven Martin Enterprises) primarily depends on Vendor VEND-20 (ServiceMesh Pro) for services. They also depend on secondary vendors: VEND-01, VEND-10, and VEND-07. VEND-20 is categorized as a Service vendor. As for segment, CUST-1000's segment is Mid-Market.",
+        "verdict": "PASS",
+        "promptTokens": 987,
+        "completionTokens": 78,
+        "latencyMs": 3517,
+        "bertScore": {
+          "precision": 0.9622026240905731,
+          "recall": 0.9622026240905731,
+          "f1": 0.9622026240905731,
+          "f1Rescaled": 0.9055065602264328
+        }
+      },
+      "basicRag": {
+        "answer": "Customer CUST-1000 is dependent on multiple vendors:\n\n1. Primary vendor: VEND-20 (ServiceMesh Pro)\n2. Secondary vendors: VEND-01, VEND-10, VEND-07\n\nSince the primary vendor is VEND-20, the answer to the question is that CUST-1000 depends on VEND-20, which is categorized under Segment: All but, in the list of vendors provided it seems to be categorized under ServiceMesh Pro is categorized under Segment: All.\n\nHowever, looking for a match in the segment names that seem more relevant, Service Mesh or Service Mesh pro is in no Segment List, so, ServiceMesh Pro is categorized under segment ALL.\n\nHowever, looking at the question asked, it asks about the primary vendor dependency.\n \n The correct primary Vendor Segment is actually in vendor VEND-20 which is categorized under segment ALL. \n\nSince vendor VEND-20 and VEND-01 segment is categorized under Segment ALL, so in the given segment list it means that ServiceMesh Pro's Segment is ALL.",
+        "verdict": "FAIL",
+        "promptTokens": 5739,
+        "completionTokens": 218,
+        "latencyMs": 12055,
+        "bertScore": {
+          "precision": 0.8955334555039162,
+          "recall": 0.8955334555039162,
+          "f1": 0.8955334555039162,
+          "f1Rescaled": 0.7388336387597905
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have any information about a customer named CUST-1000 or their vendor and segment details. This information is not provided in the given prompt. If you provide more context or details, I'll do my best to assist you.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8148504467651787,
+          "recall": 0.8148504467651787,
+          "f1": 0.8148504467651787,
+          "f1Rescaled": 0.5371261169129468
+        }
+      }
+    },
+    {
+      "question": "Which region is customer CUST-4999 hosted in?",
+      "referenceAnswer": "Customer CUST-4999 (Michael Flores International) is hosted in REGION-CHICAGO and depends on vendor VEND-19.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "CUSTOMER",
+        "REGION"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-4999 (Michael Flores International) is hosted in REGION-CHICAGO.",
+        "verdict": "PASS",
+        "promptTokens": 982,
+        "completionTokens": 21,
+        "latencyMs": 3381,
+        "bertScore": {
+          "precision": 0.9750231563675429,
+          "recall": 0.9750231563675429,
+          "f1": 0.9750231563675429,
+          "f1Rescaled": 0.9375578909188572
+        }
+      },
+      "basicRag": {
+        "answer": "The customer record for CUST-4999 is not provided in the given text. However, customer records from CUST-4000 onwards are not present in this text.",
+        "verdict": "FAIL",
+        "promptTokens": 5521,
+        "completionTokens": 36,
+        "latencyMs": 54520,
+        "bertScore": {
+          "precision": 0.8039435937043231,
+          "recall": 0.8039435937043231,
+          "f1": 0.8039435937043231,
+          "f1Rescaled": 0.5098589842608078
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't provide information about customer data or hosting status. Is there anything else I can help you with?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7241573324806577,
+          "recall": 0.7241573324806577,
+          "f1": 0.7241573324806577,
+          "f1Rescaled": 0.31039333120164436
+        }
+      }
+    },
+    {
+      "question": "What is the SLA tier of vendor VEND-01?",
+      "referenceAnswer": "The SLA tier for VEND-01 (MedSync) is Platinum.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-01 (MedSync) has a Platinum SLA Tier.",
+        "verdict": "PASS",
+        "promptTokens": 917,
+        "completionTokens": 17,
+        "latencyMs": 3202,
+        "bertScore": {
+          "precision": 0.9693623033647462,
+          "recall": 0.9693623033647462,
+          "f1": 0.9693623033647462,
+          "f1Rescaled": 0.9234057584118655
+        }
+      },
+      "basicRag": {
+        "answer": "The SLA tier of vendor VEND-01 (MedSync) is Platinum.",
+        "verdict": "PASS",
+        "promptTokens": 4682,
+        "completionTokens": 18,
+        "latencyMs": 42610,
+        "bertScore": {
+          "precision": 0.979502707038624,
+          "recall": 0.979502707038624,
+          "f1": 0.979502707038624,
+          "f1Rescaled": 0.9487567675965599
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have information on an SLA (Service Level Agreement) tier for a vendor named VEND-01. If you could provide more context or information about VEND-01, I might be able to help.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.836739677202436,
+          "recall": 0.836739677202436,
+          "f1": 0.836739677202436,
+          "f1Rescaled": 0.5918491930060901
+        }
+      }
+    },
+    {
+      "question": "What category does vendor VEND-05 belong to, and what is its SLA tier?",
+      "referenceAnswer": "Vendor VEND-05 (NetForge) belongs to the Infrastructure category and has Platinum SLA tier.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-05 (NetForge) belongs to the Infrastructure category, and its SLA tier is Platinum.",
+        "verdict": "PASS",
+        "promptTokens": 922,
+        "completionTokens": 24,
+        "latencyMs": 3278,
+        "bertScore": {
+          "precision": 0.9981218336949872,
+          "recall": 0.9981218336949872,
+          "f1": 0.9981218336949872,
+          "f1Rescaled": 0.995304584237468
+        }
+      },
+      "basicRag": {
+        "answer": "There is no vendor profile for VEND-05 in the given text.",
+        "verdict": "FAIL",
+        "promptTokens": 4697,
+        "completionTokens": 16,
+        "latencyMs": 43678,
+        "bertScore": {
+          "precision": 0.8044019539355658,
+          "recall": 0.8044019539355658,
+          "f1": 0.8044019539355658,
+          "f1Rescaled": 0.5110048848389145
+        }
+      },
+      "llmOnly": {
+        "answer": "I cannot access any information about a vendor, including its SLA tier.  Is there anything else I can help you with?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7817055798601059,
+          "recall": 0.7817055798601059,
+          "f1": 0.7817055798601059,
+          "f1Rescaled": 0.45426394965026484
+        }
+      }
+    },
+    {
+      "question": "What is the primary region affinity of vendor VEND-10?",
+      "referenceAnswer": "Vendor VEND-10 (ComputeHub) has primary region affinity REGION-TORONTO and SLA tier Silver.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-10 (ComputeHub) is primarily affiliated with Region REGION-TORONTO.",
+        "verdict": "PASS",
+        "promptTokens": 913,
+        "completionTokens": 21,
+        "latencyMs": 3323,
+        "bertScore": {
+          "precision": 0.9283872709515214,
+          "recall": 0.9283872709515214,
+          "f1": 0.9283872709515214,
+          "f1Rescaled": 0.8209681773788036
+        }
+      },
+      "basicRag": {
+        "answer": "The primary region affinity of vendor VEND-10 is REGION-TORONTO.",
+        "verdict": "PASS",
+        "promptTokens": 4660,
+        "completionTokens": 18,
+        "latencyMs": 46034,
+        "bertScore": {
+          "precision": 0.9200356474232219,
+          "recall": 0.9200356474232219,
+          "f1": 0.9200356474232219,
+          "f1Rescaled": 0.8000891185580546
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have any information about vendor VEND-10. Can you please provide more context or information about the vendor VEND-10 or region affinity you are referring to?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8222837568475192,
+          "recall": 0.8222837568475192,
+          "f1": 0.8222837568475192,
+          "f1Rescaled": 0.555709392118798
+        }
+      }
+    },
+    {
+      "question": "What category is vendor VEND-15?",
+      "referenceAnswer": "Vendor VEND-15 (CacheLayer) is in the Networking category with Gold SLA tier.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-15 (CacheLayer) — Category: Networking.",
+        "verdict": "PASS",
+        "promptTokens": 911,
+        "completionTokens": 15,
+        "latencyMs": 3234,
+        "bertScore": {
+          "precision": 0.9384873339259711,
+          "recall": 0.9384873339259711,
+          "f1": 0.9384873339259711,
+          "f1Rescaled": 0.8462183348149277
+        }
+      },
+      "basicRag": {
+        "answer": "Vendor VEND-15 is in the category of \"Networking\".",
+        "verdict": "PASS",
+        "promptTokens": 4692,
+        "completionTokens": 14,
+        "latencyMs": 43464,
+        "bertScore": {
+          "precision": 0.8974915116549169,
+          "recall": 0.8974915116549169,
+          "f1": 0.8974915116549169,
+          "f1Rescaled": 0.7437287791372923
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't verify what category vendor VEND-15 falls into.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8395310075355101,
+          "recall": 0.8395310075355101,
+          "f1": 0.8395310075355101,
+          "f1Rescaled": 0.5988275188387754
+        }
+      }
+    },
+    {
+      "question": "What is the SLA tier and region affinity of vendor VEND-20?",
+      "referenceAnswer": "The SLA tier for VEND-20 (ServiceMesh Pro) is Gold.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-20 — ServiceMesh Pro:\n- SLA Tier: Gold.\n- Primary Region Affinity: REGION-SAO-PAULO (Sao Paulo, LATAM).",
+        "verdict": "PASS",
+        "promptTokens": 926,
+        "completionTokens": 38,
+        "latencyMs": 3232,
+        "bertScore": {
+          "precision": 0.9085834183743673,
+          "recall": 0.9085834183743673,
+          "f1": 0.9085834183743673,
+          "f1Rescaled": 0.7714585459359182
+        }
+      },
+      "basicRag": {
+        "answer": "There is no information provided about vendor VEND-20.",
+        "verdict": "FAIL",
+        "promptTokens": 4695,
+        "completionTokens": 13,
+        "latencyMs": 40728,
+        "bertScore": {
+          "precision": 0.7037148886676716,
+          "recall": 0.7037148886676716,
+          "f1": 0.7037148886676716,
+          "f1Rescaled": 0.2592872216691791
+        }
+      },
+      "llmOnly": {
+        "answer": "I cannot provide information regarding vendor SLA tier and region affinity that I do not have access to. Can I help you find another piece of information maybe?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7240178092543224,
+          "recall": 0.7240178092543224,
+          "f1": 0.7240178092543224,
+          "f1Rescaled": 0.31004452313580594
+        }
+      }
+    },
+    {
+      "question": "What category does vendor VEND-25 belong to?",
+      "referenceAnswer": "Vendor VEND-25 (SMSBurst) belongs to the DevOps category. SLA tier: Gold.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-25 (SMSBurst) belongs to the DevOps category.",
+        "verdict": "PASS",
+        "promptTokens": 919,
+        "completionTokens": 18,
+        "latencyMs": 3362,
+        "bertScore": {
+          "precision": 0.9551215070913458,
+          "recall": 0.9551215070913458,
+          "f1": 0.9551215070913458,
+          "f1Rescaled": 0.8878037677283646
+        }
+      },
+      "basicRag": {
+        "answer": "Vendor VEND-25 belongs to the category of 'DevOps'.",
+        "verdict": "PASS",
+        "promptTokens": 4707,
+        "completionTokens": 15,
+        "latencyMs": 46983,
+        "bertScore": {
+          "precision": 0.908845153800335,
+          "recall": 0.908845153800335,
+          "f1": 0.908845153800335,
+          "f1Rescaled": 0.7721128845008376
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have any information about a vendor VEND-25. If it is a vendor for a specific industry, could you please provide more context such as the industry or country?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7879791825792779,
+          "recall": 0.7879791825792779,
+          "f1": 0.7879791825792779,
+          "f1Rescaled": 0.4699479564481948
+        }
+      }
+    },
+    {
+      "question": "What is the SLA tier of vendor VEND-35?",
+      "referenceAnswer": "The SLA tier for VEND-35 (ETL Bridge) is Silver.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-35 (ETL Bridge) has a SLA Tier of Silver.",
+        "verdict": "PASS",
+        "promptTokens": 918,
+        "completionTokens": 19,
+        "latencyMs": 3193,
+        "bertScore": {
+          "precision": 0.9743083679797173,
+          "recall": 0.9743083679797173,
+          "f1": 0.9743083679797173,
+          "f1Rescaled": 0.9357709199492933
+        }
+      },
+      "basicRag": {
+        "answer": "The SLA tier of vendor VEND-35 (ETL Bridge) is Silver.",
+        "verdict": "PASS",
+        "promptTokens": 4703,
+        "completionTokens": 19,
+        "latencyMs": 44716,
+        "bertScore": {
+          "precision": 0.9807778373015771,
+          "recall": 0.9807778373015771,
+          "f1": 0.9807778373015771,
+          "f1Rescaled": 0.9519445932539428
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't provide information about a specific vendor you've mentioned. Is there any additional information that you can provide about vendor VEND-35?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7388813772258284,
+          "recall": 0.7388813772258284,
+          "f1": 0.7388813772258284,
+          "f1Rescaled": 0.34720344306457096
+        }
+      }
+    },
+    {
+      "question": "What is the region affinity of vendor VEND-30?",
+      "referenceAnswer": "Vendor VEND-30 (StreamFlow) has region affinity REGION-SAO-PAULO. Category: DevOps.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-30 (StreamFlow) is a DevOps vendor with a Primary Region Affinity of REGION-SAO-PAULO.",
+        "verdict": "PASS",
+        "promptTokens": 956,
+        "completionTokens": 29,
+        "latencyMs": 3241,
+        "bertScore": {
+          "precision": 0.9604895625042166,
+          "recall": 0.9604895625042166,
+          "f1": 0.9604895625042166,
+          "f1Rescaled": 0.9012239062605415
+        }
+      },
+      "basicRag": {
+        "answer": "The region affinity of vendor VEND-30 (StreamFlow) is REGION-SAO-PAULO.",
+        "verdict": "PASS",
+        "promptTokens": 4689,
+        "completionTokens": 22,
+        "latencyMs": 6626,
+        "bertScore": {
+          "precision": 0.957397548209977,
+          "recall": 0.957397548209977,
+          "f1": 0.957397548209977,
+          "f1Rescaled": 0.8934938705249426
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't access any information about vendor VEND-30.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.749488547982947,
+          "recall": 0.749488547982947,
+          "f1": 0.749488547982947,
+          "f1Rescaled": 0.37372136995736743
+        }
+      }
+    },
+    {
+      "question": "What category and SLA tier does vendor VEND-40 have?",
+      "referenceAnswer": "The SLA tier for VEND-40 (IndexForge) is Bronze.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-40 (IndexForge) has the following details:\nVendor VEND-40 — IndexForge\nCategory: Analytics\nSLA Tier: Bronze",
+        "verdict": "PASS",
+        "promptTokens": 956,
+        "completionTokens": 33,
+        "latencyMs": 3241,
+        "bertScore": {
+          "precision": 0.9161049002668428,
+          "recall": 0.9161049002668428,
+          "f1": 0.9161049002668428,
+          "f1Rescaled": 0.790262250667107
+        }
+      },
+      "basicRag": {
+        "answer": "Vendor VEND-40 (IndexForge) has the following category and SLA tier:\n\nCategory: Analytics\nSLA Tier: Bronze",
+        "verdict": "PASS",
+        "promptTokens": 4704,
+        "completionTokens": 28,
+        "latencyMs": 32978,
+        "bertScore": {
+          "precision": 0.9263813891127132,
+          "recall": 0.9263813891127132,
+          "f1": 0.9263813891127132,
+          "f1Rescaled": 0.815953472781783
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have information on vendor 'VEND-40'. You might need to check the relevant documentation or database to get the information.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7580127239570037,
+          "recall": 0.7580127239570037,
+          "f1": 0.7580127239570037,
+          "f1Rescaled": 0.3950318098925093
+        }
+      }
+    },
+    {
+      "question": "What is vendor VEND-50's SLA tier and region affinity?",
+      "referenceAnswer": "Vendor VEND-50 (SSOProvider) has SLA tier Gold and region affinity REGION-VIRGINIA.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-50 (SSOProvider) — \nVendor VEND-50's SLA tier is Gold, and their primary region affinity is REGION-VIRGINIA.",
+        "verdict": "PASS",
+        "promptTokens": 960,
+        "completionTokens": 37,
+        "latencyMs": 3414,
+        "bertScore": {
+          "precision": 0.9865535067016501,
+          "recall": 0.9865535067016501,
+          "f1": 0.9865535067016501,
+          "f1Rescaled": 0.9663837667541253
+        }
+      },
+      "basicRag": {
+        "answer": "Vendor VEND-50's SLA tier is Gold and its primary region affinity is REGION-VIRGINIA.",
+        "verdict": "PASS",
+        "promptTokens": 4700,
+        "completionTokens": 24,
+        "latencyMs": 44889,
+        "bertScore": {
+          "precision": 0.9610793373404725,
+          "recall": 0.9610793373404725,
+          "f1": 0.9610793373404725,
+          "f1Rescaled": 0.9026983433511812
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't access any sensitive info or vendor data like vendor VEND-50's SLA tier, region, or other information about their service. \n\nHowever, I can provide general information about how you would typically find this information, if available:\n\n1. Check the vendor's official documentation or knowledge base: Look for official documentation, FAQs, or knowledge base articles that might outline the available SLA tiers, region options, and other relevant details for the specific service.\n\n2. Reach out to vendor support: If you're unable to find the required information in the vendor's documentation, you can contact their customer support team directly. Provide them with your account information (if applicable) and ask about the available SLA tiers and region options.\n\n3. Contact the vendor's sales or account management team: If you're interested in purchasing their services, you can reach out to the vendor's sales or account management team for information about available SLA tiers, pricing, and region options.\n\nIf you want me to do some research on a specific subject, though, I'd be more than happy to help.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8439034361768575,
+          "recall": 0.8439034361768575,
+          "f1": 0.8439034361768575,
+          "f1Rescaled": 0.6097585904421438
+        }
+      }
+    },
+    {
+      "question": "What is the role and department of employee EMP-001?",
+      "referenceAnswer": "Employee EMP-001 (Jennifer Williams) is a Account Executive in the Sales department.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "EMPLOYEE"
+      ],
+      "graphrag": {
+        "answer": "Employee EMP-001 (Jennifer Williams)… \n\nRole: Account Executive.\nDepartment: Sales.",
+        "verdict": "PASS",
+        "promptTokens": 998,
+        "completionTokens": 20,
+        "latencyMs": 3255,
+        "bertScore": {
+          "precision": 0.9723406121809319,
+          "recall": 0.9723406121809319,
+          "f1": 0.9723406121809319,
+          "f1Rescaled": 0.9308515304523298
+        }
+      },
+      "basicRag": {
+        "answer": "There is no information provided about employee EMP-001. They are listed as the manager of EMP-010 (William Anderson) but their details are not included in the given data.",
+        "verdict": "FAIL",
+        "promptTokens": 5456,
+        "completionTokens": 37,
+        "latencyMs": 51888,
+        "bertScore": {
+          "precision": 0.8061033418678206,
+          "recall": 0.8061033418678206,
+          "f1": 0.8061033418678206,
+          "f1Rescaled": 0.5152583546695516
+        }
+      },
+      "llmOnly": {
+        "answer": "I cannot provide the role and department of a specific employee based on their ID number as I would require access to private HR systems. Is there anything else I can help you with?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.696894369747342,
+          "recall": 0.696894369747342,
+          "f1": 0.696894369747342,
+          "f1Rescaled": 0.242235924368355
+        }
+      }
+    },
+    {
+      "question": "Which region is employee EMP-010 assigned to?",
+      "referenceAnswer": "Employee EMP-010 (William Anderson) is assigned to REGION-TORONTO. Role: Engineering Manager, Department: Sales.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "EMPLOYEE"
+      ],
+      "graphrag": {
+        "answer": "Employee EMP-010 (William Anderson) is assigned to Region REGION-TORONTO.",
+        "verdict": "PASS",
+        "promptTokens": 1000,
+        "completionTokens": 19,
+        "latencyMs": 3190,
+        "bertScore": {
+          "precision": 0.9671219894431687,
+          "recall": 0.9671219894431687,
+          "f1": 0.9671219894431687,
+          "f1Rescaled": 0.9178049736079219
+        }
+      },
+      "basicRag": {
+        "answer": "EMP-010, William Anderson, is assigned to the REGION-TORONTO.",
+        "verdict": "PASS",
+        "promptTokens": 5498,
+        "completionTokens": 18,
+        "latencyMs": 53801,
+        "bertScore": {
+          "precision": 0.9559574333940208,
+          "recall": 0.9559574333940208,
+          "f1": 0.9559574333940208,
+          "f1Rescaled": 0.8898935834850521
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm not aware of any information about an employee named EMP-010, including their assigned region. Can you provide more information about the context or the system you are referring to? I'll do my best to provide a helpful answer.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8475937418496443,
+          "recall": 0.8475937418496443,
+          "f1": 0.8475937418496443,
+          "f1Rescaled": 0.6189843546241108
+        }
+      }
+    },
+    {
+      "question": "What department does employee EMP-050 work in?",
+      "referenceAnswer": "Employee EMP-050 (Hannah Williams) works in the Sales department as a VP Customer Success in region REGION-TORONTO.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "EMPLOYEE"
+      ],
+      "graphrag": {
+        "answer": "Employee EMP-050 (Hannah Williams) works in the Sales department.",
+        "verdict": "PASS",
+        "promptTokens": 1001,
+        "completionTokens": 16,
+        "latencyMs": 3210,
+        "bertScore": {
+          "precision": 0.9436212012129069,
+          "recall": 0.9436212012129069,
+          "f1": 0.9436212012129069,
+          "f1Rescaled": 0.8590530030322674
+        }
+      },
+      "basicRag": {
+        "answer": "Employee EMP-050, Hannah Williams, works in the Sales department.",
+        "verdict": "PASS",
+        "promptTokens": 5527,
+        "completionTokens": 15,
+        "latencyMs": 51934,
+        "bertScore": {
+          "precision": 0.9399837997478144,
+          "recall": 0.9399837997478144,
+          "f1": 0.9399837997478144,
+          "f1Rescaled": 0.8499594993695361
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have the information about EMP-050, or any employee for that matter. I'm a large language model, I don't have access to any specific company's employee database or any information that would require specific context or access. If you can provide more information or context about EMP-050, I'd be happy to help you find the answer to your question.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8072764930673257,
+          "recall": 0.8072764930673257,
+          "f1": 0.8072764930673257,
+          "f1Rescaled": 0.5181912326683143
+        }
+      }
+    },
+    {
+      "question": "What is the role of employee EMP-100?",
+      "referenceAnswer": "Employee EMP-100 (John Johnson) has the role of Senior CSM in the Sales department.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "EMPLOYEE"
+      ],
+      "graphrag": {
+        "answer": "Employee EMP-100 (John Johnson) is a Senior CSM.",
+        "verdict": "PASS",
+        "promptTokens": 1003,
+        "completionTokens": 15,
+        "latencyMs": 3402,
+        "bertScore": {
+          "precision": 0.9629933944238899,
+          "recall": 0.9629933944238899,
+          "f1": 0.9629933944238899,
+          "f1Rescaled": 0.9074834860597247
+        }
+      },
+      "basicRag": {
+        "answer": "Unfortunately, there is no employee record provided for EMP-100. The provided information only includes employee records from EMP-011 to EMP-050 and the rest of the employees from EMP-114 to EMP-050 are not EMP-100 either.",
+        "verdict": "FAIL",
+        "promptTokens": 5638,
+        "completionTokens": 50,
+        "latencyMs": 51323,
+        "bertScore": {
+          "precision": 0.7597936705627512,
+          "recall": 0.7597936705627512,
+          "f1": 0.7597936705627512,
+          "f1Rescaled": 0.39948417640687794
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have any information on an employee named EMP-100. You haven't provided any information about EMP-100, such as their job title, department, or context. Could you please provide more context or information about EMP-100 so I can give you a more accurate answer?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7570015479439446,
+          "recall": 0.7570015479439446,
+          "f1": 0.7570015479439446,
+          "f1Rescaled": 0.3925038698598615
+        }
+      }
+    },
+    {
+      "question": "What is the performance rating of employee EMP-200?",
+      "referenceAnswer": "Employee EMP-200 (Kenneth Brown) has a performance rating of Exceeds. Role: Engineering Manager, Department: Customer Success.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "EMPLOYEE"
+      ],
+      "graphrag": {
+        "answer": "Employee EMP-200 (Kenneth Brown)… has a performance rating of Exceeds.",
+        "verdict": "PASS",
+        "promptTokens": 999,
+        "completionTokens": 20,
+        "latencyMs": 3352,
+        "bertScore": {
+          "precision": 0.9627639947328914,
+          "recall": 0.9627639947328914,
+          "f1": 0.9627639947328914,
+          "f1Rescaled": 0.9069099868322286
+        }
+      },
+      "basicRag": {
+        "answer": "The performance rating of employee EMP-200 (Kenneth Brown) is Exceeds.",
+        "verdict": "PASS",
+        "promptTokens": 5431,
+        "completionTokens": 19,
+        "latencyMs": 51243,
+        "bertScore": {
+          "precision": 0.9598149109124428,
+          "recall": 0.9598149109124428,
+          "f1": 0.9598149109124428,
+          "f1Rescaled": 0.8995372772811069
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm not capable of knowing your employee data base. However, the general steps to answer this question would be to check the employee's latest performance review and the ratings system used in your organization (e.g., on a scale of 1-5 or A-F).\n\nThe performance rating of EMP-200 can be found by:\n\n1. Checking their personnel file or database: Access the employee's personnel file, which usually includes their performance reviews and ratings.\n2. Reviewing their performance review documents: Look for recent performance reviews, such as the Performance Review or Performance Development Plan, which should include their performance rating.\n3. Consulting with the supervisor or HR department: Reach out to the employee's supervisor or HR department to inquire about their performance rating and the reasoning behind it.\n\nHere's an example of how you might ask HR for an employee's performance rating:\n\n\"Hi [HR Representative's Name], I need to access EMP-200's performance rating. Can you please let me know what their current performance rating is and provide a brief explanation for the rating?\"",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8519786278006197,
+          "recall": 0.8519786278006197,
+          "f1": 0.8519786278006197,
+          "f1Rescaled": 0.6299465695015494
+        }
+      }
+    },
+    {
+      "question": "What is the status of project PROJ-NORDIC-001?",
+      "referenceAnswer": "Project PROJ-NORDIC-001 (NORDIC MIGRATION) has status Delayed. Region: REGION-FRANKFURT, Vendor: VEND-01.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "PROJECT"
+      ],
+      "graphrag": {
+        "answer": "Project PROJ-NORDIC-001 (NORDIC MIGRATION) is Delayed.",
+        "verdict": "PASS",
+        "promptTokens": 1036,
+        "completionTokens": 21,
+        "latencyMs": 3321,
+        "bertScore": {
+          "precision": 0.9441376601857676,
+          "recall": 0.9441376601857676,
+          "f1": 0.9441376601857676,
+          "f1Rescaled": 0.860344150464419
+        }
+      },
+      "basicRag": {
+        "answer": "Unfortunately, the information available does not directly indicate the status of the project PROJ-NORDIC-001. However, we can infer some information about this project.\n\nProject PROJ-NORDIC-001 is mentioned as one of the active and historical projects underpinned by VEND-01 (MedSync) infrastructure.\n\nBased on the information provided for VEND-01, we know that:\n\n- VEND-01 is a Infrastructure vendor operating primarily in Sydney, APAC.\n- VEND-01 is the primary infrastructure dependency for 250 customer accounts in the platform.\n- VEND-01 has an outage history, including OUTAGE-001 and OUTAGE-051.\n- VEND-01 infrastructure underpins several active and historical projects, including PROJ-NORDIC-001.\n\nHowever, there is no specific information about the status of PROJ-NORDIC-001, such as whether it is active, completed, or on hold.",
+        "verdict": "FAIL",
+        "promptTokens": 4993,
+        "completionTokens": 193,
+        "latencyMs": 49143,
+        "bertScore": {
+          "precision": 0.8772893625421608,
+          "recall": 0.8772893625421608,
+          "f1": 0.8772893625421608,
+          "f1Rescaled": 0.6932234063554021
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have access to real-time information about specific projects. PROJ-NORDIC-001 does not appear to be a widely known or documented project. I'm not able to provide information on its status.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8374629926736755,
+          "recall": 0.8374629926736755,
+          "f1": 0.8374629926736755,
+          "f1Rescaled": 0.5936574816841889
+        }
+      }
+    },
+    {
+      "question": "Which vendor does project PROJ-NORDIC-001 use?",
+      "referenceAnswer": "Project PROJ-NORDIC-001 (NORDIC MIGRATION) uses vendor VEND-01 in region REGION-FRANKFURT.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "PROJECT",
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-01 (MedSync)…",
+        "verdict": "PASS",
+        "promptTokens": 1035,
+        "completionTokens": 11,
+        "latencyMs": 3409,
+        "bertScore": {
+          "precision": 0.7837680507686415,
+          "recall": 0.7837680507686415,
+          "f1": 0.7837680507686415,
+          "f1Rescaled": 0.4594201269216039
+        }
+      },
+      "basicRag": {
+        "answer": "Based on the provided information, PROJ-NORDIC-001 uses VEND-01 (MedSync) infrastructure underpinning.",
+        "verdict": "PASS",
+        "promptTokens": 4701,
+        "completionTokens": 28,
+        "latencyMs": 44008,
+        "bertScore": {
+          "precision": 0.8681794695647838,
+          "recall": 0.8681794695647838,
+          "f1": 0.8681794695647838,
+          "f1Rescaled": 0.6704486739119594
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have enough information about project PROJ-NORDIC-001, could you provide more information about this project?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8106821404641757,
+          "recall": 0.8106821404641757,
+          "f1": 0.8106821404641757,
+          "f1Rescaled": 0.5267053511604394
+        }
+      }
+    },
+    {
+      "question": "What is the region and status of project PROJ-EMEA-002?",
+      "referenceAnswer": "Project PROJ-EMEA-002 (EMEA ONBOARDING) is in region REGION-LONDON with status Completed. Vendor: VEND-02.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "PROJECT",
+        "REGION"
+      ],
+      "graphrag": {
+        "answer": "Project PROJ-EMEA-002 (EMEA ONBOARDING) is located in REGION-LONDON and has a status of Completed.",
+        "verdict": "PASS",
+        "promptTokens": 1018,
+        "completionTokens": 29,
+        "latencyMs": 3287,
+        "bertScore": {
+          "precision": 0.9767555038831132,
+          "recall": 0.9767555038831132,
+          "f1": 0.9767555038831132,
+          "f1Rescaled": 0.941888759707783
+        }
+      },
+      "basicRag": {
+        "answer": "I am unable to identify the status of project PROJ-EMEA-002 because no records of any project called PROJ-EMEA-002 exists in the information given.",
+        "verdict": "FAIL",
+        "promptTokens": 4899,
+        "completionTokens": 37,
+        "latencyMs": 40770,
+        "bertScore": {
+          "precision": 0.8300484512355891,
+          "recall": 0.8300484512355891,
+          "f1": 0.8300484512355891,
+          "f1Rescaled": 0.5751211280889729
+        }
+      },
+      "llmOnly": {
+        "answer": "I cannot verify the status of project PROJ-EMEA-002. Is there anything else I can help you with?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8678347357693122,
+          "recall": 0.8678347357693122,
+          "f1": 0.8678347357693122,
+          "f1Rescaled": 0.6695868394232807
+        }
+      }
+    },
+    {
+      "question": "What is the start and end date of project PROJ-APAC-010?",
+      "referenceAnswer": "The provided context does not contain information about project PROJ-APAC-010.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "PROJECT"
+      ],
+      "graphrag": {
+        "answer": "There is not enough context to answer your question.",
+        "verdict": "PASS",
+        "promptTokens": 583,
+        "completionTokens": 11,
+        "latencyMs": 3213,
+        "bertScore": {
+          "precision": 0.7580545146882348,
+          "recall": 0.7580545146882348,
+          "f1": 0.7580545146882348,
+          "f1Rescaled": 0.3951362867205871
+        }
+      },
+      "basicRag": {
+        "answer": "The start and end date of any project (in this case, PROJ-APAC-010) is not mentioned in the given text.",
+        "verdict": "PASS",
+        "promptTokens": 5291,
+        "completionTokens": 30,
+        "latencyMs": 48586,
+        "bertScore": {
+          "precision": 0.8862080022699093,
+          "recall": 0.8862080022699093,
+          "f1": 0.8862080022699093,
+          "f1Rescaled": 0.7155200056747731
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have specific information about a project named \"PROJ-APAC-010\". If you can provide more context or details about this project, I'll do my best to help. Alternatively, if you have access to a project management tool or a database that contains project information, you may be able to find the start and end dates for this project.",
+        "verdict": "PASS",
+        "bertScore": {
+          "precision": 0.8889549613191008,
+          "recall": 0.8889549613191008,
+          "f1": 0.8889549613191008,
+          "f1Rescaled": 0.722387403297752
+        }
+      }
+    },
+    {
+      "question": "What type and severity is compliance case COMP-0001?",
+      "referenceAnswer": "Compliance case COMP-0001 is a SLA Breach case with Medium severity. Status: Closed. Customer: CUST-0001. Vendor: VEND-01.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "COMPLIANCE"
+      ],
+      "graphrag": {
+        "answer": "Compliance Case Record COMP-0001: Type - SLA Breach, Severity - Medium.",
+        "verdict": "PASS",
+        "promptTokens": 987,
+        "completionTokens": 21,
+        "latencyMs": 3881,
+        "bertScore": {
+          "precision": 0.9294445869004228,
+          "recall": 0.9294445869004228,
+          "f1": 0.9294445869004228,
+          "f1Rescaled": 0.8236114672510569
+        }
+      },
+      "basicRag": {
+        "answer": "There is not enough information to determine the type and severity of compliance case COMP-0001. It does not appear in the given list of compliance cases for any of the employees.",
+        "verdict": "FAIL",
+        "promptTokens": 5063,
+        "completionTokens": 37,
+        "latencyMs": 47899,
+        "bertScore": {
+          "precision": 0.8562546127020707,
+          "recall": 0.8562546127020707,
+          "f1": 0.8562546127020707,
+          "f1Rescaled": 0.6406365317551768
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm unable to locate any information relevant to a compliance case identified as COMP-0001. I also cannot confirm whether this is an actual or fictional compliance case.\n\nIn a typical compliance scenario, case numbers (COMP-* ) often refer to internal tracking numbers or case management systems maintained by organizations.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8759806941590369,
+          "recall": 0.8759806941590369,
+          "f1": 0.8759806941590369,
+          "f1Rescaled": 0.6899517353975922
+        }
+      }
+    },
+    {
+      "question": "Which customer and vendor are linked to compliance case COMP-0001?",
+      "referenceAnswer": "Compliance case COMP-0001 (SLA Breach) is linked to customer CUST-0001 and vendor VEND-01 in region REGION-FRANKFURT.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "COMPLIANCE",
+        "CUSTOMER",
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Compliance Case Record COMP-0001 (Type: SLA Breach) \nCustomer CUST-0001 (Kenneth Lopez Inc), \nVendor VEND-01.",
+        "verdict": "PASS",
+        "promptTokens": 989,
+        "completionTokens": 37,
+        "latencyMs": 3432,
+        "bertScore": {
+          "precision": 0.9360085820800745,
+          "recall": 0.9360085820800745,
+          "f1": 0.9360085820800745,
+          "f1Rescaled": 0.8400214552001863
+        }
+      },
+      "basicRag": {
+        "answer": "I can't provide information about specific employees, customer accounts, or compliance cases. Is there something else I can help you with?",
+        "verdict": "FAIL",
+        "promptTokens": 5037,
+        "completionTokens": 27,
+        "latencyMs": 48927,
+        "bertScore": {
+          "precision": 0.7340443517366533,
+          "recall": 0.7340443517366533,
+          "f1": 0.7340443517366533,
+          "f1Rescaled": 0.33511087934163325
+        }
+      },
+      "llmOnly": {
+        "answer": "I can help you with that. However, I don't have any information regarding your company, and the data you've shared with me is insufficient. In order to determine the customer and vendor linked to the compliance case COMP-0001 for you, here are the steps to follow:\n\n1. **Check your CRM or database for compliance cases**: Look for the COMP-0001 case in your CRM, ERP, or database system. It's likely stored in a table with a unique identifier or case number.\n\n2. **Identify relevant data fields for the case**: You might find fields such as case ID, customer name, vendor name, case title, status, date created, and more.\n\n3. **Filter and sort data**: Filter your data by case ID and see if there are any matches for COMP-0001. You might need to sort your results as well to see the relevant data for the case.\n\n4. **Access your customer information system (if needed)**: Depending on your setup, access any customer or vendor information system where you store data. This might be a customer relationship management (CRM) tool or separate databases for customers and vendors.\n\nPlease let me know if you would like me to help you write code using a particular programming language to help you access and identify the relevant data in your CRM or database system.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8577864808299092,
+          "recall": 0.8577864808299092,
+          "f1": 0.8577864808299092,
+          "f1Rescaled": 0.6444662020747729
+        }
+      }
+    },
+    {
+      "question": "What is the status of compliance case COMP-0101?",
+      "referenceAnswer": "Compliance case COMP-0101 (Security Incident) has status Closed with High severity. Customer: CUST-0101.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "COMPLIANCE"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-0101 (Rachel King Holdings)…  \nCompliance case COMP-0101, which is directly affecting CUST-0101 (Rachel King Holdings), is currently Closed.",
+        "verdict": "PASS",
+        "promptTokens": 977,
+        "completionTokens": 40,
+        "latencyMs": 3365,
+        "bertScore": {
+          "precision": 0.8943672899229343,
+          "recall": 0.8943672899229343,
+          "f1": 0.8943672899229343,
+          "f1Rescaled": 0.7359182248073359
+        }
+      },
+      "basicRag": {
+        "answer": "There is no employee or compliance case record that contains the compliance case COMP-0101 in the provided data.",
+        "verdict": "FAIL",
+        "promptTokens": 5137,
+        "completionTokens": 23,
+        "latencyMs": 48814,
+        "bertScore": {
+          "precision": 0.8090381320359359,
+          "recall": 0.8090381320359359,
+          "f1": 0.8090381320359359,
+          "f1Rescaled": 0.5225953300898397
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have access to real-time information about compliance cases or other specifics within large organizations, especially as they are constantly updating and may change rapidly.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7268902506177684,
+          "recall": 0.7268902506177684,
+          "f1": 0.7268902506177684,
+          "f1Rescaled": 0.31722562654442094
+        }
+      }
+    },
+    {
+      "question": "Which region is compliance case COMP-0501 located in?",
+      "referenceAnswer": "Compliance case COMP-0501 (Policy Violation) is located in region REGION-FRANKFURT. Vendor: VEND-01, Severity: Low.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "COMPLIANCE",
+        "REGION"
+      ],
+      "graphrag": {
+        "answer": "Region REGION-FRANKFURT.",
+        "verdict": "PASS",
+        "promptTokens": 988,
+        "completionTokens": 9,
+        "latencyMs": 3209,
+        "bertScore": {
+          "precision": 0.8051557599636752,
+          "recall": 0.8051557599636752,
+          "f1": 0.8051557599636752,
+          "f1Rescaled": 0.5128893999091879
+        }
+      },
+      "basicRag": {
+        "answer": "The employee record does not explicitly mention which region EMP-285, who owns the compliance case COMP-0501 and several others, is assigned to or based out of. However, based on the data provided, we can see that the compliance cases owned by various employees, including 50 owned by EMP-285, are managed by the respective employees but their direct region of operation is not explicitly stated for EMP-285.\n\nBut, we have employee EMP-042 — Jessica Davis, based out of REGION-LONDON, who owns 0 compliance cases. It is highly unlikely that there would be any employee with the exact compliance case COMP-0501 based on the provided information.",
+        "verdict": "FAIL",
+        "promptTokens": 4940,
+        "completionTokens": 136,
+        "latencyMs": 47003,
+        "bertScore": {
+          "precision": 0.8479003778527089,
+          "recall": 0.8479003778527089,
+          "f1": 0.8479003778527089,
+          "f1Rescaled": 0.6197509446317723
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm unable to verify which region the compliance case COMP-0501 is located in.  Would you like more information about what a compliance case typically is, or more information on another topic?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8853289871217076,
+          "recall": 0.8853289871217076,
+          "f1": 0.8853289871217076,
+          "f1Rescaled": 0.713322467804269
+        }
+      }
+    },
+    {
+      "question": "What is the priority and category of ticket TICK-00001?",
+      "referenceAnswer": "Ticket TICK-00001 has priority P0 and category Authentication. Status: In Progress. Customer: CUST-0001.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "TICKET"
+      ],
+      "graphrag": {
+        "answer": "Ticket TICK-00001 Category: Authentication, Priority: P0.",
+        "verdict": "PASS",
+        "promptTokens": 989,
+        "completionTokens": 15,
+        "latencyMs": 3308,
+        "bertScore": {
+          "precision": 0.9640644187246247,
+          "recall": 0.9640644187246247,
+          "f1": 0.9640644187246247,
+          "f1Rescaled": 0.9101610468115617
+        }
+      },
+      "basicRag": {
+        "answer": "Unfortunately, TICK-00001 does not appear anywhere in the provided data.",
+        "verdict": "FAIL",
+        "promptTokens": 5463,
+        "completionTokens": 16,
+        "latencyMs": 51024,
+        "bertScore": {
+          "precision": 0.7571392007543979,
+          "recall": 0.7571392007543979,
+          "f1": 0.7571392007543979,
+          "f1Rescaled": 0.3928480018859948
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have information about TICK-00001.  You need to provide the details of the ticket, such as its description, its category, and its priority.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8381532342135732,
+          "recall": 0.8381532342135732,
+          "f1": 0.8381532342135732,
+          "f1Rescaled": 0.5953830855339332
+        }
+      }
+    },
+    {
+      "question": "Which customer raised ticket TICK-00001, and in which region?",
+      "referenceAnswer": "Ticket TICK-00001 was raised by customer CUST-0001 in region REGION-FRANKFURT. Vendor involved: VEND-01.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "TICKET",
+        "CUSTOMER",
+        "REGION"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-0001 (Kenneth Lopez Inc) raised ticket TICK-00001, and the region is REGION-FRANKFURT.",
+        "verdict": "PASS",
+        "promptTokens": 990,
+        "completionTokens": 31,
+        "latencyMs": 3315,
+        "bertScore": {
+          "precision": 0.9407582869487783,
+          "recall": 0.9407582869487783,
+          "f1": 0.9407582869487783,
+          "f1Rescaled": 0.8518957173719457
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7424994337296361,
+          "recall": 0.7424994337296361,
+          "f1": 0.7424994337296361,
+          "f1Rescaled": 0.35624858432409034
+        }
+      },
+      "llmOnly": {
+        "answer": "Unfortunately, I don't have any information about TICK-00001, as this appears to be a unique ticket ID for a support system, possibly a custom helpdesk platform or a tool. Could you please provide more context or information about TICK-00001, like what system or platform it's associated with, so I can help you find the information?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8291554584842834,
+          "recall": 0.8291554584842834,
+          "f1": 0.8291554584842834,
+          "f1Rescaled": 0.5728886462107086
+        }
+      }
+    },
+    {
+      "question": "What is the status of ticket TICK-00501?",
+      "referenceAnswer": "Ticket TICK-00501 (Authentication, priority P3) has status In Progress. Customer: CUST-0501.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "TICKET"
+      ],
+      "graphrag": {
+        "answer": "Ticket TICK-00501 (Authentication) status is In Progress.",
+        "verdict": "PASS",
+        "promptTokens": 979,
+        "completionTokens": 14,
+        "latencyMs": 3222,
+        "bertScore": {
+          "precision": 0.9478924362570417,
+          "recall": 0.9478924362570417,
+          "f1": 0.9478924362570417,
+          "f1Rescaled": 0.8697310906426042
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7736829014538793,
+          "recall": 0.7736829014538793,
+          "f1": 0.7736829014538793,
+          "f1Rescaled": 0.4342072536346983
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm a large language model, I don't have have direct access to information about specific tickets (e.g., TICK-00501). Ticket numbers are often used by companies or projects for tracking issues internally, but I don't have the ability to access or view this information.\n\nIf you're looking for the status of a specific ticket, I recommend checking the project's or company's issue tracker, if they have one available publicly. Alternatively, you can contact the relevant team or support department and ask them to provide you with information about the ticket's status.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.834306367054249,
+          "recall": 0.834306367054249,
+          "f1": 0.834306367054249,
+          "f1Rescaled": 0.5857659176356225
+        }
+      }
+    },
+    {
+      "question": "Who owns project PROJ-NORDIC-001?",
+      "referenceAnswer": "Project PROJ-NORDIC-001 (NORDIC MIGRATION) is owned by EMP-001 (Jennifer Williams).",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "PROJECT",
+        "EMPLOYEE"
+      ],
+      "graphrag": {
+        "answer": "Project PROJ-NORDIC-001 (NORDIC MIGRATION). \n\nProject owner: EMP-001 (Jennifer Williams, Account Executive).",
+        "verdict": "PASS",
+        "promptTokens": 1050,
+        "completionTokens": 31,
+        "latencyMs": 3399,
+        "bertScore": {
+          "precision": 0.9753359937632808,
+          "recall": 0.9753359937632808,
+          "f1": 0.9753359937632808,
+          "f1Rescaled": 0.9383399844082021
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7887288793003443,
+          "recall": 0.7887288793003443,
+          "f1": 0.7887288793003443,
+          "f1Rescaled": 0.4718221982508608
+        }
+      },
+      "llmOnly": {
+        "answer": "I am unable to verify the information about the owner of \"project PROJ-NORDIC-001\".",
+        "verdict": "PASS",
+        "bertScore": {
+          "precision": 0.8376210415691295,
+          "recall": 0.8376210415691295,
+          "f1": 0.8376210415691295,
+          "f1Rescaled": 0.5940526039228239
+        }
+      }
+    },
+    {
+      "question": "Which vendor is involved in ticket TICK-00501?",
+      "referenceAnswer": "Ticket TICK-00501 involves vendor VEND-01 in region REGION-FRANKFURT. Priority: P3, Category: Authentication.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "TICKET",
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-01 (StreamFlow, Bronze SLA, DevOps).",
+        "verdict": "PASS",
+        "promptTokens": 996,
+        "completionTokens": 17,
+        "latencyMs": 3265,
+        "bertScore": {
+          "precision": 0.8121369003175783,
+          "recall": 0.8121369003175783,
+          "f1": 0.8121369003175783,
+          "f1Rescaled": 0.5303422507939459
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7432010717878051,
+          "recall": 0.7432010717878051,
+          "f1": 0.7432010717878051,
+          "f1Rescaled": 0.3580026794695129
+        }
+      },
+      "llmOnly": {
+        "answer": "I cannot verify which vendor has involvement with TCK-00501. Can I help you with anything else?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7922427059570425,
+          "recall": 0.7922427059570425,
+          "f1": 0.7922427059570425,
+          "f1Rescaled": 0.4806067648926063
+        }
+      }
+    },
+    {
+      "question": "What category and priority does ticket TICK-01001 have?",
+      "referenceAnswer": "Ticket TICK-01001 has category Authentication and priority P1. Status: Closed. Customer: CUST-1001.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "TICKET"
+      ],
+      "graphrag": {
+        "answer": "Ticket TICK-01001 (Customer CUST-1001 (Michelle Jackson Systems)) has a category of \"Authentication\" and a priority of \"P1\".",
+        "verdict": "PASS",
+        "promptTokens": 1005,
+        "completionTokens": 33,
+        "latencyMs": 3389,
+        "bertScore": {
+          "precision": 0.9367141319320929,
+          "recall": 0.9367141319320929,
+          "f1": 0.9367141319320929,
+          "f1Rescaled": 0.8417853298302321
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7768353023212486,
+          "recall": 0.7768353023212486,
+          "f1": 0.7768353023212486,
+          "f1Rescaled": 0.44208825580312167
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have information on ticket TICK-01001, including its category and priority. Tickets like this one seem to be from project management softwares that use unique identifier codes.\n\nIf you could provide more context, such as which product or system this ticket might be associated with (like Asana, Trello, Jira, etc.) along with its category and priority I can give you accurate answers.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8856095232534892,
+          "recall": 0.8856095232534892,
+          "f1": 0.8856095232534892,
+          "f1Rescaled": 0.714023808133723
+        }
+      }
+    },
+    {
+      "question": "Is ticket TICK-01001 linked to an outage?",
+      "referenceAnswer": "Ticket TICK-01001 is not linked to a known outage. Vendor: VEND-01, Region: REGION-FRANKFURT.",
+      "type": "easy",
+      "hops": 1,
+      "entities": [
+        "TICKET",
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "Ticket TICK-01001 is linked to an outage (Outage Linkage: TICK-01001 is not linked to a known outage).",
+        "verdict": "PASS",
+        "promptTokens": 1004,
+        "completionTokens": 29,
+        "latencyMs": 3285,
+        "bertScore": {
+          "precision": 0.9168099117785826,
+          "recall": 0.9168099117785826,
+          "f1": 0.9168099117785826,
+          "f1Rescaled": 0.7920247794464566
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7384810805646717,
+          "recall": 0.7384810805646717,
+          "f1": 0.7384810805646717,
+          "f1Rescaled": 0.3462027014116792
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have information about a specific ticket TICK-01001, also because I'm a text-based AI model, I'm unable to query any external databases.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8243282586564796,
+          "recall": 0.8243282586564796,
+          "f1": 0.8243282586564796,
+          "f1Rescaled": 0.5608206466411991
+        }
+      }
+    },
+    {
+      "question": "How many customers were directly impacted by OUTAGE-001 through shared vendor and region dependency?",
+      "referenceAnswer": "250 customers were directly impacted by OUTAGE-001. These customers depend on VEND-01 (MedSync) and are hosted in REGION-FRANKFURT.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "OUTAGE",
+        "VENDOR",
+        "REGION",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-0001 was directly impacted by OUTAGE-001 through shared vendor and REGION-FRANKFURT dependency, as well as 7 other customers listed as directly affected with CUST-0021, CUST-0041, CUST-0061, CUST-0081, CUST-0101, CUST-0121, and CUST-0141. They experienced elevated API error rates, and SLA breaches, with a total of 250 customers hosted in REGION-FRANKFURT with primary dependency on VEND-01 affected by OUTAGE-001.",
+        "verdict": "PASS",
+        "promptTokens": 1036,
+        "completionTokens": 124,
+        "latencyMs": 3493,
+        "bertScore": {
+          "precision": 0.9211028965804161,
+          "recall": 0.9211028965804161,
+          "f1": 0.9211028965804161,
+          "f1Rescaled": 0.8027572414510403
+        }
+      },
+      "basicRag": {
+        "answer": "There is no incident report for OUTAGE-001 in the provided data. However, we can calculate the total number of customers directly impacted by multiple incidents that occurred in the same region and vendor as OUTAGE-001 (REGION-OHIO, VEND-07, and other vendors with overlapping regions). Let's list those incidents:\n\n- OUTAGE-007: 250 customers (direct impact)\n- OUTAGE-027: 0 customers\n- OUTAGE-067: 0 customers\n- OUTAGE-047: 0 customers\n- OUTAGE-034: 0 customers \n\nHowever, we also have to consider the overlap between these regions. To find the overlap between the vendor impacts, we need some additional information. \n\nSince we do not have explicit information on OUTAGE-001 impacting customers through shared vendor and region dependency, \nwe need some assumptions here. \n\nAssuming OUTAGE-002 (REGION-LONDON) is an outage for VEND-02 (CloudCore), and considering the overlap across the incidents in the given region with similar vendors. \n\nHowever that is also missing from the provided report, so it can't be determined from the given data which customers are impacted across different incidents of different vendor regions.",
+        "verdict": "FAIL",
+        "promptTokens": 5213,
+        "completionTokens": 250,
+        "latencyMs": 68013,
+        "bertScore": {
+          "precision": 0.8520137118272866,
+          "recall": 0.8520137118272866,
+          "f1": 0.8520137118272866,
+          "f1Rescaled": 0.6300342795682164
+        }
+      },
+      "llmOnly": {
+        "answer": "Unfortunately, I don't have the capability to access specific information about your company, such as the number of customers impacted by OUTAGE-001. However, I can suggest some steps you could take to find out the answer:\n\n1. **Review Service Desk Logs**: Check your Service Desk logs to see how many service requests you received for OUTAGE-001. This may give you an idea of the number of customers affected.\n2. **Analyze Incident Reports**: Review incident reports generated during the outage to identify the number of customers impacted.\n3. **Vendor Communication**: Reach out to your shared vendor to see if they have any information on the scope of the outage, including the number of customers affected.\n4. **Internal IT Communication**: Ask your internal IT teams for information on the outage, including metrics on the number of customers impacted.\n5. **Customer Feedback**: Collect customer feedback from surveys, email, or phone conversations to gauge the scope of the impact.\n\nIf you provide more details about OUTAGE-001 (i.e., date range, services affected, regions impacted) I can give you more specific advice.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8506243411434787,
+          "recall": 0.8506243411434787,
+          "f1": 0.8506243411434787,
+          "f1Rescaled": 0.6265608528586969
+        }
+      }
+    },
+    {
+      "question": "How many customers were exposed to OUTAGE-002 through VEND-02 in REGION-LONDON?",
+      "referenceAnswer": "250 customers were exposed to OUTAGE-002 through their dependency on VEND-02 in REGION-LONDON.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "OUTAGE",
+        "VENDOR",
+        "REGION",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-02 (Name) is indeed dependent on the regional infrastructure in REGION-LONDON but the context does not explicitly state that it was responsible for OUTAGE-002 although the context does state 250 customer accounts are immediately escalated to in the event of a vendor incident in REGION-LONDON. Customer CUST-0001 (Name) industry Finance falls under the customer footprint of REGION-LONDON which spans 250 customers hosted in REGION-LONDON. Outage OUTAGE-002 however is not mentioned as impacting REGION-LONDON or affecting any customers through vendor dependency directly in this context. The provided context does not contain information about the exact number of customers exposed to OUTAGE-002 through VEND-02 in REGION-LONDON.",
+        "verdict": "PASS",
+        "promptTokens": 954,
+        "completionTokens": 148,
+        "latencyMs": 4111,
+        "bertScore": {
+          "precision": 0.8975794418040521,
+          "recall": 0.8975794418040521,
+          "f1": 0.8975794418040521,
+          "f1Rescaled": 0.7439486045101303
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7390854274614684,
+          "recall": 0.7390854274614684,
+          "f1": 0.7390854274614684,
+          "f1Rescaled": 0.34771356865367115
+        }
+      },
+      "llmOnly": {
+        "answer": "To answer your question, I would need more information about the systems involved and possibly some internal data. However, I can provide a hypothetical example of how the information could be structured:\n\nLet's assume we have a system that tracks customer exposure to outages. We also have a table structure like this:\n\n| TABLE OUTAGE |\n|---------------|\n| ID            |\n| VENDOR        |\n| REGION        |\n| IMPACT        |\n| AFFECTED-CUSTOMERS-Count |\n|---------------|\n\n| TABLE VEND-02 |\n|---------------|\n| ID            |\n| NAME          |\n| TYPE          |\n| REGION        |\n| CUSTOMERS     |\n|---------------|\n\nIn the event of an outage (OUTAGE-002), the data in the OUTAGE table could look like this:\n\n| ID  | VENDOR     | REGION       | IMPACT |\n|-----|------------|--------------|--------|\n| 1   | VEND-02    | REGION-LONDON| High   |\n|-----|------------|--------------|--------|\n\nAnd the data in the VEND-02 table could look like this:\n\n| ID   | NAME          | TYPE | REGION        | CUSTOMERS |\n|------|---------------|------|---------------|-----------|\n| 1    | VEND-02-01   | S    | REGION-LONDON | 5000      |\n| 2    | VEND-02-02   | S    | REGION-LONDON | 3000      |\n|----------------------------------------------------|\n \nIf the 'CUSTOMERS' column in the VEND-02 table represents all the customers of the vendor, we could join the tables on ID or VENDOR and count the affected customers directly:\n\n| ID  | VENDOR     | REGION       | IMPACT | AFFECTED-CUSTOMERS-Count |\n|-----|------------|--------------|--------|-------------------------|\n| 1   | VEND-02    | REGION-LONDON| High   | 8000                     |\n|----------------------------------------------------|\n\nIn this case, 8000 customers are exposed to the OUTAGE-002 through vendor VEND-02 in REGION-LONDON.\n\nHowever, this is a hypothetical example and the actual method of tracking customer exposure to outages could be different in your system.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7606371757921422,
+          "recall": 0.7606371757921422,
+          "f1": 0.7606371757921422,
+          "f1Rescaled": 0.4015929394803555
+        }
+      }
+    },
+    {
+      "question": "How many customers were directly impacted by OUTAGE-010?",
+      "referenceAnswer": "250 customers were directly impacted by OUTAGE-010. They depend on VEND-10 (ComputeHub) in REGION-TORONTO.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "OUTAGE",
+        "VENDOR",
+        "REGION",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-0010 (name) … and 8 others, in addition to 242 others are not explicitly named in this context but their IDs are listed, were directly impacted by OUTAGE-010.",
+        "verdict": "PASS",
+        "promptTokens": 1019,
+        "completionTokens": 44,
+        "latencyMs": 3393,
+        "bertScore": {
+          "precision": 0.8543620142434456,
+          "recall": 0.8543620142434456,
+          "f1": 0.8543620142434456,
+          "f1Rescaled": 0.635905035608614
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7410002881505255,
+          "recall": 0.7410002881505255,
+          "f1": 0.7410002881505255,
+          "f1Rescaled": 0.3525007203763139
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't carry out that request.  I'm not able to access information relevant to OUTAGE-010 or any related details about it.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7691918808109758,
+          "recall": 0.7691918808109758,
+          "f1": 0.7691918808109758,
+          "f1Rescaled": 0.4229797020274395
+        }
+      }
+    },
+    {
+      "question": "How many customers were directly impacted by OUTAGE-050?",
+      "referenceAnswer": "0 customers were directly impacted by OUTAGE-050. Vendor VEND-50 (SSOProvider) in REGION-TORONTO has no dependent customers.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "OUTAGE",
+        "VENDOR",
+        "REGION",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-XXXX (Name)… does not exist in this context, as it does not explicitly state which CUST-XXXX was impacted. However, according to the Customer Impact section: \"0 customers hosted in REGION-TORONTO with primary dependency on VEND-50 were directly impacted by OUTAGE-050.\"",
+        "verdict": "PASS",
+        "promptTokens": 1000,
+        "completionTokens": 67,
+        "latencyMs": 3828,
+        "bertScore": {
+          "precision": 0.9078487775834585,
+          "recall": 0.9078487775834585,
+          "f1": 0.9078487775834585,
+          "f1Rescaled": 0.7696219439586462
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7575737848213392,
+          "recall": 0.7575737848213392,
+          "f1": 0.7575737848213392,
+          "f1Rescaled": 0.39393446205334803
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have enough information about the specific OUTAGE-050 to provide a precise answer. I would need more details about the OUTAGE-050 such as what OUTAGE-050 was, what services or systems it affected and when it occurred. With more information I can do further investigation and potentially provide the answer to your question of how many customers were impacted by the OUTAGE-050 event.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8298102414486572,
+          "recall": 0.8298102414486572,
+          "f1": 0.8298102414486572,
+          "f1Rescaled": 0.5745256036216431
+        }
+      }
+    },
+    {
+      "question": "Which projects were impacted by OUTAGE-001?",
+      "referenceAnswer": "OUTAGE-001 impacted 2 projects in REGION-FRANKFURT: PROJ-NORDIC-001 and PROJ-NORDIC-101.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "OUTAGE",
+        "PROJECT"
+      ],
+      "graphrag": {
+        "answer": "Project PROJ-Nordic-001 and PROJ-Nordic-101 were impacted by OUTAGE-001.",
+        "verdict": "PASS",
+        "promptTokens": 1155,
+        "completionTokens": 25,
+        "latencyMs": 3303,
+        "bertScore": {
+          "precision": 0.9438582085195251,
+          "recall": 0.9438582085195251,
+          "f1": 0.9438582085195251,
+          "f1Rescaled": 0.8596455212988127
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7471488892365891,
+          "recall": 0.7471488892365891,
+          "f1": 0.7471488892365891,
+          "f1Rescaled": 0.3678722230914727
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't assist with that request.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.6335163265553615,
+          "recall": 0.6335163265553615,
+          "f1": 0.6335163265553615,
+          "f1Rescaled": 0.0837908163884038
+        }
+      }
+    },
+    {
+      "question": "How many customers depend on VEND-15 as their primary vendor?",
+      "referenceAnswer": "250 customers depend on VEND-15 (CacheLayer) as their primary vendor.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "VENDOR",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-15 (CacheLayer) is the primary infrastructure dependency for 250 customer accounts in the platform.",
+        "verdict": "PASS",
+        "promptTokens": 1095,
+        "completionTokens": 24,
+        "latencyMs": 3212,
+        "bertScore": {
+          "precision": 0.9442824424935917,
+          "recall": 0.9442824424935917,
+          "f1": 0.9442824424935917,
+          "f1Rescaled": 0.8607061062339794
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.734892590755154,
+          "recall": 0.734892590755154,
+          "f1": 0.734892590755154,
+          "f1Rescaled": 0.3372314768878851
+        }
+      },
+      "llmOnly": {
+        "answer": "I am unable to verify the number of customers that depend on VEND-15 as their primary vendor, as there isn't any information available on the number of customers that are dependent on VEND-15.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8479628014394459,
+          "recall": 0.8479628014394459,
+          "f1": 0.8479628014394459,
+          "f1Rescaled": 0.6199070035986148
+        }
+      }
+    },
+    {
+      "question": "How many customers depend on VEND-20 as their primary vendor?",
+      "referenceAnswer": "250 customers depend on VEND-20 (ServiceMesh Pro) as their primary vendor.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "VENDOR",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-0001 (Name),  (Industry), Enterprise, depend on Vendor VEND-20 (ServiceMesh Pro, Gold SLA, Networking). The exact number of customers dependent on VEND-20 is 250.",
+        "verdict": "PASS",
+        "promptTokens": 1103,
+        "completionTokens": 49,
+        "latencyMs": 3356,
+        "bertScore": {
+          "precision": 0.8845297260276515,
+          "recall": 0.8845297260276515,
+          "f1": 0.8845297260276515,
+          "f1Rescaled": 0.7113243150691286
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.746296977504202,
+          "recall": 0.746296977504202,
+          "f1": 0.746296977504202,
+          "f1Rescaled": 0.365742443760505
+        }
+      },
+      "llmOnly": {
+        "answer": "I am unable to verify information on the number of customers who depend on VEND-20 as their primary vendor.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8739536894434856,
+          "recall": 0.8739536894434856,
+          "f1": 0.8739536894434856,
+          "f1Rescaled": 0.684884223608714
+        }
+      }
+    },
+    {
+      "question": "Which projects were impacted by OUTAGE-010?",
+      "referenceAnswer": "OUTAGE-010 impacted 2 projects in REGION-TORONTO: PROJ-NEXUS-010 and PROJ-NEXUS-110.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "OUTAGE",
+        "PROJECT"
+      ],
+      "graphrag": {
+        "answer": "Project Impacts: OUTAGE-010 impacted PROJ-NEXUS-010 and PROJ-NEXUS-110.",
+        "verdict": "PASS",
+        "promptTokens": 1252,
+        "completionTokens": 26,
+        "latencyMs": 3258,
+        "bertScore": {
+          "precision": 0.9378176819185118,
+          "recall": 0.9378176819185118,
+          "f1": 0.9378176819185118,
+          "f1Rescaled": 0.8445442047962795
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7610341892343612,
+          "recall": 0.7610341892343612,
+          "f1": 0.7610341892343612,
+          "f1Rescaled": 0.402585473085903
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't identify which specific projects were impacted by an outage like OUTAGE-010 without more information about the specific outage you're referring to. Can you tell me more about OUTAGE-010? What context is it from, and can you provide any additional details about it?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8674886906675842,
+          "recall": 0.8674886906675842,
+          "f1": 0.8674886906675842,
+          "f1Rescaled": 0.6687217266689605
+        }
+      }
+    },
+    {
+      "question": "How many customers depend on VEND-10?",
+      "referenceAnswer": "250 customers depend on VEND-10 (ComputeHub) as their primary vendor.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "VENDOR",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "Customer CUST-XXXX (Name)… depends on vendor VEND-10 for their Infrastructure. \n250 customer accounts depend on VEND-10 for their infrastructure services.",
+        "verdict": "PASS",
+        "promptTokens": 1114,
+        "completionTokens": 36,
+        "latencyMs": 3267,
+        "bertScore": {
+          "precision": 0.8589431443164617,
+          "recall": 0.8589431443164617,
+          "f1": 0.8589431443164617,
+          "f1Rescaled": 0.6473578607911542
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7297808510944608,
+          "recall": 0.7297808510944608,
+          "f1": 0.7297808510944608,
+          "f1Rescaled": 0.324452127736152
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm not aware of any information about VEND-10, specifically the quantity of its users.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7233224367385401,
+          "recall": 0.7233224367385401,
+          "f1": 0.7233224367385401,
+          "f1Rescaled": 0.3083060918463504
+        }
+      }
+    },
+    {
+      "question": "How many outages has VEND-10 experienced?",
+      "referenceAnswer": "Vendor VEND-10 (ComputeHub) has experienced 2 total outages: OUTAGE-010 and OUTAGE-060.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "VENDOR",
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-10 (ComputeHub, Silver SLA, Infrastructure, REGION-TORONTO)… has experienced 2 outages (OUTAGE-010, OUTAGE-060).",
+        "verdict": "PASS",
+        "promptTokens": 1115,
+        "completionTokens": 40,
+        "latencyMs": 3878,
+        "bertScore": {
+          "precision": 0.962148891768587,
+          "recall": 0.962148891768587,
+          "f1": 0.962148891768587,
+          "f1Rescaled": 0.9053722294214674
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7403162862528634,
+          "recall": 0.7403162862528634,
+          "f1": 0.7403162862528634,
+          "f1Rescaled": 0.3507907156321585
+        }
+      },
+      "llmOnly": {
+        "answer": "I couldn't find any information about VEND-10 or its specific outages. It is possible that VEND-10 is an internal tool or service and not publicly available. Could you provide more context or details about VEND-10? I'll do my best to help you find the information you're looking for.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8273131414742934,
+          "recall": 0.8273131414742934,
+          "f1": 0.8273131414742934,
+          "f1Rescaled": 0.5682828536857334
+        }
+      }
+    },
+    {
+      "question": "How many projects in REGION-FRANKFURT were impacted by OUTAGE-001?",
+      "referenceAnswer": "2 projects in REGION-FRANKFURT were impacted by OUTAGE-001: PROJ-NORDIC-001 and PROJ-NORDIC-101.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "OUTAGE",
+        "REGION",
+        "PROJECT"
+      ],
+      "graphrag": {
+        "answer": "2 projects in REGION-FRANKFURT were impacted by OUTAGE-001: PROJ-NORDIC-001 and PROJ-NORDIC-101.",
+        "verdict": "PASS",
+        "promptTokens": 1332,
+        "completionTokens": 34,
+        "latencyMs": 3287,
+        "bertScore": {
+          "precision": 0.9999999990000001,
+          "recall": 0.9999999990000001,
+          "f1": 0.9999999990000001,
+          "f1Rescaled": 0.9999999975000003
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7496286973255765,
+          "recall": 0.7496286973255765,
+          "f1": 0.7496286973255765,
+          "f1Rescaled": 0.3740717433139412
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't verify which number of projects in REGION-FRANKFURT were impacted by OUTAGE-001.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.9182026008748716,
+          "recall": 0.9182026008748716,
+          "f1": 0.9182026008748716,
+          "f1Rescaled": 0.795506502187179
+        }
+      }
+    },
+    {
+      "question": "How many customers depend on VEND-01 as their primary vendor?",
+      "referenceAnswer": "250 customers depend on VEND-01 (MedSync) as their primary vendor.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "VENDOR",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "250 customers depend on VEND-01 as their primary vendor.",
+        "verdict": "PASS",
+        "promptTokens": 1214,
+        "completionTokens": 14,
+        "latencyMs": 3222,
+        "bertScore": {
+          "precision": 0.9571717288357785,
+          "recall": 0.9571717288357785,
+          "f1": 0.9571717288357785,
+          "f1Rescaled": 0.8929293220894463
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7225007000029281,
+          "recall": 0.7225007000029281,
+          "f1": 0.7225007000029281,
+          "f1Rescaled": 0.3062517500073203
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm not aware of what VEND-01 is. It's possible that VEND-01 is a company, or it might be a project, product, or something else. There's not enough information to make a guess about the number of customers who depend on VEND-01 as their primary vendor. If you can provide more context about VEND-01, I'll do my best to help.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8421384615110925,
+          "recall": 0.8421384615110925,
+          "f1": 0.8421384615110925,
+          "f1Rescaled": 0.6053461537777313
+        }
+      }
+    },
+    {
+      "question": "How many customers depend on VEND-05 as their primary vendor?",
+      "referenceAnswer": "250 customers depend on VEND-05 (NetForge) as their primary vendor.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "VENDOR",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "250 customers depend on VEND-05 as their primary vendor.",
+        "verdict": "PASS",
+        "promptTokens": 1213,
+        "completionTokens": 14,
+        "latencyMs": 3202,
+        "bertScore": {
+          "precision": 0.9713439407862837,
+          "recall": 0.9713439407862837,
+          "f1": 0.9713439407862837,
+          "f1Rescaled": 0.9283598519657094
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7314438573541222,
+          "recall": 0.7314438573541222,
+          "f1": 0.7314438573541222,
+          "f1Rescaled": 0.32860964338530557
+        }
+      },
+      "llmOnly": {
+        "answer": "I am unable to verify how many customers depend on VEND-05 as their primary vendor, as I do not have any information regarding that company.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8670555303111543,
+          "recall": 0.8670555303111543,
+          "f1": 0.8670555303111543,
+          "f1Rescaled": 0.6676388257778859
+        }
+      }
+    },
+    {
+      "question": "How many compliance cases are linked to VEND-01?",
+      "referenceAnswer": "Vendor VEND-01 (MedSync) is linked to 250 compliance cases across all regions.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "VENDOR",
+        "COMPLIANCE"
+      ],
+      "graphrag": {
+        "answer": "250 compliance cases are linked to VEND-01.",
+        "verdict": "PASS",
+        "promptTokens": 1280,
+        "completionTokens": 12,
+        "latencyMs": 3332,
+        "bertScore": {
+          "precision": 0.9153211249613765,
+          "recall": 0.9153211249613765,
+          "f1": 0.9153211249613765,
+          "f1Rescaled": 0.7883028124034414
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7320142400544617,
+          "recall": 0.7320142400544617,
+          "f1": 0.7320142400544617,
+          "f1Rescaled": 0.3300356001361543
+        }
+      },
+      "llmOnly": {
+        "answer": "I cannot verify how many compliance cases are linked to VEND-01 or any other identifier as my search did not turn up that term. The term VEND-01 is not something I've seen in our knowledge base.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8327136606381251,
+          "recall": 0.8327136606381251,
+          "f1": 0.8327136606381251,
+          "f1Rescaled": 0.5817841515953128
+        }
+      }
+    },
+    {
+      "question": "How many compliance cases are linked to VEND-05?",
+      "referenceAnswer": "Vendor VEND-05 (NetForge) is linked to 250 compliance cases.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "VENDOR",
+        "COMPLIANCE"
+      ],
+      "graphrag": {
+        "answer": "250 compliance cases.",
+        "verdict": "PASS",
+        "promptTokens": 1279,
+        "completionTokens": 5,
+        "latencyMs": 3587,
+        "bertScore": {
+          "precision": 0.8312729160040985,
+          "recall": 0.8312729160040985,
+          "f1": 0.8312729160040985,
+          "f1Rescaled": 0.5781822900102462
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7311859037057588,
+          "recall": 0.7311859037057588,
+          "f1": 0.7311859037057588,
+          "f1Rescaled": 0.32796475926439694
+        }
+      },
+      "llmOnly": {
+        "answer": "I cannot verify how many compliance cases are linked to VEND-05. There is not enough information to provide you a reliable answer.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.867038496417349,
+          "recall": 0.867038496417349,
+          "f1": 0.867038496417349,
+          "f1Rescaled": 0.6675962410433725
+        }
+      }
+    },
+    {
+      "question": "How many compliance cases are linked to VEND-10?",
+      "referenceAnswer": "Vendor VEND-10 (ComputeHub) is linked to 250 compliance cases.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "VENDOR",
+        "COMPLIANCE"
+      ],
+      "graphrag": {
+        "answer": "250 compliance cases are linked to VEND-10.",
+        "verdict": "PASS",
+        "promptTokens": 1276,
+        "completionTokens": 12,
+        "latencyMs": 3240,
+        "bertScore": {
+          "precision": 0.925736375929358,
+          "recall": 0.925736375929358,
+          "f1": 0.925736375929358,
+          "f1Rescaled": 0.814340939823395
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7363961005066639,
+          "recall": 0.7363961005066639,
+          "f1": 0.7363961005066639,
+          "f1Rescaled": 0.3409902512666599
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm unable to verify the number of compliance cases linked to VEND-10.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8586162644213322,
+          "recall": 0.8586162644213322,
+          "f1": 0.8586162644213322,
+          "f1Rescaled": 0.6465406610533305
+        }
+      }
+    },
+    {
+      "question": "How many outages has VEND-05 experienced?",
+      "referenceAnswer": "Vendor VEND-05 (NetForge) has experienced 2 total outages: OUTAGE-005 and OUTAGE-055.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "VENDOR",
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "2 outages have been attributed to VEND-05.",
+        "verdict": "PASS",
+        "promptTokens": 1210,
+        "completionTokens": 13,
+        "latencyMs": 3364,
+        "bertScore": {
+          "precision": 0.9187456952782723,
+          "recall": 0.9187456952782723,
+          "f1": 0.9187456952782723,
+          "f1Rescaled": 0.7968642381956809
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7435722958589428,
+          "recall": 0.7435722958589428,
+          "f1": 0.7435722958589428,
+          "f1Rescaled": 0.35893073964735706
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't verify how many outages VEND-05 has experienced. Is there something else I can help with?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8851040893296376,
+          "recall": 0.8851040893296376,
+          "f1": 0.8851040893296376,
+          "f1Rescaled": 0.7127602233240939
+        }
+      }
+    },
+    {
+      "question": "How many customers are hosted in REGION-TORONTO?",
+      "referenceAnswer": "250 customers are hosted in REGION-TORONTO.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "250 customers are hosted in REGION-TORONTO.",
+        "verdict": "PASS",
+        "promptTokens": 1279,
+        "completionTokens": 12,
+        "latencyMs": 3301,
+        "bertScore": {
+          "precision": 0.9999999990000001,
+          "recall": 0.9999999990000001,
+          "f1": 0.9999999990000001,
+          "f1Rescaled": 0.9999999975000003
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7559978275494794,
+          "recall": 0.7559978275494794,
+          "f1": 0.7559978275494794,
+          "f1Rescaled": 0.3899945688736986
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm not able to access the current state of your database. Can you describe how I can assist you? Are you working with a specific type of database or programming language? I'll do my best to help you write a query to find the number of customers hosted in REGION-TORONTO.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8033141084772719,
+          "recall": 0.8033141084772719,
+          "f1": 0.8033141084772719,
+          "f1Rescaled": 0.5082852711931798
+        }
+      }
+    },
+    {
+      "question": "How many customers are hosted in REGION-LONDON?",
+      "referenceAnswer": "250 customers are hosted in REGION-LONDON.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "250 customers are hosted in REGION-LONDON.",
+        "verdict": "PASS",
+        "promptTokens": 1246,
+        "completionTokens": 10,
+        "latencyMs": 3239,
+        "bertScore": {
+          "precision": 0.9999999989999999,
+          "recall": 0.9999999989999999,
+          "f1": 0.9999999989999999,
+          "f1Rescaled": 0.9999999974999998
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7616664222782688,
+          "recall": 0.7616664222782688,
+          "f1": 0.7616664222782688,
+          "f1Rescaled": 0.40416605569567193
+        }
+      },
+      "llmOnly": {
+        "answer": "Unfortunately, I'm a large language model, I don't have direct access to your database or system, and I can't execute any code or commands. However, I can guide you on how to retrieve the information.\n\nAssuming that you are using a database or a system management tool, the specific SQL command would depend on the system being used. \n\nHowever, if you are using SQL, and have a table named \"customers\" with a column named \"location\" which contains the region. The SQL would look like this:\n\n```sql\nSELECT COUNT(*) \nFROM customers \nWHERE location = 'REGION-LONDON';\n```\n\nIf that is not the case, please provide the type of database you are using and I can give you a more specific answer",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.7923406524926425,
+          "recall": 0.7923406524926425,
+          "f1": 0.7923406524926425,
+          "f1Rescaled": 0.48085163123160635
+        }
+      }
+    },
+    {
+      "question": "How many customers are hosted in REGION-FRANKFURT?",
+      "referenceAnswer": "250 customers are hosted in REGION-FRANKFURT.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "250 customers are hosted in REGION-FRANKFURT.",
+        "verdict": "PASS",
+        "promptTokens": 1286,
+        "completionTokens": 13,
+        "latencyMs": 3453,
+        "bertScore": {
+          "precision": 0.9999999989999999,
+          "recall": 0.9999999989999999,
+          "f1": 0.9999999989999999,
+          "f1Rescaled": 0.9999999974999998
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.749763638435837,
+          "recall": 0.749763638435837,
+          "f1": 0.749763638435837,
+          "f1Rescaled": 0.37440909608959266
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have direct access to Azure or AWS account information.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.6362136987925652,
+          "recall": 0.6362136987925652,
+          "f1": 0.6362136987925652,
+          "f1Rescaled": 0.09053424698141299
+        }
+      }
+    },
+    {
+      "question": "Which outages occurred in REGION-TORONTO?",
+      "referenceAnswer": "REGION-TORONTO has experienced 5 outages: OUTAGE-010, OUTAGE-030, OUTAGE-050, OUTAGE-070, OUTAGE-090.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "Outage OUTAGE-010, OUTAGE-030, OUTAGE-050, OUTAGE-070, OUTAGE-090 occurred in REGION-TORONTO.",
+        "verdict": "PASS",
+        "promptTokens": 1278,
+        "completionTokens": 35,
+        "latencyMs": 3350,
+        "bertScore": {
+          "precision": 0.9533691087133702,
+          "recall": 0.9533691087133702,
+          "f1": 0.9533691087133702,
+          "f1Rescaled": 0.8834227717834255
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7304893093739113,
+          "recall": 0.7304893093739113,
+          "f1": 0.7304893093739113,
+          "f1Rescaled": 0.32622327343477836
+        }
+      },
+      "llmOnly": {
+        "answer": "I'm not aware of specific outage information regarding the REGION-TORONTO area in real-time. However, I can provide information on past widespread outages and events in the Toronto region.\n\n1.  Hurricane Hazel (1954): Widespread flooding and power outages struck the Toronto area due to heavy rainfall from Hurricane Hazel. The storm resulted in 81 deaths, primarily from drowning.\n\n2.  The 2018 Ontario wind storm: The storm, known as a derecho, caused widespread power outages across the GTA, leaving over 230,000 homes without electricity.\n\n3.  The 2021 Ontario ice storm: A significant ice storm caused widespread power outages across the GTA, affecting over 350,000 households.\n\nPlease note that these are significant past events, and for real-time updates on current or recent outages, it's best to check with authorities or reliable news sources.\n\nTo get current information on outages in the REGION-TORONTO area, I would recommend checking the website or app of the local power distribution companies (e.g., Hydro One, PowerStream, Elexicon Energy), or visiting reliable news sources for updates.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8755491551478689,
+          "recall": 0.8755491551478689,
+          "f1": 0.8755491551478689,
+          "f1Rescaled": 0.6888728878696723
+        }
+      }
+    },
+    {
+      "question": "Which vendors operate infrastructure in REGION-TORONTO?",
+      "referenceAnswer": "The vendors operating infrastructure in REGION-TORONTO include: VEND-02, VEND-10, VEND-22, VEND-24, VEND-28, VEND-31, VEND-35, VEND-37.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-02, VEND-10, VEND-22, VEND-24, VEND-28, VEND-31, VEND-35, VEND-37 operate infrastructure in REGION-TORONTO.",
+        "verdict": "PASS",
+        "promptTokens": 1278,
+        "completionTokens": 50,
+        "latencyMs": 3389,
+        "bertScore": {
+          "precision": 0.9789822307389616,
+          "recall": 0.9789822307389616,
+          "f1": 0.9789822307389616,
+          "f1Rescaled": 0.9474555768474041
+        }
+      },
+      "basicRag": {
+        "answer": "The following vendors operate infrastructure in REGION-TORONTO:\n\n1. VEND-02\n2. VEND-10\n3. VEND-22\n4. VEND-24\n5. VEND-28\n6. VEND-31\n7. VEND-35\n8. VEND-37\n\nThese vendors are listed in the regional infrastructure report for REGION-TORONTO.",
+        "verdict": "PASS",
+        "promptTokens": 4886,
+        "completionTokens": 85,
+        "latencyMs": 144655,
+        "bertScore": {
+          "precision": 0.9812851950189257,
+          "recall": 0.9812851950189257,
+          "f1": 0.9812851950189257,
+          "f1Rescaled": 0.9532129875473144
+        }
+      },
+      "llmOnly": {
+        "answer": "I can provide general information to my best abilities, while keeping in mind the limitations of my knowledge cutoff date of 01 March 2023. \n\nThe REGION-TORONTO includes the greater Toronto area in Canada. \n\nSome major vendors that provide internet backbone infrastructure and data center services in the REGION-TORONTO area are:\n\n1. **Equinix**: Equinix operates multiple data centers in the Toronto area, providing interconnection services and colocation for various global companies.\n2. **Cologix**: Cologix operates several data centers in the Toronto area, with direct connections to the Toronto Exchange (TorIX) exchange.\n3. **Q9 Networks**: Q9 Networks is a major Canadian data center provider and operates several facilities in the Toronto area.\n4. **Bell Canada**: Bell Canada operates a network of data centers and exchanges in the Toronto area.\n5. **IBM Cloud**: IBM Cloud operates a data center in the Toronto area.\n6. **Rackspace**: Rackspace operates a data center in the Toronto area.\n7. **Lumen Technologies**: Lumen Technologies operates data centers and exchanges in the Toronto area.\n8. **NTT Ltd**: NTT Ltd operates a global network with data centers in the Toronto area.\n9. **AT&T**: AT&T operates a network with data centers in the Toronto area.\n10. **Toronto Neutrality Exchange (TorIX)**: TorIX operates a neutral exchange, providing connection services and peering opportunities for network operators.\n\nPlease note that this information may be subject to change and might not be up-to-date, and you should verify the information directly with the respective companies for the most accurate information.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8851449036080378,
+          "recall": 0.8851449036080378,
+          "f1": 0.8851449036080378,
+          "f1Rescaled": 0.7128622590200945
+        }
+      }
+    },
+    {
+      "question": "How many active projects are deployed in REGION-FRANKFURT?",
+      "referenceAnswer": "REGION-FRANKFURT has 8 active projects.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "PROJECT"
+      ],
+      "graphrag": {
+        "answer": "8 active projects are deployed in REGION-FRANKFURT.",
+        "verdict": "PASS",
+        "promptTokens": 1393,
+        "completionTokens": 14,
+        "latencyMs": 3446,
+        "bertScore": {
+          "precision": 0.9751297707819115,
+          "recall": 0.9751297707819115,
+          "f1": 0.9751297707819115,
+          "f1Rescaled": 0.9378244269547789
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7495898320463887,
+          "recall": 0.7495898320463887,
+          "f1": 0.7495898320463887,
+          "f1Rescaled": 0.3739745801159719
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't answer that.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.5768032754279375,
+          "recall": 0.5768032754279375,
+          "f1": 0.5768032754279375,
+          "f1Rescaled": 0
+        }
+      }
+    },
+    {
+      "question": "How many customers are hosted in REGION-SINGAPORE?",
+      "referenceAnswer": "250 customers are hosted in REGION-SINGAPORE.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "250 customers are hosted in REGION-SINGAPORE.",
+        "verdict": "PASS",
+        "promptTokens": 1264,
+        "completionTokens": 12,
+        "latencyMs": 3258,
+        "bertScore": {
+          "precision": 0.9999999989999998,
+          "recall": 0.9999999989999998,
+          "f1": 0.9999999989999998,
+          "f1Rescaled": 0.9999999974999996
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7533223150581513,
+          "recall": 0.7533223150581513,
+          "f1": 0.7533223150581513,
+          "f1Rescaled": 0.38330578764537826
+        }
+      },
+      "llmOnly": {
+        "answer": "It seems like you are referring to a database on an Amazon Web Services (AWS) or a similar cloud-based system.\n\nTo provide an accurate answer, you would need to access the database's control panel or administrative interface. However, I can guide you through the general steps to find this information.\n\n1. Navigate to the AWS Management Console or the cloud provider's control panel.\n2. Go to your RDS instance or database.\n3. Look for the \"Parameter Groups\" or \"DB Parameter Groups\" section.\n4. Locate the parameter named \"rds.force_ssl.\" and ensure it is set to \"1\". Ensure the region is set to \"REGION-SINGAPORE\"\n5. Search for another parameter, named `rds.force_ssl`, is not present. You would then need to look for the value of  `rds.region`. Ensure its set to `REGION-SINGAPORE`. Then navigate to your database instance and select `Details`.\n6. Scroll down to the \"Instance details\" section.\n7. Under the \"Availability Zone\" section, it may specify the region but the more relevant section to check will be \"Endpoint\",  \"Port\" and the \"Identifier\" for the region, however these do not directly state the total count of customers, or hosted database instances.\n8. Unfortunately to accurately answer how many customers hosted in REGION-SINGAPORE, you would need to query AWS directly via their CLI or API with the command:\n\n```\naws rds describe-db-instances --query \"DBInstances[?AvailabilityZone.Contains('ap-southeast-1')].DBInstanceIdentifier\"\n```\nor, for more comprehensive output:\n\n``` shell\naws rds describe-db-instances --query \"DBInstances\" --output table\n```\n\nPlease note, the \"ap-southeast-1\" value corresponds to the \"REGION-SINGAPORE\" location on AWS, however the output of the commands will only show the names or identifiers of the hosted database instances, it will not show \"customers\" because AWS does not provide visibility of the customer's account data.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8090642495202031,
+          "recall": 0.8090642495202031,
+          "f1": 0.8090642495202031,
+          "f1Rescaled": 0.5226606238005077
+        }
+      }
+    },
+    {
+      "question": "How many customers are hosted in REGION-SYDNEY?",
+      "referenceAnswer": "250 customers are hosted in REGION-SYDNEY.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "CUSTOMER"
+      ],
+      "graphrag": {
+        "answer": "250 customers are hosted in REGION-SYDNEY.",
+        "verdict": "PASS",
+        "promptTokens": 1270,
+        "completionTokens": 11,
+        "latencyMs": 3582,
+        "bertScore": {
+          "precision": 0.999999999,
+          "recall": 0.999999999,
+          "f1": 0.999999999,
+          "f1Rescaled": 0.9999999975000001
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7582249269002129,
+          "recall": 0.7582249269002129,
+          "f1": 0.7582249269002129,
+          "f1Rescaled": 0.39556231725053237
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have information about the current number of customers hosted in REGION- SYDNEY. However, I can tell you how you might find this information using SQL.\n\nHere's a possible SQL query to find the number of customers hosted in REGION-SYDNEY.\n\n```sql\nSELECT COUNT(*) \nFROM customers \nWHERE region = 'REGION-SYDNEY';\n```\n\nTo run this query, you need to have a database set up with a table named 'customers'. The table must have a column named 'region'.\n\nIf you are using a Heroku Postgres database, the query to get the total number of customers in a region would be a bit different.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8762923297165891,
+          "recall": 0.8762923297165891,
+          "f1": 0.8762923297165891,
+          "f1Rescaled": 0.6907308242914728
+        }
+      }
+    },
+    {
+      "question": "How many outages occurred in REGION-FRANKFURT?",
+      "referenceAnswer": "REGION-FRANKFURT has experienced 5 outages.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "5 outages occurred in REGION-FRANKFURT.",
+        "verdict": "PASS",
+        "promptTokens": 1286,
+        "completionTokens": 13,
+        "latencyMs": 3727,
+        "bertScore": {
+          "precision": 0.9880617259689655,
+          "recall": 0.9880617259689655,
+          "f1": 0.9880617259689655,
+          "f1Rescaled": 0.9701543149224137
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7370013072764006,
+          "recall": 0.7370013072764006,
+          "f1": 0.7370013072764006,
+          "f1Rescaled": 0.34250326819100146
+        }
+      },
+      "llmOnly": {
+        "answer": "I am unable to verify the outage count for REGION-FRANKFURT. Is there anything else I can help you with?",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.890930401198088,
+          "recall": 0.890930401198088,
+          "f1": 0.890930401198088,
+          "f1Rescaled": 0.72732600299522
+        }
+      }
+    },
+    {
+      "question": "Which projects are deployed in REGION-FRANKFURT?",
+      "referenceAnswer": "Projects deployed in REGION-FRANKFURT include: PROJ-NORDIC-001, PROJ-QUANTUM-021, PROJ-SUMMIT-041, PROJ-ATLAS-061, PROJ-CLOUD-081, PROJ-NORDIC-101, PROJ-QUANTUM-121, PROJ-SUMMIT-141.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "PROJECT"
+      ],
+      "graphrag": {
+        "answer": "Projects deployed in REGION-FRANKFURT include: PROJ-NORDIC-001, PROJ-QUANTUM-021, PROJ-SUMMIT-041, PROJ-ATLAS-061, PROJ-CLOUD-081, PROJ-NORDIC-101, PROJ-QUANTUM-121, PROJ-SUMMIT-141.",
+        "verdict": "PASS",
+        "promptTokens": 1391,
+        "completionTokens": 77,
+        "latencyMs": 3605,
+        "bertScore": {
+          "precision": 0.9999999989999999,
+          "recall": 0.9999999989999999,
+          "f1": 0.9999999989999999,
+          "f1Rescaled": 0.9999999974999998
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7543248083294584,
+          "recall": 0.7543248083294584,
+          "f1": 0.7543248083294584,
+          "f1Rescaled": 0.38581202082364596
+        }
+      },
+      "llmOnly": {
+        "answer": "I don't have access to real-time data and I am not familiar with REGION-FRANKFURT. If you could provide me more context about REGION-FRANKFURT, I might be able to give a better answer.\n\nHowever, I can provide general guidance on how to find the list of deployed projects in a specific AWS region using AWS CLI.\n\nHere's an example to get the list of Amazon Machine Images (AMIs) in the Frankfurt region:\n\n```bash\naws ec2 describe-images --region eu-central-1\n```\n\nTo get the list of Amazon RDS instances:\n\n```bash\naws rds describe-db-instances --region eu-central-1\n```\n\nTo get the list of Elastic Container Registry (ECR) repositories:\n\n```bash\naws ecr describe-repos --region eu-central-1\n```\n\nTo get the list of S3 buckets:\n\n```bash\naws s3 ls --region eu-central-1\n```\n\nTo get the list of Elastic Beanstalk environments:\n\n```bash\naws elasticbeanstalk describe-environments --region eu-central-1\n```\n\nTo get the list of CloudFormation stacks:\n\n```bash\naws cloudformation describe-stacks --region eu-central-1\n```\n\nTo get the list of AWS Lambda functions:\n\n```bash\naws lambda list-functions --region eu-central-1\n```\n\nTo get the list of Amazon EC2 instances:\n\n```bash\naws ec2 describe-instances --region eu-central-1\n```",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.8454452811606411,
+          "recall": 0.8454452811606411,
+          "f1": 0.8454452811606411,
+          "f1Rescaled": 0.6136132029016028
+        }
+      }
+    },
+    {
+      "question": "How many total outages has VEND-01 (OUTAGE-001's vendor) caused across all regions?",
+      "referenceAnswer": "Vendor VEND-01 (MedSync), responsible for OUTAGE-001, has caused 2 total outages across all regions.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "OUTAGE",
+        "VENDOR"
+      ],
+      "graphrag": {
+        "answer": "Vendor VEND-01 has caused 2 total outages.",
+        "verdict": "PASS",
+        "promptTokens": 1527,
+        "completionTokens": 14,
+        "latencyMs": 3447,
+        "bertScore": {
+          "precision": 0.9301962144518412,
+          "recall": 0.9301962144518412,
+          "f1": 0.9301962144518412,
+          "f1Rescaled": 0.825490536129603
+        }
+      },
+      "basicRag": {
+        "answer": "According to the provided vendor profile, VEND-01 has 2 identified outage incidents attributed to it:\n\n1. OUTAGE-001 (exact details about the outage not provided)\n2. OUTAGE-051 (exact details about the outage not provided)\n\nHowever, the question asks for the total number of outages VEND-01 has caused across all regions, not the number of unique outage IDs. Unfortunately, we do not have explicit outage counts across regions for other VEND-01 outages in the provided information, and it does not seem that there are any more VEND-01 (OUTAGE-001's vendor) outage records.\n\nTherefore, to give a complete answer without guessing or missing information, I would say that there are at least 2 incidents attributed to VEND-01 across at least one identified region.",
+        "verdict": "FAIL",
+        "promptTokens": 5237,
+        "completionTokens": 168,
+        "latencyMs": 35026,
+        "bertScore": {
+          "precision": 0.9013434426462079,
+          "recall": 0.9013434426462079,
+          "f1": 0.9013434426462079,
+          "f1Rescaled": 0.7533586066155198
+        }
+      },
+      "llmOnly": {
+        "answer": "I cannot complete that request.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.6693010082038878,
+          "recall": 0.6693010082038878,
+          "f1": 0.6693010082038878,
+          "f1Rescaled": 0.17325252050971962
+        }
+      }
+    },
+    {
+      "question": "How many outages occurred in REGION-TORONTO?",
+      "referenceAnswer": "REGION-TORONTO has experienced 5 outages.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "5 outages occurred in REGION-TORONTO.",
+        "verdict": "PASS",
+        "promptTokens": 1372,
+        "completionTokens": 12,
+        "latencyMs": 3459,
+        "bertScore": {
+          "precision": 0.9886086496385765,
+          "recall": 0.9886086496385765,
+          "f1": 0.9886086496385765,
+          "f1Rescaled": 0.9715216240964414
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7440207470652813,
+          "recall": 0.7440207470652813,
+          "f1": 0.7440207470652813,
+          "f1Rescaled": 0.36005186766320335
+        }
+      },
+      "llmOnly": {
+        "answer": "I need more context and or information to give you the correct answer. I am unable to verify outages in a specific region called REGION-TORONTO. \n\nHowever, if you're referring to the Toronto region in Ontario, Canada, the Toronto Hydro company has an outage map. However, that may not be the company you are referring to.\n\nIf you could provide more context or clarify which organization you are referring to, I would do my best to give you a correct answer.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.889357413177716,
+          "recall": 0.889357413177716,
+          "f1": 0.889357413177716,
+          "f1Rescaled": 0.72339353294429
+        }
+      }
+    },
+    {
+      "question": "Which outages occurred in REGION-FRANKFURT?",
+      "referenceAnswer": "REGION-FRANKFURT has experienced 5 outages: OUTAGE-001, OUTAGE-021, OUTAGE-041, OUTAGE-061, OUTAGE-081.",
+      "type": "medium",
+      "hops": 2,
+      "entities": [
+        "REGION",
+        "OUTAGE"
+      ],
+      "graphrag": {
+        "answer": "REGION-FRANKFURT has experienced 5 outages: OUTAGE-001, OUTAGE-021, OUTAGE-041, OUTAGE-061, OUTAGE-081.",
+        "verdict": "PASS",
+        "promptTokens": 1378,
+        "completionTokens": 39,
+        "latencyMs": 3437,
+        "bertScore": {
+          "precision": 0.9999999989999998,
+          "recall": 0.9999999989999998,
+          "f1": 0.9999999989999998,
+          "f1Rescaled": 0.9999999974999996
+        }
+      },
+      "basicRag": {
+        "bertScore": {
+          "precision": 0.7146678068238409,
+          "recall": 0.7146678068238409,
+          "f1": 0.7146678068238409,
+          "f1Rescaled": 0.2866695170596023
+        }
+      },
+      "llmOnly": {
+        "answer": "I can't provide information on outages within the region of Frankfurt.",
+        "verdict": "FAIL",
+        "bertScore": {
+          "precision": 0.878518400681022,
+          "recall": 0.878518400681022,
+          "f1": 0.878518400681022,
+          "f1Rescaled": 0.6962960017025551
+        }
+      }
+    }
+  ]
+}

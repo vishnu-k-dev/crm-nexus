@@ -1,17 +1,6 @@
 /**
  * GET /api/crm-eval
- * Runs 20 CRM-specific multi-hop questions against all 3 pipelines.
- *
- * Why BasicRAG fails here:
- *   - Its vector store is built from Wikipedia (static index)
- *   - CRM entities (Acme Corp, Paul Robinson, etc.) are NOT in Wikipedia
- *   - It retrieves irrelevant chunks → wrong answers
- *
- * Why GraphRAG wins:
- *   - CRM data was ingested into TigerGraph
- *   - Vector search finds the exact entity chunk
- *   - Graph traversal gets adjacent chunks (e.g. deal → owner → department)
- *   - 3-4 targeted chunks vs BasicRAG's 15 irrelevant ones
+ * Runs CRM multi-hop questions against all 3 pipelines.
  */
 import type { FastifyPluginAsync } from 'fastify';
 import { readFileSync, existsSync, writeFileSync } from 'node:fs';
@@ -28,9 +17,12 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
 
   // ── GET /api/crm-eval/results — instant, reads pre-computed file from disk ──
   app.get('/results', async (_req, reply) => {
+    const dataDir = existsSync(join(process.cwd(), 'data'))
+      ? join(process.cwd(), 'data')
+      : join(process.cwd(), '..', '..', 'data');
     const paths = [
-      join(process.cwd(), '..', '..', 'crm_eval_results.json'),
-      join(process.cwd(), '..', '..', 'crm_eval_partial.json'),
+      join(dataDir, 'crm_eval_results.json'),
+      join(dataDir, 'crm_eval_partial.json'),
     ];
     for (const p of paths) {
       if (existsSync(p)) {
@@ -73,11 +65,18 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
     };
   });
 
-  // ── GET /api/crm-eval — runs full 35-question benchmark (long-running) ──
+  // ── GET /api/crm-eval — runs full benchmark (long-running, resumable) ──
   app.get('/', async (req, reply) => {
+    // Persistent paths — inside the Docker volume so results survive container restarts
+    const dataDir = existsSync(join(process.cwd(), 'data'))
+      ? join(process.cwd(), 'data')
+      : join(process.cwd(), '..', '..', 'data');
+    const PARTIAL_PATH = join(dataDir, 'crm_eval_partial.json');
+    const FINAL_PATH   = join(dataDir, 'crm_eval_results.json');
+
     // Find eval questions
-    const evalPath = existsSync(join(process.cwd(), 'data', 'crm', 'eval_questions.json'))
-      ? join(process.cwd(), 'data', 'crm', 'eval_questions.json')
+    const evalPath = existsSync(join(dataDir, 'crm', 'eval_questions.json'))
+      ? join(dataDir, 'crm', 'eval_questions.json')
       : join(process.cwd(), '..', '..', 'data', 'crm', 'eval_questions.json');
 
     if (!existsSync(evalPath)) {
@@ -85,10 +84,37 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
     }
 
     const questions = JSON.parse(readFileSync(evalPath, 'utf8')) as CrmQuestion[];
-    const results = [];
+
+    // ── Resume from partial results if available ──
+    // Already-computed questions are skipped; new questions are appended.
+    // This means a re-run after a crash continues from where it left off.
+    const existingResults: typeof results = [];
+    if (existsSync(PARTIAL_PATH)) {
+      try {
+        const partial = JSON.parse(readFileSync(PARTIAL_PATH, 'utf8')) as { results: typeof results };
+        existingResults.push(...(partial.results ?? []));
+        console.log(`[crm-eval] Resuming from partial: ${existingResults.length}/${questions.length} already done`);
+      } catch { /* corrupt partial — start fresh */ }
+    }
+    const doneQuestions = new Set(existingResults.map((r: { question: string }) => r.question));
+
+    const results = [...existingResults];
     const delay = (ms: number) => new Promise(r => setTimeout(r, ms));
 
+    // Helper: persist current results to disk (both partial and per-question file)
+    const save = () => {
+      try {
+        writeFileSync(PARTIAL_PATH, JSON.stringify({ n: results.length, total: questions.length, results }, null, 2), 'utf8');
+      } catch { /* non-fatal */ }
+    };
+
     for (const [idx, q] of questions.entries()) {
+      // Skip questions already computed in a previous run
+      if (doneQuestions.has(q.question)) {
+        console.log(`[crm-eval] skip (cached) ${idx + 1}/${questions.length}: ${q.question.slice(0, 50)}`);
+        continue;
+      }
+
       console.log(`[crm-eval] ${idx + 1}/${questions.length}: ${q.question.slice(0, 60)}…`);
       try {
         const llmRes   = await runLlmOnly(q.question).catch((e: Error) => ({ error: e.message }));
@@ -123,13 +149,8 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
           graphrag: { ...graphRes, judge: judgeGraph, bertScore: bertGraph },
         });
 
-        // Save partial after every question
-        try {
-          writeFileSync(
-            join(process.cwd(), '..', '..', 'crm_eval_partial.json'),
-            JSON.stringify({ n: results.length, results }, null, 2), 'utf8'
-          );
-        } catch { /* non-fatal */ }
+        // Persist after every question — survives crashes
+        save();
 
         await delay(500);
       } catch (err) {
@@ -146,7 +167,7 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
     const latSums   = { llm: 0, basicRag: 0, graphrag: 0 };
     let tokenN = 0;
     // Matched-pair token sums: only questions where BOTH BasicRAG and GraphRAG succeeded
-    // (BasicRAG fails on CRM-specific questions since its vector store is Wikipedia — fair comparison requires both pipelines to have answered)
+    // (fair apples-to-apples comparison requires both pipelines to have answered)
     let matchedGrTokens = 0; let matchedBrTokens = 0; let matchedLatGr = 0; let matchedLatBr = 0; let matchedN = 0;
     let bertF1Sum = 0; let bertN = 0;
 
@@ -197,7 +218,7 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
           llmOnly:  pct(pass.llm,      judgeCount.llm),
           basicRag: pct(pass.basicRag, judgeCount.basicRag),
           graphrag: pct(pass.graphrag, judgeCount.graphrag),
-          note: 'GraphRAG uses TigerGraph multi-hop traversal; BasicRAG uses flat cosine similarity on same CRM data.',
+          note: 'GraphRAG uses TigerGraph multi-hop traversal; BasicRAG uses flat cosine similarity on the same CRM vector index.',
         },
         bertScoreGraphRAG: {
           avgF1Rescaled: bertN > 0 ? parseFloat((bertF1Sum / bertN).toFixed(3)) : null,
@@ -209,7 +230,7 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
           llmOnly:  Math.round(tokenSums.llm / n),
           basicRag: Math.round(matchedBrTokens / mn),
           graphrag: Math.round(matchedGrTokens / mn),
-          note: `Averages on ${matchedN} matched-pair questions (both pipelines answered). BasicRAG failed on ${tokenN - matchedN} CRM-specific questions where its flat cosine retrieval drowned in the 19M-token corpus.`,
+          note: `Averages on ${matchedN} matched-pair questions where both pipelines answered.`,
         },
         tokenReductionVsBasicRag: matchedBrTokens > 0
           ? (((matchedBrTokens - matchedGrTokens) / matchedBrTokens) * 100).toFixed(1) + '%'
@@ -226,8 +247,7 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
       results,
     };
 
-    const outPath = join(process.cwd(), '..', '..', 'crm_eval_results.json');
-    try { writeFileSync(outPath, JSON.stringify(payload, null, 2), 'utf8'); } catch { /* non-fatal */ }
+    try { writeFileSync(FINAL_PATH, JSON.stringify(payload, null, 2), 'utf8'); } catch { /* non-fatal */ }
 
     return payload;
   });

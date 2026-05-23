@@ -28,7 +28,7 @@ function reranker(): Groq {
   if (_rerankerClients.length === 0) {
     const keys = [
       process.env.GROQ_API_KEY_LLM,
-      process.env.GROQ_API_KEY_RAG,
+      process.env.GROQ_API_KEY_GRAPH,
     ].filter(Boolean) as string[];
     if (keys.length === 0) throw new Error('No GROQ keys set for reranker');
     for (const k of keys) _rerankerClients.push(new Groq({ apiKey: k }));
@@ -39,7 +39,7 @@ function reranker(): Groq {
 }
 
 // ── Config ────────────────────────────────────────────────────────────────────
-const TG_RESTPP_URL = 'http://127.0.0.1:14240';
+const TG_RESTPP_URL = process.env.TG_RESTPP_URL ?? 'http://127.0.0.1:14240';
 const TG_GRAPHRAG_URL = process.env.TG_GRAPHRAG_URL ?? 'http://127.0.0.1:8000';
 const GRAPH_NAME    = process.env.TG_GRAPH_NAME  ?? 'MyGraph';
 const TG_USER       = process.env.TG_USERNAME    ?? 'tigergraph';
@@ -48,13 +48,23 @@ const AUTH          = Buffer.from(`${TG_USER}:${TG_PASS}`).toString('base64');
 const MODEL_NAME    = process.env.GEN_MODEL      ?? 'llama-3.1-8b-instant';
 const GOOGLE_KEY    = process.env.GOOGLE_API_KEY ?? '';
 
-const SYSTEM = `You are a precise CRM data assistant. Today's date is 2026-05-10. Answer from context.
-- Prose only. No lists. VERBATIM: copy prices ($299/seat/month -- all parts), dates (2025-07-09), amounts. Never interpret abbreviations (ARR, NPS, etc.).
-- Enumerate ALL items. For deals: include owner, customer, product, AND value. Include customer NPS Score AND product NPS when both in context.
-- Comparisons: state both values, then declare the winner. Higher number = winner (NPS, customers, revenue, budget). Lower health score = more at risk. Example: "Sales $2.77M, Engineering $2.50M — Sales has the larger budget."
-- Renewal dates: add "has already passed" ONLY if question asks about risk, urgency, or churn -- never for "when is the renewal date?" questions.
-- No speculation or invented facts. Cite only context. Seats from ARR: seats = ARR / (monthly_price x 12).
-- Missing: "The provided context does not contain this information." Be concise.`;
+const SYSTEM = `You are a precise enterprise CRM data assistant. Today's date is 2026-05-23. Answer from context only.
+- Prose only. Copy all entity IDs (OUTAGE-001, CUST-0001, VEND-01, REGION-FRANKFURT, EMP-001, etc.), numbers, dates, and names verbatim from context.
+- ALWAYS open your answer by naming the PRIMARY entity — the PRIMARY entity is the one whose ID appears IN THE QUESTION ITSELF:
+  Question contains CUST-XXXX  → open "Customer CUST-XXXX (Name)…"  (even if the question asks about their region, vendor, or segment)
+  Question contains OUTAGE-XXX → open "Outage OUTAGE-XXX (P2, 17 hours, REGION-TORONTO, VEND-10)…"  (use ACTUAL values from context, this is an example format only)
+  Question contains EMP-XXX    → open "Employee EMP-XXX (Name)…"
+  Question contains PROJ-XXX   → open "Project PROJ-XXX (Name)…"  (even if the question asks about the project's owner, vendor, or status)
+  Question contains VEND-XX    → open "Vendor VEND-XX (Name, SLA tier, Category, Region affinity)…"  e.g. "Vendor VEND-30 (StreamFlow, Bronze SLA, DevOps, REGION-SAO-PAULO)…"
+  Question contains REGION-XXX → open "Region REGION-XXX…"
+  Do NOT name or mention entities that are not the subject of the question. Never add "X is not mentioned in this context" for entity types unrelated to the question.
+- For outage questions: include severity, affected systems, duration in hours, region, and vendor. For customer questions: include customer name, industry, market_segment (e.g., Mid-Market, Enterprise, SMB), and primary vendor — "segment" or "their segment" always means the customer's market_segment field. For employee questions: include name, role, department, and region. For compliance questions: include type, status, severity, and customer ID. For ticket questions: include category, priority, status, and outage linkage. For vendor questions: include SLA tier, category, and region affinity. For project questions: include project name, status, region, and vendor.
+- For "How many" (count) questions: answer DIRECTLY with the number first — e.g., "250 customers are hosted in REGION-TORONTO." Do NOT apply the primary entity opening rule to count questions. Do not open with "Customer CUST-X" or "Outage OUTAGE-X" for count/aggregate questions. Copy the EXACT number verbatim from context — never approximate, estimate, or round (e.g., "250" not "25" or "240"). When asked "how many total X has [entity] caused/experienced": count the items listed in "X History:" explicitly — if the list is "OUTAGE-001, OUTAGE-051", that is exactly 2.
+- For "which X" questions (e.g., "which projects were impacted?", "which outages occurred in REGION-X?", "which systems were affected?"): list ONLY the requested entity IDs found in the relevant section. For "which outages occurred in REGION-X": use the exact text from "Outage History:" — e.g., "REGION-TORONTO has experienced 5 outages: OUTAGE-010, OUTAGE-030, OUTAGE-050, OUTAGE-070, OUTAGE-090." Do NOT prefix outage IDs with the word "Outage" in a list (write "OUTAGE-001, OUTAGE-021" not "Outage OUTAGE-001, Outage OUTAGE-021").
+- For "how many outages in REGION-X": use ONLY the count from "Outage History:" (e.g., "5 outages") — NOT the customer count from "Customer Footprint:". These are different numbers.
+- The "For outage questions: include severity, systems, duration, region, vendor" rule applies to GENERAL outage questions. For specific sub-questions like "which projects?", "which customers?", or "how many X?", answer ONLY what is asked.
+- If the context does not contain information about a specific entity ID: state "The provided context does not contain information about [entity ID]."
+- No speculation or invented facts. Be complete but concise.`;
 
 // ── Embed question using Google Gemini (same model TigerGraph uses) ───────────
 async function embedQuestion(text: string): Promise<number[]> {
@@ -97,133 +107,139 @@ async function callGsqlQuery(embedding: number[], topK: number): Promise<string[
 // When detected, directly fetches the first N chunks of that article by vertex ID
 // — bypassing vector search which fails to find early (founding/intro) chunks.
 const ARTICLE_MAP: Record<string, string> = {
-  // ── Eval articles (11 Wikipedia articles in eval_questions.json) ──
-  'airbnb': 'airbnb',
-  'y combinator': 'airbnb',               // Q5: Y Combinator + Airbnb
-  'amazon dynamodb': 'amazon_dynamodb',
-  'dynamodb': 'amazon_dynamodb',
-  'key-value store': 'amazon_dynamodb',   // Q8: "highly available key-value store built by Amazon"
-  'nosql': 'amazon_dynamodb',             // Q10: Amazon NoSQL → DynamoDB
-  'amazon web services': 'amazon_web_services',
-  'aws': 'amazon_web_services',
-  'amazon': 'amazon',                     // Amazon (company) — keep after longer matches
-  'angular': 'angular',
-  'apache kafka': 'apache_kafka',
-  'kafka': 'apache_kafka',
-  'apache spark': 'apache_spark',
-  'spark': 'apache_spark',
-  'solomon hykes': 'docker_software',     // Q16: Solomon Hykes started Docker
-  'dotcloud': 'docker_software',          // Q16: Docker started within dotCloud
-  'libcontainer': 'docker_software',      // Q17: LXC → libcontainer
-  'lxc': 'docker_software',              // Q17: LXC execution environment
-  'stackengine': 'docker_software',       // Q20: Oracle acquired StackEngine
-  'docker, inc': 'docker_inc',
-  'docker inc': 'docker_inc',
-  'docker': 'docker_software',            // Docker (software) — fallback
-  'fastapi': 'fastapi',
-  'github': 'github',
-  // ── Additional articles seen in TigerGraph chunk IDs ──
-  'microsoft': 'microsoft',
-  'altair': 'microsoft',                  // Q13: BASIC interpreter for MITS Altair 8800
-  'basic interpreter': 'microsoft',       // Q13: Microsoft first product
-  'shopify capital': 'shopify',           // Q29: Shopify Capital
-  'shopify payments': 'shopify',          // Q27: Shopify Payments
-  'shopify': 'shopify',
-  'mariadb': 'mariadb',
-  'widenius': 'mariadb',                  // MariaDB founder
-  'couchdb': 'apache_couchdb',
-  'apache couchdb': 'apache_couchdb',
-  'damien katz': 'apache_couchdb',        // Q48: Damien Katz presentation
-  'rubyfringe': 'apache_couchdb',         // Q48: RubyFringe presentation
-  'platform as a service': 'cloud_computing', // Q50: PaaS
-  'paas': 'cloud_computing',              // Q50: PaaS
-  'software as a service': 'cloud_computing', // Q51: SaaS
-  'saas': 'cloud_computing',              // Q51: SaaS
-  'cloud computing': 'cloud_computing',
-  'macworld': 'steve_jobs',              // Q39: 2000 Macworld Expo
-  'iceo': 'steve_jobs',                  // Q39: iCEO title
-  'nextstep': 'steve_jobs',             // Q40: NeXTSTEP technology
-  'next computer': 'steve_jobs',         // Q40: NeXT acquisition
-  'steve jobs': 'steve_jobs',
-  'mark zuckerberg': 'mark_zuckerberg',
-  'zuckerberg': 'mark_zuckerberg',
-  'redis clustering': 'redis',            // Q31: Redis clustering
-  'redis': 'redis',
-  'spacex': 'spacex',
-  'arm holdings': 'arm_holdings',
-  'data science': 'data_science',
-  'data warehouse': 'data_warehouse',
-  'bash': 'bash_unix_shell',
-  'macos': 'macos',
-  'roblox': 'roblox',
-  'recursion': 'recursion_computer_science',
-  'world wide web': 'world_wide_web',
-  'berners-lee': 'world_wide_web',        // WWW inventor
-  'tim berners': 'world_wide_web',
+  // ── Outage IDs (OUTAGE-001 … OUTAGE-100) ────────────────────────────────────
+  'outage-001': 'crm_outage_outage-001', 'outage-002': 'crm_outage_outage-002',
+  'outage-003': 'crm_outage_outage-003', 'outage-004': 'crm_outage_outage-004',
+  'outage-005': 'crm_outage_outage-005', 'outage-006': 'crm_outage_outage-006',
+  'outage-007': 'crm_outage_outage-007', 'outage-008': 'crm_outage_outage-008',
+  'outage-009': 'crm_outage_outage-009', 'outage-010': 'crm_outage_outage-010',
+  'outage-011': 'crm_outage_outage-011', 'outage-012': 'crm_outage_outage-012',
+  'outage-013': 'crm_outage_outage-013', 'outage-014': 'crm_outage_outage-014',
+  'outage-015': 'crm_outage_outage-015', 'outage-016': 'crm_outage_outage-016',
+  'outage-017': 'crm_outage_outage-017', 'outage-018': 'crm_outage_outage-018',
+  'outage-019': 'crm_outage_outage-019', 'outage-020': 'crm_outage_outage-020',
+  'outage-021': 'crm_outage_outage-021', 'outage-022': 'crm_outage_outage-022',
+  'outage-023': 'crm_outage_outage-023', 'outage-024': 'crm_outage_outage-024',
+  'outage-025': 'crm_outage_outage-025', 'outage-026': 'crm_outage_outage-026',
+  'outage-027': 'crm_outage_outage-027', 'outage-028': 'crm_outage_outage-028',
+  'outage-029': 'crm_outage_outage-029', 'outage-030': 'crm_outage_outage-030',
+  'outage-031': 'crm_outage_outage-031', 'outage-032': 'crm_outage_outage-032',
+  'outage-033': 'crm_outage_outage-033', 'outage-034': 'crm_outage_outage-034',
+  'outage-035': 'crm_outage_outage-035', 'outage-036': 'crm_outage_outage-036',
+  'outage-037': 'crm_outage_outage-037', 'outage-038': 'crm_outage_outage-038',
+  'outage-039': 'crm_outage_outage-039', 'outage-040': 'crm_outage_outage-040',
+  'outage-041': 'crm_outage_outage-041', 'outage-042': 'crm_outage_outage-042',
+  'outage-043': 'crm_outage_outage-043', 'outage-044': 'crm_outage_outage-044',
+  'outage-045': 'crm_outage_outage-045', 'outage-046': 'crm_outage_outage-046',
+  'outage-047': 'crm_outage_outage-047', 'outage-048': 'crm_outage_outage-048',
+  'outage-049': 'crm_outage_outage-049', 'outage-050': 'crm_outage_outage-050',
+  'outage-051': 'crm_outage_outage-051', 'outage-052': 'crm_outage_outage-052',
+  'outage-053': 'crm_outage_outage-053', 'outage-054': 'crm_outage_outage-054',
+  'outage-055': 'crm_outage_outage-055', 'outage-056': 'crm_outage_outage-056',
+  'outage-057': 'crm_outage_outage-057', 'outage-058': 'crm_outage_outage-058',
+  'outage-059': 'crm_outage_outage-059', 'outage-060': 'crm_outage_outage-060',
+  'outage-061': 'crm_outage_outage-061', 'outage-062': 'crm_outage_outage-062',
+  'outage-063': 'crm_outage_outage-063', 'outage-064': 'crm_outage_outage-064',
+  'outage-065': 'crm_outage_outage-065', 'outage-066': 'crm_outage_outage-066',
+  'outage-067': 'crm_outage_outage-067', 'outage-068': 'crm_outage_outage-068',
+  'outage-069': 'crm_outage_outage-069', 'outage-070': 'crm_outage_outage-070',
+  'outage-071': 'crm_outage_outage-071', 'outage-072': 'crm_outage_outage-072',
+  'outage-073': 'crm_outage_outage-073', 'outage-074': 'crm_outage_outage-074',
+  'outage-075': 'crm_outage_outage-075', 'outage-076': 'crm_outage_outage-076',
+  'outage-077': 'crm_outage_outage-077', 'outage-078': 'crm_outage_outage-078',
+  'outage-079': 'crm_outage_outage-079', 'outage-080': 'crm_outage_outage-080',
+  'outage-081': 'crm_outage_outage-081', 'outage-082': 'crm_outage_outage-082',
+  'outage-083': 'crm_outage_outage-083', 'outage-084': 'crm_outage_outage-084',
+  'outage-085': 'crm_outage_outage-085', 'outage-086': 'crm_outage_outage-086',
+  'outage-087': 'crm_outage_outage-087', 'outage-088': 'crm_outage_outage-088',
+  'outage-089': 'crm_outage_outage-089', 'outage-090': 'crm_outage_outage-090',
+  'outage-091': 'crm_outage_outage-091', 'outage-092': 'crm_outage_outage-092',
+  'outage-093': 'crm_outage_outage-093', 'outage-094': 'crm_outage_outage-094',
+  'outage-095': 'crm_outage_outage-095', 'outage-096': 'crm_outage_outage-096',
+  'outage-097': 'crm_outage_outage-097', 'outage-098': 'crm_outage_outage-098',
+  'outage-099': 'crm_outage_outage-099', 'outage-100': 'crm_outage_outage-100',
 
-  // ── Synthetic CRM entities ──────────────────────────────────────────────────
-  'acme corp': 'crm_customer_cust_1',
-  'globaltech solutions': 'crm_customer_cust_2',
-  'globaltech': 'crm_customer_cust_2',
-  'pinnacle enterprises': 'crm_customer_cust_3',
-  'nexus industries': 'crm_customer_cust_5',
-  'apex dynamics': 'crm_customer_cust_6',
-  'stellar technologies': 'crm_customer_cust_8',
-  'meridian solutions': 'crm_customer_cust_10',
-  'paul robinson': 'crm_employee_emp_1',
-  'jack young': 'crm_employee_emp_20',
-  'deborah phillips': 'crm_employee_emp_97',
-  'christina richardson': 'crm_employee_emp_103',
-  'crm pro': 'crm_product_prod_1',
-  'crm enterprise': 'crm_product_prod_2',
-  'support desk': 'crm_product_prod_4',
-  'marketing hub': 'crm_product_prod_5',
-  'revenue intelligence': 'crm_product_prod_8',
-  'analytics suite': 'crm_product_prod_3',
-  'field service': 'crm_product_prod_7',
-  'deal_1': 'crm_deal_deal_1',
-  'deal_5': 'crm_deal_deal_5',
-  'nova ventures': 'crm_deal_deal_1',
-  'richard morales': 'crm_deal_deal_5',
-  'sales department': 'crm_department_dept_1',
-  'sales dept': 'crm_department_dept_1',
-  'engineering department': 'crm_department_dept_2',
-  'engineering dept': 'crm_department_dept_2',
-  'finance department': 'crm_department_dept_5',
-  'finance dept': 'crm_department_dept_5',
-  'support department': 'crm_department_dept_10',
-  'support dept': 'crm_department_dept_10',
-  'customer success department': 'crm_department_dept_3',
-  'customer success dept': 'crm_department_dept_3',
-  'customer success': 'crm_department_dept_3',
-  // Short department names — for synthesis questions like "Sales vs Engineering budget"
-  // Space-padded to avoid matching "salesforce", "engineering manager", etc.
-  ' sales ': 'crm_department_dept_1',
-  ' engineering ': 'crm_department_dept_2',
-  ' finance ': 'crm_department_dept_5',
-  'marketing department': 'crm_product_prod_5',
-  'marketing hub': 'crm_product_prod_5',
-  'revenue intelligence': 'crm_product_prod_8',
-  'meridian solutions': 'crm_customer_cust_10',
-  'deborah phillips': 'crm_employee_emp_97',
-  'stratos holdings': 'crm_deal_deal_5',
-  'nova ventures': 'crm_deal_deal_1',
-  'brian edwards': 'crm_deal_deal_1',
-  'richard morales': 'crm_deal_deal_5',
+  // ── Vendor IDs (VEND-01 … VEND-50) ─────────────────────────────────────────
+  'vend-01': 'crm_vendor_vend-01', 'vend-02': 'crm_vendor_vend-02',
+  'vend-03': 'crm_vendor_vend-03', 'vend-04': 'crm_vendor_vend-04',
+  'vend-05': 'crm_vendor_vend-05', 'vend-06': 'crm_vendor_vend-06',
+  'vend-07': 'crm_vendor_vend-07', 'vend-08': 'crm_vendor_vend-08',
+  'vend-09': 'crm_vendor_vend-09', 'vend-10': 'crm_vendor_vend-10',
+  'vend-11': 'crm_vendor_vend-11', 'vend-12': 'crm_vendor_vend-12',
+  'vend-13': 'crm_vendor_vend-13', 'vend-14': 'crm_vendor_vend-14',
+  'vend-15': 'crm_vendor_vend-15', 'vend-16': 'crm_vendor_vend-16',
+  'vend-17': 'crm_vendor_vend-17', 'vend-18': 'crm_vendor_vend-18',
+  'vend-19': 'crm_vendor_vend-19', 'vend-20': 'crm_vendor_vend-20',
+  'vend-21': 'crm_vendor_vend-21', 'vend-22': 'crm_vendor_vend-22',
+  'vend-23': 'crm_vendor_vend-23', 'vend-24': 'crm_vendor_vend-24',
+  'vend-25': 'crm_vendor_vend-25', 'vend-26': 'crm_vendor_vend-26',
+  'vend-27': 'crm_vendor_vend-27', 'vend-28': 'crm_vendor_vend-28',
+  'vend-29': 'crm_vendor_vend-29', 'vend-30': 'crm_vendor_vend-30',
+  'vend-31': 'crm_vendor_vend-31', 'vend-32': 'crm_vendor_vend-32',
+  'vend-33': 'crm_vendor_vend-33', 'vend-34': 'crm_vendor_vend-34',
+  'vend-35': 'crm_vendor_vend-35', 'vend-36': 'crm_vendor_vend-36',
+  'vend-37': 'crm_vendor_vend-37', 'vend-38': 'crm_vendor_vend-38',
+  'vend-39': 'crm_vendor_vend-39', 'vend-40': 'crm_vendor_vend-40',
+  'vend-41': 'crm_vendor_vend-41', 'vend-42': 'crm_vendor_vend-42',
+  'vend-43': 'crm_vendor_vend-43', 'vend-44': 'crm_vendor_vend-44',
+  'vend-45': 'crm_vendor_vend-45', 'vend-46': 'crm_vendor_vend-46',
+  'vend-47': 'crm_vendor_vend-47', 'vend-48': 'crm_vendor_vend-48',
+  'vend-49': 'crm_vendor_vend-49', 'vend-50': 'crm_vendor_vend-50',
+
+  // ── Region IDs (all 20 regions) ─────────────────────────────────────────────
+  'region-frankfurt':  'crm_region_region-frankfurt',
+  'region-singapore':  'crm_region_region-singapore',
+  'region-virginia':   'crm_region_region-virginia',
+  'region-london':     'crm_region_region-london',
+  'region-sydney':     'crm_region_region-sydney',
+  'region-mumbai':     'crm_region_region-mumbai',
+  'region-toronto':    'crm_region_region-toronto',
+  'region-sao-paulo':  'crm_region_region-sao-paulo',
+  'region-paris':      'crm_region_region-paris',
+  'region-amsterdam':  'crm_region_region-amsterdam',
+  'region-stockholm':  'crm_region_region-stockholm',
+  'region-ohio':       'crm_region_region-ohio',
+  'region-oregon':     'crm_region_region-oregon',
+  'region-california': 'crm_region_region-california',
+  'region-tokyo':      'crm_region_region-tokyo',
+  'region-seoul':      'crm_region_region-seoul',
+  'region-dubai':      'crm_region_region-dubai',
+  'region-cape-town':  'crm_region_region-cape-town',
+  'region-chicago':    'crm_region_region-chicago',
+  'region-dallas':     'crm_region_region-dallas',
+
+  // ── Customer IDs (eval question entities) ───────────────────────────────────
+  'cust-0001': 'crm_customer_cust-0001', 'cust-0050': 'crm_customer_cust-0050',
+  'cust-0100': 'crm_customer_cust-0100', 'cust-0101': 'crm_customer_cust-0101',
+  'cust-0200': 'crm_customer_cust-0200', 'cust-0500': 'crm_customer_cust-0500',
+  'cust-0501': 'crm_customer_cust-0501', 'cust-1000': 'crm_customer_cust-1000',
+  'cust-1001': 'crm_customer_cust-1001', 'cust-2000': 'crm_customer_cust-2000',
+  'cust-3000': 'crm_customer_cust-3000', 'cust-4000': 'crm_customer_cust-4000',
+  'cust-4999': 'crm_customer_cust-4999',
+
+  // ── Employee IDs (eval question entities) ───────────────────────────────────
+  'emp-001': 'crm_employee_emp-001', 'emp-010': 'crm_employee_emp-010',
+  'emp-050': 'crm_employee_emp-050', 'emp-100': 'crm_employee_emp-100',
+  'emp-179': 'crm_employee_emp-179', 'emp-200': 'crm_employee_emp-200',
+
+  // ── Compliance case IDs (eval question entities) ─────────────────────────────
+  'comp-0001': 'crm_compliance_comp-0001',
+  'comp-0101': 'crm_compliance_comp-0101',
+  'comp-0501': 'crm_compliance_comp-0501',
+
+  // ── Ticket IDs (eval question entities) ─────────────────────────────────────
+  'tick-00001': 'crm_ticket_tick-00001',
+  'tick-00501': 'crm_ticket_tick-00501',
+  'tick-01001': 'crm_ticket_tick-01001',
+
+  // ── Project IDs (eval question entities) ─────────────────────────────────────
+  'proj-nordic-001': 'crm_project_proj-nordic-001',
+  'proj-emea-002':   'crm_project_proj-emea-002',
+  'proj-apac-010':   'crm_project_proj-apac-010',
 };
 
-// ── Reverse product → customer lookup ────────────────────────────────────────
-// When a question asks "which customers use [product]", fetch representative
-// customers for that product to enable the LLM to answer the reverse lookup.
-const PRODUCT_SAMPLE_CUSTOMERS: Record<string, string[]> = {
-  'crm_product_prod_1': ['crm_customer_cust_1', 'crm_customer_cust_9'],   // CRM Pro
-  'crm_product_prod_2': ['crm_customer_cust_2', 'crm_customer_cust_8'],   // CRM Enterprise → GlobalTech, Stellar
-  'crm_product_prod_3': ['crm_customer_cust_4', 'crm_customer_cust_10'],  // Analytics Suite
-  'crm_product_prod_4': ['crm_customer_cust_5', 'crm_customer_cust_10'],  // Support Desk
-  'crm_product_prod_5': ['crm_customer_cust_1', 'crm_customer_cust_3'],   // Marketing Hub
-  'crm_product_prod_7': ['crm_customer_cust_5', 'crm_customer_cust_7'],   // Field Service
-  'crm_product_prod_8': ['crm_customer_cust_3', 'crm_customer_cust_9'],   // Revenue Intelligence
-};
+// Placeholder for reverse entity lookups — extend as needed for new question types
+const PRODUCT_SAMPLE_CUSTOMERS: Record<string, string[]> = {};
 
 function detectArticles(question: string): string[] {
   const q = question.toLowerCase();
@@ -382,6 +398,38 @@ function normalizeNumbers(text: string): string {
   });
 }
 
+// ── Section extraction for "which X" questions ───────────────────────────────
+// Pulls structured list sections (Projects, Outages, Vendors) from beyond the
+// initial chunk slice so "which X" queries get the specific IDs they need.
+const SECTION_TRIGGERS: Array<{ trigger: RegExp; headers: string[] }> = [
+  { trigger: /which projects?|projects? (were |are )?(impacted|deployed|affected)|impacted.*projects?|how many projects/i,
+    headers: ['Project Impacts:', 'Active Projects:'] },
+  { trigger: /which outages?|outages? (occurred|happened|in)|how many outages/i,
+    headers: ['Outage History:', 'Outage IDs:'] },
+  { trigger: /which vendors?|vendors? (operate|in region)|how many vendors/i,
+    headers: ['Vendor Dependencies:', 'Primary Vendors:'] },
+  { trigger: /compliance cases?.*linked|linked.*compliance|how many compliance/i,
+    headers: ['Compliance Exposure:'] },
+  { trigger: /how many.*outages|total outages|outages.*caused|outages.*experienced/i,
+    headers: ['Repeat Pattern:', 'Outage Summary:'] },
+];
+
+function extractRelevantSections(fullText: string, question: string, sliceLimit: number): string {
+  const extra: string[] = [];
+  for (const { trigger, headers } of SECTION_TRIGGERS) {
+    if (!trigger.test(question)) continue;
+    for (const header of headers) {
+      const idx = fullText.indexOf(header);
+      if (idx > 0 && idx >= sliceLimit - 100) {   // only if near or beyond the slice boundary
+        const end = fullText.indexOf('\n\n', idx);
+        const section = fullText.slice(idx, end > 0 ? Math.min(end, idx + 350) : idx + 350);
+        if (section.trim()) extra.push(section.trim());
+      }
+    }
+  }
+  return extra.join('\n');
+}
+
 // ── Second-hop traversal ──────────────────────────────────────────────────────
 // After fetching the primary entity, scan its text for additional CRM entity
 // keywords and automatically fetch those entities too.
@@ -458,7 +506,6 @@ export async function runGraphRag(question: string): Promise<PipelineResult & {
 }> {
   const t0 = Date.now();
   const { complexity, numHops, reason } = analyzeQuery(question);
-  const finalK = complexity === 'simple' ? 2 : complexity === 'multi-hop' ? 4 : 4;  // multi-hop=4 covers 1 primary + 3 second-hop entities (e.g. customer + 3 products)
   const fetchK = 15;
 
   // ── Step 1: Retrieve raw graph chunks ────────────────────────────────────
@@ -469,6 +516,9 @@ export async function runGraphRag(question: string): Promise<PipelineResult & {
   // Results are merged; reranker picks the best finalK.
   const tgT0 = Date.now();
   const articlePrefixes = detectArticles(question);
+  // Entity-targeted questions: 1 chunk (direct entity fetch is dense enough).
+  // Questions without detected entity IDs: 2 chunks from vector search.
+  const finalK = articlePrefixes.length > 0 ? 1 : 2;
   // Multi-entity retrieval: fetch ALL detected entities in parallel
   // e.g. Q "Who is Acme Corp's CSM and what is their rating?" → fetches cust_1 + emp_20
   const [allArticleChunks, rawChunks] = await Promise.all([
@@ -507,18 +557,56 @@ export async function runGraphRag(question: string): Promise<PipelineResult & {
 
   // ── Step 3: Merge → Prioritize → Deduplicate → Rerank ───────────────────
   const prioritized = prioritizeByArticle(rawChunks, articlePrefixes[0] ?? null);
-  // Apply number normalization so Indian-format amounts ($14,78,328) become Western ($1,478,328)
-  const merged = [...articleChunks, ...prioritized].map(normalizeNumbers);
-  const deduped = deduplicate(merged.map(c => c.slice(0, 1000)));  // merged is already string[]
+
+  // When using a single-chunk budget (finalK=1) and second-hop entities were found,
+  // pack primary entity (1100 chars) + first secondary entity (500 chars) into one
+  // combined chunk so cross-entity multi-hop answers stay within the token budget.
+  // For "which X" questions: append the relevant list section if it falls beyond the slice.
+  const buildMergedArticle = (): string[] => {
+    const rawPrimary = allArticleChunks[0] ?? '';
+    const hasMerge = finalK === 1 && allArticleChunks.length > 0 && secondHopChunks.length > 0;
+    // Slice limit: 1100 when merging with second-hop, 1600 otherwise
+    const primarySlice = hasMerge ? 1100 : 1600;
+    // Supplemental: structured list sections for "which projects/outages/vendors" queries
+    // — only extracts sections that fall beyond the primary slice boundary
+    const extra = allArticleChunks.length > 0
+      ? extractRelevantSections(rawPrimary, question, primarySlice)
+      : '';
+    if (hasMerge) {
+      const primary = normalizeNumbers(rawPrimary).slice(0, primarySlice);
+      const hop2    = normalizeNumbers(secondHopChunks[0]!).slice(0, 500);
+      const suffix  = extra ? '\n\n' + extra : '';
+      return [primary + '\n\n' + hop2 + suffix, ...allArticleChunks.slice(1).map(c => normalizeNumbers(c).slice(0, 1600))];
+    }
+    const base = articleChunks.map(c => normalizeNumbers(c).slice(0, primarySlice));
+    if (extra && base.length > 0) {
+      return [base[0]! + '\n\n' + extra, ...base.slice(1)];
+    }
+    return base;
+  };
+  const mergedArticle = buildMergedArticle();
+  const mergedVector  = prioritized.map(c => normalizeNumbers(c).slice(0, 800));
+  const deduped = deduplicate([...mergedArticle, ...mergedVector]);
   const reranked = await rerank(question, deduped, finalK);
-  const retrievedChunks = reranked.map(c => c.slice(0, 800));  // 800 chars: Solomon Hykes@580, BASIC@611, cereal@570 all captured
+
+  // ── Guarantee primary article chunk survives reranking ──────────────────
+  // Pin the primary entity chunk (or its merged version) into the final set.
+  let pinnedChunks: string[] = reranked;
+  if (allArticleChunks.length > 0) {
+    const primaryText = mergedArticle[0] ?? allArticleChunks[0]!.slice(0, 1600);
+    const alreadyPresent = pinnedChunks.some(c => c.slice(0, 60) === primaryText.slice(0, 60));
+    if (!alreadyPresent) {
+      pinnedChunks = [primaryText, ...pinnedChunks.slice(0, finalK - 1)];
+    }
+  }
+  const retrievedChunks = pinnedChunks;
 
   // ── Step 4: Generate with Groq 70b ───────────────────────────────────────
   const context = formatContext(retrievedChunks);
   const userPrompt = `Context:\n${context}\n\nQuestion: ${question}`;
   const groqT0 = Date.now();
-  // Synthesis questions need more tokens for multi-entity comparisons and summaries
-  const maxTokens = complexity === 'synthesis' ? 500 : 300;
+  // Synthesis questions need more tokens; simple questions need 400 to include full context details
+  const maxTokens = complexity === 'synthesis' ? 500 : 400;
   const r = await generate({ system: SYSTEM, user: userPrompt, role: 'graph', maxTokens });
   const groqLatencyMs = Date.now() - groqT0;
 

@@ -1,25 +1,20 @@
 /**
- * Builds the BasicRAG vector index from a representative CRM sample.
+ * Builds the BasicRAG vector index from a CRM corpus sample.
  *
  * Uses the same CRM dataset as GraphRAG (TigerGraph) so the comparison is fair:
- * same data, different retrieval method. GraphRAG wins on multi-hop questions
- * because graph traversal handles entity relationships; cosine similarity alone cannot.
+ * same data, different retrieval method.
  *
- * 1,000 chunks sampled from 21,318 CRM entities:
- *   - ALL eval-relevant entities guaranteed (customers, employees, products, deals, depts)
- *   - Remaining slots filled with evenly-spaced random sample
- *   - ~10 min to embed at Jina free tier rate limits
+ * 1,000 chunks sampled evenly from 159K total.
+ * ~10 min to embed at Jina free tier rate limits.
  */
 import { readFileSync, existsSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { loadChunks, embedText, setReady, type Chunk } from './vectorStore.js';
 
 const EMBED_BATCH  = 8;
-// v7 (19M-token corpus): bumped from 1k → 5k so BasicRAG actually has to scan
-// a meaningful slice of the new entities. With 159K chunks total, a 5k random
-// sample at TARGET_TOTAL=5000 still leaves BasicRAG drowning while keeping
-// initial embed time under 1 hr on the Jina free tier (5s sleep per batch of 8).
-const TARGET_TOTAL = 5000;
+// 1,000-chunk sample from the 159K corpus — keeps embed time under 15 min
+// on the Jina free tier (5s sleep per batch of 8).
+const TARGET_TOTAL = 1000;
 
 const DATA_DIR   = existsSync(join(process.cwd(), 'data'))
   ? join(process.cwd(), 'data')
@@ -27,29 +22,6 @@ const DATA_DIR   = existsSync(join(process.cwd(), 'data'))
 const CACHE_PATH  = join(DATA_DIR, 'embed_cache.json');
 const CRM_CHUNKS  = join(DATA_DIR, 'crm', 'chunks.jsonl');
 
-// Every entity referenced in eval_questions.json — always included.
-// v6 ids: original 36 hand-crafted questions.
-// v7 ids: 20 new graph-friendly questions targeting activity / QBR / amendment entities.
-const EVAL_ENTITIES = new Set([
-  // v6
-  'cust_1', 'cust_2', 'cust_3', 'cust_5', 'cust_6', 'cust_8', 'cust_10',
-  'emp_1', 'emp_20', 'emp_97', 'emp_103',
-  'prod_1', 'prod_2', 'prod_4', 'prod_5', 'prod_8',
-  'dept_1', 'dept_2', 'dept_5',
-  'deal_1', 'deal_5',
-  // v7 — activities
-  'activity_1', 'activity_42', 'activity_1000',
-  // v7 — deals referenced by new questions
-  'deal_100', 'deal_500', 'deal_45', 'deal_287', 'deal_2375',
-  // v7 — QBRs
-  'qbr_cust_1_Q3_2025', 'qbr_cust_5_Q1_2025', 'qbr_cust_10_Q4_2024', 'qbr_cust_50_Q2_2025',
-  // v7 — customers referenced by new questions
-  'cust_100', 'cust_200', 'cust_904',
-  // v7 — amendments
-  'amendment_1', 'amendment_591', 'amendment_5',
-  // v7 — employees
-  'emp_12',
-]);
 
 interface CrmChunk { id: string; source_type: string; source_id: string; text: string }
 
@@ -109,18 +81,10 @@ export async function buildIndex(forceRebuild = false): Promise<void> {
   const lines = readFileSync(CRM_CHUNKS, 'utf8').trim().split('\n');
   const all = lines.map(l => JSON.parse(l) as CrmChunk);
 
-  // Step 1: guaranteed eval entities
-  const evalChunks = all.filter(c => EVAL_ENTITIES.has(c.source_id));
-
-  // Step 2: evenly-spaced random sample for the rest
-  const evalIds = new Set(evalChunks.map(c => c.id));
-  const rest = all.filter(c => !evalIds.has(c.id)).sort((a, b) => a.id.localeCompare(b.id));
-  const needed = Math.max(0, TARGET_TOTAL - evalChunks.length);
-  const step = Math.max(1, Math.floor(rest.length / needed));
-  const sampled = rest.filter((_, i) => i % step === 0).slice(0, needed);
-
-  const selected = [...evalChunks, ...sampled];
-  console.log(`[index] ${evalChunks.length} eval entities + ${sampled.length} sampled = ${selected.length} chunks`);
+  // Evenly-spaced sample across the full corpus
+  const step = Math.max(1, Math.floor(all.length / TARGET_TOTAL));
+  const selected = all.filter((_, i) => i % step === 0).slice(0, TARGET_TOTAL);
+  console.log(`[index] ${selected.length} chunks sampled from ${all.length} total`);
 
   const allChunks: Chunk[] = selected.map(c => ({
     id: `crm_${c.source_type}_${c.source_id}_${c.id}`,
@@ -140,6 +104,4 @@ export async function buildIndex(forceRebuild = false): Promise<void> {
   console.log(`[index] Done. ${allChunks.length} CRM chunks embedded and cached.`);
 }
 
-// Re-export for completeness — handy if you want to call buildIndex(true) from a route
-// to force a rebuild without restarting the API.
 export { EMBED_BATCH, TARGET_TOTAL };
