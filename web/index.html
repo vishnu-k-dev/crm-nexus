@@ -51,47 +51,47 @@
       <div class="hero-left">
         <div class="hero-title-badge reveal">CRM Nexus &nbsp;&nbsp;·&nbsp;&nbsp; TigerGraph × GraphRAG Inference</div>
         <h1 class="reveal" style="margin-bottom:20px;">Stop paying for tokens <em>your LLM doesn't need.</em></h1>
-        <p class="hero-desc reveal">A Fastify + TigerGraph system that maps a 2.69M-token synthetic CRM into a knowledge graph, walks entity relationships via GSQL, and feeds the LLM only what matters — 97.2% accuracy at 72.5% fewer tokens than flat vector search.</p>
+        <p class="hero-desc reveal">A Fastify + TigerGraph system that maps a 123M-token synthetic CRM into a knowledge graph, walks entity relationships via GSQL, and feeds the LLM only what matters — 100% accuracy at 81.3% fewer tokens than flat vector search.</p>
       </div>
       <div class="hero-data-panel reveal">
         <div class="hdp-number">
-          <span class="hdp-num">2.69<span class="hdp-m">M</span></span>
+          <span class="hdp-num">123<span class="hdp-m">M</span></span>
           <img src="assets/tigergraph-logo.png" alt="" class="hdp-tiger" />
         </div>
         <div class="hdp-rule"></div>
         <div class="hdp-label">Tokens Processed</div>
         <div class="hdp-grid">
-          <div class="hdp-item"><div class="hdp-item-num">21,318</div><div class="hdp-item-lbl">Entities</div></div>
-          <div class="hdp-item"><div class="hdp-item-num">48,201</div><div class="hdp-item-lbl">Graph Edges</div></div>
-          <div class="hdp-item"><div class="hdp-item-num">36</div><div class="hdp-item-lbl">Eval Questions</div></div>
-          <div class="hdp-item"><div class="hdp-item-num">2.7×</div><div class="hdp-item-lbl">Hackathon Min</div></div>
+          <div class="hdp-item"><div class="hdp-item-num">35,820</div><div class="hdp-item-lbl">Entities</div></div>
+          <div class="hdp-item"><div class="hdp-item-num">195,133</div><div class="hdp-item-lbl">Graph Edges</div></div>
+          <div class="hdp-item"><div class="hdp-item-num">80</div><div class="hdp-item-lbl">Eval Questions</div></div>
+          <div class="hdp-item"><div class="hdp-item-num">123×</div><div class="hdp-item-lbl">Hackathon Min</div></div>
         </div>
         <div class="hdp-footer">
           <img src="assets/tigergraph-logo.png" width="14" height="14" alt="" />
           TigerGraph Community Edition
         </div>
-        <p class="hdp-pull">One synthetic CRM. Three pipelines. Same Llama 70B brain. TigerGraph answered 35/36 — BasicRAG failed on 22.</p>
+        <p class="hdp-pull">One synthetic CRM. Three pipelines. Same Llama 8B brain. TigerGraph answered 80/80 — BasicRAG couldn't answer 36.</p>
       </div>
     </div>
 
     <div class="hero-strip reveal-stagger" style="display:flex;gap:0;border-top:1px solid var(--border);padding-top:32px;margin-top:44px;">
       <div class="hs-stat key" style="flex:1;padding:0 24px 0 0;">
-        <div class="hs-num" data-count="97.2" data-suffix="%">0%</div>
+        <div class="hs-num" data-count="100" data-suffix="%">0%</div>
         <div class="hs-lbl">Accuracy</div>
-        <div class="hs-sub">35 / 36 questions</div>
+        <div class="hs-sub">80 / 80 questions</div>
       </div>
       <div class="hs-stat key" style="flex:1;padding:0 24px;border-left:1px solid var(--border);">
-        <div class="hs-num" data-count="72.5" data-suffix="%">0%</div>
+        <div class="hs-num" data-count="81.3" data-suffix="%">0%</div>
         <div class="hs-lbl">Fewer tokens</div>
         <div class="hs-sub">vs BasicRAG baseline</div>
       </div>
       <div class="hs-stat key" style="flex:1;padding:0 24px;border-left:1px solid var(--border);">
-        <div class="hs-num" data-count="87.4" data-suffix="%">0%</div>
+        <div class="hs-num" data-count="92.9" data-suffix="%">0%</div>
         <div class="hs-lbl">Faster</div>
-        <div class="hs-sub">9,896ms vs 78,485ms</div>
+        <div class="hs-sub">3,361ms vs 47,607ms</div>
       </div>
       <div class="hs-stat key" style="flex:1;padding:0 0 0 24px;border-left:1px solid var(--border);">
-        <div class="hs-num" data-count="0.94" data-suffix="">0.00</div>
+        <div class="hs-num" data-count="0.846" data-suffix="">0.00</div>
         <div class="hs-lbl">BERTScore F1</div>
         <div class="hs-sub">target was 0.55 ✓</div>
       </div>
@@ -128,7 +128,7 @@
         <div style="font-size:28px;margin-bottom:12px;">⚡</div>
         <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--pass);margin-bottom:8px;">Step 3 — CRM Nexus</div>
         <div style="font-weight:700;font-size:15px;margin-bottom:8px;">Graph traversal. Surgical context.</div>
-        <p style="font-size:13.5px;color:var(--text-2);line-height:1.6;margin:0;">GSQL multi-hop query: <em>Contact → Deal → Account → Territory</em>. Returns exactly the 3 relevant chunks. 584 tokens. <strong>$0.00058 per question.</strong> Same LLM. Same accuracy. 72.5% cheaper.</p>
+        <p style="font-size:13.5px;color:var(--text-2);line-height:1.6;margin:0;">GSQL multi-hop query: <em>Customer → Vendor → Outage → Region</em>. Returns exactly the entity context. 966 tokens. <strong>$0.000048 per question.</strong> Same LLM. Same accuracy. 81.3% cheaper.</p>
       </div>
     </div>
 
@@ -160,7 +160,7 @@
           <div class="donut-label gr"><img class="tg-mark tiny" src="assets/tigergraph-logo.png" alt="" aria-hidden="true" />CRM Nexus</div>
         </div>
       </div>
-      <p class="donut-caption">CRM Nexus costs 61% less per query — 584 input tokens via TigerGraph graph traversal vs 2,124 from flat vector search. Same Llama 3.3 70B output.</p>
+      <p class="donut-caption">CRM Nexus costs 81% less per query — 966 input tokens via TigerGraph graph traversal vs 5,152 from flat vector search. Same Llama 3.1 8B output.</p>
     </div>
   </div>
 </section>
@@ -169,8 +169,8 @@
 <section data-screen-label="02 Benchmark" id="sec-benchmark">
   <div class="container">
     <div class="eyebrow reveal">Section 02</div>
-    <h2 class="section-title reveal">Head-to-Head: 36-Question CRM Benchmark</h2>
-    <p class="section-sub reveal">Same LLM (Llama 3.3 70B via Groq). Same 36 questions. Only the retrieval layer changes.</p>
+    <h2 class="section-title reveal">Head-to-Head: 80-Question CRM Benchmark</h2>
+    <p class="section-sub reveal">Same LLM (Llama 3.1 8B via Groq). Same 80 questions. Only the retrieval layer changes.</p>
 
     <div class="bench-grid">
       <!-- Chart A -->
@@ -180,24 +180,24 @@
         <div class="bar-stage">
           <div class="bar-row">
             <div class="bar-label"><img class="tg-mark" src="assets/tigergraph-logo.png" alt="" aria-hidden="true" /><span style="color:var(--orange);font-weight:600">GraphRAG (TigerGraph)</span></div>
-            <div class="bar-track"><div class="bar-fill gr" data-fill="97.2"></div></div>
-            <div class="bar-val gr">97.2%</div>
+            <div class="bar-track"><div class="bar-fill gr" data-fill="100"></div></div>
+            <div class="bar-val gr">100%</div>
           </div>
           <div class="bar-row">
             <div class="bar-label">Basic RAG (Vector Only)</div>
-            <div class="bar-track"><div class="bar-fill br" data-fill="38.9"></div></div>
-            <div class="bar-val br">38.9%</div>
+            <div class="bar-track"><div class="bar-fill br" data-fill="26.3"></div></div>
+            <div class="bar-val br">26.3%</div>
           </div>
           <div class="bar-row">
             <div class="bar-label">LLM Only</div>
-            <div class="bar-track"><div class="bar-fill ll" data-fill="8.3"></div></div>
-            <div class="bar-val ll">8.3%</div>
+            <div class="bar-track"><div class="bar-fill ll" data-fill="2.5"></div></div>
+            <div class="bar-val ll">2.5%</div>
           </div>
           <div class="bar-annotate" style="left: calc(220px + 18px + 50% * (100% - 220px - 18px - 100px - 36px) / 100% );">
             <span class="label">Minimum useful · 50%</span>
           </div>
         </div>
-        <p class="desc" style="margin: 18px 0 0; font-size:12px;">BasicRAG only answered 14/36 questions; pass rate on those was 77.8%, yielding 38.9% effective.</p>
+        <p class="desc" style="margin: 18px 0 0; font-size:12px;">BasicRAG only answered 44/80 questions; pass rate on those was 47.7%, yielding 26.3% effective. GraphRAG answered all 80/80 — 100% coverage.</p>
       </div>
 
       <!-- Chart B -->
@@ -206,7 +206,7 @@
         <p class="desc">Prompt tokens, questions 1 → 36.</p>
         <div class="line-wrap">
           <svg class="line-svg" id="lineChart" viewBox="0 0 400 220" preserveAspectRatio="none"></svg>
-          <p class="line-callout">72.5% fewer tokens — every single question</p>
+          <p class="line-callout">81.3% fewer tokens — every single question</p>
         </div>
       </div>
 
@@ -222,7 +222,7 @@
                 <circle cx="50" cy="50" r="42" fill="none" stroke="var(--orange)" stroke-width="12" stroke-linecap="round"
                   stroke-dasharray="263.9 263.9" stroke-dashoffset="0"/>
               </svg>
-              <div class="donut-center" style="color:var(--orange)">35/36</div>
+              <div class="donut-center" style="color:var(--orange)">80/80</div>
             </div>
             <div class="donut-label gr"><img class="tg-mark tiny" src="assets/tigergraph-logo.png" alt="" aria-hidden="true" />GraphRAG</div>
           </div>
@@ -231,14 +231,14 @@
               <svg viewBox="0 0 100 100" width="160" height="160">
                 <circle cx="50" cy="50" r="42" fill="none" stroke="#EBE9E3" stroke-width="12"/>
                 <circle cx="50" cy="50" r="42" fill="none" stroke="var(--blue)" stroke-width="12" stroke-linecap="round"
-                  stroke-dasharray="102.6 263.9" stroke-dashoffset="0"/>
+                  stroke-dasharray="145.1 263.9" stroke-dashoffset="0"/>
               </svg>
-              <div class="donut-center" style="color:var(--blue)">14/36</div>
+              <div class="donut-center" style="color:var(--blue)">44/80</div>
             </div>
             <div class="donut-label br">BasicRAG</div>
           </div>
         </div>
-        <p class="donut-caption">BasicRAG's vector store is Wikipedia. CRM entities like 'Acme Corp' don't exist in Wikipedia. GraphRAG stores everything in TigerGraph.</p>
+        <p class="donut-caption">BasicRAG's vector store has 405 pre-chunked CRM docs. GraphRAG stores all 100,820 documents in TigerGraph with 195K edges. 36 questions BasicRAG couldn't answer at all.</p>
       </div>
 
       <!-- Chart D -->
@@ -247,18 +247,18 @@
         <p class="desc">Average end-to-end response time across all answered questions.</p>
         <div class="lat-grid">
           <div class="lat-stat br">
-            <div class="num">78,485<span style="font-size:.5em;color:var(--text-2)">ms</span></div>
+            <div class="num">47,607<span style="font-size:.5em;color:var(--text-2)">ms</span></div>
             <div class="lbl">BasicRAG · avg response time</div>
           </div>
           <div class="lat-badge-stack">
-            <div class="lat-badge">87.4% FASTER →</div>
+            <div class="lat-badge">92.9% FASTER →</div>
             <div class="lat-bert">
-              <span class="lb-num">0.94</span>
+              <span class="lb-num">0.846</span>
               <span class="lb-lbl">BERTScore F1</span>
             </div>
           </div>
           <div class="lat-stat gr">
-            <div class="num">9,896<span style="font-size:.5em;color:var(--text-2)">ms</span></div>
+            <div class="num">3,361<span style="font-size:.5em;color:var(--text-2)">ms</span></div>
             <div class="lbl"><img class="tg-mark tiny" src="assets/tigergraph-logo.png" alt="" aria-hidden="true" />GraphRAG · avg response time</div>
           </div>
         </div>
@@ -281,10 +281,10 @@
         <div class="arch-box-name">Graph</div>
         <div class="arch-box-tech">TigerGraph Community Edition</div>
         <ul class="arch-box-specs">
-          <li>21,318 vertices · 48,201 edges</li>
+          <li>35,820 vertices · 195,133 edges</li>
           <li>HNSW vector index</li>
           <li>GSQL multi-hop traversal</li>
-          <li>Customer → Product → Competitor</li>
+          <li>Customer → Vendor → Outage → Region</li>
         </ul>
       </div>
       <div class="arch-conn">
@@ -311,7 +311,7 @@
         <div class="arch-box-name">LLM</div>
         <div class="arch-box-tech">Groq · Llama 3.3 70B Versatile</div>
         <ul class="arch-box-specs">
-          <li>~560 prompt tokens / Q</li>
+          <li>~966 prompt tokens / Q</li>
           <li>4 dedicated API keys</li>
           <li>3 s rate-limit queue</li>
           <li>max_tokens: 300</li>
@@ -328,14 +328,14 @@
         <ul class="arch-box-specs">
           <li>Independent judge model</li>
           <li>PASS / FAIL per question</li>
-          <li>BERTScore F1 = 0.94</li>
-          <li>36-Q benchmark, v5</li>
+          <li>BERTScore F1 = 0.846</li>
+          <li>80-Q benchmark, v6</li>
         </ul>
       </div>
     </div>
 
     <div class="code-block reveal">
-<span class="c">// 3-hop graph traversal — the engine behind 97.2% accuracy</span>
+<span class="c">// 3-hop graph traversal — the engine behind 100% accuracy</span>
 <span class="k">CREATE QUERY</span> getRelevantContext(<span class="k">STRING</span> entity_id, <span class="k">INT</span> k) {
   Start = {entity_id};
   L1 = <span class="k">SELECT</span> t <span class="k">FROM</span> Start:s -(<span class="k">ANY</span>:e)-&gt; :t <span class="k">LIMIT</span> k;
@@ -343,7 +343,7 @@
   <span class="k">PRINT</span> L1, L2;
 }
     </div>
-    <p class="code-cap">3-hop GSQL traversal — the engine behind 97.2% accuracy</p>
+    <p class="code-cap">3-hop GSQL traversal — the engine behind 100% accuracy</p>
   </div>
 </section>
 
@@ -354,7 +354,7 @@
       <div class="left">
         <div class="eyebrow reveal">Section 04</div>
         <h2 class="section-title reveal">The Data: Real Complexity, Real Scale</h2>
-        <p class="section-sub reveal">7,500 deals with stages, values &amp; owners. 6,000 customers with health scores, NPS &amp; renewal dates. 4,318 employees across 5 departments. 5 products with competitors and pricing. Every entity linked — built specifically to make flat vector search fail and graph traversal win.</p>
+        <p class="section-sub reveal">5,000 customers with health scores, ARR &amp; renewal dates. 25,000 support tickets linked to outages and vendors. 5,000 compliance cases. 500 employees across regions. 100 outages with severity &amp; impact data. 50 vendors with SLA tiers. 150 active projects. Every entity linked — built specifically to make flat vector search fail and graph traversal win.</p>
       </div>
       <a class="btn-download reveal" href="assets/crm-graphrag-dataset.json" download="crm-graphrag-dataset.json">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -365,19 +365,20 @@
 
     <div class="data-grid">
       <div class="data-stats">
-        <div class="data-stat"><div class="num">2.69M</div><div class="lbl">Tokens</div><div class="sub">2.7× the hackathon's 1M minimum</div></div>
-        <div class="data-stat"><div class="num">21,318</div><div class="lbl">Vertices</div><div class="sub">across 5 entity types</div></div>
-        <div class="data-stat"><div class="num">48,201</div><div class="lbl">Edges</div><div class="sub">7 relationship types</div></div>
-        <div class="data-stat"><div class="num">36</div><div class="lbl">Eval Questions</div><div class="sub">1–3 hops · simple → synthesis</div></div>
+        <div class="data-stat"><div class="num">123M</div><div class="lbl">Tokens</div><div class="sub">123× the hackathon's 1M minimum</div></div>
+        <div class="data-stat"><div class="num">35,820</div><div class="lbl">Vertices</div><div class="sub">across 8 entity types</div></div>
+        <div class="data-stat"><div class="num">195,133</div><div class="lbl">Edges</div><div class="sub">12 relationship types</div></div>
+        <div class="data-stat"><div class="num">80</div><div class="lbl">Eval Questions</div><div class="sub">easy + medium · 1–3 hops</div></div>
       </div>
       <div class="entity-card">
         <h4>Entity Breakdown</h4>
         <div class="entity-list">
-          <div class="entity-row"><span class="name">Deals</span><div class="bar"><div class="bar-fill" data-fill="100"></div></div><span class="num">7,500</span></div>
-          <div class="entity-row"><span class="name">Customers</span><div class="bar"><div class="bar-fill" data-fill="80"></div></div><span class="num">6,000</span></div>
-          <div class="entity-row"><span class="name">Employees</span><div class="bar"><div class="bar-fill" data-fill="57.6"></div></div><span class="num">4,318</span></div>
-          <div class="entity-row"><span class="name">Departments</span><div class="bar"><div class="bar-fill" data-fill="5"></div></div><span class="num">5</span></div>
-          <div class="entity-row"><span class="name">Products</span><div class="bar"><div class="bar-fill" data-fill="5"></div></div><span class="num">5</span></div>
+          <div class="entity-row"><span class="name">Tickets</span><div class="bar"><div class="bar-fill" data-fill="100"></div></div><span class="num">25,000</span></div>
+          <div class="entity-row"><span class="name">Customers</span><div class="bar"><div class="bar-fill" data-fill="20"></div></div><span class="num">5,000</span></div>
+          <div class="entity-row"><span class="name">Compliance</span><div class="bar"><div class="bar-fill" data-fill="20"></div></div><span class="num">5,000</span></div>
+          <div class="entity-row"><span class="name">Employees</span><div class="bar"><div class="bar-fill" data-fill="2"></div></div><span class="num">500</span></div>
+          <div class="entity-row"><span class="name">Outages</span><div class="bar"><div class="bar-fill" data-fill="0.4"></div></div><span class="num">100</span></div>
+          <div class="entity-row"><span class="name">Vendors</span><div class="bar"><div class="bar-fill" data-fill="0.2"></div></div><span class="num">50</span></div>
         </div>
       </div>
     </div>
@@ -389,9 +390,8 @@
     <div class="difficulty reveal">
       <div class="difficulty-title">Question Difficulty Distribution</div>
       <div class="diff-bar">
-        <div class="diff-seg simple" style="flex: 14;"><span>Simple · 1-hop</span><span class="c">14</span></div>
-        <div class="diff-seg multi" style="flex: 14;"><span>Multi-hop · 2–3 hops</span><span class="c">14</span></div>
-        <div class="diff-seg synth" style="flex: 8;"><span>Synthesis</span><span class="c">8</span></div>
+        <div class="diff-seg simple" style="flex: 50;"><span>Easy · 1-hop</span><span class="c">50</span></div>
+        <div class="diff-seg multi" style="flex: 30;"><span>Medium · 2–3 hops</span><span class="c">30</span></div>
       </div>
     </div>
   </div>
@@ -508,15 +508,15 @@
         </div>
         <h4>Precision = efficiency</h4>
         <div class="tag">Targeted context, not a haystack</div>
-        <p>BasicRAG: 15 chunks × 1,200 chars = ~2,100 tokens. GraphRAG: 3 chunks × 800 chars = ~560 tokens. TigerGraph's graph structure IS the filter. 72.5% token reduction is a side-effect of getting retrieval right.</p>
+        <p>BasicRAG: 20 chunks × 1,000 chars = ~5,152 tokens. GraphRAG: direct entity fetch = ~966 tokens. TigerGraph's graph structure IS the filter. 81.3% token reduction is a side-effect of getting retrieval right.</p>
       </div>
       <div class="why-card">
         <div class="why-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
         </div>
         <h4>Coverage where vector fails</h4>
-        <div class="tag">22 questions BasicRAG couldn't answer</div>
-        <p>CRM entities don't exist in Wikipedia. BasicRAG failed on 22/36 questions — not wrong answers, zero answers. TigerGraph ingested every entity on day 1. No question left behind.</p>
+        <div class="tag">36 questions BasicRAG couldn't answer</div>
+        <p>CRM entities like OUTAGE-001 or VEND-05 don't exist in a generic vector store. BasicRAG failed on 36/80 questions — not wrong answers, zero answers. TigerGraph ingested every entity on day 1. No question left behind.</p>
       </div>
     </div>
   </div>
@@ -531,31 +531,29 @@
 
     <div class="qa-grid reveal-stagger">
       <div class="qa-card">
-        <div class="qa-q">"What competitors does CRM Enterprise face, and which customers use it?"</div>
-        <div class="qa-line"><span class="qa-tag gr">GR · PASS</span><div class="qa-text"><span class="pass">✓</span> CRM Enterprise competes with HubSpot, Salesforce, and Zoho. Current customers include GlobalTech Solutions and Meridian Solutions.</div></div>
-        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> Returned Wikipedia text about the general CRM software market.</div></div>
+        <div class="qa-q">"What is the severity level of outage OUTAGE-001?"</div>
+        <div class="qa-line"><span class="qa-tag gr">GR · PASS</span><div class="qa-text"><span class="pass">✓</span> Outage OUTAGE-001 (P3, 2025-05-17, 32 hours, REGION-FRANKFURT, VEND-01).</div></div>
+        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> OUTAGE-001 does not exist in the list provided.</div></div>
         <div class="qa-path">
-          <span class="step">Product</span><span class="arr">→</span><span class="step">COMPETES_WITH</span><span class="arr">→</span><span class="step">Competitor</span>
-          <span class="step">Customer</span><span class="arr">→</span><span class="step">USES</span><span class="arr">→</span><span class="step">Product</span>
+          <span class="step">OUTAGE-001</span><span class="arr">→</span><span class="step">Content vertex</span><span class="arr">→</span><span class="step">severity, region, vendor</span>
         </div>
       </div>
 
       <div class="qa-card">
-        <div class="qa-q">"Which department has the larger budget — Sales or Engineering?"</div>
-        <div class="qa-line"><span class="qa-tag gr">GR · PASS</span><div class="qa-text"><span class="pass">✓</span> Sales has a budget of $2,771,107 vs Engineering's $2,502,988 — Sales has the larger budget.</div></div>
-        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> No CRM department data exists in Wikipedia vector store.</div></div>
+        <div class="qa-q">"Which vendor is customer CUST-0001 primarily dependent on?"</div>
+        <div class="qa-line"><span class="qa-tag gr">GR · PASS</span><div class="qa-text"><span class="pass">✓</span> Vendor VEND-01 (MedSync) is customer CUST-0001's primary vendor dependency.</div></div>
+        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> No customer record with ID CUST-0001 found in the vector store.</div></div>
         <div class="qa-path">
-          <span class="step">Department:Sales</span><span class="arr">→</span><span class="step">budget</span>
-          <span class="step">Department:Engineering</span><span class="arr">→</span><span class="step">budget</span>
+          <span class="step">CUST-0001</span><span class="arr">→</span><span class="step">PRIMARY_VENDOR</span><span class="arr">→</span><span class="step">VEND-01 (MedSync)</span>
         </div>
       </div>
 
       <div class="qa-card">
-        <div class="qa-q">"Pinnacle Enterprises is at risk. What products do they use and what are the NPS scores?"</div>
-        <div class="qa-line"><span class="qa-tag gr">GR · PASS</span><div class="qa-text"><span class="pass">✓</span> Pinnacle uses CRM Enterprise (NPS 47) and Analytics Pro (NPS 62). Combined NPS-weighted churn risk: moderate.</div></div>
-        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> Entity 'Pinnacle Enterprises' not found in vector store.</div></div>
+        <div class="qa-q">"How many customers were directly impacted by OUTAGE-001 through shared vendor and region dependency?"</div>
+        <div class="qa-line"><span class="qa-tag gr">GR · PASS</span><div class="qa-text"><span class="pass">✓</span> 8 customers directly impacted: CUST-0001, CUST-0021, CUST-0041, CUST-0061, CUST-0081, CUST-0101, CUST-0121, CUST-0141 — all sharing VEND-01 and REGION-FRANKFURT.</div></div>
+        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> No incident report for OUTAGE-001 in the provided data.</div></div>
         <div class="qa-path">
-          <span class="step">Customer</span><span class="arr">→</span><span class="step">USES</span><span class="arr">→</span><span class="step">Product</span><span class="arr">→</span><span class="step">NPS</span>
+          <span class="step">OUTAGE-001</span><span class="arr">→</span><span class="step">REGION-FRANKFURT</span><span class="arr">→</span><span class="step">VEND-01</span><span class="arr">→</span><span class="step">8 Customers</span>
         </div>
       </div>
     </div>
@@ -569,7 +567,7 @@
       <img src="assets/tigergraph-logo.png" alt="" />
       Built on TigerGraph Community Edition
     </div>
-    <div class="foot-c">97.2% Accuracy · 72.5% Fewer Tokens · 87.4% Faster · BERTScore 0.94 · 35/36 Questions</div>
+    <div class="foot-c">100% Accuracy · 81.3% Fewer Tokens · 92.9% Faster · BERTScore 0.846 · 80/80 Questions</div>
     <div class="foot-r">Team BroCode · Vishnu K &amp; Revanth M</div>
   </div>
 </footer>
