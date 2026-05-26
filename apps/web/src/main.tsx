@@ -36,7 +36,7 @@ function Shell({ children }: { children: React.ReactNode }) {
           {/* Dataset badge — the key selling point, always visible */}
           <div className="hidden lg:flex items-center gap-1 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700/60">
             <span className="text-[10px] text-slate-600 font-medium uppercase tracking-wider mr-1">Dataset:</span>
-            <span className="text-emerald-400 text-xs font-bold">123M</span>
+            <span className="text-emerald-400 text-xs font-bold">150M</span>
             <span className="text-slate-600 text-xs">tokens</span>
             <span className="text-slate-700 mx-1">·</span>
             <span className="text-sky-400 text-xs font-bold">35,820</span>
@@ -46,7 +46,7 @@ function Shell({ children }: { children: React.ReactNode }) {
             <span className="text-slate-600 text-xs">edges</span>
             <span className="text-slate-700 mx-1.5">·</span>
             <span className="text-[9px] font-bold uppercase tracking-wider text-amber-400 bg-amber-900/30 px-1.5 py-0.5 rounded-full border border-amber-800/50">
-              123× min
+              150× min
             </span>
           </div>
 
