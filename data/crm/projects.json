@@ -1,0 +1,1502 @@
+[
+  {
+    "id": "PROJ-NORDIC-001",
+    "name": "NORDIC MIGRATION",
+    "region_id": "REGION-FRANKFURT",
+    "vendor_id": "VEND-01",
+    "status": "Delayed",
+    "start_date": "2024-02-01",
+    "end_date": "2026-04-04",
+    "owner_id": "EMP-001"
+  },
+  {
+    "id": "PROJ-EMEA-002",
+    "name": "EMEA ONBOARDING",
+    "region_id": "REGION-LONDON",
+    "vendor_id": "VEND-02",
+    "status": "Completed",
+    "start_date": "2023-05-24",
+    "end_date": "2024-12-02",
+    "owner_id": "EMP-002"
+  },
+  {
+    "id": "PROJ-APAC-003",
+    "name": "APAC INTEGRATION",
+    "region_id": "REGION-PARIS",
+    "vendor_id": "VEND-03",
+    "status": "Active",
+    "start_date": "2023-08-26",
+    "end_date": "2024-02-14",
+    "owner_id": "EMP-003"
+  },
+  {
+    "id": "PROJ-LATAM-004",
+    "name": "LATAM DEPLOYMENT",
+    "region_id": "REGION-AMSTERDAM",
+    "vendor_id": "VEND-04",
+    "status": "Blocked",
+    "start_date": "2023-03-12",
+    "end_date": "2025-07-24",
+    "owner_id": "EMP-004"
+  },
+  {
+    "id": "PROJ-GLOBAL-005",
+    "name": "GLOBAL UPGRADE",
+    "region_id": "REGION-STOCKHOLM",
+    "vendor_id": "VEND-05",
+    "status": "Completed",
+    "start_date": "2024-10-05",
+    "end_date": "2025-09-25",
+    "owner_id": "EMP-005"
+  },
+  {
+    "id": "PROJ-CLOUD-006",
+    "name": "CLOUD ROLLOUT",
+    "region_id": "REGION-VIRGINIA",
+    "vendor_id": "VEND-06",
+    "status": "Delayed",
+    "start_date": "2024-03-01",
+    "end_date": "2026-08-26",
+    "owner_id": "EMP-006"
+  },
+  {
+    "id": "PROJ-CORE-007",
+    "name": "CORE CONSOLIDATION",
+    "region_id": "REGION-OHIO",
+    "vendor_id": "VEND-07",
+    "status": "At Risk",
+    "start_date": "2023-07-01",
+    "end_date": "2025-09-24",
+    "owner_id": "EMP-007"
+  },
+  {
+    "id": "PROJ-EDGE-008",
+    "name": "EDGE EXPANSION",
+    "region_id": "REGION-OREGON",
+    "vendor_id": "VEND-08",
+    "status": "Delayed",
+    "start_date": "2023-04-24",
+    "end_date": "2024-03-12",
+    "owner_id": "EMP-008"
+  },
+  {
+    "id": "PROJ-SHIELD-009",
+    "name": "SHIELD TRANSFER",
+    "region_id": "REGION-CALIFORNIA",
+    "vendor_id": "VEND-09",
+    "status": "Completed",
+    "start_date": "2024-03-24",
+    "end_date": "2026-08-13",
+    "owner_id": "EMP-009"
+  },
+  {
+    "id": "PROJ-NEXUS-010",
+    "name": "NEXUS CUTOVER",
+    "region_id": "REGION-TORONTO",
+    "vendor_id": "VEND-10",
+    "status": "At Risk",
+    "start_date": "2023-02-04",
+    "end_date": "2025-12-23",
+    "owner_id": "EMP-010"
+  },
+  {
+    "id": "PROJ-ATLAS-011",
+    "name": "ATLAS FEDERATION",
+    "region_id": "REGION-SINGAPORE",
+    "vendor_id": "VEND-11",
+    "status": "Blocked",
+    "start_date": "2023-03-28",
+    "end_date": "2025-04-22",
+    "owner_id": "EMP-011"
+  },
+  {
+    "id": "PROJ-HELIX-012",
+    "name": "HELIX PROVISIONING",
+    "region_id": "REGION-SYDNEY",
+    "vendor_id": "VEND-12",
+    "status": "Completed",
+    "start_date": "2023-03-17",
+    "end_date": "2025-07-09",
+    "owner_id": "EMP-012"
+  },
+  {
+    "id": "PROJ-VORTEX-013",
+    "name": "VORTEX AUTOMATION",
+    "region_id": "REGION-TOKYO",
+    "vendor_id": "VEND-13",
+    "status": "At Risk",
+    "start_date": "2024-08-17",
+    "end_date": "2025-10-21",
+    "owner_id": "EMP-013"
+  },
+  {
+    "id": "PROJ-PRISM-014",
+    "name": "PRISM MODERNIZATION",
+    "region_id": "REGION-MUMBAI",
+    "vendor_id": "VEND-14",
+    "status": "Completed",
+    "start_date": "2023-05-24",
+    "end_date": "2026-04-14",
+    "owner_id": "EMP-014"
+  },
+  {
+    "id": "PROJ-FUSION-015",
+    "name": "FUSION COMPLIANCE",
+    "region_id": "REGION-SEOUL",
+    "vendor_id": "VEND-15",
+    "status": "At Risk",
+    "start_date": "2024-05-11",
+    "end_date": "2024-01-01",
+    "owner_id": "EMP-015"
+  },
+  {
+    "id": "PROJ-SUMMIT-016",
+    "name": "SUMMIT MIGRATION",
+    "region_id": "REGION-SAO-PAULO",
+    "vendor_id": "VEND-16",
+    "status": "Active",
+    "start_date": "2024-08-08",
+    "end_date": "2025-01-09",
+    "owner_id": "EMP-016"
+  },
+  {
+    "id": "PROJ-HORIZON-017",
+    "name": "HORIZON ONBOARDING",
+    "region_id": "REGION-DUBAI",
+    "vendor_id": "VEND-17",
+    "status": "Active",
+    "start_date": "2023-03-18",
+    "end_date": "2025-05-04",
+    "owner_id": "EMP-017"
+  },
+  {
+    "id": "PROJ-ZENITH-018",
+    "name": "ZENITH INTEGRATION",
+    "region_id": "REGION-CAPE-TOWN",
+    "vendor_id": "VEND-18",
+    "status": "Blocked",
+    "start_date": "2024-11-04",
+    "end_date": "2024-04-18",
+    "owner_id": "EMP-018"
+  },
+  {
+    "id": "PROJ-VERTEX-019",
+    "name": "VERTEX DEPLOYMENT",
+    "region_id": "REGION-CHICAGO",
+    "vendor_id": "VEND-19",
+    "status": "Completed",
+    "start_date": "2024-06-27",
+    "end_date": "2026-05-15",
+    "owner_id": "EMP-019"
+  },
+  {
+    "id": "PROJ-APEX-020",
+    "name": "APEX UPGRADE",
+    "region_id": "REGION-DALLAS",
+    "vendor_id": "VEND-20",
+    "status": "Delayed",
+    "start_date": "2023-10-10",
+    "end_date": "2024-10-26",
+    "owner_id": "EMP-020"
+  },
+  {
+    "id": "PROJ-QUANTUM-021",
+    "name": "QUANTUM ROLLOUT",
+    "region_id": "REGION-FRANKFURT",
+    "vendor_id": "VEND-21",
+    "status": "Delayed",
+    "start_date": "2024-08-11",
+    "end_date": "2026-08-16",
+    "owner_id": "EMP-021"
+  },
+  {
+    "id": "PROJ-STELLAR-022",
+    "name": "STELLAR CONSOLIDATION",
+    "region_id": "REGION-LONDON",
+    "vendor_id": "VEND-22",
+    "status": "Completed",
+    "start_date": "2024-01-18",
+    "end_date": "2024-07-01",
+    "owner_id": "EMP-022"
+  },
+  {
+    "id": "PROJ-TITAN-023",
+    "name": "TITAN EXPANSION",
+    "region_id": "REGION-PARIS",
+    "vendor_id": "VEND-23",
+    "status": "Active",
+    "start_date": "2023-06-11",
+    "end_date": "2025-11-04",
+    "owner_id": "EMP-023"
+  },
+  {
+    "id": "PROJ-PHOENIX-024",
+    "name": "PHOENIX TRANSFER",
+    "region_id": "REGION-AMSTERDAM",
+    "vendor_id": "VEND-24",
+    "status": "Active",
+    "start_date": "2023-09-25",
+    "end_date": "2026-11-24",
+    "owner_id": "EMP-024"
+  },
+  {
+    "id": "PROJ-AURORA-025",
+    "name": "AURORA CUTOVER",
+    "region_id": "REGION-STOCKHOLM",
+    "vendor_id": "VEND-25",
+    "status": "Blocked",
+    "start_date": "2024-10-05",
+    "end_date": "2025-05-06",
+    "owner_id": "EMP-025"
+  },
+  {
+    "id": "PROJ-NORDIC-026",
+    "name": "NORDIC FEDERATION",
+    "region_id": "REGION-VIRGINIA",
+    "vendor_id": "VEND-26",
+    "status": "Blocked",
+    "start_date": "2024-08-23",
+    "end_date": "2024-05-19",
+    "owner_id": "EMP-026"
+  },
+  {
+    "id": "PROJ-EMEA-027",
+    "name": "EMEA PROVISIONING",
+    "region_id": "REGION-OHIO",
+    "vendor_id": "VEND-27",
+    "status": "At Risk",
+    "start_date": "2024-07-14",
+    "end_date": "2026-12-22",
+    "owner_id": "EMP-027"
+  },
+  {
+    "id": "PROJ-APAC-028",
+    "name": "APAC AUTOMATION",
+    "region_id": "REGION-OREGON",
+    "vendor_id": "VEND-28",
+    "status": "Active",
+    "start_date": "2024-11-14",
+    "end_date": "2024-07-11",
+    "owner_id": "EMP-028"
+  },
+  {
+    "id": "PROJ-LATAM-029",
+    "name": "LATAM MODERNIZATION",
+    "region_id": "REGION-CALIFORNIA",
+    "vendor_id": "VEND-29",
+    "status": "Delayed",
+    "start_date": "2023-01-12",
+    "end_date": "2025-06-23",
+    "owner_id": "EMP-029"
+  },
+  {
+    "id": "PROJ-GLOBAL-030",
+    "name": "GLOBAL COMPLIANCE",
+    "region_id": "REGION-TORONTO",
+    "vendor_id": "VEND-30",
+    "status": "Blocked",
+    "start_date": "2023-05-17",
+    "end_date": "2026-08-14",
+    "owner_id": "EMP-030"
+  },
+  {
+    "id": "PROJ-CLOUD-031",
+    "name": "CLOUD MIGRATION",
+    "region_id": "REGION-SINGAPORE",
+    "vendor_id": "VEND-31",
+    "status": "Completed",
+    "start_date": "2023-06-18",
+    "end_date": "2025-05-25",
+    "owner_id": "EMP-031"
+  },
+  {
+    "id": "PROJ-CORE-032",
+    "name": "CORE ONBOARDING",
+    "region_id": "REGION-SYDNEY",
+    "vendor_id": "VEND-32",
+    "status": "Active",
+    "start_date": "2024-06-03",
+    "end_date": "2025-12-10",
+    "owner_id": "EMP-032"
+  },
+  {
+    "id": "PROJ-EDGE-033",
+    "name": "EDGE INTEGRATION",
+    "region_id": "REGION-TOKYO",
+    "vendor_id": "VEND-33",
+    "status": "Delayed",
+    "start_date": "2023-04-11",
+    "end_date": "2026-06-10",
+    "owner_id": "EMP-033"
+  },
+  {
+    "id": "PROJ-SHIELD-034",
+    "name": "SHIELD DEPLOYMENT",
+    "region_id": "REGION-MUMBAI",
+    "vendor_id": "VEND-34",
+    "status": "Active",
+    "start_date": "2024-05-02",
+    "end_date": "2026-11-27",
+    "owner_id": "EMP-034"
+  },
+  {
+    "id": "PROJ-NEXUS-035",
+    "name": "NEXUS UPGRADE",
+    "region_id": "REGION-SEOUL",
+    "vendor_id": "VEND-35",
+    "status": "Blocked",
+    "start_date": "2024-10-15",
+    "end_date": "2025-02-24",
+    "owner_id": "EMP-035"
+  },
+  {
+    "id": "PROJ-ATLAS-036",
+    "name": "ATLAS ROLLOUT",
+    "region_id": "REGION-SAO-PAULO",
+    "vendor_id": "VEND-36",
+    "status": "Active",
+    "start_date": "2024-03-13",
+    "end_date": "2024-04-24",
+    "owner_id": "EMP-036"
+  },
+  {
+    "id": "PROJ-HELIX-037",
+    "name": "HELIX CONSOLIDATION",
+    "region_id": "REGION-DUBAI",
+    "vendor_id": "VEND-37",
+    "status": "Active",
+    "start_date": "2024-02-21",
+    "end_date": "2024-02-24",
+    "owner_id": "EMP-037"
+  },
+  {
+    "id": "PROJ-VORTEX-038",
+    "name": "VORTEX EXPANSION",
+    "region_id": "REGION-CAPE-TOWN",
+    "vendor_id": "VEND-38",
+    "status": "Active",
+    "start_date": "2024-12-03",
+    "end_date": "2024-10-25",
+    "owner_id": "EMP-038"
+  },
+  {
+    "id": "PROJ-PRISM-039",
+    "name": "PRISM TRANSFER",
+    "region_id": "REGION-CHICAGO",
+    "vendor_id": "VEND-39",
+    "status": "At Risk",
+    "start_date": "2023-10-07",
+    "end_date": "2025-12-16",
+    "owner_id": "EMP-039"
+  },
+  {
+    "id": "PROJ-FUSION-040",
+    "name": "FUSION CUTOVER",
+    "region_id": "REGION-DALLAS",
+    "vendor_id": "VEND-40",
+    "status": "Delayed",
+    "start_date": "2024-01-07",
+    "end_date": "2024-09-09",
+    "owner_id": "EMP-040"
+  },
+  {
+    "id": "PROJ-SUMMIT-041",
+    "name": "SUMMIT FEDERATION",
+    "region_id": "REGION-FRANKFURT",
+    "vendor_id": "VEND-41",
+    "status": "Active",
+    "start_date": "2023-07-03",
+    "end_date": "2024-02-20",
+    "owner_id": "EMP-041"
+  },
+  {
+    "id": "PROJ-HORIZON-042",
+    "name": "HORIZON PROVISIONING",
+    "region_id": "REGION-LONDON",
+    "vendor_id": "VEND-42",
+    "status": "Active",
+    "start_date": "2024-11-22",
+    "end_date": "2025-11-06",
+    "owner_id": "EMP-042"
+  },
+  {
+    "id": "PROJ-ZENITH-043",
+    "name": "ZENITH AUTOMATION",
+    "region_id": "REGION-PARIS",
+    "vendor_id": "VEND-43",
+    "status": "Active",
+    "start_date": "2023-04-13",
+    "end_date": "2026-06-20",
+    "owner_id": "EMP-043"
+  },
+  {
+    "id": "PROJ-VERTEX-044",
+    "name": "VERTEX MODERNIZATION",
+    "region_id": "REGION-AMSTERDAM",
+    "vendor_id": "VEND-44",
+    "status": "Active",
+    "start_date": "2023-11-09",
+    "end_date": "2026-01-20",
+    "owner_id": "EMP-044"
+  },
+  {
+    "id": "PROJ-APEX-045",
+    "name": "APEX COMPLIANCE",
+    "region_id": "REGION-STOCKHOLM",
+    "vendor_id": "VEND-45",
+    "status": "Completed",
+    "start_date": "2023-07-27",
+    "end_date": "2024-02-19",
+    "owner_id": "EMP-045"
+  },
+  {
+    "id": "PROJ-QUANTUM-046",
+    "name": "QUANTUM MIGRATION",
+    "region_id": "REGION-VIRGINIA",
+    "vendor_id": "VEND-46",
+    "status": "Delayed",
+    "start_date": "2023-03-12",
+    "end_date": "2024-07-26",
+    "owner_id": "EMP-046"
+  },
+  {
+    "id": "PROJ-STELLAR-047",
+    "name": "STELLAR ONBOARDING",
+    "region_id": "REGION-OHIO",
+    "vendor_id": "VEND-47",
+    "status": "Active",
+    "start_date": "2024-10-08",
+    "end_date": "2025-10-19",
+    "owner_id": "EMP-047"
+  },
+  {
+    "id": "PROJ-TITAN-048",
+    "name": "TITAN INTEGRATION",
+    "region_id": "REGION-OREGON",
+    "vendor_id": "VEND-48",
+    "status": "Blocked",
+    "start_date": "2024-11-27",
+    "end_date": "2025-12-01",
+    "owner_id": "EMP-048"
+  },
+  {
+    "id": "PROJ-PHOENIX-049",
+    "name": "PHOENIX DEPLOYMENT",
+    "region_id": "REGION-CALIFORNIA",
+    "vendor_id": "VEND-49",
+    "status": "Blocked",
+    "start_date": "2023-10-16",
+    "end_date": "2026-03-18",
+    "owner_id": "EMP-049"
+  },
+  {
+    "id": "PROJ-AURORA-050",
+    "name": "AURORA UPGRADE",
+    "region_id": "REGION-TORONTO",
+    "vendor_id": "VEND-50",
+    "status": "Completed",
+    "start_date": "2024-09-09",
+    "end_date": "2024-01-10",
+    "owner_id": "EMP-050"
+  },
+  {
+    "id": "PROJ-NORDIC-051",
+    "name": "NORDIC ROLLOUT",
+    "region_id": "REGION-SINGAPORE",
+    "vendor_id": "VEND-01",
+    "status": "Completed",
+    "start_date": "2023-07-14",
+    "end_date": "2026-10-03",
+    "owner_id": "EMP-051"
+  },
+  {
+    "id": "PROJ-EMEA-052",
+    "name": "EMEA CONSOLIDATION",
+    "region_id": "REGION-SYDNEY",
+    "vendor_id": "VEND-02",
+    "status": "Active",
+    "start_date": "2023-09-02",
+    "end_date": "2026-11-16",
+    "owner_id": "EMP-052"
+  },
+  {
+    "id": "PROJ-APAC-053",
+    "name": "APAC EXPANSION",
+    "region_id": "REGION-TOKYO",
+    "vendor_id": "VEND-03",
+    "status": "Completed",
+    "start_date": "2024-06-17",
+    "end_date": "2026-01-26",
+    "owner_id": "EMP-053"
+  },
+  {
+    "id": "PROJ-LATAM-054",
+    "name": "LATAM TRANSFER",
+    "region_id": "REGION-MUMBAI",
+    "vendor_id": "VEND-04",
+    "status": "Blocked",
+    "start_date": "2023-12-19",
+    "end_date": "2024-04-17",
+    "owner_id": "EMP-054"
+  },
+  {
+    "id": "PROJ-GLOBAL-055",
+    "name": "GLOBAL CUTOVER",
+    "region_id": "REGION-SEOUL",
+    "vendor_id": "VEND-05",
+    "status": "At Risk",
+    "start_date": "2024-07-08",
+    "end_date": "2026-05-26",
+    "owner_id": "EMP-055"
+  },
+  {
+    "id": "PROJ-CLOUD-056",
+    "name": "CLOUD FEDERATION",
+    "region_id": "REGION-SAO-PAULO",
+    "vendor_id": "VEND-06",
+    "status": "Completed",
+    "start_date": "2024-12-25",
+    "end_date": "2026-01-07",
+    "owner_id": "EMP-056"
+  },
+  {
+    "id": "PROJ-CORE-057",
+    "name": "CORE PROVISIONING",
+    "region_id": "REGION-DUBAI",
+    "vendor_id": "VEND-07",
+    "status": "Delayed",
+    "start_date": "2024-10-15",
+    "end_date": "2026-02-07",
+    "owner_id": "EMP-057"
+  },
+  {
+    "id": "PROJ-EDGE-058",
+    "name": "EDGE AUTOMATION",
+    "region_id": "REGION-CAPE-TOWN",
+    "vendor_id": "VEND-08",
+    "status": "Delayed",
+    "start_date": "2023-07-22",
+    "end_date": "2026-11-09",
+    "owner_id": "EMP-058"
+  },
+  {
+    "id": "PROJ-SHIELD-059",
+    "name": "SHIELD MODERNIZATION",
+    "region_id": "REGION-CHICAGO",
+    "vendor_id": "VEND-09",
+    "status": "At Risk",
+    "start_date": "2024-05-09",
+    "end_date": "2026-11-12",
+    "owner_id": "EMP-059"
+  },
+  {
+    "id": "PROJ-NEXUS-060",
+    "name": "NEXUS COMPLIANCE",
+    "region_id": "REGION-DALLAS",
+    "vendor_id": "VEND-10",
+    "status": "Delayed",
+    "start_date": "2024-09-28",
+    "end_date": "2026-02-26",
+    "owner_id": "EMP-060"
+  },
+  {
+    "id": "PROJ-ATLAS-061",
+    "name": "ATLAS MIGRATION",
+    "region_id": "REGION-FRANKFURT",
+    "vendor_id": "VEND-11",
+    "status": "Delayed",
+    "start_date": "2023-04-20",
+    "end_date": "2024-11-05",
+    "owner_id": "EMP-061"
+  },
+  {
+    "id": "PROJ-HELIX-062",
+    "name": "HELIX ONBOARDING",
+    "region_id": "REGION-LONDON",
+    "vendor_id": "VEND-12",
+    "status": "At Risk",
+    "start_date": "2024-03-04",
+    "end_date": "2026-04-04",
+    "owner_id": "EMP-062"
+  },
+  {
+    "id": "PROJ-VORTEX-063",
+    "name": "VORTEX INTEGRATION",
+    "region_id": "REGION-PARIS",
+    "vendor_id": "VEND-13",
+    "status": "At Risk",
+    "start_date": "2023-03-22",
+    "end_date": "2024-01-05",
+    "owner_id": "EMP-063"
+  },
+  {
+    "id": "PROJ-PRISM-064",
+    "name": "PRISM DEPLOYMENT",
+    "region_id": "REGION-AMSTERDAM",
+    "vendor_id": "VEND-14",
+    "status": "At Risk",
+    "start_date": "2024-10-10",
+    "end_date": "2024-05-18",
+    "owner_id": "EMP-064"
+  },
+  {
+    "id": "PROJ-FUSION-065",
+    "name": "FUSION UPGRADE",
+    "region_id": "REGION-STOCKHOLM",
+    "vendor_id": "VEND-15",
+    "status": "Blocked",
+    "start_date": "2023-08-05",
+    "end_date": "2024-05-25",
+    "owner_id": "EMP-065"
+  },
+  {
+    "id": "PROJ-SUMMIT-066",
+    "name": "SUMMIT ROLLOUT",
+    "region_id": "REGION-VIRGINIA",
+    "vendor_id": "VEND-16",
+    "status": "Active",
+    "start_date": "2023-05-19",
+    "end_date": "2025-08-14",
+    "owner_id": "EMP-066"
+  },
+  {
+    "id": "PROJ-HORIZON-067",
+    "name": "HORIZON CONSOLIDATION",
+    "region_id": "REGION-OHIO",
+    "vendor_id": "VEND-17",
+    "status": "Active",
+    "start_date": "2023-12-07",
+    "end_date": "2024-11-21",
+    "owner_id": "EMP-067"
+  },
+  {
+    "id": "PROJ-ZENITH-068",
+    "name": "ZENITH EXPANSION",
+    "region_id": "REGION-OREGON",
+    "vendor_id": "VEND-18",
+    "status": "Delayed",
+    "start_date": "2023-03-24",
+    "end_date": "2025-05-25",
+    "owner_id": "EMP-068"
+  },
+  {
+    "id": "PROJ-VERTEX-069",
+    "name": "VERTEX TRANSFER",
+    "region_id": "REGION-CALIFORNIA",
+    "vendor_id": "VEND-19",
+    "status": "Blocked",
+    "start_date": "2024-03-25",
+    "end_date": "2024-11-18",
+    "owner_id": "EMP-069"
+  },
+  {
+    "id": "PROJ-APEX-070",
+    "name": "APEX CUTOVER",
+    "region_id": "REGION-TORONTO",
+    "vendor_id": "VEND-20",
+    "status": "Delayed",
+    "start_date": "2023-05-15",
+    "end_date": "2024-06-08",
+    "owner_id": "EMP-070"
+  },
+  {
+    "id": "PROJ-QUANTUM-071",
+    "name": "QUANTUM FEDERATION",
+    "region_id": "REGION-SINGAPORE",
+    "vendor_id": "VEND-21",
+    "status": "At Risk",
+    "start_date": "2023-06-24",
+    "end_date": "2026-04-09",
+    "owner_id": "EMP-071"
+  },
+  {
+    "id": "PROJ-STELLAR-072",
+    "name": "STELLAR PROVISIONING",
+    "region_id": "REGION-SYDNEY",
+    "vendor_id": "VEND-22",
+    "status": "Completed",
+    "start_date": "2023-01-18",
+    "end_date": "2026-07-24",
+    "owner_id": "EMP-072"
+  },
+  {
+    "id": "PROJ-TITAN-073",
+    "name": "TITAN AUTOMATION",
+    "region_id": "REGION-TOKYO",
+    "vendor_id": "VEND-23",
+    "status": "Delayed",
+    "start_date": "2023-12-11",
+    "end_date": "2025-06-02",
+    "owner_id": "EMP-073"
+  },
+  {
+    "id": "PROJ-PHOENIX-074",
+    "name": "PHOENIX MODERNIZATION",
+    "region_id": "REGION-MUMBAI",
+    "vendor_id": "VEND-24",
+    "status": "Blocked",
+    "start_date": "2023-06-23",
+    "end_date": "2025-10-18",
+    "owner_id": "EMP-074"
+  },
+  {
+    "id": "PROJ-AURORA-075",
+    "name": "AURORA COMPLIANCE",
+    "region_id": "REGION-SEOUL",
+    "vendor_id": "VEND-25",
+    "status": "At Risk",
+    "start_date": "2024-09-16",
+    "end_date": "2025-08-01",
+    "owner_id": "EMP-075"
+  },
+  {
+    "id": "PROJ-NORDIC-076",
+    "name": "NORDIC MIGRATION",
+    "region_id": "REGION-SAO-PAULO",
+    "vendor_id": "VEND-26",
+    "status": "Delayed",
+    "start_date": "2023-03-08",
+    "end_date": "2025-08-08",
+    "owner_id": "EMP-076"
+  },
+  {
+    "id": "PROJ-EMEA-077",
+    "name": "EMEA ONBOARDING",
+    "region_id": "REGION-DUBAI",
+    "vendor_id": "VEND-27",
+    "status": "Completed",
+    "start_date": "2023-12-24",
+    "end_date": "2026-04-17",
+    "owner_id": "EMP-077"
+  },
+  {
+    "id": "PROJ-APAC-078",
+    "name": "APAC INTEGRATION",
+    "region_id": "REGION-CAPE-TOWN",
+    "vendor_id": "VEND-28",
+    "status": "Blocked",
+    "start_date": "2023-11-23",
+    "end_date": "2025-05-08",
+    "owner_id": "EMP-078"
+  },
+  {
+    "id": "PROJ-LATAM-079",
+    "name": "LATAM DEPLOYMENT",
+    "region_id": "REGION-CHICAGO",
+    "vendor_id": "VEND-29",
+    "status": "Completed",
+    "start_date": "2024-04-18",
+    "end_date": "2025-03-01",
+    "owner_id": "EMP-079"
+  },
+  {
+    "id": "PROJ-GLOBAL-080",
+    "name": "GLOBAL UPGRADE",
+    "region_id": "REGION-DALLAS",
+    "vendor_id": "VEND-30",
+    "status": "Blocked",
+    "start_date": "2023-05-24",
+    "end_date": "2024-03-01",
+    "owner_id": "EMP-080"
+  },
+  {
+    "id": "PROJ-CLOUD-081",
+    "name": "CLOUD ROLLOUT",
+    "region_id": "REGION-FRANKFURT",
+    "vendor_id": "VEND-31",
+    "status": "At Risk",
+    "start_date": "2023-01-14",
+    "end_date": "2026-04-24",
+    "owner_id": "EMP-081"
+  },
+  {
+    "id": "PROJ-CORE-082",
+    "name": "CORE CONSOLIDATION",
+    "region_id": "REGION-LONDON",
+    "vendor_id": "VEND-32",
+    "status": "Blocked",
+    "start_date": "2024-10-19",
+    "end_date": "2026-03-25",
+    "owner_id": "EMP-082"
+  },
+  {
+    "id": "PROJ-EDGE-083",
+    "name": "EDGE EXPANSION",
+    "region_id": "REGION-PARIS",
+    "vendor_id": "VEND-33",
+    "status": "Completed",
+    "start_date": "2024-08-05",
+    "end_date": "2025-11-16",
+    "owner_id": "EMP-083"
+  },
+  {
+    "id": "PROJ-SHIELD-084",
+    "name": "SHIELD TRANSFER",
+    "region_id": "REGION-AMSTERDAM",
+    "vendor_id": "VEND-34",
+    "status": "Blocked",
+    "start_date": "2023-08-10",
+    "end_date": "2026-02-18",
+    "owner_id": "EMP-084"
+  },
+  {
+    "id": "PROJ-NEXUS-085",
+    "name": "NEXUS CUTOVER",
+    "region_id": "REGION-STOCKHOLM",
+    "vendor_id": "VEND-35",
+    "status": "Blocked",
+    "start_date": "2023-04-08",
+    "end_date": "2024-04-03",
+    "owner_id": "EMP-085"
+  },
+  {
+    "id": "PROJ-ATLAS-086",
+    "name": "ATLAS FEDERATION",
+    "region_id": "REGION-VIRGINIA",
+    "vendor_id": "VEND-36",
+    "status": "Completed",
+    "start_date": "2024-06-07",
+    "end_date": "2024-03-04",
+    "owner_id": "EMP-086"
+  },
+  {
+    "id": "PROJ-HELIX-087",
+    "name": "HELIX PROVISIONING",
+    "region_id": "REGION-OHIO",
+    "vendor_id": "VEND-37",
+    "status": "Completed",
+    "start_date": "2023-12-01",
+    "end_date": "2024-10-28",
+    "owner_id": "EMP-087"
+  },
+  {
+    "id": "PROJ-VORTEX-088",
+    "name": "VORTEX AUTOMATION",
+    "region_id": "REGION-OREGON",
+    "vendor_id": "VEND-38",
+    "status": "Blocked",
+    "start_date": "2023-05-25",
+    "end_date": "2025-10-13",
+    "owner_id": "EMP-088"
+  },
+  {
+    "id": "PROJ-PRISM-089",
+    "name": "PRISM MODERNIZATION",
+    "region_id": "REGION-CALIFORNIA",
+    "vendor_id": "VEND-39",
+    "status": "Delayed",
+    "start_date": "2024-08-27",
+    "end_date": "2024-05-20",
+    "owner_id": "EMP-089"
+  },
+  {
+    "id": "PROJ-FUSION-090",
+    "name": "FUSION COMPLIANCE",
+    "region_id": "REGION-TORONTO",
+    "vendor_id": "VEND-40",
+    "status": "At Risk",
+    "start_date": "2023-10-28",
+    "end_date": "2026-08-13",
+    "owner_id": "EMP-090"
+  },
+  {
+    "id": "PROJ-SUMMIT-091",
+    "name": "SUMMIT MIGRATION",
+    "region_id": "REGION-SINGAPORE",
+    "vendor_id": "VEND-41",
+    "status": "Completed",
+    "start_date": "2024-01-12",
+    "end_date": "2025-08-09",
+    "owner_id": "EMP-091"
+  },
+  {
+    "id": "PROJ-HORIZON-092",
+    "name": "HORIZON ONBOARDING",
+    "region_id": "REGION-SYDNEY",
+    "vendor_id": "VEND-42",
+    "status": "Completed",
+    "start_date": "2024-12-13",
+    "end_date": "2026-09-21",
+    "owner_id": "EMP-092"
+  },
+  {
+    "id": "PROJ-ZENITH-093",
+    "name": "ZENITH INTEGRATION",
+    "region_id": "REGION-TOKYO",
+    "vendor_id": "VEND-43",
+    "status": "Blocked",
+    "start_date": "2023-09-22",
+    "end_date": "2024-12-15",
+    "owner_id": "EMP-093"
+  },
+  {
+    "id": "PROJ-VERTEX-094",
+    "name": "VERTEX DEPLOYMENT",
+    "region_id": "REGION-MUMBAI",
+    "vendor_id": "VEND-44",
+    "status": "Active",
+    "start_date": "2024-01-05",
+    "end_date": "2024-12-07",
+    "owner_id": "EMP-094"
+  },
+  {
+    "id": "PROJ-APEX-095",
+    "name": "APEX UPGRADE",
+    "region_id": "REGION-SEOUL",
+    "vendor_id": "VEND-45",
+    "status": "Active",
+    "start_date": "2023-12-23",
+    "end_date": "2025-08-05",
+    "owner_id": "EMP-095"
+  },
+  {
+    "id": "PROJ-QUANTUM-096",
+    "name": "QUANTUM ROLLOUT",
+    "region_id": "REGION-SAO-PAULO",
+    "vendor_id": "VEND-46",
+    "status": "Blocked",
+    "start_date": "2023-02-13",
+    "end_date": "2026-03-15",
+    "owner_id": "EMP-096"
+  },
+  {
+    "id": "PROJ-STELLAR-097",
+    "name": "STELLAR CONSOLIDATION",
+    "region_id": "REGION-DUBAI",
+    "vendor_id": "VEND-47",
+    "status": "Active",
+    "start_date": "2024-05-11",
+    "end_date": "2024-01-07",
+    "owner_id": "EMP-097"
+  },
+  {
+    "id": "PROJ-TITAN-098",
+    "name": "TITAN EXPANSION",
+    "region_id": "REGION-CAPE-TOWN",
+    "vendor_id": "VEND-48",
+    "status": "At Risk",
+    "start_date": "2024-01-09",
+    "end_date": "2024-08-19",
+    "owner_id": "EMP-098"
+  },
+  {
+    "id": "PROJ-PHOENIX-099",
+    "name": "PHOENIX TRANSFER",
+    "region_id": "REGION-CHICAGO",
+    "vendor_id": "VEND-49",
+    "status": "Delayed",
+    "start_date": "2024-07-02",
+    "end_date": "2024-02-25",
+    "owner_id": "EMP-099"
+  },
+  {
+    "id": "PROJ-AURORA-100",
+    "name": "AURORA CUTOVER",
+    "region_id": "REGION-DALLAS",
+    "vendor_id": "VEND-50",
+    "status": "At Risk",
+    "start_date": "2024-12-15",
+    "end_date": "2026-11-09",
+    "owner_id": "EMP-100"
+  },
+  {
+    "id": "PROJ-NORDIC-101",
+    "name": "NORDIC FEDERATION",
+    "region_id": "REGION-FRANKFURT",
+    "vendor_id": "VEND-01",
+    "status": "Delayed",
+    "start_date": "2023-03-24",
+    "end_date": "2024-05-21",
+    "owner_id": "EMP-101"
+  },
+  {
+    "id": "PROJ-EMEA-102",
+    "name": "EMEA PROVISIONING",
+    "region_id": "REGION-LONDON",
+    "vendor_id": "VEND-02",
+    "status": "Completed",
+    "start_date": "2024-04-27",
+    "end_date": "2025-01-19",
+    "owner_id": "EMP-102"
+  },
+  {
+    "id": "PROJ-APAC-103",
+    "name": "APAC AUTOMATION",
+    "region_id": "REGION-PARIS",
+    "vendor_id": "VEND-03",
+    "status": "At Risk",
+    "start_date": "2023-09-11",
+    "end_date": "2026-03-04",
+    "owner_id": "EMP-103"
+  },
+  {
+    "id": "PROJ-LATAM-104",
+    "name": "LATAM MODERNIZATION",
+    "region_id": "REGION-AMSTERDAM",
+    "vendor_id": "VEND-04",
+    "status": "Blocked",
+    "start_date": "2024-01-21",
+    "end_date": "2025-12-06",
+    "owner_id": "EMP-104"
+  },
+  {
+    "id": "PROJ-GLOBAL-105",
+    "name": "GLOBAL COMPLIANCE",
+    "region_id": "REGION-STOCKHOLM",
+    "vendor_id": "VEND-05",
+    "status": "Blocked",
+    "start_date": "2023-06-08",
+    "end_date": "2026-03-25",
+    "owner_id": "EMP-105"
+  },
+  {
+    "id": "PROJ-CLOUD-106",
+    "name": "CLOUD MIGRATION",
+    "region_id": "REGION-VIRGINIA",
+    "vendor_id": "VEND-06",
+    "status": "Blocked",
+    "start_date": "2024-04-14",
+    "end_date": "2024-12-06",
+    "owner_id": "EMP-106"
+  },
+  {
+    "id": "PROJ-CORE-107",
+    "name": "CORE ONBOARDING",
+    "region_id": "REGION-OHIO",
+    "vendor_id": "VEND-07",
+    "status": "Completed",
+    "start_date": "2024-11-11",
+    "end_date": "2025-09-23",
+    "owner_id": "EMP-107"
+  },
+  {
+    "id": "PROJ-EDGE-108",
+    "name": "EDGE INTEGRATION",
+    "region_id": "REGION-OREGON",
+    "vendor_id": "VEND-08",
+    "status": "At Risk",
+    "start_date": "2023-03-27",
+    "end_date": "2026-08-11",
+    "owner_id": "EMP-108"
+  },
+  {
+    "id": "PROJ-SHIELD-109",
+    "name": "SHIELD DEPLOYMENT",
+    "region_id": "REGION-CALIFORNIA",
+    "vendor_id": "VEND-09",
+    "status": "Completed",
+    "start_date": "2024-09-01",
+    "end_date": "2026-04-25",
+    "owner_id": "EMP-109"
+  },
+  {
+    "id": "PROJ-NEXUS-110",
+    "name": "NEXUS UPGRADE",
+    "region_id": "REGION-TORONTO",
+    "vendor_id": "VEND-10",
+    "status": "Active",
+    "start_date": "2023-08-21",
+    "end_date": "2026-07-09",
+    "owner_id": "EMP-110"
+  },
+  {
+    "id": "PROJ-ATLAS-111",
+    "name": "ATLAS ROLLOUT",
+    "region_id": "REGION-SINGAPORE",
+    "vendor_id": "VEND-11",
+    "status": "Blocked",
+    "start_date": "2023-08-05",
+    "end_date": "2024-02-07",
+    "owner_id": "EMP-111"
+  },
+  {
+    "id": "PROJ-HELIX-112",
+    "name": "HELIX CONSOLIDATION",
+    "region_id": "REGION-SYDNEY",
+    "vendor_id": "VEND-12",
+    "status": "Completed",
+    "start_date": "2023-11-10",
+    "end_date": "2026-09-08",
+    "owner_id": "EMP-112"
+  },
+  {
+    "id": "PROJ-VORTEX-113",
+    "name": "VORTEX EXPANSION",
+    "region_id": "REGION-TOKYO",
+    "vendor_id": "VEND-13",
+    "status": "At Risk",
+    "start_date": "2024-03-22",
+    "end_date": "2024-11-22",
+    "owner_id": "EMP-113"
+  },
+  {
+    "id": "PROJ-PRISM-114",
+    "name": "PRISM TRANSFER",
+    "region_id": "REGION-MUMBAI",
+    "vendor_id": "VEND-14",
+    "status": "Completed",
+    "start_date": "2023-05-06",
+    "end_date": "2026-05-12",
+    "owner_id": "EMP-114"
+  },
+  {
+    "id": "PROJ-FUSION-115",
+    "name": "FUSION CUTOVER",
+    "region_id": "REGION-SEOUL",
+    "vendor_id": "VEND-15",
+    "status": "Blocked",
+    "start_date": "2023-09-19",
+    "end_date": "2024-07-20",
+    "owner_id": "EMP-115"
+  },
+  {
+    "id": "PROJ-SUMMIT-116",
+    "name": "SUMMIT FEDERATION",
+    "region_id": "REGION-SAO-PAULO",
+    "vendor_id": "VEND-16",
+    "status": "Blocked",
+    "start_date": "2023-12-12",
+    "end_date": "2024-03-03",
+    "owner_id": "EMP-116"
+  },
+  {
+    "id": "PROJ-HORIZON-117",
+    "name": "HORIZON PROVISIONING",
+    "region_id": "REGION-DUBAI",
+    "vendor_id": "VEND-17",
+    "status": "At Risk",
+    "start_date": "2024-12-14",
+    "end_date": "2026-09-20",
+    "owner_id": "EMP-117"
+  },
+  {
+    "id": "PROJ-ZENITH-118",
+    "name": "ZENITH AUTOMATION",
+    "region_id": "REGION-CAPE-TOWN",
+    "vendor_id": "VEND-18",
+    "status": "At Risk",
+    "start_date": "2023-01-12",
+    "end_date": "2026-02-22",
+    "owner_id": "EMP-118"
+  },
+  {
+    "id": "PROJ-VERTEX-119",
+    "name": "VERTEX MODERNIZATION",
+    "region_id": "REGION-CHICAGO",
+    "vendor_id": "VEND-19",
+    "status": "Delayed",
+    "start_date": "2023-08-24",
+    "end_date": "2024-05-09",
+    "owner_id": "EMP-119"
+  },
+  {
+    "id": "PROJ-APEX-120",
+    "name": "APEX COMPLIANCE",
+    "region_id": "REGION-DALLAS",
+    "vendor_id": "VEND-20",
+    "status": "Delayed",
+    "start_date": "2023-10-04",
+    "end_date": "2024-06-11",
+    "owner_id": "EMP-120"
+  },
+  {
+    "id": "PROJ-QUANTUM-121",
+    "name": "QUANTUM MIGRATION",
+    "region_id": "REGION-FRANKFURT",
+    "vendor_id": "VEND-21",
+    "status": "Delayed",
+    "start_date": "2023-09-24",
+    "end_date": "2025-12-01",
+    "owner_id": "EMP-121"
+  },
+  {
+    "id": "PROJ-STELLAR-122",
+    "name": "STELLAR ONBOARDING",
+    "region_id": "REGION-LONDON",
+    "vendor_id": "VEND-22",
+    "status": "Completed",
+    "start_date": "2024-06-03",
+    "end_date": "2026-06-04",
+    "owner_id": "EMP-122"
+  },
+  {
+    "id": "PROJ-TITAN-123",
+    "name": "TITAN INTEGRATION",
+    "region_id": "REGION-PARIS",
+    "vendor_id": "VEND-23",
+    "status": "Active",
+    "start_date": "2023-03-01",
+    "end_date": "2025-01-02",
+    "owner_id": "EMP-123"
+  },
+  {
+    "id": "PROJ-PHOENIX-124",
+    "name": "PHOENIX DEPLOYMENT",
+    "region_id": "REGION-AMSTERDAM",
+    "vendor_id": "VEND-24",
+    "status": "At Risk",
+    "start_date": "2023-09-03",
+    "end_date": "2025-01-09",
+    "owner_id": "EMP-124"
+  },
+  {
+    "id": "PROJ-AURORA-125",
+    "name": "AURORA UPGRADE",
+    "region_id": "REGION-STOCKHOLM",
+    "vendor_id": "VEND-25",
+    "status": "Active",
+    "start_date": "2024-12-27",
+    "end_date": "2024-07-05",
+    "owner_id": "EMP-125"
+  },
+  {
+    "id": "PROJ-NORDIC-126",
+    "name": "NORDIC ROLLOUT",
+    "region_id": "REGION-VIRGINIA",
+    "vendor_id": "VEND-26",
+    "status": "Delayed",
+    "start_date": "2023-06-08",
+    "end_date": "2025-03-21",
+    "owner_id": "EMP-126"
+  },
+  {
+    "id": "PROJ-EMEA-127",
+    "name": "EMEA CONSOLIDATION",
+    "region_id": "REGION-OHIO",
+    "vendor_id": "VEND-27",
+    "status": "At Risk",
+    "start_date": "2024-05-15",
+    "end_date": "2026-04-24",
+    "owner_id": "EMP-127"
+  },
+  {
+    "id": "PROJ-APAC-128",
+    "name": "APAC EXPANSION",
+    "region_id": "REGION-OREGON",
+    "vendor_id": "VEND-28",
+    "status": "Completed",
+    "start_date": "2024-10-14",
+    "end_date": "2026-12-10",
+    "owner_id": "EMP-128"
+  },
+  {
+    "id": "PROJ-LATAM-129",
+    "name": "LATAM TRANSFER",
+    "region_id": "REGION-CALIFORNIA",
+    "vendor_id": "VEND-29",
+    "status": "At Risk",
+    "start_date": "2024-04-26",
+    "end_date": "2026-06-13",
+    "owner_id": "EMP-129"
+  },
+  {
+    "id": "PROJ-GLOBAL-130",
+    "name": "GLOBAL CUTOVER",
+    "region_id": "REGION-TORONTO",
+    "vendor_id": "VEND-30",
+    "status": "Completed",
+    "start_date": "2024-07-14",
+    "end_date": "2025-10-10",
+    "owner_id": "EMP-130"
+  },
+  {
+    "id": "PROJ-CLOUD-131",
+    "name": "CLOUD FEDERATION",
+    "region_id": "REGION-SINGAPORE",
+    "vendor_id": "VEND-31",
+    "status": "Delayed",
+    "start_date": "2024-07-10",
+    "end_date": "2025-08-01",
+    "owner_id": "EMP-131"
+  },
+  {
+    "id": "PROJ-CORE-132",
+    "name": "CORE PROVISIONING",
+    "region_id": "REGION-SYDNEY",
+    "vendor_id": "VEND-32",
+    "status": "Blocked",
+    "start_date": "2023-03-01",
+    "end_date": "2026-08-14",
+    "owner_id": "EMP-132"
+  },
+  {
+    "id": "PROJ-EDGE-133",
+    "name": "EDGE AUTOMATION",
+    "region_id": "REGION-TOKYO",
+    "vendor_id": "VEND-33",
+    "status": "Delayed",
+    "start_date": "2024-08-06",
+    "end_date": "2025-01-20",
+    "owner_id": "EMP-133"
+  },
+  {
+    "id": "PROJ-SHIELD-134",
+    "name": "SHIELD MODERNIZATION",
+    "region_id": "REGION-MUMBAI",
+    "vendor_id": "VEND-34",
+    "status": "At Risk",
+    "start_date": "2023-07-15",
+    "end_date": "2026-02-23",
+    "owner_id": "EMP-134"
+  },
+  {
+    "id": "PROJ-NEXUS-135",
+    "name": "NEXUS COMPLIANCE",
+    "region_id": "REGION-SEOUL",
+    "vendor_id": "VEND-35",
+    "status": "Completed",
+    "start_date": "2024-07-16",
+    "end_date": "2026-08-08",
+    "owner_id": "EMP-135"
+  },
+  {
+    "id": "PROJ-ATLAS-136",
+    "name": "ATLAS MIGRATION",
+    "region_id": "REGION-SAO-PAULO",
+    "vendor_id": "VEND-36",
+    "status": "Completed",
+    "start_date": "2023-07-09",
+    "end_date": "2024-12-08",
+    "owner_id": "EMP-136"
+  },
+  {
+    "id": "PROJ-HELIX-137",
+    "name": "HELIX ONBOARDING",
+    "region_id": "REGION-DUBAI",
+    "vendor_id": "VEND-37",
+    "status": "Completed",
+    "start_date": "2023-08-22",
+    "end_date": "2024-12-16",
+    "owner_id": "EMP-137"
+  },
+  {
+    "id": "PROJ-VORTEX-138",
+    "name": "VORTEX INTEGRATION",
+    "region_id": "REGION-CAPE-TOWN",
+    "vendor_id": "VEND-38",
+    "status": "Active",
+    "start_date": "2023-03-14",
+    "end_date": "2024-09-26",
+    "owner_id": "EMP-138"
+  },
+  {
+    "id": "PROJ-PRISM-139",
+    "name": "PRISM DEPLOYMENT",
+    "region_id": "REGION-CHICAGO",
+    "vendor_id": "VEND-39",
+    "status": "At Risk",
+    "start_date": "2024-01-02",
+    "end_date": "2026-01-15",
+    "owner_id": "EMP-139"
+  },
+  {
+    "id": "PROJ-FUSION-140",
+    "name": "FUSION UPGRADE",
+    "region_id": "REGION-DALLAS",
+    "vendor_id": "VEND-40",
+    "status": "Completed",
+    "start_date": "2024-02-28",
+    "end_date": "2024-11-11",
+    "owner_id": "EMP-140"
+  },
+  {
+    "id": "PROJ-SUMMIT-141",
+    "name": "SUMMIT ROLLOUT",
+    "region_id": "REGION-FRANKFURT",
+    "vendor_id": "VEND-41",
+    "status": "At Risk",
+    "start_date": "2024-06-11",
+    "end_date": "2024-07-21",
+    "owner_id": "EMP-141"
+  },
+  {
+    "id": "PROJ-HORIZON-142",
+    "name": "HORIZON CONSOLIDATION",
+    "region_id": "REGION-LONDON",
+    "vendor_id": "VEND-42",
+    "status": "Blocked",
+    "start_date": "2023-08-26",
+    "end_date": "2026-02-26",
+    "owner_id": "EMP-142"
+  },
+  {
+    "id": "PROJ-ZENITH-143",
+    "name": "ZENITH EXPANSION",
+    "region_id": "REGION-PARIS",
+    "vendor_id": "VEND-43",
+    "status": "Completed",
+    "start_date": "2023-06-01",
+    "end_date": "2025-12-02",
+    "owner_id": "EMP-143"
+  },
+  {
+    "id": "PROJ-VERTEX-144",
+    "name": "VERTEX TRANSFER",
+    "region_id": "REGION-AMSTERDAM",
+    "vendor_id": "VEND-44",
+    "status": "At Risk",
+    "start_date": "2023-05-06",
+    "end_date": "2024-05-01",
+    "owner_id": "EMP-144"
+  },
+  {
+    "id": "PROJ-APEX-145",
+    "name": "APEX CUTOVER",
+    "region_id": "REGION-STOCKHOLM",
+    "vendor_id": "VEND-45",
+    "status": "Delayed",
+    "start_date": "2023-08-10",
+    "end_date": "2026-11-08",
+    "owner_id": "EMP-145"
+  },
+  {
+    "id": "PROJ-QUANTUM-146",
+    "name": "QUANTUM FEDERATION",
+    "region_id": "REGION-VIRGINIA",
+    "vendor_id": "VEND-46",
+    "status": "Blocked",
+    "start_date": "2023-02-10",
+    "end_date": "2025-08-17",
+    "owner_id": "EMP-146"
+  },
+  {
+    "id": "PROJ-STELLAR-147",
+    "name": "STELLAR PROVISIONING",
+    "region_id": "REGION-OHIO",
+    "vendor_id": "VEND-47",
+    "status": "Delayed",
+    "start_date": "2024-04-27",
+    "end_date": "2024-09-20",
+    "owner_id": "EMP-147"
+  },
+  {
+    "id": "PROJ-TITAN-148",
+    "name": "TITAN AUTOMATION",
+    "region_id": "REGION-OREGON",
+    "vendor_id": "VEND-48",
+    "status": "Active",
+    "start_date": "2024-07-15",
+    "end_date": "2024-04-24",
+    "owner_id": "EMP-148"
+  },
+  {
+    "id": "PROJ-PHOENIX-149",
+    "name": "PHOENIX MODERNIZATION",
+    "region_id": "REGION-CALIFORNIA",
+    "vendor_id": "VEND-49",
+    "status": "Completed",
+    "start_date": "2023-01-13",
+    "end_date": "2025-09-26",
+    "owner_id": "EMP-149"
+  },
+  {
+    "id": "PROJ-AURORA-150",
+    "name": "AURORA COMPLIANCE",
+    "region_id": "REGION-TORONTO",
+    "vendor_id": "VEND-50",
+    "status": "Blocked",
+    "start_date": "2023-08-04",
+    "end_date": "2024-08-12",
+    "owner_id": "EMP-150"
+  }
+]

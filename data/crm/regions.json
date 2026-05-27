@@ -1,0 +1,122 @@
+[
+  {
+    "id": "REGION-FRANKFURT",
+    "name": "Frankfurt, EU",
+    "zone": "eu-central-1",
+    "dc": "FRA-DC1"
+  },
+  {
+    "id": "REGION-LONDON",
+    "name": "London, UK",
+    "zone": "eu-west-2",
+    "dc": "LHR-DC1"
+  },
+  {
+    "id": "REGION-PARIS",
+    "name": "Paris, EU",
+    "zone": "eu-west-3",
+    "dc": "CDG-DC1"
+  },
+  {
+    "id": "REGION-AMSTERDAM",
+    "name": "Amsterdam, EU",
+    "zone": "eu-west-1",
+    "dc": "AMS-DC1"
+  },
+  {
+    "id": "REGION-STOCKHOLM",
+    "name": "Stockholm, EU",
+    "zone": "eu-north-1",
+    "dc": "ARN-DC1"
+  },
+  {
+    "id": "REGION-VIRGINIA",
+    "name": "N. Virginia, US",
+    "zone": "us-east-1",
+    "dc": "IAD-DC1"
+  },
+  {
+    "id": "REGION-OHIO",
+    "name": "Ohio, US",
+    "zone": "us-east-2",
+    "dc": "CMH-DC1"
+  },
+  {
+    "id": "REGION-OREGON",
+    "name": "Oregon, US",
+    "zone": "us-west-2",
+    "dc": "PDX-DC1"
+  },
+  {
+    "id": "REGION-CALIFORNIA",
+    "name": "California, US",
+    "zone": "us-west-1",
+    "dc": "SFO-DC1"
+  },
+  {
+    "id": "REGION-TORONTO",
+    "name": "Toronto, CA",
+    "zone": "ca-central-1",
+    "dc": "YYZ-DC1"
+  },
+  {
+    "id": "REGION-SINGAPORE",
+    "name": "Singapore, APAC",
+    "zone": "ap-southeast-1",
+    "dc": "SIN-DC1"
+  },
+  {
+    "id": "REGION-SYDNEY",
+    "name": "Sydney, APAC",
+    "zone": "ap-southeast-2",
+    "dc": "SYD-DC1"
+  },
+  {
+    "id": "REGION-TOKYO",
+    "name": "Tokyo, APAC",
+    "zone": "ap-northeast-1",
+    "dc": "NRT-DC1"
+  },
+  {
+    "id": "REGION-MUMBAI",
+    "name": "Mumbai, APAC",
+    "zone": "ap-south-1",
+    "dc": "BOM-DC1"
+  },
+  {
+    "id": "REGION-SEOUL",
+    "name": "Seoul, APAC",
+    "zone": "ap-northeast-2",
+    "dc": "ICN-DC1"
+  },
+  {
+    "id": "REGION-SAO-PAULO",
+    "name": "Sao Paulo, LATAM",
+    "zone": "sa-east-1",
+    "dc": "GRU-DC1"
+  },
+  {
+    "id": "REGION-DUBAI",
+    "name": "Dubai, MEA",
+    "zone": "me-south-1",
+    "dc": "DXB-DC1"
+  },
+  {
+    "id": "REGION-CAPE-TOWN",
+    "name": "Cape Town, AFR",
+    "zone": "af-south-1",
+    "dc": "CPT-DC1"
+  },
+  {
+    "id": "REGION-CHICAGO",
+    "name": "Chicago, US",
+    "zone": "us-central-1",
+    "dc": "ORD-DC1"
+  },
+  {
+    "id": "REGION-DALLAS",
+    "name": "Dallas, US",
+    "zone": "us-south-1",
+    "dc": "DFW-DC1"
+  }
+]

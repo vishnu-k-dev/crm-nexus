@@ -14,6 +14,19 @@ services:
       - GITHUB_TOKEN=${GITHUB_TOKEN}
       - BENCH_DB_PATH=/app/data/bench.sqlite
       - EVAL_SET_PATH=/app/data/eval_set.json
+      # TigerGraph local connection (host.docker.internal reaches host-published ports)
+      - TG_GRAPHRAG_URL=http://host.docker.internal:8000
+      - TG_RESTPP_URL=http://host.docker.internal:14240
+      - TG_GRAPH_NAME=${TG_GRAPH_NAME:-MyGraph}
+      - TG_USERNAME=${TG_USERNAME:-tigergraph}
+      - TG_PASSWORD=${TG_PASSWORD:-tigergraph}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GROQ_API_KEY_LLM=${GROQ_API_KEY_LLM}
+      - GROQ_API_KEY_RAG=${GROQ_API_KEY_RAG}
+      - GROQ_API_KEY_GRAPH=${GROQ_API_KEY_GRAPH}
+      - GROQ_API_KEY_JUDGE=${GROQ_API_KEY_JUDGE}
+      - JINA_API_KEY=${JINA_API_KEY}
     ports: ['3001:3001']
     volumes: ['./:/app']
 

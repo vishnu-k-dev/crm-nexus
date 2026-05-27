@@ -1,0 +1,402 @@
+[
+  {
+    "id": "VEND-01",
+    "name": "MedSync",
+    "category": "Infrastructure",
+    "region_affinity": "REGION-SYDNEY",
+    "sla_tier": "Platinum",
+    "contact": "Christina Jackson"
+  },
+  {
+    "id": "VEND-02",
+    "name": "CloudCore",
+    "category": "Infrastructure",
+    "region_affinity": "REGION-TORONTO",
+    "sla_tier": "Platinum",
+    "contact": "Andrea Martinez"
+  },
+  {
+    "id": "VEND-03",
+    "name": "DataBridge",
+    "category": "Infrastructure",
+    "region_affinity": "REGION-VIRGINIA",
+    "sla_tier": "Platinum",
+    "contact": "Megan Green"
+  },
+  {
+    "id": "VEND-04",
+    "name": "SecureVault",
+    "category": "Infrastructure",
+    "region_affinity": "REGION-MUMBAI",
+    "sla_tier": "Gold",
+    "contact": "Andrew Davis"
+  },
+  {
+    "id": "VEND-05",
+    "name": "NetForge",
+    "category": "Infrastructure",
+    "region_affinity": "REGION-VIRGINIA",
+    "sla_tier": "Platinum",
+    "contact": "Robert Rodriguez"
+  },
+  {
+    "id": "VEND-06",
+    "name": "PayStream",
+    "category": "Infrastructure",
+    "region_affinity": "REGION-SAO-PAULO",
+    "sla_tier": "Gold",
+    "contact": "Andrea Perez"
+  },
+  {
+    "id": "VEND-07",
+    "name": "AuthPulse",
+    "category": "Infrastructure",
+    "region_affinity": "REGION-FRANKFURT",
+    "sla_tier": "Gold",
+    "contact": "Richard Anderson"
+  },
+  {
+    "id": "VEND-08",
+    "name": "InfraLink",
+    "category": "Infrastructure",
+    "region_affinity": "REGION-SAO-PAULO",
+    "sla_tier": "Platinum",
+    "contact": "Emily Hill"
+  },
+  {
+    "id": "VEND-09",
+    "name": "StorageEdge",
+    "category": "Infrastructure",
+    "region_affinity": "REGION-VIRGINIA",
+    "sla_tier": "Gold",
+    "contact": "Heather Young"
+  },
+  {
+    "id": "VEND-10",
+    "name": "ComputeHub",
+    "category": "Infrastructure",
+    "region_affinity": "REGION-TORONTO",
+    "sla_tier": "Silver",
+    "contact": "Elizabeth White"
+  },
+  {
+    "id": "VEND-11",
+    "name": "NetShield",
+    "category": "Networking",
+    "region_affinity": "REGION-FRANKFURT",
+    "sla_tier": "Bronze",
+    "contact": "Ashley Taylor"
+  },
+  {
+    "id": "VEND-12",
+    "name": "DevOps Prime",
+    "category": "Networking",
+    "region_affinity": "REGION-SAO-PAULO",
+    "sla_tier": "Gold",
+    "contact": "Daniel King"
+  },
+  {
+    "id": "VEND-13",
+    "name": "APIGateway Pro",
+    "category": "Networking",
+    "region_affinity": "REGION-LONDON",
+    "sla_tier": "Bronze",
+    "contact": "Hannah Thompson"
+  },
+  {
+    "id": "VEND-14",
+    "name": "LogStream",
+    "category": "Networking",
+    "region_affinity": "REGION-FRANKFURT",
+    "sla_tier": "Silver",
+    "contact": "Kevin Martinez"
+  },
+  {
+    "id": "VEND-15",
+    "name": "CacheLayer",
+    "category": "Networking",
+    "region_affinity": "REGION-FRANKFURT",
+    "sla_tier": "Gold",
+    "contact": "William Wright"
+  },
+  {
+    "id": "VEND-16",
+    "name": "DNSForge",
+    "category": "Networking",
+    "region_affinity": "REGION-MUMBAI",
+    "sla_tier": "Silver",
+    "contact": "William Johnson"
+  },
+  {
+    "id": "VEND-17",
+    "name": "LoadBalancer X",
+    "category": "Networking",
+    "region_affinity": "REGION-SINGAPORE",
+    "sla_tier": "Platinum",
+    "contact": "Rachel Scott"
+  },
+  {
+    "id": "VEND-18",
+    "name": "ContainerGrid",
+    "category": "Networking",
+    "region_affinity": "REGION-SYDNEY",
+    "sla_tier": "Silver",
+    "contact": "Amanda Green"
+  },
+  {
+    "id": "VEND-19",
+    "name": "KubeOps",
+    "category": "Networking",
+    "region_affinity": "REGION-SINGAPORE",
+    "sla_tier": "Gold",
+    "contact": "Rebecca Sanchez"
+  },
+  {
+    "id": "VEND-20",
+    "name": "ServiceMesh Pro",
+    "category": "Networking",
+    "region_affinity": "REGION-SAO-PAULO",
+    "sla_tier": "Gold",
+    "contact": "Daniel Sanchez"
+  },
+  {
+    "id": "VEND-21",
+    "name": "TLS Authority",
+    "category": "DevOps",
+    "region_affinity": "REGION-SINGAPORE",
+    "sla_tier": "Gold",
+    "contact": "Mark Wilson"
+  },
+  {
+    "id": "VEND-22",
+    "name": "BackupVault",
+    "category": "DevOps",
+    "region_affinity": "REGION-TORONTO",
+    "sla_tier": "Gold",
+    "contact": "William Nguyen"
+  },
+  {
+    "id": "VEND-23",
+    "name": "CDN Express",
+    "category": "DevOps",
+    "region_affinity": "REGION-MUMBAI",
+    "sla_tier": "Platinum",
+    "contact": "Kenneth Perez"
+  },
+  {
+    "id": "VEND-24",
+    "name": "MailRelay",
+    "category": "DevOps",
+    "region_affinity": "REGION-TORONTO",
+    "sla_tier": "Platinum",
+    "contact": "Robert Anderson"
+  },
+  {
+    "id": "VEND-25",
+    "name": "SMSBurst",
+    "category": "DevOps",
+    "region_affinity": "REGION-FRANKFURT",
+    "sla_tier": "Gold",
+    "contact": "Lauren Young"
+  },
+  {
+    "id": "VEND-26",
+    "name": "PushNotify",
+    "category": "DevOps",
+    "region_affinity": "REGION-SYDNEY",
+    "sla_tier": "Bronze",
+    "contact": "Richard Miller"
+  },
+  {
+    "id": "VEND-27",
+    "name": "WebhookBridge",
+    "category": "DevOps",
+    "region_affinity": "REGION-LONDON",
+    "sla_tier": "Silver",
+    "contact": "Jennifer Thompson"
+  },
+  {
+    "id": "VEND-28",
+    "name": "EventGrid",
+    "category": "DevOps",
+    "region_affinity": "REGION-TORONTO",
+    "sla_tier": "Platinum",
+    "contact": "Steven Walker"
+  },
+  {
+    "id": "VEND-29",
+    "name": "QueueMaster",
+    "category": "DevOps",
+    "region_affinity": "REGION-SAO-PAULO",
+    "sla_tier": "Silver",
+    "contact": "Andrew Harris"
+  },
+  {
+    "id": "VEND-30",
+    "name": "StreamFlow",
+    "category": "DevOps",
+    "region_affinity": "REGION-SAO-PAULO",
+    "sla_tier": "Bronze",
+    "contact": "Daniel Young"
+  },
+  {
+    "id": "VEND-31",
+    "name": "AnalyticsCore",
+    "category": "Analytics",
+    "region_affinity": "REGION-TORONTO",
+    "sla_tier": "Platinum",
+    "contact": "Daniel Miller"
+  },
+  {
+    "id": "VEND-32",
+    "name": "ReportEngine",
+    "category": "Analytics",
+    "region_affinity": "REGION-FRANKFURT",
+    "sla_tier": "Bronze",
+    "contact": "Robert Williams"
+  },
+  {
+    "id": "VEND-33",
+    "name": "DashBuilder",
+    "category": "Analytics",
+    "region_affinity": "REGION-SYDNEY",
+    "sla_tier": "Bronze",
+    "contact": "Michelle Brown"
+  },
+  {
+    "id": "VEND-34",
+    "name": "DataWarehouse Pro",
+    "category": "Analytics",
+    "region_affinity": "REGION-FRANKFURT",
+    "sla_tier": "Silver",
+    "contact": "Thomas Sanchez"
+  },
+  {
+    "id": "VEND-35",
+    "name": "ETL Bridge",
+    "category": "Analytics",
+    "region_affinity": "REGION-TORONTO",
+    "sla_tier": "Silver",
+    "contact": "Sarah Lewis"
+  },
+  {
+    "id": "VEND-36",
+    "name": "MLPipeline",
+    "category": "Analytics",
+    "region_affinity": "REGION-SAO-PAULO",
+    "sla_tier": "Gold",
+    "contact": "Michael Brown"
+  },
+  {
+    "id": "VEND-37",
+    "name": "AIInfer",
+    "category": "Analytics",
+    "region_affinity": "REGION-TORONTO",
+    "sla_tier": "Silver",
+    "contact": "Steven Ramirez"
+  },
+  {
+    "id": "VEND-38",
+    "name": "VectorStore",
+    "category": "Analytics",
+    "region_affinity": "REGION-SAO-PAULO",
+    "sla_tier": "Silver",
+    "contact": "Anthony Green"
+  },
+  {
+    "id": "VEND-39",
+    "name": "SearchEngine Pro",
+    "category": "Analytics",
+    "region_affinity": "REGION-FRANKFURT",
+    "sla_tier": "Gold",
+    "contact": "Nicole Davis"
+  },
+  {
+    "id": "VEND-40",
+    "name": "IndexForge",
+    "category": "Analytics",
+    "region_affinity": "REGION-SYDNEY",
+    "sla_tier": "Bronze",
+    "contact": "James Johnson"
+  },
+  {
+    "id": "VEND-41",
+    "name": "ComplianceTrack",
+    "category": "Compliance",
+    "region_affinity": "REGION-TORONTO",
+    "sla_tier": "Gold",
+    "contact": "David Nguyen"
+  },
+  {
+    "id": "VEND-42",
+    "name": "AuditLog",
+    "category": "Compliance",
+    "region_affinity": "REGION-TORONTO",
+    "sla_tier": "Gold",
+    "contact": "Matthew Johnson"
+  },
+  {
+    "id": "VEND-43",
+    "name": "PolicyEngine",
+    "category": "Compliance",
+    "region_affinity": "REGION-FRANKFURT",
+    "sla_tier": "Bronze",
+    "contact": "Steven Wright"
+  },
+  {
+    "id": "VEND-44",
+    "name": "RiskScore",
+    "category": "Compliance",
+    "region_affinity": "REGION-TORONTO",
+    "sla_tier": "Platinum",
+    "contact": "Andrew King"
+  },
+  {
+    "id": "VEND-45",
+    "name": "FraudGuard",
+    "category": "Compliance",
+    "region_affinity": "REGION-SINGAPORE",
+    "sla_tier": "Gold",
+    "contact": "John Perez"
+  },
+  {
+    "id": "VEND-46",
+    "name": "IdentityBroker",
+    "category": "Compliance",
+    "region_affinity": "REGION-SYDNEY",
+    "sla_tier": "Bronze",
+    "contact": "Kenneth Williams"
+  },
+  {
+    "id": "VEND-47",
+    "name": "SessionVault",
+    "category": "Compliance",
+    "region_affinity": "REGION-MUMBAI",
+    "sla_tier": "Bronze",
+    "contact": "Steven Harris"
+  },
+  {
+    "id": "VEND-48",
+    "name": "TokenForge",
+    "category": "Compliance",
+    "region_affinity": "REGION-SYDNEY",
+    "sla_tier": "Platinum",
+    "contact": "Amanda Torres"
+  },
+  {
+    "id": "VEND-49",
+    "name": "OAuthBridge",
+    "category": "Compliance",
+    "region_affinity": "REGION-MUMBAI",
+    "sla_tier": "Silver",
+    "contact": "Andrew White"
+  },
+  {
+    "id": "VEND-50",
+    "name": "SSOProvider",
+    "category": "Compliance",
+    "region_affinity": "REGION-VIRGINIA",
+    "sla_tier": "Gold",
+    "contact": "John Lewis"
+  }
+]

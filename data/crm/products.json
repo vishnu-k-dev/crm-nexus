@@ -1,206 +1,1802 @@
 [
   {
-    "id": "prod_1",
-    "name": "CRM Pro",
-    "category": "Software",
-    "basePrice": 299,
-    "description": "Full-featured CRM platform for mid-market teams. Includes pipeline management, contact tracking, email automation, and 50+ integrations. Supports up to 100 users per workspace.",
-    "features": [
-      "Pipeline management",
-      "Email automation",
-      "Contact scoring",
-      "Workflow builder",
-      "API access",
-      "Custom dashboards",
-      "Mobile app",
-      "Salesforce sync"
-    ],
-    "pricing_model": "Per Seat/Month",
-    "annual_revenue_usd": 2244870,
-    "active_customers": 1389,
-    "nps": 32,
-    "competitors": [
-      "Airtable",
-      "Pipedrive",
-      "Freshdesk"
-    ],
-    "roadmap_q4": "Deliver redesigned reporting."
+    "id": "PROD-001",
+    "name": "CRM Pro v1",
+    "category": "SaaS",
+    "vendor_id": "VEND-01",
+    "region_id": "REGION-FRANKFURT",
+    "price_monthly": 696,
+    "sla_uptime": "99.95%"
   },
   {
-    "id": "prod_2",
-    "name": "CRM Enterprise",
-    "category": "Software",
-    "basePrice": 899,
-    "description": "Enterprise-grade CRM with advanced analytics, AI-powered lead scoring, unlimited users, dedicated support, SSO, and custom SLA agreements. Includes quarterly business reviews.",
-    "features": [
-      "Unlimited users",
-      "AI lead scoring",
-      "Custom SLA",
-      "SSO/SAML",
-      "Dedicated CSM",
-      "Advanced analytics",
-      "Custom integrations",
-      "On-premise option"
-    ],
-    "pricing_model": "Annual Contract",
-    "annual_revenue_usd": 17867413,
-    "active_customers": 1627,
-    "nps": 45,
-    "competitors": [
-      "Pipedrive",
-      "Airtable",
-      "Zendesk"
-    ],
-    "roadmap_q4": "Launch AI-powered notification system."
+    "id": "PROD-002",
+    "name": "CRM Enterprise v1",
+    "category": "PaaS",
+    "vendor_id": "VEND-02",
+    "region_id": "REGION-LONDON",
+    "price_monthly": 224,
+    "sla_uptime": "99.95%"
   },
   {
-    "id": "prod_3",
-    "name": "Analytics Suite",
+    "id": "PROD-003",
+    "name": "Analytics Suite v1",
+    "category": "Security",
+    "vendor_id": "VEND-03",
+    "region_id": "REGION-PARIS",
+    "price_monthly": 3639,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-004",
+    "name": "Support Desk v1",
     "category": "Analytics",
-    "basePrice": 499,
-    "description": "Real-time business intelligence platform with drag-and-drop dashboards, predictive analytics, and automated reporting. Connects to 100+ data sources.",
-    "features": [
-      "Real-time dashboards",
-      "Predictive models",
-      "Automated reports",
-      "100+ connectors",
-      "Data warehouse sync",
-      "Collaboration tools"
-    ],
-    "pricing_model": "Per Seat/Month",
-    "annual_revenue_usd": 7873188,
-    "active_customers": 1951,
-    "nps": 63,
-    "competitors": [
-      "Intercom",
-      "Marketo",
-      "Monday.com"
-    ],
-    "roadmap_q4": "Ship native API v2."
+    "vendor_id": "VEND-04",
+    "region_id": "REGION-AMSTERDAM",
+    "price_monthly": 3419,
+    "sla_uptime": "99.95%"
   },
   {
-    "id": "prod_4",
-    "name": "Support Desk",
-    "category": "Support",
-    "basePrice": 149,
-    "description": "Omnichannel customer support platform with ticketing, live chat, knowledge base, and SLA management. AI-assisted response suggestions reduce handle time by 40%.",
-    "features": [
-      "Omnichannel inbox",
-      "AI suggestions",
-      "SLA management",
-      "Knowledge base",
-      "CSAT surveys",
-      "Ticket automation"
-    ],
-    "pricing_model": "Usage Based",
-    "annual_revenue_usd": 3907796,
-    "active_customers": 1242,
-    "nps": 57,
-    "competitors": [
-      "Airtable",
-      "Marketo",
-      "HubSpot"
-    ],
-    "roadmap_q4": "Launch AI-powered notification system."
+    "id": "PROD-005",
+    "name": "Marketing Hub v1",
+    "category": "Integration",
+    "vendor_id": "VEND-05",
+    "region_id": "REGION-STOCKHOLM",
+    "price_monthly": 644,
+    "sla_uptime": "99.99%"
   },
   {
-    "id": "prod_5",
-    "name": "Marketing Hub",
-    "category": "Marketing",
-    "basePrice": 349,
-    "description": "All-in-one marketing automation platform with email campaigns, landing pages, A/B testing, lead nurturing workflows, and attribution reporting.",
-    "features": [
-      "Email campaigns",
-      "Landing pages",
-      "A/B testing",
-      "Lead nurturing",
-      "Attribution reporting",
-      "Social scheduling"
-    ],
-    "pricing_model": "Per Seat/Month",
-    "annual_revenue_usd": 2028946,
-    "active_customers": 1931,
-    "nps": 39,
-    "competitors": [
-      "Marketo",
-      "Airtable",
-      "Salesforce"
-    ],
-    "roadmap_q4": "Release redesigned bulk operations."
+    "id": "PROD-006",
+    "name": "Sales Intelligence v1",
+    "category": "Compliance",
+    "vendor_id": "VEND-06",
+    "region_id": "REGION-VIRGINIA",
+    "price_monthly": 577,
+    "sla_uptime": "99.99%"
   },
   {
-    "id": "prod_6",
-    "name": "Sales Intelligence",
-    "category": "Data",
-    "basePrice": 199,
-    "description": "B2B data enrichment and intent data platform. Auto-enrich leads with company firmographics, technographics, and buying intent signals. Updated daily.",
-    "features": [
-      "Auto-enrichment",
-      "Intent signals",
-      "Firmographics",
-      "Technographics",
-      "CSV import",
-      "CRM sync"
-    ],
-    "pricing_model": "Flat Rate/Month",
-    "annual_revenue_usd": 3081456,
-    "active_customers": 659,
-    "nps": 54,
-    "competitors": [
-      "Notion",
-      "Airtable",
-      "HubSpot"
-    ],
-    "roadmap_q4": "Deliver AI-powered API v2."
+    "id": "PROD-007",
+    "name": "Field Service v1",
+    "category": "SaaS",
+    "vendor_id": "VEND-07",
+    "region_id": "REGION-OHIO",
+    "price_monthly": 1638,
+    "sla_uptime": "99.5%"
   },
   {
-    "id": "prod_7",
-    "name": "Field Service",
-    "category": "Operations",
-    "basePrice": 249,
-    "description": "Mobile-first field service management software for scheduling, dispatching, and tracking field technicians. GPS tracking, digital work orders, and inventory management.",
-    "features": [
-      "Mobile app",
-      "GPS tracking",
-      "Digital work orders",
-      "Scheduling",
-      "Inventory",
-      "Customer portal"
-    ],
-    "pricing_model": "Usage Based",
-    "annual_revenue_usd": 15072254,
-    "active_customers": 1019,
-    "nps": 66,
-    "competitors": [
-      "Salesforce",
-      "Pipedrive",
-      "Freshdesk"
-    ],
-    "roadmap_q4": "Deliver redesigned notification system."
+    "id": "PROD-008",
+    "name": "Revenue Intelligence v1",
+    "category": "PaaS",
+    "vendor_id": "VEND-08",
+    "region_id": "REGION-OREGON",
+    "price_monthly": 3597,
+    "sla_uptime": "99.9%"
   },
   {
-    "id": "prod_8",
-    "name": "Revenue Intelligence",
+    "id": "PROD-009",
+    "name": "Identity Platform v1",
+    "category": "Security",
+    "vendor_id": "VEND-09",
+    "region_id": "REGION-CALIFORNIA",
+    "price_monthly": 251,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-010",
+    "name": "Compliance Manager v1",
     "category": "Analytics",
-    "basePrice": 599,
-    "description": "AI-powered revenue forecasting and deal intelligence platform. Analyzes call recordings, emails, and CRM data to identify at-risk deals and coaching opportunities.",
-    "features": [
-      "AI forecasting",
-      "Deal health scores",
-      "Call analysis",
-      "Email tracking",
-      "Coaching insights",
-      "Pipeline alerts"
-    ],
-    "pricing_model": "Flat Rate/Month",
-    "annual_revenue_usd": 17545375,
-    "active_customers": 454,
-    "nps": 44,
-    "competitors": [
-      "Salesforce",
-      "Zendesk",
-      "Freshdesk"
-    ],
-    "roadmap_q4": "Launch AI-powered API v2."
+    "vendor_id": "VEND-10",
+    "region_id": "REGION-TORONTO",
+    "price_monthly": 1639,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-011",
+    "name": "API Gateway v1",
+    "category": "Integration",
+    "vendor_id": "VEND-11",
+    "region_id": "REGION-SINGAPORE",
+    "price_monthly": 2596,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-012",
+    "name": "Data Bridge v1",
+    "category": "Compliance",
+    "vendor_id": "VEND-12",
+    "region_id": "REGION-SYDNEY",
+    "price_monthly": 484,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-013",
+    "name": "Workflow Engine v1",
+    "category": "SaaS",
+    "vendor_id": "VEND-13",
+    "region_id": "REGION-TOKYO",
+    "price_monthly": 855,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-014",
+    "name": "Integration Hub v1",
+    "category": "PaaS",
+    "vendor_id": "VEND-14",
+    "region_id": "REGION-MUMBAI",
+    "price_monthly": 2480,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-015",
+    "name": "Security Suite v1",
+    "category": "Security",
+    "vendor_id": "VEND-15",
+    "region_id": "REGION-SEOUL",
+    "price_monthly": 477,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-016",
+    "name": "CRM Pro v2",
+    "category": "Analytics",
+    "vendor_id": "VEND-16",
+    "region_id": "REGION-SAO-PAULO",
+    "price_monthly": 281,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-017",
+    "name": "CRM Enterprise v2",
+    "category": "Integration",
+    "vendor_id": "VEND-17",
+    "region_id": "REGION-DUBAI",
+    "price_monthly": 2097,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-018",
+    "name": "Analytics Suite v2",
+    "category": "Compliance",
+    "vendor_id": "VEND-18",
+    "region_id": "REGION-CAPE-TOWN",
+    "price_monthly": 545,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-019",
+    "name": "Support Desk v2",
+    "category": "SaaS",
+    "vendor_id": "VEND-19",
+    "region_id": "REGION-CHICAGO",
+    "price_monthly": 3134,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-020",
+    "name": "Marketing Hub v2",
+    "category": "PaaS",
+    "vendor_id": "VEND-20",
+    "region_id": "REGION-DALLAS",
+    "price_monthly": 3224,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-021",
+    "name": "Sales Intelligence v2",
+    "category": "Security",
+    "vendor_id": "VEND-21",
+    "region_id": "REGION-FRANKFURT",
+    "price_monthly": 2760,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-022",
+    "name": "Field Service v2",
+    "category": "Analytics",
+    "vendor_id": "VEND-22",
+    "region_id": "REGION-LONDON",
+    "price_monthly": 1286,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-023",
+    "name": "Revenue Intelligence v2",
+    "category": "Integration",
+    "vendor_id": "VEND-23",
+    "region_id": "REGION-PARIS",
+    "price_monthly": 3707,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-024",
+    "name": "Identity Platform v2",
+    "category": "Compliance",
+    "vendor_id": "VEND-24",
+    "region_id": "REGION-AMSTERDAM",
+    "price_monthly": 169,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-025",
+    "name": "Compliance Manager v2",
+    "category": "SaaS",
+    "vendor_id": "VEND-25",
+    "region_id": "REGION-STOCKHOLM",
+    "price_monthly": 3288,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-026",
+    "name": "API Gateway v2",
+    "category": "PaaS",
+    "vendor_id": "VEND-26",
+    "region_id": "REGION-VIRGINIA",
+    "price_monthly": 3735,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-027",
+    "name": "Data Bridge v2",
+    "category": "Security",
+    "vendor_id": "VEND-27",
+    "region_id": "REGION-OHIO",
+    "price_monthly": 2646,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-028",
+    "name": "Workflow Engine v2",
+    "category": "Analytics",
+    "vendor_id": "VEND-28",
+    "region_id": "REGION-OREGON",
+    "price_monthly": 4985,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-029",
+    "name": "Integration Hub v2",
+    "category": "Integration",
+    "vendor_id": "VEND-29",
+    "region_id": "REGION-CALIFORNIA",
+    "price_monthly": 4727,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-030",
+    "name": "Security Suite v2",
+    "category": "Compliance",
+    "vendor_id": "VEND-30",
+    "region_id": "REGION-TORONTO",
+    "price_monthly": 3021,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-031",
+    "name": "CRM Pro v3",
+    "category": "SaaS",
+    "vendor_id": "VEND-31",
+    "region_id": "REGION-SINGAPORE",
+    "price_monthly": 206,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-032",
+    "name": "CRM Enterprise v3",
+    "category": "PaaS",
+    "vendor_id": "VEND-32",
+    "region_id": "REGION-SYDNEY",
+    "price_monthly": 1905,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-033",
+    "name": "Analytics Suite v3",
+    "category": "Security",
+    "vendor_id": "VEND-33",
+    "region_id": "REGION-TOKYO",
+    "price_monthly": 554,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-034",
+    "name": "Support Desk v3",
+    "category": "Analytics",
+    "vendor_id": "VEND-34",
+    "region_id": "REGION-MUMBAI",
+    "price_monthly": 3850,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-035",
+    "name": "Marketing Hub v3",
+    "category": "Integration",
+    "vendor_id": "VEND-35",
+    "region_id": "REGION-SEOUL",
+    "price_monthly": 138,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-036",
+    "name": "Sales Intelligence v3",
+    "category": "Compliance",
+    "vendor_id": "VEND-36",
+    "region_id": "REGION-SAO-PAULO",
+    "price_monthly": 3732,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-037",
+    "name": "Field Service v3",
+    "category": "SaaS",
+    "vendor_id": "VEND-37",
+    "region_id": "REGION-DUBAI",
+    "price_monthly": 1482,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-038",
+    "name": "Revenue Intelligence v3",
+    "category": "PaaS",
+    "vendor_id": "VEND-38",
+    "region_id": "REGION-CAPE-TOWN",
+    "price_monthly": 3516,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-039",
+    "name": "Identity Platform v3",
+    "category": "Security",
+    "vendor_id": "VEND-39",
+    "region_id": "REGION-CHICAGO",
+    "price_monthly": 264,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-040",
+    "name": "Compliance Manager v3",
+    "category": "Analytics",
+    "vendor_id": "VEND-40",
+    "region_id": "REGION-DALLAS",
+    "price_monthly": 624,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-041",
+    "name": "API Gateway v3",
+    "category": "Integration",
+    "vendor_id": "VEND-41",
+    "region_id": "REGION-FRANKFURT",
+    "price_monthly": 681,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-042",
+    "name": "Data Bridge v3",
+    "category": "Compliance",
+    "vendor_id": "VEND-42",
+    "region_id": "REGION-LONDON",
+    "price_monthly": 506,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-043",
+    "name": "Workflow Engine v3",
+    "category": "SaaS",
+    "vendor_id": "VEND-43",
+    "region_id": "REGION-PARIS",
+    "price_monthly": 1817,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-044",
+    "name": "Integration Hub v3",
+    "category": "PaaS",
+    "vendor_id": "VEND-44",
+    "region_id": "REGION-AMSTERDAM",
+    "price_monthly": 1334,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-045",
+    "name": "Security Suite v3",
+    "category": "Security",
+    "vendor_id": "VEND-45",
+    "region_id": "REGION-STOCKHOLM",
+    "price_monthly": 3423,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-046",
+    "name": "CRM Pro v4",
+    "category": "Analytics",
+    "vendor_id": "VEND-46",
+    "region_id": "REGION-VIRGINIA",
+    "price_monthly": 2502,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-047",
+    "name": "CRM Enterprise v4",
+    "category": "Integration",
+    "vendor_id": "VEND-47",
+    "region_id": "REGION-OHIO",
+    "price_monthly": 3229,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-048",
+    "name": "Analytics Suite v4",
+    "category": "Compliance",
+    "vendor_id": "VEND-48",
+    "region_id": "REGION-OREGON",
+    "price_monthly": 1859,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-049",
+    "name": "Support Desk v4",
+    "category": "SaaS",
+    "vendor_id": "VEND-49",
+    "region_id": "REGION-CALIFORNIA",
+    "price_monthly": 4500,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-050",
+    "name": "Marketing Hub v4",
+    "category": "PaaS",
+    "vendor_id": "VEND-50",
+    "region_id": "REGION-TORONTO",
+    "price_monthly": 1894,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-051",
+    "name": "Sales Intelligence v4",
+    "category": "Security",
+    "vendor_id": "VEND-01",
+    "region_id": "REGION-SINGAPORE",
+    "price_monthly": 3374,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-052",
+    "name": "Field Service v4",
+    "category": "Analytics",
+    "vendor_id": "VEND-02",
+    "region_id": "REGION-SYDNEY",
+    "price_monthly": 1409,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-053",
+    "name": "Revenue Intelligence v4",
+    "category": "Integration",
+    "vendor_id": "VEND-03",
+    "region_id": "REGION-TOKYO",
+    "price_monthly": 511,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-054",
+    "name": "Identity Platform v4",
+    "category": "Compliance",
+    "vendor_id": "VEND-04",
+    "region_id": "REGION-MUMBAI",
+    "price_monthly": 2110,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-055",
+    "name": "Compliance Manager v4",
+    "category": "SaaS",
+    "vendor_id": "VEND-05",
+    "region_id": "REGION-SEOUL",
+    "price_monthly": 4805,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-056",
+    "name": "API Gateway v4",
+    "category": "PaaS",
+    "vendor_id": "VEND-06",
+    "region_id": "REGION-SAO-PAULO",
+    "price_monthly": 1846,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-057",
+    "name": "Data Bridge v4",
+    "category": "Security",
+    "vendor_id": "VEND-07",
+    "region_id": "REGION-DUBAI",
+    "price_monthly": 4540,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-058",
+    "name": "Workflow Engine v4",
+    "category": "Analytics",
+    "vendor_id": "VEND-08",
+    "region_id": "REGION-CAPE-TOWN",
+    "price_monthly": 3080,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-059",
+    "name": "Integration Hub v4",
+    "category": "Integration",
+    "vendor_id": "VEND-09",
+    "region_id": "REGION-CHICAGO",
+    "price_monthly": 641,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-060",
+    "name": "Security Suite v4",
+    "category": "Compliance",
+    "vendor_id": "VEND-10",
+    "region_id": "REGION-DALLAS",
+    "price_monthly": 1589,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-061",
+    "name": "CRM Pro v5",
+    "category": "SaaS",
+    "vendor_id": "VEND-11",
+    "region_id": "REGION-FRANKFURT",
+    "price_monthly": 317,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-062",
+    "name": "CRM Enterprise v5",
+    "category": "PaaS",
+    "vendor_id": "VEND-12",
+    "region_id": "REGION-LONDON",
+    "price_monthly": 856,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-063",
+    "name": "Analytics Suite v5",
+    "category": "Security",
+    "vendor_id": "VEND-13",
+    "region_id": "REGION-PARIS",
+    "price_monthly": 243,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-064",
+    "name": "Support Desk v5",
+    "category": "Analytics",
+    "vendor_id": "VEND-14",
+    "region_id": "REGION-AMSTERDAM",
+    "price_monthly": 4827,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-065",
+    "name": "Marketing Hub v5",
+    "category": "Integration",
+    "vendor_id": "VEND-15",
+    "region_id": "REGION-STOCKHOLM",
+    "price_monthly": 3207,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-066",
+    "name": "Sales Intelligence v5",
+    "category": "Compliance",
+    "vendor_id": "VEND-16",
+    "region_id": "REGION-VIRGINIA",
+    "price_monthly": 1335,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-067",
+    "name": "Field Service v5",
+    "category": "SaaS",
+    "vendor_id": "VEND-17",
+    "region_id": "REGION-OHIO",
+    "price_monthly": 140,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-068",
+    "name": "Revenue Intelligence v5",
+    "category": "PaaS",
+    "vendor_id": "VEND-18",
+    "region_id": "REGION-OREGON",
+    "price_monthly": 4329,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-069",
+    "name": "Identity Platform v5",
+    "category": "Security",
+    "vendor_id": "VEND-19",
+    "region_id": "REGION-CALIFORNIA",
+    "price_monthly": 394,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-070",
+    "name": "Compliance Manager v5",
+    "category": "Analytics",
+    "vendor_id": "VEND-20",
+    "region_id": "REGION-TORONTO",
+    "price_monthly": 1253,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-071",
+    "name": "API Gateway v5",
+    "category": "Integration",
+    "vendor_id": "VEND-21",
+    "region_id": "REGION-SINGAPORE",
+    "price_monthly": 4563,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-072",
+    "name": "Data Bridge v5",
+    "category": "Compliance",
+    "vendor_id": "VEND-22",
+    "region_id": "REGION-SYDNEY",
+    "price_monthly": 4705,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-073",
+    "name": "Workflow Engine v5",
+    "category": "SaaS",
+    "vendor_id": "VEND-23",
+    "region_id": "REGION-TOKYO",
+    "price_monthly": 389,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-074",
+    "name": "Integration Hub v5",
+    "category": "PaaS",
+    "vendor_id": "VEND-24",
+    "region_id": "REGION-MUMBAI",
+    "price_monthly": 4675,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-075",
+    "name": "Security Suite v5",
+    "category": "Security",
+    "vendor_id": "VEND-25",
+    "region_id": "REGION-SEOUL",
+    "price_monthly": 2600,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-076",
+    "name": "CRM Pro v6",
+    "category": "Analytics",
+    "vendor_id": "VEND-26",
+    "region_id": "REGION-SAO-PAULO",
+    "price_monthly": 2916,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-077",
+    "name": "CRM Enterprise v6",
+    "category": "Integration",
+    "vendor_id": "VEND-27",
+    "region_id": "REGION-DUBAI",
+    "price_monthly": 1131,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-078",
+    "name": "Analytics Suite v6",
+    "category": "Compliance",
+    "vendor_id": "VEND-28",
+    "region_id": "REGION-CAPE-TOWN",
+    "price_monthly": 1538,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-079",
+    "name": "Support Desk v6",
+    "category": "SaaS",
+    "vendor_id": "VEND-29",
+    "region_id": "REGION-CHICAGO",
+    "price_monthly": 4153,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-080",
+    "name": "Marketing Hub v6",
+    "category": "PaaS",
+    "vendor_id": "VEND-30",
+    "region_id": "REGION-DALLAS",
+    "price_monthly": 4615,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-081",
+    "name": "Sales Intelligence v6",
+    "category": "Security",
+    "vendor_id": "VEND-31",
+    "region_id": "REGION-FRANKFURT",
+    "price_monthly": 4609,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-082",
+    "name": "Field Service v6",
+    "category": "Analytics",
+    "vendor_id": "VEND-32",
+    "region_id": "REGION-LONDON",
+    "price_monthly": 1652,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-083",
+    "name": "Revenue Intelligence v6",
+    "category": "Integration",
+    "vendor_id": "VEND-33",
+    "region_id": "REGION-PARIS",
+    "price_monthly": 4524,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-084",
+    "name": "Identity Platform v6",
+    "category": "Compliance",
+    "vendor_id": "VEND-34",
+    "region_id": "REGION-AMSTERDAM",
+    "price_monthly": 3719,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-085",
+    "name": "Compliance Manager v6",
+    "category": "SaaS",
+    "vendor_id": "VEND-35",
+    "region_id": "REGION-STOCKHOLM",
+    "price_monthly": 257,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-086",
+    "name": "API Gateway v6",
+    "category": "PaaS",
+    "vendor_id": "VEND-36",
+    "region_id": "REGION-VIRGINIA",
+    "price_monthly": 3951,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-087",
+    "name": "Data Bridge v6",
+    "category": "Security",
+    "vendor_id": "VEND-37",
+    "region_id": "REGION-OHIO",
+    "price_monthly": 3606,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-088",
+    "name": "Workflow Engine v6",
+    "category": "Analytics",
+    "vendor_id": "VEND-38",
+    "region_id": "REGION-OREGON",
+    "price_monthly": 707,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-089",
+    "name": "Integration Hub v6",
+    "category": "Integration",
+    "vendor_id": "VEND-39",
+    "region_id": "REGION-CALIFORNIA",
+    "price_monthly": 1232,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-090",
+    "name": "Security Suite v6",
+    "category": "Compliance",
+    "vendor_id": "VEND-40",
+    "region_id": "REGION-TORONTO",
+    "price_monthly": 2842,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-091",
+    "name": "CRM Pro v7",
+    "category": "SaaS",
+    "vendor_id": "VEND-41",
+    "region_id": "REGION-SINGAPORE",
+    "price_monthly": 379,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-092",
+    "name": "CRM Enterprise v7",
+    "category": "PaaS",
+    "vendor_id": "VEND-42",
+    "region_id": "REGION-SYDNEY",
+    "price_monthly": 3714,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-093",
+    "name": "Analytics Suite v7",
+    "category": "Security",
+    "vendor_id": "VEND-43",
+    "region_id": "REGION-TOKYO",
+    "price_monthly": 4750,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-094",
+    "name": "Support Desk v7",
+    "category": "Analytics",
+    "vendor_id": "VEND-44",
+    "region_id": "REGION-MUMBAI",
+    "price_monthly": 1721,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-095",
+    "name": "Marketing Hub v7",
+    "category": "Integration",
+    "vendor_id": "VEND-45",
+    "region_id": "REGION-SEOUL",
+    "price_monthly": 1060,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-096",
+    "name": "Sales Intelligence v7",
+    "category": "Compliance",
+    "vendor_id": "VEND-46",
+    "region_id": "REGION-SAO-PAULO",
+    "price_monthly": 3763,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-097",
+    "name": "Field Service v7",
+    "category": "SaaS",
+    "vendor_id": "VEND-47",
+    "region_id": "REGION-DUBAI",
+    "price_monthly": 3910,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-098",
+    "name": "Revenue Intelligence v7",
+    "category": "PaaS",
+    "vendor_id": "VEND-48",
+    "region_id": "REGION-CAPE-TOWN",
+    "price_monthly": 1880,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-099",
+    "name": "Identity Platform v7",
+    "category": "Security",
+    "vendor_id": "VEND-49",
+    "region_id": "REGION-CHICAGO",
+    "price_monthly": 1205,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-100",
+    "name": "Compliance Manager v7",
+    "category": "Analytics",
+    "vendor_id": "VEND-50",
+    "region_id": "REGION-DALLAS",
+    "price_monthly": 4050,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-101",
+    "name": "API Gateway v7",
+    "category": "Integration",
+    "vendor_id": "VEND-01",
+    "region_id": "REGION-FRANKFURT",
+    "price_monthly": 1841,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-102",
+    "name": "Data Bridge v7",
+    "category": "Compliance",
+    "vendor_id": "VEND-02",
+    "region_id": "REGION-LONDON",
+    "price_monthly": 4693,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-103",
+    "name": "Workflow Engine v7",
+    "category": "SaaS",
+    "vendor_id": "VEND-03",
+    "region_id": "REGION-PARIS",
+    "price_monthly": 149,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-104",
+    "name": "Integration Hub v7",
+    "category": "PaaS",
+    "vendor_id": "VEND-04",
+    "region_id": "REGION-AMSTERDAM",
+    "price_monthly": 4488,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-105",
+    "name": "Security Suite v7",
+    "category": "Security",
+    "vendor_id": "VEND-05",
+    "region_id": "REGION-STOCKHOLM",
+    "price_monthly": 371,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-106",
+    "name": "CRM Pro v8",
+    "category": "Analytics",
+    "vendor_id": "VEND-06",
+    "region_id": "REGION-VIRGINIA",
+    "price_monthly": 3970,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-107",
+    "name": "CRM Enterprise v8",
+    "category": "Integration",
+    "vendor_id": "VEND-07",
+    "region_id": "REGION-OHIO",
+    "price_monthly": 4226,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-108",
+    "name": "Analytics Suite v8",
+    "category": "Compliance",
+    "vendor_id": "VEND-08",
+    "region_id": "REGION-OREGON",
+    "price_monthly": 3309,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-109",
+    "name": "Support Desk v8",
+    "category": "SaaS",
+    "vendor_id": "VEND-09",
+    "region_id": "REGION-CALIFORNIA",
+    "price_monthly": 2939,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-110",
+    "name": "Marketing Hub v8",
+    "category": "PaaS",
+    "vendor_id": "VEND-10",
+    "region_id": "REGION-TORONTO",
+    "price_monthly": 2104,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-111",
+    "name": "Sales Intelligence v8",
+    "category": "Security",
+    "vendor_id": "VEND-11",
+    "region_id": "REGION-SINGAPORE",
+    "price_monthly": 922,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-112",
+    "name": "Field Service v8",
+    "category": "Analytics",
+    "vendor_id": "VEND-12",
+    "region_id": "REGION-SYDNEY",
+    "price_monthly": 3735,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-113",
+    "name": "Revenue Intelligence v8",
+    "category": "Integration",
+    "vendor_id": "VEND-13",
+    "region_id": "REGION-TOKYO",
+    "price_monthly": 916,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-114",
+    "name": "Identity Platform v8",
+    "category": "Compliance",
+    "vendor_id": "VEND-14",
+    "region_id": "REGION-MUMBAI",
+    "price_monthly": 4068,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-115",
+    "name": "Compliance Manager v8",
+    "category": "SaaS",
+    "vendor_id": "VEND-15",
+    "region_id": "REGION-SEOUL",
+    "price_monthly": 2918,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-116",
+    "name": "API Gateway v8",
+    "category": "PaaS",
+    "vendor_id": "VEND-16",
+    "region_id": "REGION-SAO-PAULO",
+    "price_monthly": 4039,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-117",
+    "name": "Data Bridge v8",
+    "category": "Security",
+    "vendor_id": "VEND-17",
+    "region_id": "REGION-DUBAI",
+    "price_monthly": 3264,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-118",
+    "name": "Workflow Engine v8",
+    "category": "Analytics",
+    "vendor_id": "VEND-18",
+    "region_id": "REGION-CAPE-TOWN",
+    "price_monthly": 3920,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-119",
+    "name": "Integration Hub v8",
+    "category": "Integration",
+    "vendor_id": "VEND-19",
+    "region_id": "REGION-CHICAGO",
+    "price_monthly": 2304,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-120",
+    "name": "Security Suite v8",
+    "category": "Compliance",
+    "vendor_id": "VEND-20",
+    "region_id": "REGION-DALLAS",
+    "price_monthly": 2205,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-121",
+    "name": "CRM Pro v9",
+    "category": "SaaS",
+    "vendor_id": "VEND-21",
+    "region_id": "REGION-FRANKFURT",
+    "price_monthly": 3637,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-122",
+    "name": "CRM Enterprise v9",
+    "category": "PaaS",
+    "vendor_id": "VEND-22",
+    "region_id": "REGION-LONDON",
+    "price_monthly": 456,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-123",
+    "name": "Analytics Suite v9",
+    "category": "Security",
+    "vendor_id": "VEND-23",
+    "region_id": "REGION-PARIS",
+    "price_monthly": 1832,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-124",
+    "name": "Support Desk v9",
+    "category": "Analytics",
+    "vendor_id": "VEND-24",
+    "region_id": "REGION-AMSTERDAM",
+    "price_monthly": 2955,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-125",
+    "name": "Marketing Hub v9",
+    "category": "Integration",
+    "vendor_id": "VEND-25",
+    "region_id": "REGION-STOCKHOLM",
+    "price_monthly": 4099,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-126",
+    "name": "Sales Intelligence v9",
+    "category": "Compliance",
+    "vendor_id": "VEND-26",
+    "region_id": "REGION-VIRGINIA",
+    "price_monthly": 3092,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-127",
+    "name": "Field Service v9",
+    "category": "SaaS",
+    "vendor_id": "VEND-27",
+    "region_id": "REGION-OHIO",
+    "price_monthly": 288,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-128",
+    "name": "Revenue Intelligence v9",
+    "category": "PaaS",
+    "vendor_id": "VEND-28",
+    "region_id": "REGION-OREGON",
+    "price_monthly": 4925,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-129",
+    "name": "Identity Platform v9",
+    "category": "Security",
+    "vendor_id": "VEND-29",
+    "region_id": "REGION-CALIFORNIA",
+    "price_monthly": 480,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-130",
+    "name": "Compliance Manager v9",
+    "category": "Analytics",
+    "vendor_id": "VEND-30",
+    "region_id": "REGION-TORONTO",
+    "price_monthly": 1966,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-131",
+    "name": "API Gateway v9",
+    "category": "Integration",
+    "vendor_id": "VEND-31",
+    "region_id": "REGION-SINGAPORE",
+    "price_monthly": 3975,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-132",
+    "name": "Data Bridge v9",
+    "category": "Compliance",
+    "vendor_id": "VEND-32",
+    "region_id": "REGION-SYDNEY",
+    "price_monthly": 3737,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-133",
+    "name": "Workflow Engine v9",
+    "category": "SaaS",
+    "vendor_id": "VEND-33",
+    "region_id": "REGION-TOKYO",
+    "price_monthly": 3428,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-134",
+    "name": "Integration Hub v9",
+    "category": "PaaS",
+    "vendor_id": "VEND-34",
+    "region_id": "REGION-MUMBAI",
+    "price_monthly": 3260,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-135",
+    "name": "Security Suite v9",
+    "category": "Security",
+    "vendor_id": "VEND-35",
+    "region_id": "REGION-SEOUL",
+    "price_monthly": 4490,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-136",
+    "name": "CRM Pro v10",
+    "category": "Analytics",
+    "vendor_id": "VEND-36",
+    "region_id": "REGION-SAO-PAULO",
+    "price_monthly": 4965,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-137",
+    "name": "CRM Enterprise v10",
+    "category": "Integration",
+    "vendor_id": "VEND-37",
+    "region_id": "REGION-DUBAI",
+    "price_monthly": 2898,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-138",
+    "name": "Analytics Suite v10",
+    "category": "Compliance",
+    "vendor_id": "VEND-38",
+    "region_id": "REGION-CAPE-TOWN",
+    "price_monthly": 470,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-139",
+    "name": "Support Desk v10",
+    "category": "SaaS",
+    "vendor_id": "VEND-39",
+    "region_id": "REGION-CHICAGO",
+    "price_monthly": 1474,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-140",
+    "name": "Marketing Hub v10",
+    "category": "PaaS",
+    "vendor_id": "VEND-40",
+    "region_id": "REGION-DALLAS",
+    "price_monthly": 2464,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-141",
+    "name": "Sales Intelligence v10",
+    "category": "Security",
+    "vendor_id": "VEND-41",
+    "region_id": "REGION-FRANKFURT",
+    "price_monthly": 1861,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-142",
+    "name": "Field Service v10",
+    "category": "Analytics",
+    "vendor_id": "VEND-42",
+    "region_id": "REGION-LONDON",
+    "price_monthly": 4269,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-143",
+    "name": "Revenue Intelligence v10",
+    "category": "Integration",
+    "vendor_id": "VEND-43",
+    "region_id": "REGION-PARIS",
+    "price_monthly": 3322,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-144",
+    "name": "Identity Platform v10",
+    "category": "Compliance",
+    "vendor_id": "VEND-44",
+    "region_id": "REGION-AMSTERDAM",
+    "price_monthly": 3343,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-145",
+    "name": "Compliance Manager v10",
+    "category": "SaaS",
+    "vendor_id": "VEND-45",
+    "region_id": "REGION-STOCKHOLM",
+    "price_monthly": 1626,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-146",
+    "name": "API Gateway v10",
+    "category": "PaaS",
+    "vendor_id": "VEND-46",
+    "region_id": "REGION-VIRGINIA",
+    "price_monthly": 1069,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-147",
+    "name": "Data Bridge v10",
+    "category": "Security",
+    "vendor_id": "VEND-47",
+    "region_id": "REGION-OHIO",
+    "price_monthly": 2857,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-148",
+    "name": "Workflow Engine v10",
+    "category": "Analytics",
+    "vendor_id": "VEND-48",
+    "region_id": "REGION-OREGON",
+    "price_monthly": 2260,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-149",
+    "name": "Integration Hub v10",
+    "category": "Integration",
+    "vendor_id": "VEND-49",
+    "region_id": "REGION-CALIFORNIA",
+    "price_monthly": 2630,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-150",
+    "name": "Security Suite v10",
+    "category": "Compliance",
+    "vendor_id": "VEND-50",
+    "region_id": "REGION-TORONTO",
+    "price_monthly": 1173,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-151",
+    "name": "CRM Pro v11",
+    "category": "SaaS",
+    "vendor_id": "VEND-01",
+    "region_id": "REGION-SINGAPORE",
+    "price_monthly": 2197,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-152",
+    "name": "CRM Enterprise v11",
+    "category": "PaaS",
+    "vendor_id": "VEND-02",
+    "region_id": "REGION-SYDNEY",
+    "price_monthly": 3160,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-153",
+    "name": "Analytics Suite v11",
+    "category": "Security",
+    "vendor_id": "VEND-03",
+    "region_id": "REGION-TOKYO",
+    "price_monthly": 4872,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-154",
+    "name": "Support Desk v11",
+    "category": "Analytics",
+    "vendor_id": "VEND-04",
+    "region_id": "REGION-MUMBAI",
+    "price_monthly": 3739,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-155",
+    "name": "Marketing Hub v11",
+    "category": "Integration",
+    "vendor_id": "VEND-05",
+    "region_id": "REGION-SEOUL",
+    "price_monthly": 3920,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-156",
+    "name": "Sales Intelligence v11",
+    "category": "Compliance",
+    "vendor_id": "VEND-06",
+    "region_id": "REGION-SAO-PAULO",
+    "price_monthly": 2692,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-157",
+    "name": "Field Service v11",
+    "category": "SaaS",
+    "vendor_id": "VEND-07",
+    "region_id": "REGION-DUBAI",
+    "price_monthly": 3507,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-158",
+    "name": "Revenue Intelligence v11",
+    "category": "PaaS",
+    "vendor_id": "VEND-08",
+    "region_id": "REGION-CAPE-TOWN",
+    "price_monthly": 4544,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-159",
+    "name": "Identity Platform v11",
+    "category": "Security",
+    "vendor_id": "VEND-09",
+    "region_id": "REGION-CHICAGO",
+    "price_monthly": 3704,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-160",
+    "name": "Compliance Manager v11",
+    "category": "Analytics",
+    "vendor_id": "VEND-10",
+    "region_id": "REGION-DALLAS",
+    "price_monthly": 2824,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-161",
+    "name": "API Gateway v11",
+    "category": "Integration",
+    "vendor_id": "VEND-11",
+    "region_id": "REGION-FRANKFURT",
+    "price_monthly": 482,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-162",
+    "name": "Data Bridge v11",
+    "category": "Compliance",
+    "vendor_id": "VEND-12",
+    "region_id": "REGION-LONDON",
+    "price_monthly": 2063,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-163",
+    "name": "Workflow Engine v11",
+    "category": "SaaS",
+    "vendor_id": "VEND-13",
+    "region_id": "REGION-PARIS",
+    "price_monthly": 4701,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-164",
+    "name": "Integration Hub v11",
+    "category": "PaaS",
+    "vendor_id": "VEND-14",
+    "region_id": "REGION-AMSTERDAM",
+    "price_monthly": 652,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-165",
+    "name": "Security Suite v11",
+    "category": "Security",
+    "vendor_id": "VEND-15",
+    "region_id": "REGION-STOCKHOLM",
+    "price_monthly": 4156,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-166",
+    "name": "CRM Pro v12",
+    "category": "Analytics",
+    "vendor_id": "VEND-16",
+    "region_id": "REGION-VIRGINIA",
+    "price_monthly": 1786,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-167",
+    "name": "CRM Enterprise v12",
+    "category": "Integration",
+    "vendor_id": "VEND-17",
+    "region_id": "REGION-OHIO",
+    "price_monthly": 1899,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-168",
+    "name": "Analytics Suite v12",
+    "category": "Compliance",
+    "vendor_id": "VEND-18",
+    "region_id": "REGION-OREGON",
+    "price_monthly": 2556,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-169",
+    "name": "Support Desk v12",
+    "category": "SaaS",
+    "vendor_id": "VEND-19",
+    "region_id": "REGION-CALIFORNIA",
+    "price_monthly": 1732,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-170",
+    "name": "Marketing Hub v12",
+    "category": "PaaS",
+    "vendor_id": "VEND-20",
+    "region_id": "REGION-TORONTO",
+    "price_monthly": 1495,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-171",
+    "name": "Sales Intelligence v12",
+    "category": "Security",
+    "vendor_id": "VEND-21",
+    "region_id": "REGION-SINGAPORE",
+    "price_monthly": 4927,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-172",
+    "name": "Field Service v12",
+    "category": "Analytics",
+    "vendor_id": "VEND-22",
+    "region_id": "REGION-SYDNEY",
+    "price_monthly": 2780,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-173",
+    "name": "Revenue Intelligence v12",
+    "category": "Integration",
+    "vendor_id": "VEND-23",
+    "region_id": "REGION-TOKYO",
+    "price_monthly": 4687,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-174",
+    "name": "Identity Platform v12",
+    "category": "Compliance",
+    "vendor_id": "VEND-24",
+    "region_id": "REGION-MUMBAI",
+    "price_monthly": 4350,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-175",
+    "name": "Compliance Manager v12",
+    "category": "SaaS",
+    "vendor_id": "VEND-25",
+    "region_id": "REGION-SEOUL",
+    "price_monthly": 2314,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-176",
+    "name": "API Gateway v12",
+    "category": "PaaS",
+    "vendor_id": "VEND-26",
+    "region_id": "REGION-SAO-PAULO",
+    "price_monthly": 3662,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-177",
+    "name": "Data Bridge v12",
+    "category": "Security",
+    "vendor_id": "VEND-27",
+    "region_id": "REGION-DUBAI",
+    "price_monthly": 3400,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-178",
+    "name": "Workflow Engine v12",
+    "category": "Analytics",
+    "vendor_id": "VEND-28",
+    "region_id": "REGION-CAPE-TOWN",
+    "price_monthly": 1084,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-179",
+    "name": "Integration Hub v12",
+    "category": "Integration",
+    "vendor_id": "VEND-29",
+    "region_id": "REGION-CHICAGO",
+    "price_monthly": 1370,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-180",
+    "name": "Security Suite v12",
+    "category": "Compliance",
+    "vendor_id": "VEND-30",
+    "region_id": "REGION-DALLAS",
+    "price_monthly": 3786,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-181",
+    "name": "CRM Pro v13",
+    "category": "SaaS",
+    "vendor_id": "VEND-31",
+    "region_id": "REGION-FRANKFURT",
+    "price_monthly": 2616,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-182",
+    "name": "CRM Enterprise v13",
+    "category": "PaaS",
+    "vendor_id": "VEND-32",
+    "region_id": "REGION-LONDON",
+    "price_monthly": 4296,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-183",
+    "name": "Analytics Suite v13",
+    "category": "Security",
+    "vendor_id": "VEND-33",
+    "region_id": "REGION-PARIS",
+    "price_monthly": 1743,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-184",
+    "name": "Support Desk v13",
+    "category": "Analytics",
+    "vendor_id": "VEND-34",
+    "region_id": "REGION-AMSTERDAM",
+    "price_monthly": 2204,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-185",
+    "name": "Marketing Hub v13",
+    "category": "Integration",
+    "vendor_id": "VEND-35",
+    "region_id": "REGION-STOCKHOLM",
+    "price_monthly": 505,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-186",
+    "name": "Sales Intelligence v13",
+    "category": "Compliance",
+    "vendor_id": "VEND-36",
+    "region_id": "REGION-VIRGINIA",
+    "price_monthly": 4700,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-187",
+    "name": "Field Service v13",
+    "category": "SaaS",
+    "vendor_id": "VEND-37",
+    "region_id": "REGION-OHIO",
+    "price_monthly": 4605,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-188",
+    "name": "Revenue Intelligence v13",
+    "category": "PaaS",
+    "vendor_id": "VEND-38",
+    "region_id": "REGION-OREGON",
+    "price_monthly": 1906,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-189",
+    "name": "Identity Platform v13",
+    "category": "Security",
+    "vendor_id": "VEND-39",
+    "region_id": "REGION-CALIFORNIA",
+    "price_monthly": 2900,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-190",
+    "name": "Compliance Manager v13",
+    "category": "Analytics",
+    "vendor_id": "VEND-40",
+    "region_id": "REGION-TORONTO",
+    "price_monthly": 3557,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-191",
+    "name": "API Gateway v13",
+    "category": "Integration",
+    "vendor_id": "VEND-41",
+    "region_id": "REGION-SINGAPORE",
+    "price_monthly": 2769,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-192",
+    "name": "Data Bridge v13",
+    "category": "Compliance",
+    "vendor_id": "VEND-42",
+    "region_id": "REGION-SYDNEY",
+    "price_monthly": 2022,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-193",
+    "name": "Workflow Engine v13",
+    "category": "SaaS",
+    "vendor_id": "VEND-43",
+    "region_id": "REGION-TOKYO",
+    "price_monthly": 222,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-194",
+    "name": "Integration Hub v13",
+    "category": "PaaS",
+    "vendor_id": "VEND-44",
+    "region_id": "REGION-MUMBAI",
+    "price_monthly": 1650,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-195",
+    "name": "Security Suite v13",
+    "category": "Security",
+    "vendor_id": "VEND-45",
+    "region_id": "REGION-SEOUL",
+    "price_monthly": 4579,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-196",
+    "name": "CRM Pro v14",
+    "category": "Analytics",
+    "vendor_id": "VEND-46",
+    "region_id": "REGION-SAO-PAULO",
+    "price_monthly": 760,
+    "sla_uptime": "99.95%"
+  },
+  {
+    "id": "PROD-197",
+    "name": "CRM Enterprise v14",
+    "category": "Integration",
+    "vendor_id": "VEND-47",
+    "region_id": "REGION-DUBAI",
+    "price_monthly": 1927,
+    "sla_uptime": "99.99%"
+  },
+  {
+    "id": "PROD-198",
+    "name": "Analytics Suite v14",
+    "category": "Compliance",
+    "vendor_id": "VEND-48",
+    "region_id": "REGION-CAPE-TOWN",
+    "price_monthly": 204,
+    "sla_uptime": "99.9%"
+  },
+  {
+    "id": "PROD-199",
+    "name": "Support Desk v14",
+    "category": "SaaS",
+    "vendor_id": "VEND-49",
+    "region_id": "REGION-CHICAGO",
+    "price_monthly": 3945,
+    "sla_uptime": "99.5%"
+  },
+  {
+    "id": "PROD-200",
+    "name": "Marketing Hub v14",
+    "category": "PaaS",
+    "vendor_id": "VEND-50",
+    "region_id": "REGION-DALLAS",
+    "price_monthly": 165,
+    "sla_uptime": "99.99%"
   }
 ]

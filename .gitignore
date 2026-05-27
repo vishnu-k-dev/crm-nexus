@@ -44,3 +44,12 @@ crm_eval_results_v2.json
 crm_eval_results_v3.json
 crm_eval_results_v4.json
 crm_eval_results_v5.json
+
+# Activity log filler data (regeneratable — too large for git)
+data/activity_ingest.jsonl
+data/activity_ingest_v2.jsonl
+data/crm_ingest_subset.jsonl
+
+# Backup & session artifacts
+data/*.BACKUP.json
+SESSION_CONTEXT.md

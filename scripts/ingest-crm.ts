@@ -79,7 +79,7 @@ function buildJsonl(): string[] {
   console.log('\n[1/4] Reading CRM chunks and building ingest JSONL…');
 
   if (!existsSync(CHUNKS_PATH)) {
-    throw new Error(`CRM chunks not found at ${CHUNKS_PATH}. Run: npx tsx scripts/generate-crm.ts`);
+    throw new Error(`CRM chunks not found at ${CHUNKS_PATH}. Run: npx tsx scripts/generate-graph-crm.ts`);
   }
 
   const rawLines = readFileSync(CHUNKS_PATH, 'utf8').trim().split('\n');
@@ -149,7 +149,7 @@ function runLoadingJob(): void {
 
 async function forceUpdate(docIds: string[]): Promise<void> {
   console.log(`\n[4/4] Triggering TigerGraph ECC to chunk + embed ${docIds.length} documents…`);
-  console.log('      (This runs async inside TigerGraph — takes 30-90 min for the 19M-token corpus)');
+  console.log('      (This runs async inside TigerGraph — takes 60-120 min for the 123M-token corpus)');
 
   // TigerGraph 4.2 GraphRAG starter kit: forceupdate is a GET endpoint that
   // scans for any Document with epoch_processed=0 and submits them all.

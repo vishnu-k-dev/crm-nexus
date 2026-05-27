@@ -1,0 +1,1456 @@
+[
+  {
+    "id": "OUTAGE-001",
+    "vendor_id": "VEND-01",
+    "region_id": "REGION-FRANKFURT",
+    "severity": "P3",
+    "duration_hrs": 32,
+    "date": "2025-05-17",
+    "affected_systems": [
+      "load balancer",
+      "database cluster",
+      "file storage",
+      "billing"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-002",
+    "vendor_id": "VEND-02",
+    "region_id": "REGION-LONDON",
+    "severity": "P0",
+    "duration_hrs": 63,
+    "date": "2023-05-13",
+    "affected_systems": [
+      "API gateway",
+      "email relay",
+      "data sync",
+      "load balancer",
+      "database cluster"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-003",
+    "vendor_id": "VEND-03",
+    "region_id": "REGION-PARIS",
+    "severity": "P1",
+    "duration_hrs": 19,
+    "date": "2023-03-18",
+    "affected_systems": [
+      "SSO",
+      "authentication"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-004",
+    "vendor_id": "VEND-04",
+    "region_id": "REGION-AMSTERDAM",
+    "severity": "P2",
+    "duration_hrs": 33,
+    "date": "2024-03-11",
+    "affected_systems": [
+      "SSO",
+      "data sync"
+    ],
+    "root_cause": "kernel panic on primary node"
+  },
+  {
+    "id": "OUTAGE-005",
+    "vendor_id": "VEND-05",
+    "region_id": "REGION-STOCKHOLM",
+    "severity": "P1",
+    "duration_hrs": 27,
+    "date": "2024-08-05",
+    "affected_systems": [
+      "data sync",
+      "reporting",
+      "billing"
+    ],
+    "root_cause": "database deadlock under peak load"
+  },
+  {
+    "id": "OUTAGE-006",
+    "vendor_id": "VEND-06",
+    "region_id": "REGION-VIRGINIA",
+    "severity": "P1",
+    "duration_hrs": 35,
+    "date": "2024-05-22",
+    "affected_systems": [
+      "file storage",
+      "reporting"
+    ],
+    "root_cause": "certificate expiry on load balancer"
+  },
+  {
+    "id": "OUTAGE-007",
+    "vendor_id": "VEND-07",
+    "region_id": "REGION-OHIO",
+    "severity": "P0",
+    "duration_hrs": 49,
+    "date": "2025-01-20",
+    "affected_systems": [
+      "authentication",
+      "SSO",
+      "email relay"
+    ],
+    "root_cause": "network partition between availability zones"
+  },
+  {
+    "id": "OUTAGE-008",
+    "vendor_id": "VEND-08",
+    "region_id": "REGION-OREGON",
+    "severity": "P1",
+    "duration_hrs": 6,
+    "date": "2023-06-20",
+    "affected_systems": [
+      "API gateway",
+      "onboarding",
+      "authentication",
+      "reporting",
+      "database cluster"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-009",
+    "vendor_id": "VEND-09",
+    "region_id": "REGION-CALIFORNIA",
+    "severity": "P0",
+    "duration_hrs": 64,
+    "date": "2024-07-22",
+    "affected_systems": [
+      "API gateway",
+      "email relay"
+    ],
+    "root_cause": "cascading timeout in upstream API dependency"
+  },
+  {
+    "id": "OUTAGE-010",
+    "vendor_id": "VEND-10",
+    "region_id": "REGION-TORONTO",
+    "severity": "P2",
+    "duration_hrs": 17,
+    "date": "2023-08-17",
+    "affected_systems": [
+      "provisioning",
+      "CDN",
+      "SSO",
+      "API gateway",
+      "authentication"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-011",
+    "vendor_id": "VEND-11",
+    "region_id": "REGION-SINGAPORE",
+    "severity": "P3",
+    "duration_hrs": 1,
+    "date": "2024-06-12",
+    "affected_systems": [
+      "file storage",
+      "DNS"
+    ],
+    "root_cause": "storage volume exhaustion on ingest cluster"
+  },
+  {
+    "id": "OUTAGE-012",
+    "vendor_id": "VEND-12",
+    "region_id": "REGION-SYDNEY",
+    "severity": "P1",
+    "duration_hrs": 19,
+    "date": "2025-12-11",
+    "affected_systems": [
+      "SSO",
+      "load balancer"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-013",
+    "vendor_id": "VEND-13",
+    "region_id": "REGION-TOKYO",
+    "severity": "P1",
+    "duration_hrs": 63,
+    "date": "2024-02-25",
+    "affected_systems": [
+      "database cluster",
+      "data sync",
+      "billing",
+      "webhook delivery",
+      "CDN"
+    ],
+    "root_cause": "BGP route leak from transit provider"
+  },
+  {
+    "id": "OUTAGE-014",
+    "vendor_id": "VEND-14",
+    "region_id": "REGION-MUMBAI",
+    "severity": "P1",
+    "duration_hrs": 56,
+    "date": "2025-03-05",
+    "affected_systems": [
+      "authentication",
+      "onboarding",
+      "SSO",
+      "data sync"
+    ],
+    "root_cause": "storage volume exhaustion on ingest cluster"
+  },
+  {
+    "id": "OUTAGE-015",
+    "vendor_id": "VEND-15",
+    "region_id": "REGION-SEOUL",
+    "severity": "P2",
+    "duration_hrs": 26,
+    "date": "2023-12-20",
+    "affected_systems": [
+      "reporting",
+      "API gateway",
+      "authentication",
+      "data sync",
+      "provisioning"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-016",
+    "vendor_id": "VEND-16",
+    "region_id": "REGION-SAO-PAULO",
+    "severity": "P0",
+    "duration_hrs": 57,
+    "date": "2025-10-23",
+    "affected_systems": [
+      "email relay",
+      "billing",
+      "reporting"
+    ],
+    "root_cause": "certificate expiry on load balancer"
+  },
+  {
+    "id": "OUTAGE-017",
+    "vendor_id": "VEND-17",
+    "region_id": "REGION-DUBAI",
+    "severity": "P1",
+    "duration_hrs": 19,
+    "date": "2024-12-26",
+    "affected_systems": [
+      "load balancer",
+      "DNS",
+      "SSO"
+    ],
+    "root_cause": "memory leak in authentication service"
+  },
+  {
+    "id": "OUTAGE-018",
+    "vendor_id": "VEND-18",
+    "region_id": "REGION-CAPE-TOWN",
+    "severity": "P3",
+    "duration_hrs": 37,
+    "date": "2023-02-13",
+    "affected_systems": [
+      "load balancer",
+      "webhook delivery",
+      "email relay",
+      "database cluster"
+    ],
+    "root_cause": "network partition between availability zones"
+  },
+  {
+    "id": "OUTAGE-019",
+    "vendor_id": "VEND-19",
+    "region_id": "REGION-CHICAGO",
+    "severity": "P3",
+    "duration_hrs": 71,
+    "date": "2025-06-15",
+    "affected_systems": [
+      "database cluster",
+      "email relay",
+      "billing"
+    ],
+    "root_cause": "BGP route leak from transit provider"
+  },
+  {
+    "id": "OUTAGE-020",
+    "vendor_id": "VEND-20",
+    "region_id": "REGION-DALLAS",
+    "severity": "P3",
+    "duration_hrs": 65,
+    "date": "2025-07-19",
+    "affected_systems": [
+      "API gateway",
+      "billing",
+      "database cluster",
+      "data sync"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-021",
+    "vendor_id": "VEND-21",
+    "region_id": "REGION-FRANKFURT",
+    "severity": "P0",
+    "duration_hrs": 60,
+    "date": "2024-05-07",
+    "affected_systems": [
+      "webhook delivery",
+      "load balancer",
+      "DNS",
+      "email relay",
+      "API gateway"
+    ],
+    "root_cause": "storage volume exhaustion on ingest cluster"
+  },
+  {
+    "id": "OUTAGE-022",
+    "vendor_id": "VEND-22",
+    "region_id": "REGION-LONDON",
+    "severity": "P3",
+    "duration_hrs": 24,
+    "date": "2025-07-18",
+    "affected_systems": [
+      "billing",
+      "email relay",
+      "webhook delivery",
+      "CDN",
+      "provisioning"
+    ],
+    "root_cause": "network partition between availability zones"
+  },
+  {
+    "id": "OUTAGE-023",
+    "vendor_id": "VEND-23",
+    "region_id": "REGION-PARIS",
+    "severity": "P1",
+    "duration_hrs": 10,
+    "date": "2025-12-05",
+    "affected_systems": [
+      "billing",
+      "SSO",
+      "DNS"
+    ],
+    "root_cause": "kernel panic on primary node"
+  },
+  {
+    "id": "OUTAGE-024",
+    "vendor_id": "VEND-24",
+    "region_id": "REGION-AMSTERDAM",
+    "severity": "P3",
+    "duration_hrs": 24,
+    "date": "2024-02-09",
+    "affected_systems": [
+      "data sync",
+      "onboarding",
+      "SSO",
+      "webhook delivery"
+    ],
+    "root_cause": "kernel panic on primary node"
+  },
+  {
+    "id": "OUTAGE-025",
+    "vendor_id": "VEND-25",
+    "region_id": "REGION-STOCKHOLM",
+    "severity": "P1",
+    "duration_hrs": 41,
+    "date": "2025-02-16",
+    "affected_systems": [
+      "data sync",
+      "reporting"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-026",
+    "vendor_id": "VEND-26",
+    "region_id": "REGION-VIRGINIA",
+    "severity": "P1",
+    "duration_hrs": 44,
+    "date": "2024-09-15",
+    "affected_systems": [
+      "reporting",
+      "onboarding",
+      "API gateway"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-027",
+    "vendor_id": "VEND-27",
+    "region_id": "REGION-OHIO",
+    "severity": "P3",
+    "duration_hrs": 42,
+    "date": "2024-10-07",
+    "affected_systems": [
+      "DNS",
+      "email relay",
+      "authentication",
+      "database cluster"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-028",
+    "vendor_id": "VEND-28",
+    "region_id": "REGION-OREGON",
+    "severity": "P0",
+    "duration_hrs": 44,
+    "date": "2023-01-14",
+    "affected_systems": [
+      "DNS",
+      "database cluster",
+      "billing",
+      "file storage",
+      "load balancer"
+    ],
+    "root_cause": "memory leak in authentication service"
+  },
+  {
+    "id": "OUTAGE-029",
+    "vendor_id": "VEND-29",
+    "region_id": "REGION-CALIFORNIA",
+    "severity": "P0",
+    "duration_hrs": 9,
+    "date": "2023-03-28",
+    "affected_systems": [
+      "reporting",
+      "load balancer",
+      "billing",
+      "data sync"
+    ],
+    "root_cause": "memory leak in authentication service"
+  },
+  {
+    "id": "OUTAGE-030",
+    "vendor_id": "VEND-30",
+    "region_id": "REGION-TORONTO",
+    "severity": "P3",
+    "duration_hrs": 31,
+    "date": "2024-11-12",
+    "affected_systems": [
+      "reporting",
+      "webhook delivery",
+      "load balancer",
+      "file storage",
+      "CDN"
+    ],
+    "root_cause": "cascading timeout in upstream API dependency"
+  },
+  {
+    "id": "OUTAGE-031",
+    "vendor_id": "VEND-31",
+    "region_id": "REGION-SINGAPORE",
+    "severity": "P1",
+    "duration_hrs": 60,
+    "date": "2024-08-15",
+    "affected_systems": [
+      "billing",
+      "reporting"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-032",
+    "vendor_id": "VEND-32",
+    "region_id": "REGION-SYDNEY",
+    "severity": "P0",
+    "duration_hrs": 17,
+    "date": "2025-07-28",
+    "affected_systems": [
+      "data sync",
+      "file storage",
+      "load balancer",
+      "CDN",
+      "authentication"
+    ],
+    "root_cause": "memory leak in authentication service"
+  },
+  {
+    "id": "OUTAGE-033",
+    "vendor_id": "VEND-33",
+    "region_id": "REGION-TOKYO",
+    "severity": "P0",
+    "duration_hrs": 10,
+    "date": "2025-10-20",
+    "affected_systems": [
+      "webhook delivery",
+      "file storage",
+      "billing",
+      "API gateway",
+      "email relay"
+    ],
+    "root_cause": "memory leak in authentication service"
+  },
+  {
+    "id": "OUTAGE-034",
+    "vendor_id": "VEND-34",
+    "region_id": "REGION-MUMBAI",
+    "severity": "P3",
+    "duration_hrs": 64,
+    "date": "2025-08-22",
+    "affected_systems": [
+      "billing",
+      "onboarding",
+      "email relay",
+      "webhook delivery",
+      "file storage"
+    ],
+    "root_cause": "network partition between availability zones"
+  },
+  {
+    "id": "OUTAGE-035",
+    "vendor_id": "VEND-35",
+    "region_id": "REGION-SEOUL",
+    "severity": "P3",
+    "duration_hrs": 10,
+    "date": "2024-08-24",
+    "affected_systems": [
+      "SSO",
+      "reporting"
+    ],
+    "root_cause": "certificate expiry on load balancer"
+  },
+  {
+    "id": "OUTAGE-036",
+    "vendor_id": "VEND-36",
+    "region_id": "REGION-SAO-PAULO",
+    "severity": "P1",
+    "duration_hrs": 30,
+    "date": "2024-07-28",
+    "affected_systems": [
+      "file storage",
+      "DNS",
+      "provisioning",
+      "load balancer"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-037",
+    "vendor_id": "VEND-37",
+    "region_id": "REGION-DUBAI",
+    "severity": "P1",
+    "duration_hrs": 2,
+    "date": "2023-11-28",
+    "affected_systems": [
+      "reporting",
+      "database cluster",
+      "authentication"
+    ],
+    "root_cause": "kernel panic on primary node"
+  },
+  {
+    "id": "OUTAGE-038",
+    "vendor_id": "VEND-38",
+    "region_id": "REGION-CAPE-TOWN",
+    "severity": "P1",
+    "duration_hrs": 72,
+    "date": "2025-06-02",
+    "affected_systems": [
+      "provisioning",
+      "API gateway",
+      "authentication"
+    ],
+    "root_cause": "memory leak in authentication service"
+  },
+  {
+    "id": "OUTAGE-039",
+    "vendor_id": "VEND-39",
+    "region_id": "REGION-CHICAGO",
+    "severity": "P2",
+    "duration_hrs": 26,
+    "date": "2023-09-19",
+    "affected_systems": [
+      "webhook delivery",
+      "authentication",
+      "onboarding",
+      "DNS",
+      "reporting"
+    ],
+    "root_cause": "BGP route leak from transit provider"
+  },
+  {
+    "id": "OUTAGE-040",
+    "vendor_id": "VEND-40",
+    "region_id": "REGION-DALLAS",
+    "severity": "P1",
+    "duration_hrs": 3,
+    "date": "2025-06-08",
+    "affected_systems": [
+      "DNS",
+      "data sync"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-041",
+    "vendor_id": "VEND-41",
+    "region_id": "REGION-FRANKFURT",
+    "severity": "P1",
+    "duration_hrs": 20,
+    "date": "2023-04-21",
+    "affected_systems": [
+      "webhook delivery",
+      "SSO"
+    ],
+    "root_cause": "storage volume exhaustion on ingest cluster"
+  },
+  {
+    "id": "OUTAGE-042",
+    "vendor_id": "VEND-42",
+    "region_id": "REGION-LONDON",
+    "severity": "P0",
+    "duration_hrs": 68,
+    "date": "2024-01-18",
+    "affected_systems": [
+      "database cluster",
+      "load balancer",
+      "onboarding"
+    ],
+    "root_cause": "memory leak in authentication service"
+  },
+  {
+    "id": "OUTAGE-043",
+    "vendor_id": "VEND-43",
+    "region_id": "REGION-PARIS",
+    "severity": "P3",
+    "duration_hrs": 31,
+    "date": "2024-03-18",
+    "affected_systems": [
+      "database cluster",
+      "provisioning",
+      "CDN",
+      "API gateway",
+      "onboarding"
+    ],
+    "root_cause": "network partition between availability zones"
+  },
+  {
+    "id": "OUTAGE-044",
+    "vendor_id": "VEND-44",
+    "region_id": "REGION-AMSTERDAM",
+    "severity": "P3",
+    "duration_hrs": 34,
+    "date": "2025-02-02",
+    "affected_systems": [
+      "SSO",
+      "onboarding",
+      "CDN"
+    ],
+    "root_cause": "kernel panic on primary node"
+  },
+  {
+    "id": "OUTAGE-045",
+    "vendor_id": "VEND-45",
+    "region_id": "REGION-STOCKHOLM",
+    "severity": "P0",
+    "duration_hrs": 15,
+    "date": "2024-09-05",
+    "affected_systems": [
+      "provisioning",
+      "onboarding",
+      "DNS"
+    ],
+    "root_cause": "database deadlock under peak load"
+  },
+  {
+    "id": "OUTAGE-046",
+    "vendor_id": "VEND-46",
+    "region_id": "REGION-VIRGINIA",
+    "severity": "P1",
+    "duration_hrs": 6,
+    "date": "2023-02-23",
+    "affected_systems": [
+      "data sync",
+      "load balancer",
+      "reporting",
+      "onboarding",
+      "DNS"
+    ],
+    "root_cause": "BGP route leak from transit provider"
+  },
+  {
+    "id": "OUTAGE-047",
+    "vendor_id": "VEND-47",
+    "region_id": "REGION-OHIO",
+    "severity": "P2",
+    "duration_hrs": 16,
+    "date": "2025-11-17",
+    "affected_systems": [
+      "email relay",
+      "webhook delivery"
+    ],
+    "root_cause": "cascading timeout in upstream API dependency"
+  },
+  {
+    "id": "OUTAGE-048",
+    "vendor_id": "VEND-48",
+    "region_id": "REGION-OREGON",
+    "severity": "P1",
+    "duration_hrs": 36,
+    "date": "2024-08-22",
+    "affected_systems": [
+      "provisioning",
+      "SSO",
+      "onboarding",
+      "reporting"
+    ],
+    "root_cause": "database deadlock under peak load"
+  },
+  {
+    "id": "OUTAGE-049",
+    "vendor_id": "VEND-49",
+    "region_id": "REGION-CALIFORNIA",
+    "severity": "P3",
+    "duration_hrs": 6,
+    "date": "2025-07-25",
+    "affected_systems": [
+      "DNS",
+      "SSO",
+      "reporting"
+    ],
+    "root_cause": "cascading timeout in upstream API dependency"
+  },
+  {
+    "id": "OUTAGE-050",
+    "vendor_id": "VEND-50",
+    "region_id": "REGION-TORONTO",
+    "severity": "P2",
+    "duration_hrs": 58,
+    "date": "2025-02-04",
+    "affected_systems": [
+      "onboarding",
+      "billing",
+      "file storage",
+      "SSO",
+      "database cluster"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-051",
+    "vendor_id": "VEND-01",
+    "region_id": "REGION-SINGAPORE",
+    "severity": "P3",
+    "duration_hrs": 54,
+    "date": "2024-09-07",
+    "affected_systems": [
+      "database cluster",
+      "DNS",
+      "authentication"
+    ],
+    "root_cause": "BGP route leak from transit provider"
+  },
+  {
+    "id": "OUTAGE-052",
+    "vendor_id": "VEND-02",
+    "region_id": "REGION-SYDNEY",
+    "severity": "P2",
+    "duration_hrs": 19,
+    "date": "2024-06-11",
+    "affected_systems": [
+      "onboarding",
+      "provisioning",
+      "webhook delivery"
+    ],
+    "root_cause": "network partition between availability zones"
+  },
+  {
+    "id": "OUTAGE-053",
+    "vendor_id": "VEND-03",
+    "region_id": "REGION-TOKYO",
+    "severity": "P0",
+    "duration_hrs": 54,
+    "date": "2023-02-10",
+    "affected_systems": [
+      "provisioning",
+      "API gateway",
+      "reporting",
+      "billing",
+      "email relay"
+    ],
+    "root_cause": "certificate expiry on load balancer"
+  },
+  {
+    "id": "OUTAGE-054",
+    "vendor_id": "VEND-04",
+    "region_id": "REGION-MUMBAI",
+    "severity": "P3",
+    "duration_hrs": 16,
+    "date": "2025-11-26",
+    "affected_systems": [
+      "database cluster",
+      "DNS"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-055",
+    "vendor_id": "VEND-05",
+    "region_id": "REGION-SEOUL",
+    "severity": "P2",
+    "duration_hrs": 25,
+    "date": "2024-04-24",
+    "affected_systems": [
+      "load balancer",
+      "API gateway"
+    ],
+    "root_cause": "network partition between availability zones"
+  },
+  {
+    "id": "OUTAGE-056",
+    "vendor_id": "VEND-06",
+    "region_id": "REGION-SAO-PAULO",
+    "severity": "P3",
+    "duration_hrs": 52,
+    "date": "2025-02-19",
+    "affected_systems": [
+      "provisioning",
+      "webhook delivery",
+      "file storage",
+      "authentication",
+      "API gateway"
+    ],
+    "root_cause": "network partition between availability zones"
+  },
+  {
+    "id": "OUTAGE-057",
+    "vendor_id": "VEND-07",
+    "region_id": "REGION-DUBAI",
+    "severity": "P2",
+    "duration_hrs": 28,
+    "date": "2025-04-26",
+    "affected_systems": [
+      "DNS",
+      "SSO",
+      "database cluster"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-058",
+    "vendor_id": "VEND-08",
+    "region_id": "REGION-CAPE-TOWN",
+    "severity": "P2",
+    "duration_hrs": 46,
+    "date": "2025-09-08",
+    "affected_systems": [
+      "load balancer",
+      "provisioning"
+    ],
+    "root_cause": "memory leak in authentication service"
+  },
+  {
+    "id": "OUTAGE-059",
+    "vendor_id": "VEND-09",
+    "region_id": "REGION-CHICAGO",
+    "severity": "P0",
+    "duration_hrs": 18,
+    "date": "2024-11-28",
+    "affected_systems": [
+      "reporting",
+      "authentication",
+      "onboarding",
+      "database cluster",
+      "SSO"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-060",
+    "vendor_id": "VEND-10",
+    "region_id": "REGION-DALLAS",
+    "severity": "P0",
+    "duration_hrs": 53,
+    "date": "2023-04-10",
+    "affected_systems": [
+      "billing",
+      "database cluster",
+      "CDN",
+      "load balancer"
+    ],
+    "root_cause": "kernel panic on primary node"
+  },
+  {
+    "id": "OUTAGE-061",
+    "vendor_id": "VEND-11",
+    "region_id": "REGION-FRANKFURT",
+    "severity": "P1",
+    "duration_hrs": 47,
+    "date": "2024-06-02",
+    "affected_systems": [
+      "file storage",
+      "SSO",
+      "CDN",
+      "onboarding"
+    ],
+    "root_cause": "cascading timeout in upstream API dependency"
+  },
+  {
+    "id": "OUTAGE-062",
+    "vendor_id": "VEND-12",
+    "region_id": "REGION-LONDON",
+    "severity": "P3",
+    "duration_hrs": 22,
+    "date": "2024-11-16",
+    "affected_systems": [
+      "data sync",
+      "billing"
+    ],
+    "root_cause": "cascading timeout in upstream API dependency"
+  },
+  {
+    "id": "OUTAGE-063",
+    "vendor_id": "VEND-13",
+    "region_id": "REGION-PARIS",
+    "severity": "P2",
+    "duration_hrs": 70,
+    "date": "2023-03-08",
+    "affected_systems": [
+      "data sync",
+      "onboarding",
+      "file storage",
+      "load balancer"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-064",
+    "vendor_id": "VEND-14",
+    "region_id": "REGION-AMSTERDAM",
+    "severity": "P1",
+    "duration_hrs": 39,
+    "date": "2024-08-06",
+    "affected_systems": [
+      "database cluster",
+      "API gateway",
+      "onboarding"
+    ],
+    "root_cause": "kernel panic on primary node"
+  },
+  {
+    "id": "OUTAGE-065",
+    "vendor_id": "VEND-15",
+    "region_id": "REGION-STOCKHOLM",
+    "severity": "P1",
+    "duration_hrs": 37,
+    "date": "2024-11-10",
+    "affected_systems": [
+      "file storage",
+      "DNS",
+      "load balancer",
+      "provisioning",
+      "email relay"
+    ],
+    "root_cause": "kernel panic on primary node"
+  },
+  {
+    "id": "OUTAGE-066",
+    "vendor_id": "VEND-16",
+    "region_id": "REGION-VIRGINIA",
+    "severity": "P2",
+    "duration_hrs": 51,
+    "date": "2025-10-28",
+    "affected_systems": [
+      "data sync",
+      "file storage",
+      "webhook delivery",
+      "authentication"
+    ],
+    "root_cause": "BGP route leak from transit provider"
+  },
+  {
+    "id": "OUTAGE-067",
+    "vendor_id": "VEND-17",
+    "region_id": "REGION-OHIO",
+    "severity": "P1",
+    "duration_hrs": 46,
+    "date": "2024-06-15",
+    "affected_systems": [
+      "data sync",
+      "CDN"
+    ],
+    "root_cause": "cascading timeout in upstream API dependency"
+  },
+  {
+    "id": "OUTAGE-068",
+    "vendor_id": "VEND-18",
+    "region_id": "REGION-OREGON",
+    "severity": "P0",
+    "duration_hrs": 39,
+    "date": "2023-01-24",
+    "affected_systems": [
+      "billing",
+      "reporting",
+      "database cluster",
+      "DNS"
+    ],
+    "root_cause": "BGP route leak from transit provider"
+  },
+  {
+    "id": "OUTAGE-069",
+    "vendor_id": "VEND-19",
+    "region_id": "REGION-CALIFORNIA",
+    "severity": "P3",
+    "duration_hrs": 72,
+    "date": "2023-03-04",
+    "affected_systems": [
+      "billing",
+      "DNS"
+    ],
+    "root_cause": "storage volume exhaustion on ingest cluster"
+  },
+  {
+    "id": "OUTAGE-070",
+    "vendor_id": "VEND-20",
+    "region_id": "REGION-TORONTO",
+    "severity": "P0",
+    "duration_hrs": 3,
+    "date": "2023-08-10",
+    "affected_systems": [
+      "file storage",
+      "load balancer",
+      "authentication",
+      "billing"
+    ],
+    "root_cause": "BGP route leak from transit provider"
+  },
+  {
+    "id": "OUTAGE-071",
+    "vendor_id": "VEND-21",
+    "region_id": "REGION-SINGAPORE",
+    "severity": "P0",
+    "duration_hrs": 22,
+    "date": "2024-12-18",
+    "affected_systems": [
+      "DNS",
+      "data sync",
+      "authentication"
+    ],
+    "root_cause": "database deadlock under peak load"
+  },
+  {
+    "id": "OUTAGE-072",
+    "vendor_id": "VEND-22",
+    "region_id": "REGION-SYDNEY",
+    "severity": "P1",
+    "duration_hrs": 20,
+    "date": "2024-08-06",
+    "affected_systems": [
+      "reporting",
+      "email relay"
+    ],
+    "root_cause": "database deadlock under peak load"
+  },
+  {
+    "id": "OUTAGE-073",
+    "vendor_id": "VEND-23",
+    "region_id": "REGION-TOKYO",
+    "severity": "P2",
+    "duration_hrs": 8,
+    "date": "2023-02-25",
+    "affected_systems": [
+      "API gateway",
+      "CDN",
+      "authentication",
+      "onboarding"
+    ],
+    "root_cause": "database deadlock under peak load"
+  },
+  {
+    "id": "OUTAGE-074",
+    "vendor_id": "VEND-24",
+    "region_id": "REGION-MUMBAI",
+    "severity": "P3",
+    "duration_hrs": 63,
+    "date": "2025-06-21",
+    "affected_systems": [
+      "reporting",
+      "API gateway",
+      "DNS",
+      "SSO"
+    ],
+    "root_cause": "memory leak in authentication service"
+  },
+  {
+    "id": "OUTAGE-075",
+    "vendor_id": "VEND-25",
+    "region_id": "REGION-SEOUL",
+    "severity": "P1",
+    "duration_hrs": 61,
+    "date": "2023-08-11",
+    "affected_systems": [
+      "webhook delivery",
+      "file storage",
+      "authentication",
+      "data sync"
+    ],
+    "root_cause": "database deadlock under peak load"
+  },
+  {
+    "id": "OUTAGE-076",
+    "vendor_id": "VEND-26",
+    "region_id": "REGION-SAO-PAULO",
+    "severity": "P0",
+    "duration_hrs": 5,
+    "date": "2024-08-26",
+    "affected_systems": [
+      "data sync",
+      "billing",
+      "authentication"
+    ],
+    "root_cause": "kernel panic on primary node"
+  },
+  {
+    "id": "OUTAGE-077",
+    "vendor_id": "VEND-27",
+    "region_id": "REGION-DUBAI",
+    "severity": "P2",
+    "duration_hrs": 3,
+    "date": "2023-08-21",
+    "affected_systems": [
+      "DNS",
+      "CDN"
+    ],
+    "root_cause": "BGP route leak from transit provider"
+  },
+  {
+    "id": "OUTAGE-078",
+    "vendor_id": "VEND-28",
+    "region_id": "REGION-CAPE-TOWN",
+    "severity": "P2",
+    "duration_hrs": 4,
+    "date": "2024-02-28",
+    "affected_systems": [
+      "API gateway",
+      "CDN",
+      "email relay"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-079",
+    "vendor_id": "VEND-29",
+    "region_id": "REGION-CHICAGO",
+    "severity": "P2",
+    "duration_hrs": 32,
+    "date": "2025-04-15",
+    "affected_systems": [
+      "CDN",
+      "file storage",
+      "webhook delivery",
+      "billing"
+    ],
+    "root_cause": "certificate expiry on load balancer"
+  },
+  {
+    "id": "OUTAGE-080",
+    "vendor_id": "VEND-30",
+    "region_id": "REGION-DALLAS",
+    "severity": "P1",
+    "duration_hrs": 66,
+    "date": "2025-06-25",
+    "affected_systems": [
+      "webhook delivery",
+      "data sync",
+      "CDN",
+      "billing",
+      "authentication"
+    ],
+    "root_cause": "cascading timeout in upstream API dependency"
+  },
+  {
+    "id": "OUTAGE-081",
+    "vendor_id": "VEND-31",
+    "region_id": "REGION-FRANKFURT",
+    "severity": "P2",
+    "duration_hrs": 15,
+    "date": "2025-01-07",
+    "affected_systems": [
+      "file storage",
+      "onboarding",
+      "billing",
+      "SSO"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-082",
+    "vendor_id": "VEND-32",
+    "region_id": "REGION-LONDON",
+    "severity": "P0",
+    "duration_hrs": 44,
+    "date": "2023-11-16",
+    "affected_systems": [
+      "DNS",
+      "data sync",
+      "CDN",
+      "authentication"
+    ],
+    "root_cause": "BGP route leak from transit provider"
+  },
+  {
+    "id": "OUTAGE-083",
+    "vendor_id": "VEND-33",
+    "region_id": "REGION-PARIS",
+    "severity": "P0",
+    "duration_hrs": 37,
+    "date": "2023-07-04",
+    "affected_systems": [
+      "SSO",
+      "data sync",
+      "reporting"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-084",
+    "vendor_id": "VEND-34",
+    "region_id": "REGION-AMSTERDAM",
+    "severity": "P1",
+    "duration_hrs": 32,
+    "date": "2025-02-01",
+    "affected_systems": [
+      "file storage",
+      "webhook delivery",
+      "CDN",
+      "DNS"
+    ],
+    "root_cause": "cascading timeout in upstream API dependency"
+  },
+  {
+    "id": "OUTAGE-085",
+    "vendor_id": "VEND-35",
+    "region_id": "REGION-STOCKHOLM",
+    "severity": "P2",
+    "duration_hrs": 57,
+    "date": "2025-02-08",
+    "affected_systems": [
+      "email relay",
+      "CDN",
+      "database cluster"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-086",
+    "vendor_id": "VEND-36",
+    "region_id": "REGION-VIRGINIA",
+    "severity": "P2",
+    "duration_hrs": 35,
+    "date": "2023-06-17",
+    "affected_systems": [
+      "authentication",
+      "webhook delivery",
+      "database cluster",
+      "file storage",
+      "SSO"
+    ],
+    "root_cause": "database deadlock under peak load"
+  },
+  {
+    "id": "OUTAGE-087",
+    "vendor_id": "VEND-37",
+    "region_id": "REGION-OHIO",
+    "severity": "P0",
+    "duration_hrs": 54,
+    "date": "2024-09-06",
+    "affected_systems": [
+      "database cluster",
+      "API gateway"
+    ],
+    "root_cause": "storage volume exhaustion on ingest cluster"
+  },
+  {
+    "id": "OUTAGE-088",
+    "vendor_id": "VEND-38",
+    "region_id": "REGION-OREGON",
+    "severity": "P0",
+    "duration_hrs": 55,
+    "date": "2024-06-15",
+    "affected_systems": [
+      "reporting",
+      "billing"
+    ],
+    "root_cause": "misconfigured firewall rule after maintenance"
+  },
+  {
+    "id": "OUTAGE-089",
+    "vendor_id": "VEND-39",
+    "region_id": "REGION-CALIFORNIA",
+    "severity": "P2",
+    "duration_hrs": 59,
+    "date": "2025-09-09",
+    "affected_systems": [
+      "database cluster",
+      "onboarding",
+      "DNS",
+      "email relay"
+    ],
+    "root_cause": "BGP route leak from transit provider"
+  },
+  {
+    "id": "OUTAGE-090",
+    "vendor_id": "VEND-40",
+    "region_id": "REGION-TORONTO",
+    "severity": "P3",
+    "duration_hrs": 10,
+    "date": "2024-12-15",
+    "affected_systems": [
+      "database cluster",
+      "SSO",
+      "API gateway",
+      "email relay",
+      "data sync"
+    ],
+    "root_cause": "network partition between availability zones"
+  },
+  {
+    "id": "OUTAGE-091",
+    "vendor_id": "VEND-41",
+    "region_id": "REGION-SINGAPORE",
+    "severity": "P0",
+    "duration_hrs": 54,
+    "date": "2025-12-22",
+    "affected_systems": [
+      "webhook delivery",
+      "authentication",
+      "SSO",
+      "data sync",
+      "DNS"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-092",
+    "vendor_id": "VEND-42",
+    "region_id": "REGION-SYDNEY",
+    "severity": "P2",
+    "duration_hrs": 69,
+    "date": "2023-08-16",
+    "affected_systems": [
+      "onboarding",
+      "database cluster",
+      "CDN",
+      "data sync",
+      "provisioning"
+    ],
+    "root_cause": "certificate expiry on load balancer"
+  },
+  {
+    "id": "OUTAGE-093",
+    "vendor_id": "VEND-43",
+    "region_id": "REGION-TOKYO",
+    "severity": "P2",
+    "duration_hrs": 4,
+    "date": "2024-08-19",
+    "affected_systems": [
+      "SSO",
+      "email relay",
+      "CDN",
+      "provisioning"
+    ],
+    "root_cause": "certificate expiry on load balancer"
+  },
+  {
+    "id": "OUTAGE-094",
+    "vendor_id": "VEND-44",
+    "region_id": "REGION-MUMBAI",
+    "severity": "P2",
+    "duration_hrs": 18,
+    "date": "2023-04-23",
+    "affected_systems": [
+      "API gateway",
+      "SSO",
+      "reporting",
+      "provisioning",
+      "authentication"
+    ],
+    "root_cause": "certificate expiry on load balancer"
+  },
+  {
+    "id": "OUTAGE-095",
+    "vendor_id": "VEND-45",
+    "region_id": "REGION-SEOUL",
+    "severity": "P2",
+    "duration_hrs": 2,
+    "date": "2023-05-14",
+    "affected_systems": [
+      "load balancer",
+      "DNS",
+      "API gateway"
+    ],
+    "root_cause": "memory leak in authentication service"
+  },
+  {
+    "id": "OUTAGE-096",
+    "vendor_id": "VEND-46",
+    "region_id": "REGION-SAO-PAULO",
+    "severity": "P3",
+    "duration_hrs": 29,
+    "date": "2024-11-17",
+    "affected_systems": [
+      "billing",
+      "DNS",
+      "SSO"
+    ],
+    "root_cause": "network partition between availability zones"
+  },
+  {
+    "id": "OUTAGE-097",
+    "vendor_id": "VEND-47",
+    "region_id": "REGION-DUBAI",
+    "severity": "P0",
+    "duration_hrs": 41,
+    "date": "2024-01-09",
+    "affected_systems": [
+      "onboarding",
+      "data sync"
+    ],
+    "root_cause": "network partition between availability zones"
+  },
+  {
+    "id": "OUTAGE-098",
+    "vendor_id": "VEND-48",
+    "region_id": "REGION-CAPE-TOWN",
+    "severity": "P1",
+    "duration_hrs": 30,
+    "date": "2024-02-27",
+    "affected_systems": [
+      "DNS",
+      "email relay"
+    ],
+    "root_cause": "DNS propagation failure after zone migration"
+  },
+  {
+    "id": "OUTAGE-099",
+    "vendor_id": "VEND-49",
+    "region_id": "REGION-CHICAGO",
+    "severity": "P3",
+    "duration_hrs": 5,
+    "date": "2025-06-11",
+    "affected_systems": [
+      "reporting",
+      "load balancer",
+      "data sync",
+      "email relay"
+    ],
+    "root_cause": "cascading timeout in upstream API dependency"
+  },
+  {
+    "id": "OUTAGE-100",
+    "vendor_id": "VEND-50",
+    "region_id": "REGION-DALLAS",
+    "severity": "P3",
+    "duration_hrs": 45,
+    "date": "2024-05-07",
+    "affected_systems": [
+      "provisioning",
+      "DNS",
+      "webhook delivery",
+      "load balancer"
+    ],
+    "root_cause": "kernel panic on primary node"
+  }
+]

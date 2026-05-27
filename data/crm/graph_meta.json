@@ -1,0 +1,18 @@
+{
+  "vertex_count": 36020,
+  "edge_count": 195133,
+  "avg_degree": "10.83",
+  "document_count": 100820,
+  "estimated_tokens_M": "123.1",
+  "entities": {
+    "vendors": 50,
+    "regions": 20,
+    "outages": 100,
+    "projects": 150,
+    "employees": 500,
+    "products": 200,
+    "customers": 5000,
+    "compliance": 5000,
+    "tickets": 25000
+  }
+}
