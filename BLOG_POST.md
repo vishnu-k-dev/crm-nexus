@@ -43,10 +43,10 @@ VEND-01 (Vendor vertex)
 
 One hop. The answer is directly attached to the entity. The prompt that gets sent to the LLM contains exactly what's needed — the entity, its direct attributes, its first-degree relationships — and nothing else.
 
-**Average prompt tokens for GraphRAG: 966.**  
-**Average prompt tokens for BasicRAG: 5,152.**
+**Average prompt tokens for GraphRAG: 1,041.**  
+**Average prompt tokens for BasicRAG: 5,113.**
 
-That's an **81.3% reduction** in prompt size, per query, every query.
+That's an **80% reduction** in prompt size, per query, every query.
 
 ---
 
@@ -56,11 +56,11 @@ I expected GraphRAG to be more *accurate* than BasicRAG. That was the hypothesis
 
 | Pipeline | Avg Latency | vs GraphRAG |
 |---|---|---|
-| **GraphRAG (TigerGraph)** | **3,361 ms** | — |
-| BasicRAG (vector only) | 47,607 ms | 14.2× slower |
+| **GraphRAG (TigerGraph)** | **2,823 ms** | — |
+| BasicRAG (vector only) | 46,680 ms | 16.5× slower |
 | LLM-Only (no RAG) | 391 ms | faster, but wrong |
 
-BasicRAG takes **47 seconds per query**. GraphRAG answers in **3.3 seconds**. That's a **92.9% latency reduction**.
+BasicRAG takes **46 seconds per query**. GraphRAG answers in **2.8 seconds**. That's a **94% latency reduction**.
 
 Think about that. BasicRAG, despite doing "less work" (just a vector search + LLM call), takes 47 seconds. GraphRAG, despite traversing a 35,820-node graph, answers in 3.3 seconds.
 
@@ -72,17 +72,17 @@ The latency advantage is a direct consequence of architectural honesty: GraphRAG
 
 ## The Accuracy Story: 97.5% vs. BasicRAG's Struggle
 
-80 evaluation questions. Three difficulty levels: 1-hop, 2-hop, and 3-hop traversals across Vendor, Customer, Outage, Region, and Employee entities.
+90 evaluation questions. Two difficulty levels: single-hop and multi-hop traversals across Vendor, Customer, Outage, Region, and Employee entities.
 
 | Pipeline | LLM-as-a-Judge | BERTScore F1 | Questions Passed |
 |---|---|---|---|
-| **GraphRAG (TigerGraph)** | **97.5%** | **0.846** | **78 / 80** |
-| BasicRAG (vector only) | 55.0% | 0.547 | 44 / 80 |
-| LLM-Only (no RAG) | 12.5% | 0.534 | 10 / 80 |
+| **GraphRAG (TigerGraph)** | **97.8%** | **0.846** | **88 / 90** |
+| BasicRAG (vector only) | 40.0% | 0.547 | 36 / 90 |
+| LLM-Only (no RAG) | 12.5% | 0.534 | 11 / 90 |
 
 The BERTScore gap is the part I keep staring at: **0.846 vs. 0.547**. That's not a marginal improvement — that's the difference between an answer that semantically *matches* the ground truth and an answer that sounds vaguely plausible.
 
-For the 36 questions BasicRAG failed, the failure mode was almost always the same: the right entity existed in the dataset, but the right *chunk* didn't surface. The answer was in the graph. It just wasn't in the retrieved text.
+For the questions BasicRAG failed, the failure mode was almost always the same: the right entity existed in the dataset, but the right *chunk* didn't surface. The answer was in the graph. It just wasn't in the retrieved text.
 
 ---
 
@@ -148,11 +148,11 @@ If you're running a RAG system serving 10,000 queries per day at 5,000 tokens av
 
 | Scale | BasicRAG tokens/day | GraphRAG tokens/day | Daily saving |
 |---|---|---|---|
-| 10K queries | 50M | 9.7M | 40.3M tokens |
-| 100K queries | 500M | 97M | 403M tokens |
-| 1M queries | 5B | 966M | 4B tokens |
+| 10K queries | 51M | 10.4M | 40.6M tokens |
+| 100K queries | 511M | 104M | 407M tokens |
+| 1M queries | 5.1B | 1.04B | 4.06B tokens |
 
-At GPT-4 pricing, 1M queries/day is the difference between ~$15,000/day and ~$2,900/day. Every day.
+At GPT-4o pricing, 1M queries/day is the difference between ~$12,800/day and ~$2,600/day. Every day.
 
 TigerGraph doesn't just make RAG more accurate. It makes production AI **economically sustainable**.
 
@@ -162,13 +162,13 @@ TigerGraph doesn't just make RAG more accurate. It makes production AI **economi
 
 | Metric | GraphRAG | BasicRAG | LLM-Only |
 |---|---|---|---|
-| Accuracy (LLM-as-Judge) | **97.5%** | 55.0% | 12.5% |
+| Accuracy (LLM-as-Judge) | **97.8%** | 40.0% | 12.5% |
 | BERTScore F1 | **0.846** | 0.547 | 0.534 |
-| Avg Prompt Tokens | **966** | 5,152 | ~200 |
-| Token Reduction vs BasicRAG | **81.3%** | — | — |
-| Avg Latency | **3,361 ms** | 47,607 ms | 391 ms |
-| Latency Reduction vs BasicRAG | **92.9%** | — | — |
-| Questions Passed (80 total) | **78 / 80** | 44 / 80 | 10 / 80 |
+| Avg Prompt Tokens | **1,041** | 5,113 | ~200 |
+| Token Reduction vs BasicRAG | **80%** | — | — |
+| Avg Latency | **2,823 ms** | 46,680 ms | 391 ms |
+| Latency Reduction vs BasicRAG | **94%** | — | — |
+| Questions Passed (90 total) | **88 / 90** | 36 / 90 | 11 / 90 |
 | Dataset Size | **201M tokens** | ← same | ← same |
 
 ---
@@ -180,7 +180,7 @@ TigerGraph doesn't just make RAG more accurate. It makes production AI **economi
 - **Stack**: TigerGraph 4.2 · GSQL · Node.js / Fastify · React · Groq (LLaMA-3.3-70B) · Jina Embeddings · BERTScore
 
 *Built for the TigerGraph GraphRAG Inference Hackathon 2026.*  
-*Dataset: 201M tokens · 35,820 entities · 195,133 edges · 201× the 1M minimum.*
+*Dataset: 201M tokens · 35,820 entities · 195,133 edges · 201× the 1M minimum · 90 eval questions.*
 
 ---
 

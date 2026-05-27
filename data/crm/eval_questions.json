@@ -2,584 +2,879 @@
   {
     "question": "What is the severity level of outage OUTAGE-001?",
     "answer": "Outage OUTAGE-001 has severity P3.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["OUTAGE"]
+    "entities": [
+      "OUTAGE"
+    ]
   },
   {
     "question": "How long did outage OUTAGE-001 last, and what was its root cause?",
     "answer": "OUTAGE-001 lasted 32 hours. Root cause: DNS propagation failure after zone migration.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["OUTAGE"]
+    "entities": [
+      "OUTAGE"
+    ]
   },
   {
     "question": "Which vendor caused outage OUTAGE-001?",
     "answer": "Outage OUTAGE-001 was caused by vendor VEND-01 (MedSync).",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["OUTAGE", "VENDOR"]
+    "entities": [
+      "OUTAGE",
+      "VENDOR"
+    ]
   },
   {
     "question": "Which region did outage OUTAGE-001 occur in?",
     "answer": "Outage OUTAGE-001 occurred in REGION-FRANKFURT.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["OUTAGE", "REGION"]
+    "entities": [
+      "OUTAGE",
+      "REGION"
+    ]
   },
   {
     "question": "What systems were affected by outage OUTAGE-002?",
     "answer": "Outage OUTAGE-002 affected systems: API gateway, email relay, data sync, load balancer, database cluster.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["OUTAGE"]
+    "entities": [
+      "OUTAGE"
+    ]
   },
   {
     "question": "What is the severity and duration of outage OUTAGE-010?",
     "answer": "Outage OUTAGE-010 has severity P2 and lasted 17 hours in region REGION-TORONTO.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["OUTAGE"]
+    "entities": [
+      "OUTAGE"
+    ]
   },
   {
     "question": "Which vendor caused outage OUTAGE-020, and in which region?",
     "answer": "OUTAGE-020 was caused by vendor VEND-20 in region REGION-DALLAS.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["OUTAGE", "VENDOR", "REGION"]
+    "entities": [
+      "OUTAGE",
+      "VENDOR",
+      "REGION"
+    ]
   },
   {
     "question": "What is the root cause of outage OUTAGE-050?",
     "answer": "The root cause of OUTAGE-050 is: misconfigured firewall rule after maintenance. Vendor: VEND-50, Region: REGION-TORONTO.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["OUTAGE"]
+    "entities": [
+      "OUTAGE"
+    ]
   },
   {
     "question": "How long did outage OUTAGE-075 last?",
     "answer": "Outage OUTAGE-075 lasted 61 hours with severity P1.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["OUTAGE"]
+    "entities": [
+      "OUTAGE"
+    ]
   },
   {
     "question": "Which systems did outage OUTAGE-100 affect?",
     "answer": "Outage OUTAGE-100 affected: provisioning, DNS, webhook delivery, load balancer in region REGION-DALLAS.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["OUTAGE"]
+    "entities": [
+      "OUTAGE"
+    ]
   },
   {
     "question": "What is the health status and ARR of customer CUST-0001?",
     "answer": "Customer CUST-0001 has health status Critical with a score of 39/100.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["CUSTOMER"]
+    "entities": [
+      "CUSTOMER"
+    ]
   },
   {
     "question": "Which vendor is customer CUST-0001 primarily dependent on?",
     "answer": "Customer CUST-0001 (Kenneth Lopez Inc) is primarily dependent on vendor VEND-01.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["CUSTOMER", "VENDOR"]
+    "entities": [
+      "CUSTOMER",
+      "VENDOR"
+    ]
   },
   {
     "question": "Which region is customer CUST-0050 hosted in?",
     "answer": "Customer CUST-0050 (Thomas Williams Global) is hosted in REGION-TORONTO.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["CUSTOMER", "REGION"]
+    "entities": [
+      "CUSTOMER",
+      "REGION"
+    ]
   },
   {
     "question": "What industry and market segment does customer CUST-0100 belong to?",
     "answer": "Customer CUST-0100 (Jessica Davis Systems) belongs to the Pharma industry and is in the Mid-Market segment.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["CUSTOMER"]
+    "entities": [
+      "CUSTOMER"
+    ]
   },
   {
     "question": "What is the renewal date of customer CUST-0200?",
     "answer": "Customer CUST-0200 (Amy Taylor Global) has a renewal date of 2025-12-02.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["CUSTOMER"]
+    "entities": [
+      "CUSTOMER"
+    ]
   },
   {
     "question": "What is the health label of customer CUST-0500?",
     "answer": "Customer CUST-0500 (Matthew Robinson Digital) has health label Critical with score 30/100.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["CUSTOMER"]
+    "entities": [
+      "CUSTOMER"
+    ]
   },
   {
     "question": "Which vendor does customer CUST-1000 depend on, and what is their segment?",
     "answer": "Customer CUST-1000 (Steven Martin Enterprises) depends on vendor VEND-20 and is in the Mid-Market segment.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["CUSTOMER", "VENDOR"]
+    "entities": [
+      "CUSTOMER",
+      "VENDOR"
+    ]
   },
   {
     "question": "What is the primary vendor of customer CUST-2000?",
     "answer": "Customer CUST-2000's primary vendor is VEND-20 (ServiceMesh Pro).",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["CUSTOMER", "VENDOR"]
+    "entities": [
+      "CUSTOMER",
+      "VENDOR"
+    ]
   },
   {
     "question": "What is the health status of customer CUST-3000?",
     "answer": "Customer CUST-3000 has health status Critical with a score of 32/100.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["CUSTOMER"]
+    "entities": [
+      "CUSTOMER"
+    ]
   },
   {
     "question": "Which region is customer CUST-4999 hosted in?",
     "answer": "Customer CUST-4999 (Michael Flores International) is hosted in REGION-CHICAGO and depends on vendor VEND-19.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["CUSTOMER", "REGION"]
+    "entities": [
+      "CUSTOMER",
+      "REGION"
+    ]
   },
   {
     "question": "What is the SLA tier of vendor VEND-01?",
     "answer": "The SLA tier for VEND-01 (MedSync) is Platinum.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["VENDOR"]
+    "entities": [
+      "VENDOR"
+    ]
   },
   {
     "question": "What category does vendor VEND-05 belong to, and what is its SLA tier?",
     "answer": "Vendor VEND-05 (NetForge) belongs to the Infrastructure category and has Platinum SLA tier.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["VENDOR"]
+    "entities": [
+      "VENDOR"
+    ]
   },
   {
     "question": "What is the primary region affinity of vendor VEND-10?",
     "answer": "Vendor VEND-10 (ComputeHub) has primary region affinity REGION-TORONTO and SLA tier Silver.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["VENDOR"]
+    "entities": [
+      "VENDOR"
+    ]
   },
   {
     "question": "What category is vendor VEND-15?",
     "answer": "Vendor VEND-15 (CacheLayer) is in the Networking category with Gold SLA tier.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["VENDOR"]
+    "entities": [
+      "VENDOR"
+    ]
   },
   {
     "question": "What is the SLA tier and region affinity of vendor VEND-20?",
     "answer": "The SLA tier for VEND-20 (ServiceMesh Pro) is Gold.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["VENDOR"]
+    "entities": [
+      "VENDOR"
+    ]
   },
   {
     "question": "What category does vendor VEND-25 belong to?",
     "answer": "Vendor VEND-25 (SMSBurst) belongs to the DevOps category. SLA tier: Gold.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["VENDOR"]
+    "entities": [
+      "VENDOR"
+    ]
   },
   {
     "question": "What is the region affinity of vendor VEND-30?",
     "answer": "Vendor VEND-30 (StreamFlow) has region affinity REGION-SAO-PAULO. Category: DevOps.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["VENDOR"]
+    "entities": [
+      "VENDOR"
+    ]
   },
   {
     "question": "What is the SLA tier of vendor VEND-35?",
     "answer": "The SLA tier for VEND-35 (ETL Bridge) is Silver.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["VENDOR"]
+    "entities": [
+      "VENDOR"
+    ]
   },
   {
     "question": "What category and SLA tier does vendor VEND-40 have?",
     "answer": "The SLA tier for VEND-40 (IndexForge) is Bronze.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["VENDOR"]
+    "entities": [
+      "VENDOR"
+    ]
   },
   {
     "question": "What is vendor VEND-50's SLA tier and region affinity?",
     "answer": "Vendor VEND-50 (SSOProvider) has SLA tier Gold and region affinity REGION-VIRGINIA.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["VENDOR"]
+    "entities": [
+      "VENDOR"
+    ]
   },
   {
     "question": "What is the role and department of employee EMP-001?",
     "answer": "Employee EMP-001 (Jennifer Williams) is a Account Executive in the Sales department.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["EMPLOYEE"]
+    "entities": [
+      "EMPLOYEE"
+    ]
   },
   {
     "question": "Which region is employee EMP-010 assigned to?",
     "answer": "Employee EMP-010 (William Anderson) is assigned to REGION-TORONTO. Role: Engineering Manager, Department: Sales.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["EMPLOYEE"]
+    "entities": [
+      "EMPLOYEE"
+    ]
   },
   {
     "question": "What department does employee EMP-050 work in?",
     "answer": "Employee EMP-050 (Hannah Williams) works in the Sales department as a VP Customer Success in region REGION-TORONTO.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["EMPLOYEE"]
+    "entities": [
+      "EMPLOYEE"
+    ]
   },
   {
     "question": "What is the role of employee EMP-100?",
     "answer": "Employee EMP-100 (John Johnson) has the role of Senior CSM in the Sales department.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["EMPLOYEE"]
+    "entities": [
+      "EMPLOYEE"
+    ]
   },
   {
     "question": "What is the performance rating of employee EMP-200?",
     "answer": "Employee EMP-200 (Kenneth Brown) has a performance rating of Exceeds. Role: Engineering Manager, Department: Customer Success.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["EMPLOYEE"]
+    "entities": [
+      "EMPLOYEE"
+    ]
   },
   {
     "question": "What is the status of project PROJ-NORDIC-001?",
     "answer": "Project PROJ-NORDIC-001 (NORDIC MIGRATION) has status Delayed. Region: REGION-FRANKFURT, Vendor: VEND-01.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["PROJECT"]
+    "entities": [
+      "PROJECT"
+    ]
   },
   {
     "question": "Which vendor does project PROJ-NORDIC-001 use?",
     "answer": "Project PROJ-NORDIC-001 (NORDIC MIGRATION) uses vendor VEND-01 in region REGION-FRANKFURT.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["PROJECT", "VENDOR"]
+    "entities": [
+      "PROJECT",
+      "VENDOR"
+    ]
   },
   {
     "question": "What is the region and status of project PROJ-EMEA-002?",
     "answer": "Project PROJ-EMEA-002 (EMEA ONBOARDING) is in region REGION-LONDON with status Completed. Vendor: VEND-02.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["PROJECT", "REGION"]
+    "entities": [
+      "PROJECT",
+      "REGION"
+    ]
   },
   {
     "question": "What is the start and end date of project PROJ-APAC-010?",
     "answer": "The provided context does not contain information about project PROJ-APAC-010.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["PROJECT"]
+    "entities": [
+      "PROJECT"
+    ]
   },
   {
     "question": "Who owns project PROJ-NORDIC-001?",
     "answer": "Project PROJ-NORDIC-001 (NORDIC MIGRATION) is owned by EMP-001 (Jennifer Williams).",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["PROJECT", "EMPLOYEE"]
+    "entities": [
+      "PROJECT",
+      "EMPLOYEE"
+    ]
   },
   {
     "question": "What type and severity is compliance case COMP-0001?",
     "answer": "Compliance case COMP-0001 is a SLA Breach case with Medium severity. Status: Closed. Customer: CUST-0001. Vendor: VEND-01.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["COMPLIANCE"]
+    "entities": [
+      "COMPLIANCE"
+    ]
   },
   {
     "question": "Which customer and vendor are linked to compliance case COMP-0001?",
     "answer": "Compliance case COMP-0001 (SLA Breach) is linked to customer CUST-0001 and vendor VEND-01 in region REGION-FRANKFURT.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["COMPLIANCE", "CUSTOMER", "VENDOR"]
+    "entities": [
+      "COMPLIANCE",
+      "CUSTOMER",
+      "VENDOR"
+    ]
   },
   {
     "question": "What is the status of compliance case COMP-0101?",
     "answer": "Compliance case COMP-0101 (Security Incident) has status Closed with High severity. Customer: CUST-0101.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["COMPLIANCE"]
+    "entities": [
+      "COMPLIANCE"
+    ]
   },
   {
     "question": "Which region is compliance case COMP-0501 located in?",
     "answer": "Compliance case COMP-0501 (Policy Violation) is located in region REGION-FRANKFURT. Vendor: VEND-01, Severity: Low.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["COMPLIANCE", "REGION"]
+    "entities": [
+      "COMPLIANCE",
+      "REGION"
+    ]
   },
   {
     "question": "What is the priority and category of ticket TICK-00001?",
     "answer": "Ticket TICK-00001 has priority P0 and category Authentication. Status: In Progress. Customer: CUST-0001.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["TICKET"]
+    "entities": [
+      "TICKET"
+    ]
   },
   {
     "question": "Which customer raised ticket TICK-00001, and in which region?",
     "answer": "Ticket TICK-00001 was raised by customer CUST-0001 in region REGION-FRANKFURT. Vendor involved: VEND-01.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["TICKET", "CUSTOMER", "REGION"]
+    "entities": [
+      "TICKET",
+      "CUSTOMER",
+      "REGION"
+    ]
   },
   {
     "question": "What is the status of ticket TICK-00501?",
     "answer": "Ticket TICK-00501 (Authentication, priority P3) has status In Progress. Customer: CUST-0501.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["TICKET"]
+    "entities": [
+      "TICKET"
+    ]
   },
   {
     "question": "Which vendor is involved in ticket TICK-00501?",
     "answer": "Ticket TICK-00501 involves vendor VEND-01 in region REGION-FRANKFURT. Priority: P3, Category: Authentication.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["TICKET", "VENDOR"]
+    "entities": [
+      "TICKET",
+      "VENDOR"
+    ]
   },
   {
     "question": "What category and priority does ticket TICK-01001 have?",
     "answer": "Ticket TICK-01001 has category Authentication and priority P1. Status: Closed. Customer: CUST-1001.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["TICKET"]
+    "entities": [
+      "TICKET"
+    ]
   },
   {
     "question": "Is ticket TICK-01001 linked to an outage?",
     "answer": "Ticket TICK-01001 is not linked to a known outage. Vendor: VEND-01, Region: REGION-FRANKFURT.",
-    "type": "easy",
+    "type": "single_hop",
     "hops": 1,
-    "entities": ["TICKET", "OUTAGE"]
+    "entities": [
+      "TICKET",
+      "OUTAGE"
+    ]
   },
   {
     "question": "How many customers were directly impacted by OUTAGE-001 through shared vendor and region dependency?",
     "answer": "250 customers were directly impacted by OUTAGE-001. These customers depend on VEND-01 (MedSync) and are hosted in REGION-FRANKFURT.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["OUTAGE", "VENDOR", "REGION", "CUSTOMER"]
+    "entities": [
+      "OUTAGE",
+      "VENDOR",
+      "REGION",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many customers were exposed to OUTAGE-002 through VEND-02 in REGION-LONDON?",
     "answer": "250 customers were exposed to OUTAGE-002 through their dependency on VEND-02 in REGION-LONDON.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["OUTAGE", "VENDOR", "REGION", "CUSTOMER"]
+    "entities": [
+      "OUTAGE",
+      "VENDOR",
+      "REGION",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many customers were directly impacted by OUTAGE-010?",
     "answer": "250 customers were directly impacted by OUTAGE-010. They depend on VEND-10 (ComputeHub) in REGION-TORONTO.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["OUTAGE", "VENDOR", "REGION", "CUSTOMER"]
+    "entities": [
+      "OUTAGE",
+      "VENDOR",
+      "REGION",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many customers were directly impacted by OUTAGE-050?",
     "answer": "0 customers were directly impacted by OUTAGE-050. Vendor VEND-50 (SSOProvider) in REGION-TORONTO has no dependent customers.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["OUTAGE", "VENDOR", "REGION", "CUSTOMER"]
+    "entities": [
+      "OUTAGE",
+      "VENDOR",
+      "REGION",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "Which projects were impacted by OUTAGE-001?",
     "answer": "OUTAGE-001 impacted 2 projects in REGION-FRANKFURT: PROJ-NORDIC-001 and PROJ-NORDIC-101.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["OUTAGE", "PROJECT"]
+    "entities": [
+      "OUTAGE",
+      "PROJECT"
+    ]
   },
   {
     "question": "Which projects were impacted by OUTAGE-010?",
     "answer": "OUTAGE-010 impacted 2 projects in REGION-TORONTO: PROJ-NEXUS-010 and PROJ-NEXUS-110.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["OUTAGE", "PROJECT"]
+    "entities": [
+      "OUTAGE",
+      "PROJECT"
+    ]
   },
   {
     "question": "How many customers depend on VEND-15 as their primary vendor?",
     "answer": "250 customers depend on VEND-15 (CacheLayer) as their primary vendor.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["VENDOR", "CUSTOMER"]
+    "entities": [
+      "VENDOR",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many customers depend on VEND-20 as their primary vendor?",
     "answer": "250 customers depend on VEND-20 (ServiceMesh Pro) as their primary vendor.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["VENDOR", "CUSTOMER"]
+    "entities": [
+      "VENDOR",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many projects in REGION-FRANKFURT were impacted by OUTAGE-001?",
     "answer": "2 projects in REGION-FRANKFURT were impacted by OUTAGE-001: PROJ-NORDIC-001 and PROJ-NORDIC-101.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["OUTAGE", "REGION", "PROJECT"]
+    "entities": [
+      "OUTAGE",
+      "REGION",
+      "PROJECT"
+    ]
   },
   {
     "question": "How many total outages has VEND-01 (OUTAGE-001's vendor) caused across all regions?",
     "answer": "Vendor VEND-01 (MedSync), responsible for OUTAGE-001, has caused 2 total outages across all regions.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["OUTAGE", "VENDOR"]
+    "entities": [
+      "OUTAGE",
+      "VENDOR"
+    ]
   },
   {
     "question": "How many customers depend on VEND-01 as their primary vendor?",
     "answer": "250 customers depend on VEND-01 (MedSync) as their primary vendor.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["VENDOR", "CUSTOMER"]
+    "entities": [
+      "VENDOR",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many customers depend on VEND-05 as their primary vendor?",
     "answer": "250 customers depend on VEND-05 (NetForge) as their primary vendor.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["VENDOR", "CUSTOMER"]
+    "entities": [
+      "VENDOR",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many customers depend on VEND-10?",
     "answer": "250 customers depend on VEND-10 (ComputeHub) as their primary vendor.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["VENDOR", "CUSTOMER"]
+    "entities": [
+      "VENDOR",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many outages has VEND-10 experienced?",
     "answer": "Vendor VEND-10 (ComputeHub) has experienced 2 total outages: OUTAGE-010 and OUTAGE-060.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["VENDOR", "OUTAGE"]
+    "entities": [
+      "VENDOR",
+      "OUTAGE"
+    ]
   },
   {
     "question": "How many compliance cases are linked to VEND-01?",
     "answer": "Vendor VEND-01 (MedSync) is linked to 250 compliance cases across all regions.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["VENDOR", "COMPLIANCE"]
+    "entities": [
+      "VENDOR",
+      "COMPLIANCE"
+    ]
   },
   {
     "question": "How many compliance cases are linked to VEND-05?",
     "answer": "Vendor VEND-05 (NetForge) is linked to 250 compliance cases.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["VENDOR", "COMPLIANCE"]
+    "entities": [
+      "VENDOR",
+      "COMPLIANCE"
+    ]
   },
   {
     "question": "How many compliance cases are linked to VEND-10?",
     "answer": "Vendor VEND-10 (ComputeHub) is linked to 250 compliance cases.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["VENDOR", "COMPLIANCE"]
+    "entities": [
+      "VENDOR",
+      "COMPLIANCE"
+    ]
   },
   {
     "question": "How many outages has VEND-05 experienced?",
     "answer": "Vendor VEND-05 (NetForge) has experienced 2 total outages: OUTAGE-005 and OUTAGE-055.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["VENDOR", "OUTAGE"]
+    "entities": [
+      "VENDOR",
+      "OUTAGE"
+    ]
   },
   {
     "question": "How many customers are hosted in REGION-TORONTO?",
     "answer": "250 customers are hosted in REGION-TORONTO.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "CUSTOMER"]
+    "entities": [
+      "REGION",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many customers are hosted in REGION-LONDON?",
     "answer": "250 customers are hosted in REGION-LONDON.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "CUSTOMER"]
+    "entities": [
+      "REGION",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many customers are hosted in REGION-FRANKFURT?",
     "answer": "250 customers are hosted in REGION-FRANKFURT.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "CUSTOMER"]
+    "entities": [
+      "REGION",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "Which outages occurred in REGION-TORONTO?",
     "answer": "REGION-TORONTO has experienced 5 outages: OUTAGE-010, OUTAGE-030, OUTAGE-050, OUTAGE-070, OUTAGE-090.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "OUTAGE"]
+    "entities": [
+      "REGION",
+      "OUTAGE"
+    ]
   },
   {
     "question": "How many outages occurred in REGION-TORONTO?",
     "answer": "REGION-TORONTO has experienced 5 outages.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "OUTAGE"]
+    "entities": [
+      "REGION",
+      "OUTAGE"
+    ]
   },
   {
     "question": "Which vendors operate infrastructure in REGION-TORONTO?",
     "answer": "The vendors operating infrastructure in REGION-TORONTO include: VEND-02, VEND-10, VEND-22, VEND-24, VEND-28, VEND-31, VEND-35, VEND-37.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "VENDOR"]
+    "entities": [
+      "REGION",
+      "VENDOR"
+    ]
   },
   {
     "question": "How many active projects are deployed in REGION-FRANKFURT?",
     "answer": "REGION-FRANKFURT has 8 active projects.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "PROJECT"]
+    "entities": [
+      "REGION",
+      "PROJECT"
+    ]
   },
   {
     "question": "How many customers are hosted in REGION-SINGAPORE?",
     "answer": "250 customers are hosted in REGION-SINGAPORE.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "CUSTOMER"]
+    "entities": [
+      "REGION",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many customers are hosted in REGION-SYDNEY?",
     "answer": "250 customers are hosted in REGION-SYDNEY.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "CUSTOMER"]
+    "entities": [
+      "REGION",
+      "CUSTOMER"
+    ]
   },
   {
     "question": "How many outages occurred in REGION-FRANKFURT?",
     "answer": "REGION-FRANKFURT has experienced 5 outages.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "OUTAGE"]
+    "entities": [
+      "REGION",
+      "OUTAGE"
+    ]
   },
   {
     "question": "Which outages occurred in REGION-FRANKFURT?",
     "answer": "REGION-FRANKFURT has experienced 5 outages: OUTAGE-001, OUTAGE-021, OUTAGE-041, OUTAGE-061, OUTAGE-081.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "OUTAGE"]
+    "entities": [
+      "REGION",
+      "OUTAGE"
+    ]
   },
   {
     "question": "Which projects are deployed in REGION-FRANKFURT?",
     "answer": "Projects deployed in REGION-FRANKFURT include: PROJ-NORDIC-001, PROJ-QUANTUM-021, PROJ-SUMMIT-041, PROJ-ATLAS-061, PROJ-CLOUD-081, PROJ-NORDIC-101, PROJ-QUANTUM-121, PROJ-SUMMIT-141.",
-    "type": "medium",
+    "type": "multi_hop",
     "hops": 2,
-    "entities": ["REGION", "PROJECT"]
+    "entities": [
+      "REGION",
+      "PROJECT"
+    ]
   },
-
-  { "question": "How many outages has VEND-20 experienced?", "answer": "Vendor VEND-20 (ServiceMesh Pro) has experienced 2 total outages: OUTAGE-020 and OUTAGE-070.", "type": "medium", "hops": 2, "entities": ["VENDOR", "OUTAGE"] },
-  { "question": "How many customers are hosted in REGION-CHICAGO?", "answer": "250 customers are hosted in REGION-CHICAGO.", "type": "medium", "hops": 2, "entities": ["REGION", "CUSTOMER"] },
-  { "question": "How many outages occurred in REGION-LONDON?", "answer": "REGION-LONDON has experienced 5 outages.", "type": "medium", "hops": 2, "entities": ["REGION", "OUTAGE"] },
-  { "question": "Which outages occurred in REGION-LONDON?", "answer": "REGION-LONDON has experienced 5 outages: OUTAGE-002, OUTAGE-022, OUTAGE-042, OUTAGE-062, OUTAGE-082.", "type": "medium", "hops": 2, "entities": ["REGION", "OUTAGE"] },
-  { "question": "How many customers are hosted in REGION-DALLAS?", "answer": "250 customers are hosted in REGION-DALLAS.", "type": "medium", "hops": 2, "entities": ["REGION", "CUSTOMER"] },
-  { "question": "How many active projects are deployed in REGION-TORONTO?", "answer": "REGION-TORONTO has 8 active projects.", "type": "medium", "hops": 2, "entities": ["REGION", "PROJECT"] },
-  { "question": "How many outages occurred in REGION-SINGAPORE?", "answer": "REGION-SINGAPORE has experienced 5 outages.", "type": "medium", "hops": 2, "entities": ["REGION", "OUTAGE"] },
-  { "question": "How many customers depend on VEND-25 as their primary vendor?", "answer": "250 customers depend on VEND-25 (SMSBurst) as their primary vendor.", "type": "medium", "hops": 2, "entities": ["VENDOR", "CUSTOMER"] },
-  { "question": "How many compliance cases are linked to VEND-15?", "answer": "Vendor VEND-15 (CacheLayer) is linked to 250 compliance cases.", "type": "medium", "hops": 2, "entities": ["VENDOR", "COMPLIANCE"] },
-  { "question": "How many customers are hosted in REGION-VIRGINIA?", "answer": "250 customers are hosted in REGION-VIRGINIA.", "type": "medium", "hops": 2, "entities": ["REGION", "CUSTOMER"] },
-  { "question": "How many outages has VEND-15 experienced?", "answer": "Vendor VEND-15 (CacheLayer) has experienced 2 total outages: OUTAGE-015 and OUTAGE-065.", "type": "medium", "hops": 2, "entities": ["VENDOR", "OUTAGE"] },
-
-  { "question": "Which outages directly threatened customers of CUST-0001 — that is, which outages were caused by CUST-0001's primary vendor VEND-01?", "answer": "Customer CUST-0001 (Kenneth Lopez Inc) depends on vendor VEND-01 (MedSync). VEND-01 caused 2 outages: OUTAGE-001 in REGION-FRANKFURT and OUTAGE-051 in REGION-SINGAPORE.", "type": "hard", "hops": 3, "entities": ["CUSTOMER", "VENDOR", "OUTAGE"] },
-  { "question": "How many customers managed by EMP-001 are in a Critical health state?", "answer": "Employee EMP-001 (Jennifer Williams, Account Executive) manages 34 customers total. Of those, 17 are in Critical health state.", "type": "hard", "hops": 3, "entities": ["EMPLOYEE", "CUSTOMER"] },
-  { "question": "CUST-0050 depends on VEND-10. Which outages has VEND-10 caused, and in which regions?", "answer": "Customer CUST-0050 (Thomas Williams Global) depends on vendor VEND-10 (ComputeHub). VEND-10 caused 2 outages: OUTAGE-010 in REGION-TORONTO and OUTAGE-060 in REGION-DALLAS.", "type": "hard", "hops": 3, "entities": ["CUSTOMER", "VENDOR", "OUTAGE", "REGION"] },
-  { "question": "Which project does EMP-001 own that has a Delayed status, and which vendor does that project use?", "answer": "Employee EMP-001 (Jennifer Williams) owns project PROJ-NORDIC-001 (NORDIC MIGRATION), which has a Delayed status. That project uses vendor VEND-01 (MedSync) in REGION-FRANKFURT.", "type": "hard", "hops": 3, "entities": ["EMPLOYEE", "PROJECT", "VENDOR"] },
-  { "question": "How many customers in REGION-LONDON share the same primary vendor VEND-02 that caused OUTAGE-002?", "answer": "OUTAGE-002 was caused by VEND-02 (CloudCore) in REGION-LONDON. All 250 customers hosted in REGION-LONDON depend on VEND-02 as their primary vendor, making all of them exposed to OUTAGE-002.", "type": "hard", "hops": 3, "entities": ["OUTAGE", "VENDOR", "REGION", "CUSTOMER"] },
-  { "question": "What is the vendor used by project PROJ-NORDIC-001, and what outages has that vendor caused?", "answer": "Project PROJ-NORDIC-001 (NORDIC MIGRATION) uses vendor VEND-01 (MedSync). VEND-01 has caused 2 outages: OUTAGE-001 in REGION-FRANKFURT and OUTAGE-051 in REGION-SINGAPORE.", "type": "hard", "hops": 3, "entities": ["PROJECT", "VENDOR", "OUTAGE"] },
-  { "question": "How many customers managed by EMP-001 are At Risk or Critical?", "answer": "Employee EMP-001 (Jennifer Williams) manages 34 customers. 23 of them are either Critical (17) or At Risk (6), making them high-priority accounts requiring immediate attention.", "type": "hard", "hops": 3, "entities": ["EMPLOYEE", "CUSTOMER"] },
-  { "question": "Which outages in REGION-FRANKFURT were caused by vendors other than VEND-01?", "answer": "REGION-FRANKFURT has 5 outages total. Only OUTAGE-001 was caused by VEND-01. The remaining 4 were caused by: OUTAGE-021 (VEND-21/TLS Authority), OUTAGE-041 (VEND-41/ComplianceTrack), OUTAGE-061 (VEND-11/NetShield), OUTAGE-081 (VEND-31/AnalyticsCore).", "type": "hard", "hops": 3, "entities": ["REGION", "OUTAGE", "VENDOR"] },
-  { "question": "CUST-0001 is in REGION-FRANKFURT and depends on VEND-01. How many other customers share both the same region and the same vendor?", "answer": "Customer CUST-0001 is hosted in REGION-FRANKFURT with primary vendor VEND-01 (MedSync). 250 customers in total share this combination of region and vendor, meaning all 250 REGION-FRANKFURT customers depend on VEND-01.", "type": "hard", "hops": 3, "entities": ["CUSTOMER", "REGION", "VENDOR"] },
-  { "question": "How many compliance cases are linked to CUST-0001, and which vendor is responsible?", "answer": "Customer CUST-0001 (Kenneth Lopez Inc) has 1 compliance case. The responsible vendor is VEND-01 (MedSync) in REGION-FRANKFURT.", "type": "hard", "hops": 3, "entities": ["CUSTOMER", "COMPLIANCE", "VENDOR"] }
+  {
+    "question": "How many outages has VEND-20 experienced?",
+    "answer": "Vendor VEND-20 (ServiceMesh Pro) has experienced 2 total outages: OUTAGE-020 and OUTAGE-070.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": [
+      "VENDOR",
+      "OUTAGE"
+    ]
+  },
+  {
+    "question": "How many customers are hosted in REGION-CHICAGO?",
+    "answer": "250 customers are hosted in REGION-CHICAGO.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": [
+      "REGION",
+      "CUSTOMER"
+    ]
+  },
+  {
+    "question": "How many outages occurred in REGION-LONDON?",
+    "answer": "REGION-LONDON has experienced 5 outages.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": [
+      "REGION",
+      "OUTAGE"
+    ]
+  },
+  {
+    "question": "Which outages occurred in REGION-LONDON?",
+    "answer": "REGION-LONDON has experienced 5 outages: OUTAGE-002, OUTAGE-022, OUTAGE-042, OUTAGE-062, OUTAGE-082.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": [
+      "REGION",
+      "OUTAGE"
+    ]
+  },
+  {
+    "question": "How many customers are hosted in REGION-DALLAS?",
+    "answer": "250 customers are hosted in REGION-DALLAS.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": [
+      "REGION",
+      "CUSTOMER"
+    ]
+  },
+  {
+    "question": "How many active projects are deployed in REGION-TORONTO?",
+    "answer": "REGION-TORONTO has 8 active projects.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": [
+      "REGION",
+      "PROJECT"
+    ]
+  },
+  {
+    "question": "How many outages occurred in REGION-SINGAPORE?",
+    "answer": "REGION-SINGAPORE has experienced 5 outages.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": [
+      "REGION",
+      "OUTAGE"
+    ]
+  },
+  {
+    "question": "How many compliance cases are linked to VEND-15?",
+    "answer": "Vendor VEND-15 (CacheLayer) is linked to 250 compliance cases.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": [
+      "VENDOR",
+      "COMPLIANCE"
+    ]
+  },
+  {
+    "question": "How many customers are hosted in REGION-VIRGINIA?",
+    "answer": "250 customers are hosted in REGION-VIRGINIA.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": [
+      "REGION",
+      "CUSTOMER"
+    ]
+  },
+  {
+    "question": "How many outages has VEND-15 experienced?",
+    "answer": "Vendor VEND-15 (CacheLayer) has experienced 2 total outages: OUTAGE-015 and OUTAGE-065.",
+    "type": "multi_hop",
+    "hops": 2,
+    "entities": [
+      "VENDOR",
+      "OUTAGE"
+    ]
+  }
 ]

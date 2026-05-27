@@ -50,8 +50,13 @@
     <div class="hero-2col">
       <div class="hero-left">
         <div class="hero-title-badge reveal">CRM Nexus &nbsp;&nbsp;·&nbsp;&nbsp; TigerGraph × GraphRAG Inference</div>
-        <h1 class="reveal" style="margin-bottom:20px;">Stop paying for tokens <em>your LLM doesn't need.</em></h1>
-        <p class="hero-desc reveal">A Fastify + TigerGraph system that maps a 201M-token synthetic CRM into a knowledge graph, walks entity relationships via GSQL, and feeds the LLM only what matters — 97.5% accuracy at 81.3% fewer tokens than flat vector search.</p>
+        <h1 class="reveal" style="margin-bottom:14px;">Stop paying for tokens <em>your LLM doesn't need.</em></h1>
+        <div class="reveal" style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+          <span style="background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:var(--orange);padding:5px 14px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.04em;">🧠 Smarter</span>
+          <span style="background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:var(--orange);padding:5px 14px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.04em;">⚡ Faster</span>
+          <span style="background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:var(--orange);padding:5px 14px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.04em;">💰 Cheaper</span>
+        </div>
+        <p class="hero-desc reveal">A Fastify + TigerGraph system that maps a 201M-token synthetic CRM into a knowledge graph, walks entity relationships via GSQL, and feeds the LLM only what matters — 97.8% accuracy at 80% fewer tokens than flat vector search.</p>
       </div>
       <div class="hero-data-panel reveal">
         <div class="hdp-number">
@@ -63,32 +68,32 @@
         <div class="hdp-grid">
           <div class="hdp-item"><div class="hdp-item-num">35,820</div><div class="hdp-item-lbl">Entities</div></div>
           <div class="hdp-item"><div class="hdp-item-num">195,133</div><div class="hdp-item-lbl">Graph Edges</div></div>
-          <div class="hdp-item"><div class="hdp-item-num">80</div><div class="hdp-item-lbl">Eval Questions</div></div>
+          <div class="hdp-item"><div class="hdp-item-num">90</div><div class="hdp-item-lbl">Eval Questions</div></div>
           <div class="hdp-item"><div class="hdp-item-num">201×</div><div class="hdp-item-lbl">Hackathon Min</div></div>
         </div>
         <div class="hdp-footer">
           <img src="assets/tigergraph-logo.png" width="14" height="14" alt="" />
           TigerGraph Community Edition
         </div>
-        <p class="hdp-pull">One synthetic CRM. Three pipelines. Same Llama 8B brain. TigerGraph answered 78/80 — BasicRAG couldn't answer 36.</p>
+        <p class="hdp-pull">One synthetic CRM. Three pipelines. Same Llama 8B brain. TigerGraph answered 88/90 — BasicRAG managed just 40%.</p>
       </div>
     </div>
 
     <div class="hero-strip reveal-stagger" style="display:flex;gap:0;border-top:1px solid var(--border);padding-top:32px;margin-top:44px;">
       <div class="hs-stat key" style="flex:1;padding:0 24px 0 0;">
-        <div class="hs-num" data-count="97.5" data-suffix="%">0%</div>
+        <div class="hs-num" data-count="97.8" data-suffix="%">0%</div>
         <div class="hs-lbl">Accuracy</div>
-        <div class="hs-sub">78 / 80 questions</div>
+        <div class="hs-sub">88 / 90 questions</div>
       </div>
       <div class="hs-stat key" style="flex:1;padding:0 24px;border-left:1px solid var(--border);">
-        <div class="hs-num" data-count="81.3" data-suffix="%">0%</div>
+        <div class="hs-num" data-count="80.0" data-suffix="%">0%</div>
         <div class="hs-lbl">Fewer tokens</div>
         <div class="hs-sub">vs BasicRAG baseline</div>
       </div>
       <div class="hs-stat key" style="flex:1;padding:0 24px;border-left:1px solid var(--border);">
-        <div class="hs-num" data-count="92.9" data-suffix="%">0%</div>
+        <div class="hs-num" data-count="94.0" data-suffix="%">0%</div>
         <div class="hs-lbl">Faster</div>
-        <div class="hs-sub">3,361ms vs 47,607ms</div>
+        <div class="hs-sub">2,823ms vs 46,680ms</div>
       </div>
       <div class="hs-stat key" style="flex:1;padding:0 0 0 24px;border-left:1px solid var(--border);">
         <div class="hs-num" data-count="0.846" data-suffix="">0.00</div>
@@ -128,7 +133,7 @@
         <div style="font-size:28px;margin-bottom:12px;">⚡</div>
         <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--pass);margin-bottom:8px;">Step 3 — CRM Nexus</div>
         <div style="font-weight:700;font-size:15px;margin-bottom:8px;">Graph traversal. Surgical context.</div>
-        <p style="font-size:13.5px;color:var(--text-2);line-height:1.6;margin:0;">GSQL multi-hop query: <em>Customer → Vendor → Outage → Region</em>. Returns exactly the entity context. 966 tokens. <strong>$0.000048 per question.</strong> Same LLM. Same accuracy. 81.3% cheaper.</p>
+        <p style="font-size:13.5px;color:var(--text-2);line-height:1.6;margin:0;">GSQL multi-hop query: <em>Customer → Vendor → Outage → Region</em>. Returns exactly the entity context. ~1,041 tokens. <strong>$0.000052 per question.</strong> Same LLM. Same accuracy. 80% cheaper.</p>
       </div>
     </div>
 
@@ -170,7 +175,7 @@
   <div class="container">
     <div class="eyebrow reveal">Section 02</div>
     <h2 class="section-title reveal">Head-to-Head: 80-Question CRM Benchmark</h2>
-    <p class="section-sub reveal">Same LLM (Llama 3.1 8B via Groq). Same 80 questions. Only the retrieval layer changes.</p>
+    <p class="section-sub reveal">Same LLM (Llama 3.1 8B via Groq). Same 90 questions. Only the retrieval layer changes.</p>
 
     <div class="bench-grid">
       <!-- Chart A -->
@@ -180,8 +185,8 @@
         <div class="bar-stage">
           <div class="bar-row">
             <div class="bar-label"><img class="tg-mark" src="assets/tigergraph-logo.png" alt="" aria-hidden="true" /><span style="color:var(--orange);font-weight:600">GraphRAG (TigerGraph)</span></div>
-            <div class="bar-track"><div class="bar-fill gr" data-fill="97.5"></div></div>
-            <div class="bar-val gr">97.5%</div>
+            <div class="bar-track"><div class="bar-fill gr" data-fill="97.8"></div></div>
+            <div class="bar-val gr">97.8%</div>
           </div>
           <div class="bar-row">
             <div class="bar-label">Basic RAG (Vector Only)</div>
@@ -197,7 +202,7 @@
             <span class="label">Minimum useful · 50%</span>
           </div>
         </div>
-        <p class="desc" style="margin: 18px 0 0; font-size:12px;">BasicRAG only answered 44/80 questions; pass rate on those was 47.7%, yielding 26.3% effective. GraphRAG answered 78/80 — 97.5% accuracy.</p>
+        <p class="desc" style="margin: 18px 0 0; font-size:12px;">BasicRAG answered 40% of questions; GraphRAG answered 88/90 — 97.8% accuracy.</p>
       </div>
 
       <!-- Chart B -->
@@ -206,7 +211,7 @@
         <p class="desc">Prompt tokens, questions 1 → 36.</p>
         <div class="line-wrap">
           <svg class="line-svg" id="lineChart" viewBox="0 0 400 220" preserveAspectRatio="none"></svg>
-          <p class="line-callout">81.3% fewer tokens — every single question</p>
+          <p class="line-callout">80% fewer tokens — every single question</p>
         </div>
       </div>
 
@@ -222,7 +227,7 @@
                 <circle cx="50" cy="50" r="42" fill="none" stroke="var(--orange)" stroke-width="12" stroke-linecap="round"
                   stroke-dasharray="257.3 263.9" stroke-dashoffset="0"/>
               </svg>
-              <div class="donut-center" style="color:var(--orange)">78/80</div>
+              <div class="donut-center" style="color:var(--orange)">88/90</div>
             </div>
             <div class="donut-label gr"><img class="tg-mark tiny" src="assets/tigergraph-logo.png" alt="" aria-hidden="true" />GraphRAG</div>
           </div>
@@ -247,18 +252,18 @@
         <p class="desc">Average end-to-end response time across all answered questions.</p>
         <div class="lat-grid">
           <div class="lat-stat br">
-            <div class="num">47,607<span style="font-size:.5em;color:var(--text-2)">ms</span></div>
+            <div class="num">46,680<span style="font-size:.5em;color:var(--text-2)">ms</span></div>
             <div class="lbl">BasicRAG · avg response time</div>
           </div>
           <div class="lat-badge-stack">
-            <div class="lat-badge">92.9% FASTER →</div>
+            <div class="lat-badge">94.0% FASTER →</div>
             <div class="lat-bert">
               <span class="lb-num">0.846</span>
               <span class="lb-lbl">BERTScore F1</span>
             </div>
           </div>
           <div class="lat-stat gr">
-            <div class="num">3,361<span style="font-size:.5em;color:var(--text-2)">ms</span></div>
+            <div class="num">2,823<span style="font-size:.5em;color:var(--text-2)">ms</span></div>
             <div class="lbl"><img class="tg-mark tiny" src="assets/tigergraph-logo.png" alt="" aria-hidden="true" />GraphRAG · avg response time</div>
           </div>
         </div>
@@ -335,7 +340,7 @@
     </div>
 
     <div class="code-block reveal">
-<span class="c">// 3-hop graph traversal — the engine behind 97.5% accuracy</span>
+<span class="c">// multi-hop graph traversal — the engine behind 97.8% accuracy</span>
 <span class="k">CREATE QUERY</span> getRelevantContext(<span class="k">STRING</span> entity_id, <span class="k">INT</span> k) {
   Start = {entity_id};
   L1 = <span class="k">SELECT</span> t <span class="k">FROM</span> Start:s -(<span class="k">ANY</span>:e)-&gt; :t <span class="k">LIMIT</span> k;
@@ -343,7 +348,7 @@
   <span class="k">PRINT</span> L1, L2;
 }
     </div>
-    <p class="code-cap">3-hop GSQL traversal — the engine behind 97.5% accuracy</p>
+    <p class="code-cap">multi-hop GSQL traversal — the engine behind 97.8% accuracy</p>
   </div>
 </section>
 
@@ -368,7 +373,7 @@
         <div class="data-stat"><div class="num">201M</div><div class="lbl">Tokens</div><div class="sub">201× the hackathon's 1M minimum</div></div>
         <div class="data-stat"><div class="num">35,820</div><div class="lbl">Vertices</div><div class="sub">across 8 entity types</div></div>
         <div class="data-stat"><div class="num">195,133</div><div class="lbl">Edges</div><div class="sub">12 relationship types</div></div>
-        <div class="data-stat"><div class="num">80</div><div class="lbl">Eval Questions</div><div class="sub">easy · medium · hard · 1–3 hops</div></div>
+        <div class="data-stat"><div class="num">90</div><div class="lbl">Eval Questions</div><div class="sub">single hop · multi hop</div></div>
       </div>
       <div class="entity-card">
         <h4>Entity Breakdown</h4>
@@ -509,7 +514,7 @@
         </div>
         <h4>Precision = efficiency</h4>
         <div class="tag">Targeted context, not a haystack</div>
-        <p>BasicRAG: 20 chunks × 1,000 chars = ~5,152 tokens. GraphRAG: direct entity fetch = ~966 tokens. TigerGraph's graph structure IS the filter. 81.3% token reduction is a side-effect of getting retrieval right.</p>
+        <p>BasicRAG: 20 chunks × 1,000 chars = ~5,113 tokens. GraphRAG: direct entity fetch = ~1,041 tokens. TigerGraph's graph structure IS the filter. 80% token reduction is a side-effect of getting retrieval right.</p>
       </div>
       <div class="why-card">
         <div class="why-icon">
@@ -517,7 +522,7 @@
         </div>
         <h4>Coverage where vector fails</h4>
         <div class="tag">36 questions BasicRAG couldn't answer</div>
-        <p>CRM entities like OUTAGE-001 or VEND-05 don't exist in a generic vector store. BasicRAG failed on 36/80 questions — not wrong answers, zero answers. TigerGraph ingested every entity on day 1. No question left behind.</p>
+        <p>CRM entities like OUTAGE-001 or VEND-05 don't exist in a generic vector store. BasicRAG answered only 40% of questions — TigerGraph ingested every entity on day 1. No question left behind.</p>
       </div>
     </div>
   </div>
@@ -568,7 +573,7 @@
       <img src="assets/tigergraph-logo.png" alt="" />
       Built on TigerGraph Community Edition
     </div>
-    <div class="foot-c">97.5% Accuracy · 81.3% Fewer Tokens · 92.9% Faster · BERTScore 0.846 · 78/80 Questions</div>
+    <div class="foot-c">97.8% Accuracy · 80% Fewer Tokens · 94% Faster · BERTScore 0.846 · 88/90 Questions</div>
     <div class="foot-r">Team BroCode · Vishnu K &amp; Revanth M</div>
   </div>
 </footer>
