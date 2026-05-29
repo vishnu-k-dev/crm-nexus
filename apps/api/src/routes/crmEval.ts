@@ -172,14 +172,21 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
     let bertF1Sum = 0; let bertN = 0;
 
     type BertResult = { f1Rescaled: number } | null;
-    type Res = { llmOnly?: { judge?: { verdict: string } | null; promptTokens?: number; latencyMs?: number };
-                 basicRag?: { judge?: { verdict: string } | null; promptTokens?: number; latencyMs?: number };
-                 graphrag?: { judge?: { verdict: string } | null; promptTokens?: number; latencyMs?: number; bertScore?: BertResult } };
+    // Helper: extract verdict from both old format (r.pipeline.verdict) and new format (r.pipeline.judge.verdict)
+    const getVerdict = (p: { verdict?: string; judge?: { verdict: string } | null } | undefined) =>
+      p?.judge?.verdict ?? p?.verdict ?? null;
+
+    type Res = { llmOnly?: { verdict?: string; judge?: { verdict: string } | null; promptTokens?: number; latencyMs?: number };
+                 basicRag?: { verdict?: string; judge?: { verdict: string } | null; promptTokens?: number; latencyMs?: number };
+                 graphrag?: { verdict?: string; judge?: { verdict: string } | null; promptTokens?: number; latencyMs?: number; bertScore?: BertResult } };
 
     for (const r of results as Res[]) {
-      if (r.llmOnly?.judge)  { judgeCount.llm++;     if (r.llmOnly.judge.verdict  === 'PASS') { pass.llm++;     wins.llm++; } }
-      if (r.basicRag?.judge) { judgeCount.basicRag++; if (r.basicRag.judge.verdict === 'PASS') { pass.basicRag++; wins.basicRag++; } }
-      if (r.graphrag?.judge) { judgeCount.graphrag++; if (r.graphrag.judge.verdict === 'PASS') { pass.graphrag++; wins.graphrag++; } }
+      const lv = getVerdict(r.llmOnly);
+      const bv = getVerdict(r.basicRag);
+      const gv = getVerdict(r.graphrag);
+      if (lv) { judgeCount.llm++;     if (lv === 'PASS') { pass.llm++;     wins.llm++; } }
+      if (bv) { judgeCount.basicRag++; if (bv === 'PASS') { pass.basicRag++; wins.basicRag++; } }
+      if (gv) { judgeCount.graphrag++; if (gv === 'PASS') { pass.graphrag++; wins.graphrag++; } }
       if (r.llmOnly?.promptTokens)  tokenSums.llm      += r.llmOnly.promptTokens;
       if (r.basicRag?.promptTokens) tokenSums.basicRag += r.basicRag.promptTokens;
       if (r.graphrag?.promptTokens) tokenSums.graphrag += r.graphrag.promptTokens;
@@ -195,7 +202,9 @@ export const crmEvalRoute: FastifyPluginAsync = async (app) => {
         if (r.basicRag.latencyMs) matchedLatBr += r.basicRag.latencyMs;
         matchedN++;
       }
-      if (r.graphrag?.bertScore?.f1Rescaled != null) { bertF1Sum += r.graphrag.bertScore.f1Rescaled; bertN++; }
+      const bs = r.graphrag?.bertScore;
+      const bsVal = bs == null ? null : typeof bs === 'number' ? bs : (bs as { f1Rescaled?: number; f1?: number }).f1Rescaled ?? (bs as { f1?: number }).f1 ?? null;
+      if (bsVal != null) { bertF1Sum += bsVal; bertN++; }
     }
 
     const n = tokenN || 1;
