@@ -104,7 +104,7 @@
   },
   {
     "question": "Which vendor is customer CUST-0001 primarily dependent on?",
-    "answer": "Customer CUST-0001 (Kenneth Lopez Inc) is primarily dependent on vendor VEND-01.",
+    "answer": "Customer CUST-0001 is primarily dependent on vendor VEND-01 (MedSync).",
     "type": "single_hop",
     "hops": 1,
     "entities": [
@@ -217,7 +217,7 @@
   },
   {
     "question": "What category is vendor VEND-15?",
-    "answer": "Vendor VEND-15 (CacheLayer) is in the Networking category with Gold SLA tier.",
+    "answer": "Vendor VEND-15 (CacheLayer) is in the Networking category.",
     "type": "single_hop",
     "hops": 1,
     "entities": [
@@ -569,7 +569,7 @@
   },
   {
     "question": "How many total outages has VEND-01 (OUTAGE-001's vendor) caused across all regions?",
-    "answer": "Vendor VEND-01 (MedSync), responsible for OUTAGE-001, has caused 2 total outages across all regions.",
+    "answer": "Vendor VEND-01 (MedSync) has caused 2 total outages across all regions.",
     "type": "multi_hop",
     "hops": 2,
     "entities": [

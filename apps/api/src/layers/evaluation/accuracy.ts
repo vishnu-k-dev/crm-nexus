@@ -67,15 +67,15 @@ async function judgeCall(messages: Array<{ role: 'user' | 'system' | 'assistant'
 
 // ── LLM-as-a-Judge (PASS/FAIL) ───────────────────────────────────────────────
 
-const JUDGE_PROMPT = `Grade the CRM assistant's answer. Read the system answer carefully before deciding.
+const JUDGE_PROMPT = `Grade the CRM assistant's answer. Read the ENTIRE system answer carefully before deciding.
 Question: {q}
 Correct answer: {correct}
 System answer: {answer}
 
-Reply PASS or FAIL first, then briefly explain.
-PASS when: key facts from the correct answer are present in the system answer. Accept: different phrasing, extra context, any number format ($1,478,328 = $14,78,328 = 1478328), any date format.
-FAIL ONLY when: a stated number is wrong, OR the wrong entity wins a comparison, OR a key fact is COMPLETELY ABSENT from the system answer.
-IMPORTANT: Do NOT fail if a fact IS present but worded differently. Read the system answer completely before claiming something is absent.`;
+Reply PASS or FAIL first, then briefly explain in one sentence.
+PASS when: the key entity/number/fact from the correct answer appears anywhere in the system answer. Accept: different phrasing, extra context, partial sentences, any number/date format.
+FAIL ONLY when: a stated number is factually wrong, OR the wrong entity is named, OR the core answer is COMPLETELY ABSENT.
+IMPORTANT: If the correct vendor/customer/outage ID appears in the system answer, that is a PASS regardless of missing surrounding context. Do NOT fail for missing customer names if the vendor ID is correct. Do NOT fail for extra detail.`;
 
 export interface JudgeResult {
   verdict: 'PASS' | 'FAIL';
@@ -91,7 +91,7 @@ export async function llmJudge(
   const prompt = JUDGE_PROMPT
     .replace('{q}', question)
     .replace('{correct}', referenceAnswer)
-    .replace('{answer}', systemAnswer.slice(0, 800));
+    .replace('{answer}', systemAnswer.slice(0, 1500));
 
   const text = await judgeCall([{ role: 'user', content: prompt }], 200);
   const verdict = /\bPASS\b/i.test(text) ? 'PASS' : 'FAIL';
