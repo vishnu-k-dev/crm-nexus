@@ -18,7 +18,7 @@ Here's what I found.
 
 The dataset is a fully synthetic CRM — vendors, customers, outages, regions, employees, projects, and the relationships that bind them. **35,820 entities. 195,133 edges.** And 255 million tokens of supporting documents: support tickets, call transcripts, email threads, audit logs, SLA agreements, contract notes.
 
-That's **255× the hackathon's 1M minimum**. Not because I needed to flex — but because the whole point of this experiment is to stress-test RAG at the scale where it actually breaks.
+That's **2.55× the hackathon's 100M minimum**. Not because I needed to flex — but because the whole point of this experiment is to stress-test RAG at the scale where it actually breaks.
 
 > **Tokenizer note:** Token count verified using the Gemini 2.0 Flash `countTokens` API across 440,264 documents (sampled at n=30 per file). Average: 3.11 chars/token for CRM docs, 3.32 for activity logs, 3.19 for v2 activity logs.
 
@@ -182,7 +182,7 @@ TigerGraph doesn't just make RAG more accurate. It makes production AI **economi
 - **Stack**: TigerGraph 4.2 · GSQL · Node.js / Fastify · React · Groq (LLaMA-3.3-70B) · Jina Embeddings · BERTScore
 
 *Built for the TigerGraph GraphRAG Inference Hackathon 2026.*  
-*Dataset: 255M tokens (verified via Gemini 2.0 Flash countTokens API) · 35,820 entities · 195,133 edges · 255× the 1M minimum · 90 eval questions.*
+*Dataset: 255M tokens (verified via Gemini 2.0 Flash countTokens API) · 35,820 entities · 195,133 edges · 2.55× the 100M minimum · 90 eval questions.*
 
 ---
 

@@ -46,7 +46,7 @@ function Shell({ children }: { children: React.ReactNode }) {
             <span className="text-slate-600 text-xs">edges</span>
             <span className="text-slate-700 mx-1.5">·</span>
             <span className="text-[9px] font-bold uppercase tracking-wider text-amber-400 bg-amber-900/30 px-1.5 py-0.5 rounded-full border border-amber-800/50">
-              255× min
+              2.55× min
             </span>
           </div>
 
