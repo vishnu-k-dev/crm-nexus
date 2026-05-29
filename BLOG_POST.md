@@ -1,4 +1,4 @@
-# I Gave an AI 201 Million Tokens of CRM Data. TigerGraph Answered in 966.
+# I Gave an AI 255 Million Tokens of CRM Data. TigerGraph Answered in 2,823ms.
 
 *TigerGraph GraphRAG Inference Hackathon 2026 — Round 2 Entry*
 
@@ -14,11 +14,13 @@ Here's what I found.
 
 ---
 
-## The Setup: 201 Million Tokens of Synthetic Reality
+## The Setup: 255 Million Tokens of Synthetic Reality
 
-The dataset is a fully synthetic CRM — vendors, customers, outages, regions, employees, projects, and the relationships that bind them. **35,820 entities. 195,133 edges.** And 201 million tokens of supporting documents: support tickets, call transcripts, email threads, audit logs, SLA agreements, contract notes.
+The dataset is a fully synthetic CRM — vendors, customers, outages, regions, employees, projects, and the relationships that bind them. **35,820 entities. 195,133 edges.** And 255 million tokens of supporting documents: support tickets, call transcripts, email threads, audit logs, SLA agreements, contract notes.
 
-That's **201× the hackathon's 1M minimum**. Not because I needed to flex — but because the whole point of this experiment is to stress-test RAG at the scale where it actually breaks.
+That's **255× the hackathon's 1M minimum**. Not because I needed to flex — but because the whole point of this experiment is to stress-test RAG at the scale where it actually breaks.
+
+> **Tokenizer note:** Token count verified using the Gemini 2.0 Flash `countTokens` API across 440,264 documents (sampled at n=30 per file). Average: 3.11 chars/token for CRM docs, 3.32 for activity logs, 3.19 for v2 activity logs.
 
 At that scale, two things happen to BasicRAG:
 
@@ -132,9 +134,9 @@ V = SELECT v FROM Outage:o -(impacts)-> Customer:v
 
 ---
 
-## The Scaling Story: 123M → 150M → 201M Tokens
+## The Scaling Story: 123M → 150M → 255M Tokens
 
-Round 1 ran at 123M tokens. For Round 2, I expanded to 201M — adding two batches of activity log documents totalling 339,181 new records (customer call logs, email threads, support notes, audit entries, contract notes) referencing the same entity IDs in the core CRM graph.
+Round 1 ran at ~123M tokens. For Round 2, I expanded to 255M (verified via Gemini `countTokens`) — adding two batches of activity log documents totalling 339,181 new records (customer call logs, email threads, support notes, audit entries, contract notes) referencing the same entity IDs in the core CRM graph.
 
 The graph didn't need to change. The GSQL queries didn't need to change. The evaluation pipeline didn't need to change. The new documents chunked and embedded themselves into the existing entity relationship structure.
 
@@ -169,7 +171,7 @@ TigerGraph doesn't just make RAG more accurate. It makes production AI **economi
 | Avg Latency | **2,823 ms** | 46,680 ms | 391 ms |
 | Latency Reduction vs BasicRAG | **94%** | — | — |
 | Questions Passed (90 total) | **88 / 90** | 36 / 90 | 11 / 90 |
-| Dataset Size | **201M tokens** | ← same | ← same |
+| Dataset Size | **255M tokens** | ← same | ← same |
 
 ---
 
@@ -180,7 +182,7 @@ TigerGraph doesn't just make RAG more accurate. It makes production AI **economi
 - **Stack**: TigerGraph 4.2 · GSQL · Node.js / Fastify · React · Groq (LLaMA-3.3-70B) · Jina Embeddings · BERTScore
 
 *Built for the TigerGraph GraphRAG Inference Hackathon 2026.*  
-*Dataset: 201M tokens · 35,820 entities · 195,133 edges · 201× the 1M minimum · 90 eval questions.*
+*Dataset: 255M tokens (verified via Gemini 2.0 Flash countTokens API) · 35,820 entities · 195,133 edges · 255× the 1M minimum · 90 eval questions.*
 
 ---
 
