@@ -96,9 +96,9 @@
         <div class="hs-sub">7,495ms vs 9,090ms</div>
       </div>
       <div class="hs-stat key" style="flex:1;padding:0 0 0 24px;border-left:1px solid var(--border);">
-        <div class="hs-num" data-count="0.865" data-suffix="">0.00</div>
-        <div class="hs-lbl">Semantic Similarity F1</div>
-        <div class="hs-sub">target was 0.55 ✓</div>
+        <div class="hs-num" data-count="0.932" data-suffix="">0.00</div>
+        <div class="hs-lbl">BERTScore F1</div>
+        <div class="hs-sub">raw 0.932 · rescaled 0.599 ✓</div>
       </div>
     </div>
   </div>
@@ -258,8 +258,8 @@
           <div class="lat-badge-stack">
             <div class="lat-badge">17.5% FASTER →</div>
             <div class="lat-bert">
-              <span class="lb-num">0.865</span>
-              <span class="lb-lbl">Semantic Similarity F1</span>
+              <span class="lb-num">0.932</span>
+              <span class="lb-lbl">BERTScore F1 (raw)</span>
             </div>
           </div>
           <div class="lat-stat gr">
@@ -267,6 +267,39 @@
             <div class="lbl"><img class="tg-mark tiny" src="assets/tigergraph-logo.png" alt="" aria-hidden="true" />GraphRAG · avg response time</div>
           </div>
         </div>
+
+        <!-- BERTScore breakdown -->
+        <div style="margin-top:24px;border-top:1px solid var(--border);padding-top:18px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-2);margin-bottom:12px;">BERTScore — roberta-large · HuggingFace <code style="font-size:10px;background:var(--bg);padding:1px 5px;border-radius:4px;font-family:var(--mono);">bert_score</code> · rescale_with_baseline=True</div>
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding:6px 10px;color:var(--text-2);font-weight:600;border-bottom:1px solid var(--border);">Pipeline</th>
+                <th style="text-align:right;padding:6px 10px;color:var(--text-2);font-weight:600;border-bottom:1px solid var(--border);">F1 rescaled <span style="font-weight:400;font-size:11px;">(bar ≥ 0.55)</span></th>
+                <th style="text-align:right;padding:6px 10px;color:var(--text-2);font-weight:600;border-bottom:1px solid var(--border);">F1 raw <span style="font-weight:400;font-size:11px;">(bar ≥ 0.88)</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:8px 10px;font-weight:700;color:var(--orange);display:flex;align-items:center;gap:6px;"><img class="tg-mark tiny" src="assets/tigergraph-logo.png" alt="" aria-hidden="true" style="width:13px;height:13px;" />GraphRAG</td>
+                <td style="text-align:right;padding:8px 10px;color:var(--pass);font-weight:700;">0.599 &nbsp;✓</td>
+                <td style="text-align:right;padding:8px 10px;color:var(--pass);font-weight:700;">0.932 &nbsp;✓</td>
+              </tr>
+              <tr style="background:var(--card);">
+                <td style="padding:8px 10px;color:var(--text-2);">BasicRAG</td>
+                <td style="text-align:right;padding:8px 10px;color:var(--text-2);">0.454</td>
+                <td style="text-align:right;padding:8px 10px;color:var(--text-2);">0.908</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 10px;color:var(--text-2);">LLM Only</td>
+                <td style="text-align:right;padding:8px 10px;color:var(--text-2);">0.089</td>
+                <td style="text-align:right;padding:8px 10px;color:var(--text-2);">0.846</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin:10px 0 0;font-size:12px;color:var(--text-2);">GraphRAG clears <strong>both</strong> bonus thresholds — rescaled ≥ 0.55 <span style="color:var(--pass)">✓</span> and raw ≥ 0.88 <span style="color:var(--pass)">✓</span> — maximum accuracy bonus secured.</p>
+        </div>
+
       </div>
     </div>
   </div>
@@ -329,11 +362,11 @@
       <div class="arch-box l4">
         <div class="arch-box-num">Layer 04</div>
         <div class="arch-box-name">Evaluation</div>
-        <div class="arch-box-tech">Groq · Llama 3.1 8B · Jina Embeddings</div>
+        <div class="arch-box-tech">Groq · Llama 3.1 8B · bert_score roberta-large</div>
         <ul class="arch-box-specs">
           <li>Independent judge model</li>
           <li>PASS / FAIL per question</li>
-          <li>Semantic similarity F1 = 0.865</li>
+          <li>BERTScore F1 raw = 0.932 ✓</li>
           <li>90-Q benchmark, v6</li>
         </ul>
       </div>
@@ -588,7 +621,7 @@
       <img src="assets/tigergraph-logo.png" alt="" />
       Built on TigerGraph Community Edition
     </div>
-    <div class="foot-c">96.7% Accuracy · 86% Fewer Tokens · 17.5% Faster · Semantic F1 0.865 · 87/90 Questions</div>
+    <div class="foot-c">96.7% Accuracy · 86% Fewer Tokens · 17.5% Faster · BERTScore 0.932 · 87/90 Questions</div>
     <div class="foot-r">Team BroCode · Vishnu K &amp; Revanth M</div>
   </div>
 </footer>
