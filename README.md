@@ -73,7 +73,7 @@ Three pipelines, identical LLM, identical data — only the retrieval method cha
 
 ## Why GraphRAG beats BasicRAG on CRM questions
 
-BasicRAG scored **71.1%** even with a fair index guaranteed to contain every eval entity's documents. The remaining gap is **structural**: flat cosine similarity has no concept of graph edges — it cannot answer multi-hop questions like:
+BasicRAG scored **71.1%** on the same CRM corpus. The remaining gap is **structural**: flat cosine similarity has no concept of graph edges — it cannot answer multi-hop questions like:
 
 > *"How many customers were directly impacted by OUTAGE-001 through shared vendor and region dependency?"*
 

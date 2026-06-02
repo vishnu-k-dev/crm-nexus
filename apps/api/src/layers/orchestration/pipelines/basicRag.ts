@@ -7,7 +7,7 @@ import { generate, costUsd } from '../../llm/claude.js';
 import { embedText, search, isReady } from '../../retrieval/vectorStore.js';
 import type { PipelineResult } from './llmOnly.js';
 
-const TOP_K = 20;
+const TOP_K = 35;
 const CHAR_CAP = 1000;
 
 export async function runBasicRag(question: string): Promise<PipelineResult> {
