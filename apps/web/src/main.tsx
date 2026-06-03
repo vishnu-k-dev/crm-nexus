@@ -36,17 +36,17 @@ function Shell({ children }: { children: React.ReactNode }) {
           {/* Dataset badge — the key selling point, always visible */}
           <div className="hidden lg:flex items-center gap-1 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700/60">
             <span className="text-[10px] text-slate-600 font-medium uppercase tracking-wider mr-1">Dataset:</span>
-            <span className="text-emerald-400 text-xs font-bold">255M</span>
+            <span className="text-emerald-400 text-xs font-bold">158M</span>
             <span className="text-slate-600 text-xs">tokens</span>
             <span className="text-slate-700 mx-1">·</span>
-            <span className="text-sky-400 text-xs font-bold">35,820</span>
-            <span className="text-slate-600 text-xs">entities</span>
+            <span className="text-sky-400 text-xs font-bold">100,820</span>
+            <span className="text-slate-600 text-xs">docs</span>
             <span className="text-slate-700 mx-1">·</span>
-            <span className="text-violet-400 text-xs font-bold">195,133</span>
-            <span className="text-slate-600 text-xs">edges</span>
+            <span className="text-violet-400 text-xs font-bold">577K</span>
+            <span className="text-slate-600 text-xs">chunks</span>
             <span className="text-slate-700 mx-1.5">·</span>
             <span className="text-[9px] font-bold uppercase tracking-wider text-amber-400 bg-amber-900/30 px-1.5 py-0.5 rounded-full border border-amber-800/50">
-              2.55× min
+              1.58× min
             </span>
           </div>
 
@@ -57,9 +57,6 @@ function Shell({ children }: { children: React.ReactNode }) {
             </NavLink>
             <NavLink to="/demo" className={navLink}>
               Live Demo
-            </NavLink>
-            <NavLink to="/dashboard" className={navLink}>
-              Wiki Bench
             </NavLink>
           </nav>
 

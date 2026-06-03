@@ -9,11 +9,11 @@ import { PipelineRace } from '../components/PipelineRace';
 import { GraphView } from '../components/GraphView';
 
 const SAMPLE_QUESTIONS = [
-  'What role did Facebook\'s infrastructure needs play in the development of React?',
-  'How did Google\'s internal tooling influence the creation of Kubernetes?',
-  'What is the relationship between Python and machine learning adoption?',
-  'How does Redis differ from traditional relational databases?',
-  'What year was TypeScript first released and who developed it?',
+  'What is the severity level of outage OUTAGE-001?',
+  'Which vendor is customer CUST-0001 primarily dependent on?',
+  'How many outages has VEND-15 experienced?',
+  'How many customers depend on VEND-01 as their primary vendor?',
+  'What region and market segment is customer CUST-0050 in?',
 ];
 
 function AnswerCard({ title, color, answer, chunks, error }: {
@@ -110,11 +110,11 @@ export function Demo() {
               3-Pipeline knowledge-graph Q&amp;A
             </h1>
             <p className="text-sm text-slate-400 mt-1 max-w-3xl">
-              Same question, same LLM model (<span className="text-slate-300 font-mono">llama-3.3-70b-versatile</span>), three retrieval strategies.
+              Same question, same LLM model (<span className="text-slate-300 font-mono">gemini-2.5-flash</span>), three retrieval strategies.
               GraphRAG uses TigerGraph multi-hop entity traversal to find the
               exact context — producing{' '}
-              <span className="text-emerald-400 font-medium">≥70% fewer prompt tokens</span>{' '}
-              with equal-or-better answer quality.
+              <span className="text-emerald-400 font-medium">86% fewer prompt tokens</span>{' '}
+              with higher answer accuracy (96.7% vs 71.1%).
             </p>
           </div>
           <button
@@ -152,7 +152,7 @@ export function Demo() {
           <textarea
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            placeholder="Enter any question (works best for tech/CS topics from Wikipedia)"
+            placeholder="Ask about outages, customers, vendors, regions, tickets… (e.g. What is the severity of OUTAGE-001?)"
             rows={2}
             className="w-full px-3 py-2.5 rounded-md bg-slate-950/60 border border-slate-700 text-sm focus:border-emerald-500 outline-none resize-none"
           />
