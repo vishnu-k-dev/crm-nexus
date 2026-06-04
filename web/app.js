@@ -379,6 +379,33 @@ function pulseEdge(fromId, toId, delay) {
   });
 }
 
+/* ============ Live API detection ============ */
+const API_BASE = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+  ? 'http://localhost:3001'
+  : null; // static/Vercel — use mocked answers
+
+/* ============ TigerGraph Proof Badge ============ */
+(async function loadTGProof() {
+  if (!API_BASE) return;
+  const badge = document.getElementById('tg-proof-badge');
+  if (!badge) return;
+  try {
+    const r = await fetch(`${API_BASE}/api/tg-proof`);
+    const d = await r.json();
+    if (d.ok) {
+      badge.innerHTML = `
+        <span class="tg-proof-dot"></span>
+        <strong>TigerGraph Community Edition — Live</strong>
+        &nbsp;·&nbsp; ${d.embeddedChunks.toLocaleString()} chunks
+        &nbsp;·&nbsp; ${d.vertices.toLocaleString()} vertices
+        &nbsp;·&nbsp; ${d.edges.toLocaleString()} edges
+        &nbsp;·&nbsp; graph: ${d.graph}
+      `;
+      badge.classList.add('tg-proof-live');
+    }
+  } catch (_) { /* silent — badge stays hidden on Vercel */ }
+})();
+
 async function runQuery(key) {
   const q = QUESTIONS[key];
   if (!q) return;
@@ -393,7 +420,7 @@ async function runQuery(key) {
     document.getElementById(`${p}-verdict`).textContent = '…';
   });
 
-  // reset + start graph
+  // reset + start graph animation
   resetGraphState();
   document.querySelectorAll('.gnode, .gedge').forEach(g => g.classList.add('dim'));
   const seedNode = document.querySelector(`[data-node="${q.seed}"]`);
@@ -403,25 +430,71 @@ async function runQuery(key) {
   status.classList.add('show');
   status.textContent = `seed: ${q.seed} · traversing…`;
 
-  // un-dim hop targets
   q.hops.forEach(([_, to]) => {
     const n = document.querySelector(`[data-node="${to}"]`);
     if (n) n.classList.remove('dim');
   });
 
-  // animate hops
   const speed = window.__graphSpeed || 1;
   const animations = q.hops.map((h, i) => pulseEdge(h[0], h[1], (i * 280) / speed));
   await Promise.all(animations);
 
-  status.textContent = `${q.hopsN} hops · ${q.chunks} chunks · ${q.tokensGR} tokens`;
+  // ── LIVE API path ─────────────────────────────────────────────────────────
+  if (API_BASE) {
+    status.textContent = `traversing graph… querying TigerGraph`;
+    try {
+      const t0 = Date.now();
+      const res = await fetch(`${API_BASE}/api/compare`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: q.text }),
+      });
+      const data = await res.json();
+      const elapsed = Date.now() - t0;
 
-  // sequence reveals — gr first, then br, then ll
+      const gr = data.graphrag  || {};
+      const br = data.basicRag  || {};
+      const ll = data.llmOnly   || {};
+
+      status.textContent = `${gr.numHops ?? 2} hops · ${(gr.contextChars/4)|0} tokens · ${gr.latencyMs?.toLocaleString() ?? elapsed}ms`;
+
+      const liveQ = {
+        grAns: gr.answer || gr.error || '—',
+        brAns: br.answer || br.error || '—',
+        llAns: ll.answer || ll.error || '—',
+        grPass: null, brPass: null, llPass: null,
+        msGR: gr.latencyMs ?? elapsed,
+        msBR: br.latencyMs ?? elapsed,
+        msLL: ll.latencyMs ?? elapsed,
+        tokensGR: gr.promptTokens ?? 0,
+        tokensBR: br.promptTokens ?? 0,
+        tokensLL: ll.promptTokens ?? 0,
+      };
+
+      fillAnswer('gr', liveQ);
+      fillAnswer('br', liveQ);
+      fillAnswer('ll', liveQ);
+
+      const maxTok = Math.max(liveQ.tokensGR, liveQ.tokensBR, liveQ.tokensLL, 1) * 1.05;
+      document.getElementById('tc-gr').style.width = (liveQ.tokensGR / maxTok * 100) + '%';
+      document.getElementById('tc-br').style.width = (liveQ.tokensBR / maxTok * 100) + '%';
+      document.getElementById('tc-ll').style.width = (liveQ.tokensLL / maxTok * 100) + '%';
+      document.getElementById('tc-gr-n').textContent = liveQ.tokensGR.toLocaleString() + ' tok';
+      document.getElementById('tc-br-n').textContent = liveQ.tokensBR.toLocaleString() + ' tok';
+      document.getElementById('tc-ll-n').textContent = liveQ.tokensLL.toLocaleString() + ' tok';
+      return;
+    } catch (err) {
+      status.textContent = 'API error — falling back to demo answers';
+      console.warn('Live API failed:', err);
+    }
+  }
+
+  // ── MOCK fallback (Vercel / API unreachable) ──────────────────────────────
+  status.textContent = `${q.hopsN} hops · ${q.chunks} chunks · ${q.tokensGR} tokens`;
   setTimeout(() => fillAnswer('gr', q), 300);
   setTimeout(() => fillAnswer('br', q), q.msGR + 200);
   setTimeout(() => fillAnswer('ll', q), q.msGR + 400);
 
-  // token compare bars
   const maxTok = Math.max(q.tokensGR, q.tokensBR, q.tokensLL) * 1.05;
   setTimeout(() => {
     document.getElementById('tc-gr').style.width = (q.tokensGR / maxTok * 100) + '%';
@@ -437,12 +510,16 @@ function fillAnswer(pipe, q) {
   const body = document.getElementById(`${pipe}-body`);
   const ans = q[pipe + 'Ans'];
   const pass = q[pipe + 'Pass'];
-  const ms = q['ms' + pipe.toUpperCase()];
-  const tok = q['tokens' + pipe.toUpperCase()];
+  const ms   = q['ms' + pipe.toUpperCase()];
+  const tok  = q['tokens' + pipe.toUpperCase()];
   body.textContent = ans;
-  document.getElementById(`${pipe}-time`).textContent = ms.toLocaleString() + ' ms';
-  document.getElementById(`${pipe}-tokens`).textContent = tok.toLocaleString() + ' tokens';
+  document.getElementById(`${pipe}-time`).textContent = ms?.toLocaleString() + ' ms';
+  document.getElementById(`${pipe}-tokens`).textContent = tok?.toLocaleString() + ' tokens';
   const v = document.getElementById(`${pipe}-verdict`);
-  v.className = 'chip ' + (pass ? 'pass' : 'fail');
-  v.textContent = pass ? 'PASS' : 'FAIL';
+  if (pass === null || pass === undefined) {
+    v.className = 'chip'; v.textContent = '—';
+  } else {
+    v.className = 'chip ' + (pass ? 'pass' : 'fail');
+    v.textContent = pass ? 'PASS' : 'FAIL';
+  }
 }

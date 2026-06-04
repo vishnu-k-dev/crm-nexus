@@ -457,6 +457,14 @@
     <div class="eyebrow reveal">Section 05 · The Centerpiece</div>
     <h2 class="section-title reveal">Try It Live</h2>
     <p class="section-sub reveal">Pick one of the CRM questions below and watch all three pipelines race to answer — with TigerGraph traversing the graph in real time.</p>
+    <!-- TigerGraph live proof badge — populated by JS when running locally -->
+    <div id="tg-proof-badge" style="display:none;align-items:center;gap:8px;background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:10px 16px;margin-bottom:16px;font-size:12.5px;color:#166534;font-family:var(--mono);font-weight:500;"></div>
+    <style>
+      #tg-proof-badge.tg-proof-live { display:flex !important; }
+      .tg-proof-dot { width:8px;height:8px;border-radius:50%;background:#22c55e;flex:none;animation:tgpulse 1.8s ease-in-out infinite; }
+      @keyframes tgpulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+    </style>
+
     <div class="reveal" style="display:inline-flex;align-items:flex-start;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:32px;font-size:13px;color:var(--text-2);line-height:1.6;max-width:680px;">
       <span style="font-size:16px;flex:none;margin-top:1px;">⚠️</span>
       <span>Please stick to the pre-set questions — this demo is scoped to our synthetic CRM dataset. Out-of-context questions will return irrelevant answers. Also, we're on <strong style="color:var(--text);">free-tier deployment</strong> — if an answer doesn't load, give it a few seconds and try again.</span>
