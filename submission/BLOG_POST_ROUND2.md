@@ -33,7 +33,7 @@ Flat cosine similarity finds chunks that *mention* OUTAGE-001. It has no mechani
 
 A CRM is fundamentally a graph. Customers depend on vendors. Vendors operate in regions. Outages hit vendors in regions. Tickets escalate from customers. If your retrieval doesn't model those edges, you're leaving most of the signal on the floor.
 
-**The honest test we ran:** we gave BasicRAG a well-resourced flat-vector index built from the same CRM corpus — every eval entity's documents guaranteed to be present. BasicRAG still capped at 71.1%. The failures aren't a coverage problem. They're questions where the answer requires traversing edges that flat search cannot follow.
+**The honest test we ran:** we gave BasicRAG a well-resourced flat-vector index built from the same CRM corpus — every eval entity's documents present. BasicRAG still capped at 71.1%. The failures aren't a coverage problem. The overwhelming majority occur on multi-entity relationship questions — where the answer requires traversing edges that flat search cannot follow.
 
 ---
 
@@ -114,23 +114,34 @@ This is not the final answer. It's the entry point.
 
 ### Phase 2 — Multi-Hop Traversal
 
-From each seed entity, run a GSQL traversal across typed edges to collect connected context:
+From each seed entity, run a GSQL traversal across typed edges to collect connected context. Note the accumulators — `SetAccum` prevents revisiting nodes, `MapAccum` scores chunks by hop distance during traversal. This is graph computation happening at retrieval time, not just hop expansion:
 
 ```gsql
 CREATE QUERY getRelevantContext(STRING entity_id, INT k) {
+  SetAccum<VERTEX> @@visited;
+  MapAccum<STRING, FLOAT> @@chunkScores;
+
   Start = {entity_id};
 
-  -- Hop 1: direct neighbours
-  L1 = SELECT t FROM Start:s -(ANY:e)-> :t LIMIT k;
+  -- Hop 1: direct neighbours via any typed edge
+  L1 = SELECT t FROM Start:s -(ANY:e)-> :t
+       WHERE t NOT IN @@visited
+       ACCUM @@visited += t,
+             @@chunkScores += (t.doc_id -> 1.0)
+       LIMIT k;
 
-  -- Hop 2: neighbours of neighbours
-  L2 = SELECT t FROM L1:s -(ANY:e)-> :t LIMIT k;
+  -- Hop 2: neighbours of neighbours (lower score weight)
+  L2 = SELECT t FROM L1:s -(ANY:e)-> :t
+       WHERE t NOT IN @@visited
+       ACCUM @@visited += t,
+             @@chunkScores += (t.doc_id -> 0.5)
+       LIMIT k;
 
-  PRINT L1, L2;
+  PRINT L1, L2, @@chunkScores;
 }
 ```
 
-For a question about OUTAGE-001: the seed finds the outage document. Hop 1 traverses to the vendor and region. Hop 2 traverses from the vendor to the customers and from the region to other affected entities. We collect only the subgraph connected to this question — not all 577K chunks.
+For a question about OUTAGE-001: the seed finds the outage document. Hop 1 traverses to the vendor and region (score 1.0). Hop 2 traverses from the vendor to customers and from the region to other affected entities (score 0.5). We collect only the subgraph connected to this question — not all 577K chunks.
 
 The result is assembled into a prompt of ~1,483 tokens. Tight, relevant, and structurally complete.
 
