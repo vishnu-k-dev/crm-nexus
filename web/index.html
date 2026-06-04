@@ -594,8 +594,8 @@
     <div class="qa-grid reveal-stagger">
       <div class="qa-card">
         <div class="qa-q">"What is the severity level of outage OUTAGE-001?"</div>
-        <div class="qa-line"><span class="qa-tag gr">GR · PASS</span><div class="qa-text"><span class="pass">✓</span> Outage OUTAGE-001 (P3, 2025-05-17, 32 hours, REGION-FRANKFURT, VEND-01).</div></div>
-        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> The severity level of OUTAGE-001 could not be determined from the available context.</div></div>
+        <div class="qa-line"><span class="qa-tag gr">GR · PASS</span><div class="qa-text"><span class="pass">✓</span> Outage OUTAGE-001 (P3, 32 hours, REGION-FRANKFURT, VEND-01).</div></div>
+        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> OUTAGE-001 appears to be a P3 incident, though the exact severity could not be confirmed from the retrieved context.</div></div>
         <div class="qa-path">
           <span class="step">OUTAGE-001</span><span class="arr">→</span><span class="step">Content vertex</span><span class="arr">→</span><span class="step">severity, region, vendor</span>
         </div>
@@ -604,18 +604,18 @@
       <div class="qa-card">
         <div class="qa-q">"Which vendor is customer CUST-0001 primarily dependent on?"</div>
         <div class="qa-line"><span class="qa-tag gr">GR · PASS</span><div class="qa-text"><span class="pass">✓</span> Vendor VEND-01 (MedSync) is customer CUST-0001's primary vendor dependency.</div></div>
-        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> No customer record with ID CUST-0001 found in the vector store.</div></div>
+        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> Based on the retrieved chunks, CUST-0001 may depend on VEND-01 but the relationship could not be confirmed — multiple vendor references were returned without a clear primary dependency.</div></div>
         <div class="qa-path">
-          <span class="step">CUST-0001</span><span class="arr">→</span><span class="step">PRIMARY_VENDOR</span><span class="arr">→</span><span class="step">VEND-01 (MedSync)</span>
+          <span class="step">CUST-0001</span><span class="arr">→</span><span class="step">depends_on edge</span><span class="arr">→</span><span class="step">VEND-01 (MedSync)</span>
         </div>
       </div>
 
       <div class="qa-card">
-        <div class="qa-q">"How many customers were directly impacted by OUTAGE-001 through shared vendor and region dependency?"</div>
-        <div class="qa-line"><span class="qa-tag gr">GR · PASS</span><div class="qa-text"><span class="pass">✓</span> 8 customers directly impacted: CUST-0001, CUST-0021, CUST-0041, CUST-0061, CUST-0081, CUST-0101, CUST-0121, CUST-0141 — all sharing VEND-01 and REGION-FRANKFURT.</div></div>
-        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> No incident report for OUTAGE-001 in the provided data.</div></div>
+        <div class="qa-q">"How many outages has VEND-15 experienced?"</div>
+        <div class="qa-line"><span class="qa-tag gr">GR · PASS</span><div class="qa-text"><span class="pass">✓</span> VEND-15 has experienced 2 outages — OUTAGE-015 and OUTAGE-065.</div></div>
+        <div class="qa-line"><span class="qa-tag br">BR · FAIL</span><div class="qa-text"><span class="fail">✗</span> The retrieved chunks mention VEND-15 in outage context but cannot aggregate a count — the relationship between vendor and outage records requires graph traversal, not similarity search.</div></div>
         <div class="qa-path">
-          <span class="step">OUTAGE-001</span><span class="arr">→</span><span class="step">REGION-FRANKFURT</span><span class="arr">→</span><span class="step">VEND-01</span><span class="arr">→</span><span class="step">8 Customers</span>
+          <span class="step">VEND-15</span><span class="arr">→</span><span class="step">experienced edge</span><span class="arr">→</span><span class="step">OUTAGE-015, OUTAGE-065</span>
         </div>
       </div>
     </div>

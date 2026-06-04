@@ -130,14 +130,21 @@ CREATE QUERY getRelevantContext(STRING entity_id, INT k) {
              @@chunkScores += (t.doc_id -> 1.0)
        LIMIT k;
 
-  -- Hop 2: neighbours of neighbours (lower score weight)
+  -- Hop 2: neighbours of neighbours
   L2 = SELECT t FROM L1:s -(ANY:e)-> :t
        WHERE t NOT IN @@visited
        ACCUM @@visited += t,
              @@chunkScores += (t.doc_id -> 0.5)
        LIMIT k;
 
-  PRINT L1, L2, @@chunkScores;
+  -- Hop 3: extended traversal for deep multi-hop aggregation queries
+  L3 = SELECT t FROM L2:s -(ANY:e)-> :t
+       WHERE t NOT IN @@visited
+       ACCUM @@visited += t,
+             @@chunkScores += (t.doc_id -> 0.25)
+       LIMIT k;
+
+  PRINT L1, L2, L3, @@chunkScores;
 }
 ```
 
