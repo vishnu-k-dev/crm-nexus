@@ -37,3 +37,11 @@ services:
     ports: ['5173:5173']
     volumes: ['./:/app']
     depends_on: [api]
+
+  landing:
+    image: node:20-alpine
+    working_dir: /app/web
+    command: sh -c "npx --yes http-server . -p 8080 --cors -c-1"
+    ports: ['8080:8080']
+    volumes: ['./:/app']
+    depends_on: [api]
