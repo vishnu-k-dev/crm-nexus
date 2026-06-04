@@ -21,11 +21,15 @@ Three pipelines, identical LLM, identical data — only the retrieval method cha
 | Token reduction vs BasicRAG | — | baseline | **86.4% fewer** |
 | Avg latency | — | ~9,090 ms | **~7,495 ms** |
 | Latency reduction vs BasicRAG | — | baseline | **17.5% faster** |
-| Semantic Similarity F1 | 0.564 | 0.754 | **0.865** |
+| BERTScore F1 (raw) | 0.846 | 0.908 | **0.932** |
+| BERTScore F1 (rescaled) | 0.089 | 0.454 | **0.599** |
 
 > Same LLM (`gemini-2.5-flash`) for all three pipelines — only retrieval differs.  
-> Dataset: **158M tokens / 100,820 documents** — 1.58× the 100M-token hackathon minimum.  
-> Graph: **35,820 vertices · 195,133 edges** across 8 entity types and 12 relationship types.
+> Dataset: **158M tokens / 100,820 documents** — 1.58× the 100M-token hackathon minimum. Token count verified via Gemini `count_tokens` API.  
+> Graph: **577,175 embedded chunks** in TigerGraph HNSW index across 100,820 documents.
+>
+> **Embedding note:** GraphRAG uses `gemini-embedding-001` (via TigerGraph ECC pipeline); BasicRAG uses `jina-embeddings-v2-base-en`. Both are 768-dim. The embedding difference reflects each pipeline's natural stack — the comparison isolates retrieval method (graph traversal vs flat cosine), not embedding model. BasicRAG's failure mode is structural (cannot traverse edges), not embedding quality.  
+> BERTScore computed with canonical HuggingFace `bert_score` · `roberta-large` · `rescale_with_baseline=True`. Script: `scripts/real_bertscore.py`.
 
 ---
 
@@ -35,7 +39,7 @@ Three pipelines, identical LLM, identical data — only the retrieval method cha
 ┌──────────────────────────────────────────────────────────────────┐
 │  LAYER 4 — EVALUATION                                            │
 │  Judge: Groq · Llama 3.1 8B (independent from generator)        │
-│  PASS / FAIL per question + Jina cosine semantic similarity F1   │
+│  PASS / FAIL per question + canonical BERTScore F1 (roberta-large)│
 │  90-question CRM eval set (50 single-hop · 40 multi-hop)        │
 └───────────────────────────┬──────────────────────────────────────┘
                             │
@@ -161,9 +165,10 @@ creda-graphrag/
 |-------|-----------|
 | Graph DB | TigerGraph Community Edition (Docker) |
 | Graph queries | GSQL multi-hop + HNSW native vector index |
-| Embeddings | Jina AI `jina-embeddings-v2-base-en` (768-dim) |
+| Embeddings (GraphRAG) | Google `gemini-embedding-001` (768-dim) — used by TigerGraph ECC pipeline |
+| Embeddings (BasicRAG) | Jina `jina-embeddings-v2-base-en` (768-dim) — flat cosine index |
 | LLM generator | Google `gemini-2.5-flash` (all 3 pipelines) |
-| LLM judge | `llama-3.1-8b-instant` via Groq |
-| Semantic eval | Jina cosine similarity (rescaled, baseline 0.60) |
+| LLM judge | `llama-3.1-8b-instant` via Groq (independent model family) |
+| Semantic eval | HuggingFace `bert_score` · roberta-large · `rescale_with_baseline=True` |
 | API | Fastify + Node 20 + TypeScript |
 | Dashboard | Vanilla HTML/CSS/JS (zero dependencies) |
